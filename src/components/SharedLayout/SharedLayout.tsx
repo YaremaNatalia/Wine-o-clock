@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import { Footer, Header, Main } from './SharedLayout.styled';
 
-export const SharedLayout = () => {
+export const SharedLayout: FC = () => {
   return (
     <>
       <Header />
