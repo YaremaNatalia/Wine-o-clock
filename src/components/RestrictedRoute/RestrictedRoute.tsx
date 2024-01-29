@@ -1,8 +1,9 @@
-// import { useAuth } from '../redux/hooks/useAuth';
-// import { Navigate } from 'react-router-dom';
+import { FC } from 'react';
+import { IProps } from './RestrictedRoute.types';
 
-// export const RestrictedRoute = ({ component: Component, redirectTo = '/' }) => {
-//   const { isLoggedIn } = useAuth();
-
-//   return isLoggedIn ? <Navigate to={redirectTo} /> : Component;
-// };
+export const RestrictedRoute: FC<IProps> = ({
+  component: Component,
+  redirectTo = '/',
+}) => {
+  return Component;
+};
