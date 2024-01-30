@@ -11,6 +11,10 @@ interface ITheme {
     secondaryGreen: string;
     secondaryOrange: string;
   };
+  fontFamily: {
+    primaryFontFamily: 'Montserrat';
+    secondaryFontFamily: 'Poppins';
+  };
   fontWeight: {
     // primaryFontWeight: number;
     // secondaryFontWeight: number;
@@ -34,6 +38,10 @@ const theme: ITheme = {
     secondaryGrey: '#747474',
     secondaryGreen: '#47A025',
     secondaryOrange: '#F44708',
+  },
+  fontFamily: {
+    primaryFontFamily: 'Montserrat',
+    secondaryFontFamily: 'Poppins',
   },
   fontWeight: {
     // primaryFontWeight: 400,
