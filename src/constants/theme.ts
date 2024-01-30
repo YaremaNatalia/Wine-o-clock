@@ -4,12 +4,12 @@ declare module '@emotion/react' {
 
 interface ITheme {
   colors: {
-    primeryWhite: string;
-    primeryBlack: string,
-    primeryBergundy: string,
-    secondaryGrey: string,
-    secondaryGreen: string,
-    secondaryOrange: string,
+    primaryWhite: string;
+    primaryBlack: string;
+    primaryBurgundy: string;
+    secondaryGrey: string;
+    secondaryGreen: string;
+    secondaryOrange: string;
   };
   fontWeight: {
     // primaryFontWeight: number;
@@ -28,12 +28,12 @@ interface ITheme {
 
 const theme: ITheme = {
   colors: {
-     primeryWhite: "#FFFFFF",
-    primeryBlack: "#141414",
-    primeryBergundy: "#7C0021",
-    secondaryGrey: "#747474",
-    secondaryGreen: "#47A025",
-    secondaryOrange: "#F44708",
+    primaryWhite: '#FFFFFF',
+    primaryBlack: '#141414',
+    primaryBurgundy: '#7C0021',
+    secondaryGrey: '#747474',
+    secondaryGreen: '#47A025',
+    secondaryOrange: '#F44708',
   },
   fontWeight: {
     // primaryFontWeight: 400,
