@@ -10,6 +10,7 @@ interface ITheme {
     secondaryGrey: string;
     secondaryGreen: string;
     secondaryOrange: string;
+    accentColor: string;
   };
   fontWeight: {
     // primaryFontWeight: number;
@@ -37,6 +38,7 @@ const theme: ITheme = {
     secondaryGrey: '#747474',
     secondaryGreen: '#47A025',
     secondaryOrange: '#F44708',
+    accentColor: '',
   },
   fontWeight: {
     // primaryFontWeight: 400,
