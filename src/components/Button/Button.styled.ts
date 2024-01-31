@@ -4,8 +4,8 @@ import { IStyledProps } from './Button.types';
 export const StyledButton = styled.button<IStyledProps>`
   width: ${({ width }) => width}px;
   height: ${({ height }) => height}px;
-  padding-left: ${({ padding }) => padding}px;
-  padding-right: ${({ padding }) => padding}px;
+  padding-left: ${({ sidePadding }) => sidePadding}px;
+  padding-right: ${({ sidePadding }) => sidePadding}px;
   border: 1px solid;
   border-color: ${({ theme, transparentBody }) =>
     transparentBody ? theme.colors.primeryBergundy : 'transparent'};
@@ -15,7 +15,7 @@ export const StyledButton = styled.button<IStyledProps>`
   color: ${({ theme, transparentBody }) =>
     transparentBody ? theme.colors.primeryBergundy : theme.colors.primeryWhite};
   font-family: Montserrat;
-  font-size: 16px;
+  font-size: ${({ fontSize }) => fontSize}px;
   /* font-weight: 400 or 500; */
   /* transition: background-color ${({ theme }) =>
     theme.transitionDurationAndFunc}; */

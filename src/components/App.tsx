@@ -17,7 +17,8 @@ const App = () => {
         <Button
           width={275}
           height={60}
-          padding={20}
+          sidePadding={20}
+          fontSize={16}
           title='Shop now'
           onClick={onBtnClick}
         />
