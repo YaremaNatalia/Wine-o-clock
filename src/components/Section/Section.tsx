@@ -1,14 +1,24 @@
 import { FC } from 'react';
 import { IProps } from './Section.types';
-import { theme } from '@/constants';
 import { StyledSection } from './Section.styled';
 
 const Section: FC<IProps> = ({
   children,
-  paddingTop = theme.padding.sectionPadding,
-  paddingBottom = theme.padding.sectionPadding,
+  paddingTopMobile,
+  paddingBottomMobile,
+  paddingTopTablet,
+  paddingBottomTablet,
+  paddingTopDesktop,
+  paddingBottomDesktop,
 }) => (
-  <StyledSection paddingTop={paddingTop} paddingBottom={paddingBottom}>
+  <StyledSection
+    paddingTopMobile={paddingTopMobile}
+    paddingBottomMobile={paddingBottomMobile}
+    paddingTopTablet={paddingTopTablet}
+    paddingBottomTablet={paddingBottomTablet}
+    paddingTopDesktop={paddingTopDesktop}
+    paddingBottomDesktop={paddingBottomDesktop}
+  >
     {children}
   </StyledSection>
 );

@@ -21,10 +21,18 @@ interface ITheme {
     // secondaryFontSize: number
   };
   padding: {
-    sectionPadding: number;
     containerPadding: number;
+    sectionPadding: {
+      desktop: number;
+      tablet: number;
+      mobile: number;
+    };
   };
-  deskContainerWidth: number;
+  containerWidth: {
+    desktop: number;
+    tablet: number;
+    mobile: number;
+  };
   transitionDurationAndFunc: string;
   spacing: (value?: number) => string;
 }
@@ -48,12 +56,20 @@ const theme: ITheme = {
     // secondaryFontSize: 18,
   },
   padding: {
-    sectionPadding: 50,
     containerPadding: 16,
+    sectionPadding: {
+      desktop: 50,
+      tablet: 40,
+      mobile: 40,
+    },
   },
   // borderRadius: {
   // },
-  deskContainerWidth: 1312,
+  containerWidth: {
+    desktop: 1312,
+    tablet: 720,
+    mobile: 359,
+  },
   transitionDurationAndFunc: '250ms cubic-bezier(0.4, 0, 0.2, 1)',
   spacing: (value = 1) => `${value * 4}px`,
 };
