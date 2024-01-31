@@ -2,11 +2,19 @@ import { ReactNode } from 'react';
 
 export interface IProps {
   children: ReactNode;
-  paddingTop?: number;
-  paddingBottom?: number;
+  paddingTopMobile?: number;
+  paddingBottomMobile?: number;
+  paddingTopTablet?: number;
+  paddingBottomTablet?: number;
+  paddingTopDesktop?: number;
+  paddingBottomDesktop?: number;
 }
 
 export interface IStyledProps {
-  paddingTop: number;
-  paddingBottom: number;
+  paddingTopMobile?: number;
+  paddingBottomMobile?: number;
+  paddingTopTablet?: number;
+  paddingBottomTablet?: number;
+  paddingTopDesktop?: number;
+  paddingBottomDesktop?: number;
 }
