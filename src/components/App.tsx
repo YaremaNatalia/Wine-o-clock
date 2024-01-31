@@ -1,5 +1,5 @@
-import Container from './Container/Container';
-import Section from './Section/Section';
+import Container from '@/components/Container';
+import Section from '@/components/Section';
 
 const App = () => {
   return (
