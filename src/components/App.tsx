@@ -1,5 +1,14 @@
+import Container from '@/components/Container';
+import Section from '@/components/Section';
+
 const App = () => {
-  return <p>App</p>;
+  return (
+    <Section>
+      <Container>
+        <div>App</div>
+      </Container>
+    </Section>
+  );
 };
 
 export default App;
