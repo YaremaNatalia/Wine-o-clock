@@ -66,9 +66,9 @@ const theme: ITheme = {
   // borderRadius: {
   // },
   containerWidth: {
-    desktop: 1312,
-    tablet: 720,
-    mobile: 359,
+    desktop: 1280,
+    tablet: 688,
+    mobile: 327,
   },
   transitionDurationAndFunc: '250ms cubic-bezier(0.4, 0, 0.2, 1)',
   spacing: (value = 1) => `${value * 4}px`,
