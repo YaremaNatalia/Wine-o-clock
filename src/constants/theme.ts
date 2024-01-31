@@ -1,3 +1,5 @@
+import FontFamilyNames from './fontFamilyNames';
+
 declare module '@emotion/react' {
   export interface Theme extends ITheme {}
 }
@@ -5,11 +7,15 @@ declare module '@emotion/react' {
 interface ITheme {
   colors: {
     primeryWhite: string;
-    primeryBlack: string,
-    primeryBergundy: string,
-    secondaryGrey: string,
-    secondaryGreen: string,
-    secondaryOrange: string,
+    primeryBlack: string;
+    primeryBergundy: string;
+    secondaryGrey: string;
+    secondaryGreen: string;
+    secondaryOrange: string;
+  };
+  fontFamily: {
+    primaryFontFamily: FontFamilyNames;
+    secondaryFontFamily: FontFamilyNames;
   };
   fontWeight: {
     // primaryFontWeight: number;
@@ -28,12 +34,16 @@ interface ITheme {
 
 const theme: ITheme = {
   colors: {
-     primeryWhite: "#FFFFFF",
-    primeryBlack: "#141414",
-    primeryBergundy: "#7C0021",
-    secondaryGrey: "#747474",
-    secondaryGreen: "#47A025",
-    secondaryOrange: "#F44708",
+    primeryWhite: '#FFFFFF',
+    primeryBlack: '#141414',
+    primeryBergundy: '#7C0021',
+    secondaryGrey: '#747474',
+    secondaryGreen: '#47A025',
+    secondaryOrange: '#F44708',
+  },
+  fontFamily: {
+    primaryFontFamily: FontFamilyNames.montserrat,
+    secondaryFontFamily: FontFamilyNames.poppins,
   },
   fontWeight: {
     // primaryFontWeight: 400,
