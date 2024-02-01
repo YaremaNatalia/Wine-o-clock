@@ -1,14 +1,15 @@
 import Container from '@/components/Container';
 import Section from '@/components/Section';
 import Input from './Input';
-import { FormTypes } from '@/constants';
+import { AriaLabels, FormTypes } from '@/constants';
+import IconButton from './IconButton';
 
 const App = () => {
   return (
     <Section>
       <Container>
         <div>App</div>
-        <form style={{ display: 'flex', flexDirection: 'column' }}>
+        <form>
           <Input
             formType={FormTypes.register}
             placeholder='Search'
@@ -20,6 +21,11 @@ const App = () => {
             label='Email'
           />
         </form>
+        <IconButton
+          ariaLabel={AriaLabels.search}
+          btnSize={40}
+          children={<div></div>}
+        />
       </Container>
     </Section>
   );

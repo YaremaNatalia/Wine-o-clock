@@ -1,4 +1,4 @@
-import { FormTypes } from '@/constants';
+import { FormTypes, InputTypes } from '@/constants';
 
 export interface IProps {
   formType: FormTypes;
@@ -9,6 +9,7 @@ export interface IProps {
   autoFocus?: boolean;
   label?: string;
   leftDistance?: number;
+  type?: InputTypes;
 }
 
 export interface IStyledProps {

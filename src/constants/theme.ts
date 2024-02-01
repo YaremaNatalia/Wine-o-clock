@@ -13,6 +13,7 @@ interface ITheme {
     secondaryGreen: string;
     secondaryOrange: string;
     decorativeColor: string;
+    primaryAccentColor: string;
   };
   fontFamily: {
     primaryFontFamily: FontFamilyNames;
@@ -60,6 +61,7 @@ const theme: ITheme = {
     secondaryGreen: '#47A025',
     secondaryOrange: '#F44708',
     decorativeColor: '#6C6C6C',
+    primaryAccentColor: '#540016',
   },
   fontFamily: {
     primaryFontFamily: FontFamilyNames.montserrat,

@@ -6,16 +6,18 @@ import {
   setInputPadding,
   setInputWidth,
 } from '@/utils';
-import { theme } from '@/constants';
+import { FormTypes, theme } from '@/constants';
 import setLabelLeftDistance from '@/utils/setLabelLeftDistance';
 
-export const Label = styled.label``;
+export const Label = styled.label`
+  display: inline-block;
+`;
 
 export const Title = styled.span<IStyledProps>`
   display: inline-block;
   margin-left: ${({ formType }) => setLabelLeftDistance({ formType })};
-  font-family: Montserrat;
-  font-weight: 400;
+  font-family: ${({ theme }) => theme.fontFamily.primaryFontFamily};
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
   font-size: 14px;
   line-height: 1.29;
   text-align: center;
@@ -44,6 +46,20 @@ export const StyledInput = styled.input<IStyledProps>`
   padding: ${({ formType }) => setInputPadding({ formType })};
   border: ${({ formType }) => setInputBorder(formType)};
   border-radius: ${({ formType }) => setInputHeight({ formType }) / 2}px;
+  font-family: ${({ theme }) => theme.fontFamily.primaryFontFamily};
+  font-size: ${({ formType }) =>
+    formType === FormTypes.subscribe ? 16 : 14}px;
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
+  color: ${({ theme }) => theme.colors.primaryBlack};
+  line-height: 1.29;
+  transition: border-color ${({ theme }) => theme.transitionDurationAndFunc};
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.decorativeColor};
+  }
+  &:is(:hover, :focus) {
+    border-color: ${({ theme }) => theme.colors.primaryBurgundy};
+    outline: none;
+  }
 
   @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     width: ${({ formType, theme }) =>

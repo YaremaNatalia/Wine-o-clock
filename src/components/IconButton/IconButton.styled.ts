@@ -10,11 +10,11 @@ export const Button = styled.button<IStyledProps>`
   border-color: transparent;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.colors.primaryBurgundy};
-  /* transition: background-color ${({ theme }) =>
-    theme.transitionDurationAndFunc}; */
+  transition: background-color ${({ theme }) => theme.transitionDurationAndFunc};
   & svg {
     color: ${({ theme }) => theme.colors.primaryWhite};
   }
   &:is(:hover, :focus) {
+    background-color: ${({ theme }) => theme.colors.primaryAccentColor};
   }
 `;
