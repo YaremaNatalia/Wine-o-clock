@@ -8,12 +8,12 @@ export const StyledButton = styled.button<IStyledProps>`
   padding-right: ${({ sidePadding }) => sidePadding}px;
   border: 1px solid;
   border-color: ${({ theme, transparentBody }) =>
-    transparentBody ? theme.colors.primeryBergundy : 'transparent'};
+    transparentBody ? theme.colors.primaryBurgundy : 'transparent'};
   border-radius: ${({ height }) => height / 2}px;
   background-color: ${({ theme, transparentBody }) =>
-    transparentBody ? 'transparent' : theme.colors.primeryBergundy};
+    transparentBody ? 'transparent' : theme.colors.primaryBurgundy};
   color: ${({ theme, transparentBody }) =>
-    transparentBody ? theme.colors.primeryBergundy : theme.colors.primeryWhite};
+    transparentBody ? theme.colors.primaryBurgundy : theme.colors.primaryWhite};
   font-family: Montserrat;
   font-size: ${({ fontSize }) => fontSize}px;
   /* font-weight: 400 or 500; */
