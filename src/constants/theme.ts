@@ -1,3 +1,5 @@
+import FontFamilyNames from './fontFamilyNames';
+
 declare module '@emotion/react' {
   export interface Theme extends ITheme {}
 }
@@ -11,20 +13,34 @@ interface ITheme {
     secondaryGreen: string;
     secondaryOrange: string;
   };
+  fontFamily: {
+    primaryFontFamily: FontFamilyNames;
+    secondaryFontFamily: FontFamilyNames;
+  };
   fontWeight: {
-    // primaryFontWeight: number;
-    // secondaryFontWeight: number;
-    // otherFontWeight: number;
+    bold: number;
+    semiBold: number;
+    medium: number;
+    regular: number;
+    thin: number;
   };
   fontSize: {
     // primaryFontSize: number;
     // secondaryFontSize: number
   };
   padding: {
-    sectionPadding: number;
     containerPadding: number;
+    sectionPadding: {
+      desktop: number;
+      tablet: number;
+      mobile: number;
+    };
   };
-  deskContainerWidth: number;
+  containerWidth: {
+    desktop: number;
+    tablet: number;
+    mobile: number;
+  };
   transitionDurationAndFunc: string;
   spacing: (value?: number) => string;
 }
@@ -38,22 +54,36 @@ const theme: ITheme = {
     secondaryGreen: '#47A025',
     secondaryOrange: '#F44708',
   },
+  fontFamily: {
+    primaryFontFamily: FontFamilyNames.montserrat,
+    secondaryFontFamily: FontFamilyNames.poppins,
+  },
   fontWeight: {
-    // primaryFontWeight: 400,
-    // secondaryFontWeight: 500,
-    // otherFontWeight: 600,
+    bold: 700,
+    semiBold: 600,
+    medium: 500,
+    regular: 400,
+    thin: 100,
   },
   fontSize: {
     // primaryFontSize: 16,
     // secondaryFontSize: 18,
   },
   padding: {
-    sectionPadding: 50,
     containerPadding: 16,
+    sectionPadding: {
+      desktop: 50,
+      tablet: 40,
+      mobile: 40,
+    },
   },
   // borderRadius: {
   // },
-  deskContainerWidth: 1312,
+  containerWidth: {
+    desktop: 1280,
+    tablet: 688,
+    mobile: 327,
+  },
   transitionDurationAndFunc: '250ms cubic-bezier(0.4, 0, 0.2, 1)',
   spacing: (value = 1) => `${value * 4}px`,
 };
