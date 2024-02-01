@@ -10,6 +10,7 @@ interface ITheme {
     secondaryGrey: string;
     secondaryGreen: string;
     secondaryOrange: string;
+    decorativeColor: string;
   };
   fontWeight: {
     // primaryFontWeight: number;
@@ -28,10 +29,15 @@ interface ITheme {
       mobile: number;
     };
   };
+  border: { primaryBorder: string };
   containerWidth: {
     desktop: number;
     tablet: number;
     mobile: number;
+  };
+  breakpoints: {
+    desktop: 1440;
+    tablet: 768;
   };
   transitionDurationAndFunc: string;
   spacing: (value?: number) => string;
@@ -45,6 +51,7 @@ const theme: ITheme = {
     secondaryGrey: '#747474',
     secondaryGreen: '#47A025',
     secondaryOrange: '#F44708',
+    decorativeColor: '#6C6C6C',
   },
   fontWeight: {
     // primaryFontWeight: 400,
@@ -63,8 +70,13 @@ const theme: ITheme = {
       mobile: 40,
     },
   },
+  border: { primaryBorder: '1px solid' },
   // borderRadius: {
   // },
+  breakpoints: {
+    desktop: 1440,
+    tablet: 768,
+  },
   containerWidth: {
     desktop: 1280,
     tablet: 688,
