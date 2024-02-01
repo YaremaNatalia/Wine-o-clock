@@ -9,7 +9,7 @@ import {
   montserratThin,
   poppinsMedium,
 } from '@/fonts';
-import { FontFamilyNames } from '@/constants';
+import { FontFamilyNames, theme } from '@/constants';
 
 const GlobalStyles: FC = () => (
   <Global
@@ -18,42 +18,42 @@ const GlobalStyles: FC = () => (
         font-family: ${FontFamilyNames.montserrat};
         src: local(${FontFamilyNames.montserrat}),
           url(${montserratBold}) format('truetype');
-        font-weight: 700;
+        font-weight: ${theme.fontWeight.bold};
       }
 
       @font-face {
         font-family: ${FontFamilyNames.montserrat};
         src: local(${FontFamilyNames.montserrat}),
           url(${montserratSemiBold}) format('truetype');
-        font-weight: 600;
+        font-weight: ${theme.fontWeight.semiBold};
       }
 
       @font-face {
         font-family: ${FontFamilyNames.montserrat};
         src: local(${FontFamilyNames.montserrat}),
           url(${montserratMedium}) format('truetype');
-        font-weight: 500;
+        font-weight: ${theme.fontWeight.medium};
       }
 
       @font-face {
         font-family: ${FontFamilyNames.montserrat};
         src: local(${FontFamilyNames.montserrat}),
           url(${montserratRegular}) format('truetype');
-        font-weight: 400;
+        font-weight: ${theme.fontWeight.regular};
       }
 
       @font-face {
         font-family: ${FontFamilyNames.montserrat};
         src: local(${FontFamilyNames.montserrat}),
           url(${montserratThin}) format('truetype');
-        font-weight: 100;
+        font-weight: ${theme.fontWeight.thin};
       }
 
       @font-face {
         font-family: ${FontFamilyNames.poppins};
         src: local(${FontFamilyNames.poppins}),
           url(${poppinsMedium}) format('truetype');
-        font-weight: 500;
+        font-weight: ${theme.fontWeight.medium};
       }
 
       body {

@@ -18,9 +18,11 @@ interface ITheme {
     secondaryFontFamily: FontFamilyNames;
   };
   fontWeight: {
-    // primaryFontWeight: number;
-    // secondaryFontWeight: number;
-    // otherFontWeight: number;
+    bold: number;
+    semiBold: number;
+    medium: number;
+    regular: number;
+    thin: number;
   };
   fontSize: {
     // primaryFontSize: number;
@@ -57,9 +59,11 @@ const theme: ITheme = {
     secondaryFontFamily: FontFamilyNames.poppins,
   },
   fontWeight: {
-    // primaryFontWeight: 400,
-    // secondaryFontWeight: 500,
-    // otherFontWeight: 600,
+    bold: 700,
+    semiBold: 600,
+    medium: 500,
+    regular: 400,
+    thin: 100,
   },
   fontSize: {
     // primaryFontSize: 16,
