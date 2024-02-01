@@ -1,21 +1,29 @@
+import FontFamilyNames from './fontFamilyNames';
+
 declare module '@emotion/react' {
   export interface Theme extends ITheme {}
 }
 
 interface ITheme {
   colors: {
-    primeryWhite: string;
-    primeryBlack: string;
-    primeryBergundy: string;
+    primaryWhite: string;
+    primaryBlack: string;
+    primaryBurgundy: string;
     secondaryGrey: string;
     secondaryGreen: string;
     secondaryOrange: string;
     decorativeColor: string;
   };
+  fontFamily: {
+    primaryFontFamily: FontFamilyNames;
+    secondaryFontFamily: FontFamilyNames;
+  };
   fontWeight: {
-    // primaryFontWeight: number;
-    // secondaryFontWeight: number;
-    // otherFontWeight: number;
+    bold: number;
+    semiBold: number;
+    medium: number;
+    regular: number;
+    thin: number;
   };
   fontSize: {
     // primaryFontSize: number;
@@ -45,18 +53,24 @@ interface ITheme {
 
 const theme: ITheme = {
   colors: {
-    primeryWhite: '#FFFFFF',
-    primeryBlack: '#141414',
-    primeryBergundy: '#7C0021',
+    primaryWhite: '#FFFFFF',
+    primaryBlack: '#141414',
+    primaryBurgundy: '#7C0021',
     secondaryGrey: '#747474',
     secondaryGreen: '#47A025',
     secondaryOrange: '#F44708',
     decorativeColor: '#6C6C6C',
   },
+  fontFamily: {
+    primaryFontFamily: FontFamilyNames.montserrat,
+    secondaryFontFamily: FontFamilyNames.poppins,
+  },
   fontWeight: {
-    // primaryFontWeight: 400,
-    // secondaryFontWeight: 500,
-    // otherFontWeight: 600,
+    bold: 700,
+    semiBold: 600,
+    medium: 500,
+    regular: 400,
+    thin: 100,
   },
   fontSize: {
     // primaryFontSize: 16,
