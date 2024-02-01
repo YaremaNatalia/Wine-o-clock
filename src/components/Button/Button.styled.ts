@@ -14,7 +14,7 @@ export const StyledButton = styled.button<IStyledProps>`
     transparentBody ? 'transparent' : theme.colors.primaryBurgundy};
   color: ${({ theme, transparentBody }) =>
     transparentBody ? theme.colors.primaryBurgundy : theme.colors.primaryWhite};
-  font-family: Montserrat;
+  font-family: ${({ theme }) => theme.fontFamily.primaryFontFamily};
   font-size: ${({ fontSize }) => fontSize}px;
   /* font-weight: 400 or 500; */
   /* transition: background-color ${({ theme }) =>
