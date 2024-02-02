@@ -3,6 +3,7 @@ import Section from '@/components/Section';
 import Button from './Button';
 import { MouseEvent } from 'react';
 import { makeBlur } from '@/utils';
+import { ButtonDesign } from '@/constants';
 // import MasterCard from '../icons/masterCard.svg?react';
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
           fontSize={16}
           title='Shop now'
           onClick={onBtnClick}
+          buttonDesign={ButtonDesign.burgundy}
         />
         {/* <MasterCard /> */}
       </Container>
