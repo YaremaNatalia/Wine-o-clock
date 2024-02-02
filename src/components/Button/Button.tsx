@@ -10,7 +10,7 @@ const Button: FC<IProps> = ({
   sidePadding,
   fontSize,
   type = ButtonTypes.button,
-  transparentBody = false,
+  buttonDesign,
   onClick,
 }) => (
   <StyledButton
@@ -19,8 +19,8 @@ const Button: FC<IProps> = ({
     sidePadding={sidePadding}
     fontSize={fontSize}
     type={type}
-    transparentBody={transparentBody}
     onClick={onClick}
+    buttonDesign={buttonDesign}
   >
     {title}
   </StyledButton>

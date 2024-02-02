@@ -5,3 +5,4 @@ export { default as IconSizes } from './iconSizes';
 export { default as FormTypes } from './formTypes';
 export { default as FontFamilyNames } from './fontFamilyNames';
 export { default as InputTypes } from './inputTypes';
+export { default as ButtonDesign } from './buttonDesign';

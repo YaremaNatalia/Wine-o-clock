@@ -1,4 +1,4 @@
-import { ButtonTypes } from '@/constants';
+import { ButtonDesign, ButtonTypes } from '@/constants';
 import { MouseEvent } from 'react';
 
 export interface IProps {
@@ -9,6 +9,7 @@ export interface IProps {
   fontSize: number;
   type?: ButtonTypes;
   transparentBody?: boolean;
+  buttonDesign?: ButtonDesign;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -17,5 +18,5 @@ export interface IStyledProps {
   height: number;
   sidePadding: number;
   fontSize: number;
-  transparentBody: boolean;
+  buttonDesign: ButtonDesign | undefined;
 }
