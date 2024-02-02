@@ -3,6 +3,7 @@ import Section from '@/components/Section';
 import Button from './Button';
 import { MouseEvent } from 'react';
 import { makeBlur } from '@/utils';
+import { ButtonDesign } from '@/constants';
 
 const App = () => {
   const onBtnClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -21,6 +22,7 @@ const App = () => {
           fontSize={16}
           title='Shop now'
           onClick={onBtnClick}
+          buttonDesign={ButtonDesign.burgundy}
         />
       </Container>
     </Section>
