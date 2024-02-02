@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import { Footer, Header, Main } from './SharedLayout.styled';
+import {  Header, Main } from './SharedLayout.styled';
+import Footer from '@/components/Footer';
 
 const SharedLayout: FC = () => {
   return (

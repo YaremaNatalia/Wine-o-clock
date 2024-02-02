@@ -1,84 +1,135 @@
 import { FC } from 'react';
-
 import logo from '@/images/logoWhite.png';
 import {
-  CallCenterWrapper,
   DeliveryWrapper,
+  FooterBlockWrapper,
   FooterList,
   FooterStyled,
   FooterTitle,
-  InformationWrapper,
+  LogoStyled,
   NetworkLogoWrapper,
   NetworksWrapper,
   NewsWrapper,
   PaymentLogoWrapper,
   PaymentWrapper,
+  StyledNavLink,
 } from './Footer.Styled';
 import { FaInstagram } from 'react-icons/fa';
 import { FaTelegramPlane } from 'react-icons/fa';
-// import { CiFacebook } from 'react-icons/ci';
 import { FaFacebook } from 'react-icons/fa';
-// import { FaApplePay } from 'react-icons/fa';
+// import Container from '@/components/Container';
+import { FaApplePay } from 'react-icons/fa';
 // import { FaCcVisa } from 'react-icons/fa';
-// import { FaCcMastercard } from 'react-icons/fa';
+// import { ReactComponent as MasterCard } from '@/images/masterCard.svg';
+// import { ReactComponent as Visa } from '@/images/visa.svg';
 
 const Footer: FC = () => (
   <>
     <FooterStyled>
-      <img src={logo} alt='Wine store logo' />
-      <InformationWrapper>
+      <StyledNavLink to='/'>
+        <LogoStyled src={logo} alt='Wine store logo' />
+      </StyledNavLink>
+      <FooterBlockWrapper>
         <FooterTitle>INFORMATION</FooterTitle>
         <FooterList>
-          <li>About us</li>
-          <li>Contacts</li>
-          <li>Terms of delivery and payments</li>
-          <li>Privacy policy</li>
-          <li>User agreement</li>
+          <li>
+            <StyledNavLink to='/'>About us</StyledNavLink>
+          </li>
+          <li>
+            <StyledNavLink to='/'>Contacts</StyledNavLink>
+          </li>
+          <li>
+            <StyledNavLink to='/'>Terms of delivery and payment</StyledNavLink>
+          </li>
+          <li>
+            <StyledNavLink to='/'>Privacy Policy</StyledNavLink>
+          </li>
+          <li>
+            <StyledNavLink to='/'>User agreement</StyledNavLink>
+          </li>
         </FooterList>
-      </InformationWrapper>
+      </FooterBlockWrapper>
 
-      <DeliveryWrapper>
-        <FooterTitle>DELIVERY</FooterTitle>
-        <FooterList>
-          <li>Mon-Fri 11:00-21:00</li>
-          <li>Sat-Sun 11:00-20:00</li>
-        </FooterList>
-      </DeliveryWrapper>
-      <PaymentWrapper>
-        <FooterTitle>PAYMENT</FooterTitle>
-        <PaymentLogoWrapper>
-          {/*  <img src={logo} alt='a logo of Mastercard' />
-                                <img src={logo} alt='a logo of VISA' />
-            <img src={logo} alt='a logo of ApplePay' />*/}
-        </PaymentLogoWrapper>
-      </PaymentWrapper>
+      <FooterBlockWrapper>
+        <DeliveryWrapper>
+          <FooterTitle>DELIVERY</FooterTitle>
+          <FooterList>
+            <li>Mon-Fri 11:00-21:00</li>
+            <li>Sat-Sun 11:00-20:00</li>
+          </FooterList>
+        </DeliveryWrapper>
+        <PaymentWrapper>
+          <FooterTitle>PAYMENT</FooterTitle>
+          <PaymentLogoWrapper>
+            {/* <li>
+              <MasterCard title='Mastercard' size={41} />
+            </li>
+            <li>
+              <Visa title='VISA' size={56} />
+            </li> */}
+            <li>
+              <FaApplePay title='ApplePay' size={40} />
+            </li>
+          </PaymentLogoWrapper>
+        </PaymentWrapper>
+      </FooterBlockWrapper>
 
-      <CallCenterWrapper>
-        <FooterTitle>CALL CENTRE WORKING HOURS</FooterTitle>
+      <FooterBlockWrapper>
+        <FooterTitle className='callCenterTitle'>
+          WORK SCHEDULE OF THE CALL CENTER
+        </FooterTitle>
         <FooterList>
-          <li>Mon-Fri 08:00-19:00</li>
+          <li>Mon-Fri 8:00-19:00</li>
           <li>Sat-Sun 10:00-17:00</li>
         </FooterList>
-      </CallCenterWrapper>
-      <NewsWrapper>
-        <FooterTitle>RECEIVE NEWS AND DISCOUNTS</FooterTitle>
+      </FooterBlockWrapper>
 
-        <p>email</p>
-      </NewsWrapper>
-      <NetworksWrapper>
-        <FooterTitle>SOCIAL NETWORKS</FooterTitle>
-        <NetworkLogoWrapper>
-          <li>
-            <FaInstagram />
-          </li>
-          <li>
-            <FaTelegramPlane />
-          </li>
-          <li>
-            <FaFacebook />
-          </li>
-        </NetworkLogoWrapper>
-      </NetworksWrapper>
+      <FooterBlockWrapper>
+        <NewsWrapper>
+          <FooterTitle className='newsTitle'>
+            RECEIVE NEWS AND DISCOUNTS
+          </FooterTitle>
+
+          <p>email</p>
+        </NewsWrapper>
+
+        <NetworksWrapper>
+          <FooterTitle>SOCIAL NETWORKS</FooterTitle>
+          <NetworkLogoWrapper>
+            <li>
+              <a
+                href='https://www.instagram.com/'
+                target='_blank'
+                aria-label='Instagram'
+                rel='noopener noreferrer nofollow'
+              >
+                <FaInstagram size={24} />
+              </a>
+            </li>
+            <li>
+              <a
+                href='https://t.me/'
+                target='_blank'
+                aria-label='Telegram'
+                rel='noopener noreferrer nofollow'
+              >
+                <FaTelegramPlane size={24} />
+              </a>
+            </li>
+
+            <li>
+              <a
+                href='https://www.facebook.com/'
+                target='_blank'
+                aria-label='Facebook'
+                rel='noopener noreferrer nofollow'
+              >
+                <FaFacebook size={24} />
+              </a>
+            </li>
+          </NetworkLogoWrapper>
+        </NetworksWrapper>
+      </FooterBlockWrapper>
     </FooterStyled>
   </>
 );
