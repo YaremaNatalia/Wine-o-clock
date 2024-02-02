@@ -1,31 +1,29 @@
 import Container from '@/components/Container';
 import Section from '@/components/Section';
-import Input from './Input';
-import { AriaLabels, FormTypes } from '@/constants';
-import IconButton from './IconButton';
+import Button from './Button';
+import { MouseEvent } from 'react';
+import { makeBlur } from '@/utils';
+// import MasterCard from '../icons/masterCard.svg?react';
 
 const App = () => {
+  const onBtnClick = (e: MouseEvent<HTMLButtonElement>) => {
+    makeBlur(e.currentTarget);
+    console.log(11111);
+  };
+
   return (
     <Section>
       <Container>
-        <div>App</div>
-        <form>
-          <Input
-            formType={FormTypes.register}
-            placeholder='Search'
-            label='Email'
-          />
-          <Input
-            formType={FormTypes.register}
-            placeholder='Search'
-            label='Email'
-          />
-        </form>
-        <IconButton
-          ariaLabel={AriaLabels.search}
-          btnSize={40}
-          children={<div></div>}
+        <p>App</p>
+        <Button
+          width={275}
+          height={60}
+          sidePadding={20}
+          fontSize={16}
+          title='Shop now'
+          onClick={onBtnClick}
         />
+        {/* <MasterCard /> */}
       </Container>
     </Section>
   );
