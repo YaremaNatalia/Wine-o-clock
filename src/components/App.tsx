@@ -4,6 +4,7 @@ import Button from './Button';
 import { MouseEvent } from 'react';
 import { makeBlur } from '@/utils';
 import { ButtonDesign } from '@/constants';
+import Footer from './Footer';
 // import MasterCard from '../icons/masterCard.svg?react';
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
           buttonDesign={ButtonDesign.burgundy}
         />
         {/* <MasterCard /> */}
+        <Footer/>
       </Container>
     </Section>
   );
