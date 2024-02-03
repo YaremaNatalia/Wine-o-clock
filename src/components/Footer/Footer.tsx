@@ -6,7 +6,6 @@ import {
   FooterList,
   FooterStyled,
   FooterTitle,
-  FooterInfoWrapper,
   LogoStyled,
   NetworkLogoWrapper,
   NetworksWrapper,
@@ -14,6 +13,7 @@ import {
   PaymentLogoWrapper,
   PaymentWrapper,
   StyledNavLink,
+  FooterContentWrapper,
 } from './Footer.Styled';
 import { FaInstagram } from 'react-icons/fa';
 import { FaTelegramPlane } from 'react-icons/fa';
@@ -21,6 +21,9 @@ import { FaFacebook } from 'react-icons/fa';
 import { FaApplePay } from 'react-icons/fa';
 import { RiVisaLine } from 'react-icons/ri';
 import MasterCard from '@/images/masterCard.svg?react';
+import Subscribe from '../Subscribe';
+
+
 
 const Footer: FC = () => (
   <>
@@ -28,10 +31,10 @@ const Footer: FC = () => (
       <StyledNavLink to='/'>
         <LogoStyled src={logo} alt='Wine store logo' />
       </StyledNavLink>
-      <FooterInfoWrapper>
+      <FooterContentWrapper>
         <FooterBlockWrapper>
           <FooterTitle>INFORMATION</FooterTitle>
-          <FooterList>
+          <FooterList className='infoWrapper'>
             <li>
               <StyledNavLink to='/'>About us</StyledNavLink>
             </li>
@@ -52,7 +55,7 @@ const Footer: FC = () => (
           </FooterList>
         </FooterBlockWrapper>
 
-        <FooterBlockWrapper>
+        <FooterBlockWrapper className='deliveryWrapper'>
           <DeliveryWrapper>
             <FooterTitle>DELIVERY</FooterTitle>
             <FooterList>
@@ -76,7 +79,7 @@ const Footer: FC = () => (
           </PaymentWrapper>
         </FooterBlockWrapper>
 
-        <FooterBlockWrapper>
+        <FooterBlockWrapper className='callCenterWrapper'>
           <FooterTitle className='callCenterTitle'>
             WORK SCHEDULE OF THE CALL CENTER
           </FooterTitle>
@@ -86,13 +89,12 @@ const Footer: FC = () => (
           </FooterList>
         </FooterBlockWrapper>
 
-        <FooterBlockWrapper>
+        <FooterBlockWrapper className='newsWrapper'>
           <NewsWrapper>
             <FooterTitle className='newsTitle'>
               RECEIVE NEWS AND DISCOUNTS
             </FooterTitle>
-
-            <p>email</p>
+            <Subscribe/>
           </NewsWrapper>
 
           <NetworksWrapper>
@@ -132,7 +134,7 @@ const Footer: FC = () => (
             </NetworkLogoWrapper>
           </NetworksWrapper>
         </FooterBlockWrapper>
-      </FooterInfoWrapper>
+      </FooterContentWrapper>
     </FooterStyled>
   </>
 );

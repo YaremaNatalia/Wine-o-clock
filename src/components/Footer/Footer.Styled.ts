@@ -7,32 +7,60 @@ export const FooterStyled = styled.footer`
   flex-direction: column;
   align-items: center;
   gap: ${({ theme }) => theme.spacing(10)};
-  /* width: 372px;
-  padding: 40px 16px; */
   background-color: ${({ theme }) => theme.colors.primaryBlack};
   color: ${({ theme }) => theme.colors.primaryWhite};
   font-size: 14px;
   font-weight: ${({ theme }) => theme.fontWeight.regular};
 
-  /* @media screen and (min-width: 768px) {
-   
-  } */
-  @media screen and (min-width: 1440px) {
-    flex-direction: row;
-    align-items: flex-start;
+  @media screen and (min-width: 768px) {
     gap: 0;
     padding: 50px 0 97px;
   }
+
+  @media screen and (min-width: 1440px) {
+    padding: 50px 0 97px;
+  }
 `;
-export const FooterInfoWrapper = styled.div`
+
+export const FooterContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: ${({ theme }) => theme.spacing(10)};
-  @media screen and (min-width: 1440px) {
+
+  @media screen and (min-width: 768px) {
     flex-direction: row;
     align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  @media screen and (min-width: 1440px) {
+    flex-wrap: nowrap;
     gap: ${({ theme }) => theme.spacing(17)};
+  }
+
+  .deliveryWrapper {
+    @media screen and (min-width: 768px) and (max-width: 1439.98px) {
+      display: flex;
+      flex-direction: row;
+      gap: ${({ theme }) => theme.spacing(13)};
+    }
+  }
+
+  .newsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    @media screen and (min-width: 768px) and (max-width: 1439.98px) {
+      margin: 32px 0;
+      width: 100%;
+
+      flex-direction: row;
+      justify-content: space-between;
+    }
   }
 `;
 export const LogoStyled = styled.img`
@@ -43,7 +71,7 @@ export const LogoStyled = styled.img`
   &:focus {
     transform: scale(1.1);
   }
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: 768px) {
     position: absolute;
     bottom: 50px;
     transform: translateX(-50%);
@@ -58,8 +86,14 @@ export const FooterTitle = styled.h4`
   font-size: 18px;
   font-weight: ${({ theme }) => theme.fontWeight.medium};
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: 768px) {
     text-align: start;
+    margin-bottom: ${({ theme }) => theme.spacing(6)};
+    font-size: 16px;
+  }
+  @media screen and (min-width: 1440) {
+    margin-bottom: 30px;
+    font-size: 18px;
   }
 `;
 
@@ -69,14 +103,23 @@ export const FooterList = styled.ul`
   align-items: center;
   gap: ${({ theme }) => theme.spacing(5)};
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: 768px) {
     align-items: start;
   }
 `;
 
 export const FooterBlockWrapper = styled.div`
+  .infoWrapper {
+    @media screen and (min-width: 768px) and (max-width: 1439.98px) {
+      width: 121px;
+    }
+  }
+
   .callCenterTitle {
     width: 230px;
+    @media screen and (min-width: 768px) {
+      width: 182px;
+    }
     @media screen and (min-width: 1440px) {
       width: auto;
     }
@@ -100,6 +143,11 @@ export const PaymentLogoWrapper = styled.ul`
     color: #1434cb;
   }
 
+  @media screen and (min-width: 768px) and (max-width: 1439.98px) {
+    flex-direction: column;
+    gap: 0;
+  }
+
   @media screen and (min-width: 1440px) {
     flex-wrap: wrap;
     gap: 0;
@@ -114,14 +162,13 @@ export const NewsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 30px;
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: 768px) {
     align-items: flex-start;
   }
 
   .newsTitle {
     width: 196px;
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: 768px) {
       width: auto;
     }
   }
@@ -165,6 +212,6 @@ export const StyledNavLink = styled(NavLink)`
   transition: all ${({ theme }) => theme.transitionDurationAndFunc};
   &:hover,
   &:focus {
-    color: ${({ theme }) => theme.colors.primaryBurgundy};
+    color: ${({ theme }) => theme.colors.decorativeColor};
   }
 `;

@@ -21,7 +21,7 @@ export const StyledButton = styled.button<IStyledProps>`
   color: ${({ buttonDesign }) => setBtnFontColor(buttonDesign)};
   font-family: ${({ theme }) => theme.fontFamily.primaryFontFamily};
   font-size: ${({ fontSize }) => fontSize}px;
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
   transition: ${({ theme: { transitionDurationAndFunc } }) =>
     `background-color ${transitionDurationAndFunc}, border-color ${transitionDurationAndFunc}, color ${transitionDurationAndFunc}`};
   &:is(:hover, :focus) {
