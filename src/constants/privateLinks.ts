@@ -1,25 +1,19 @@
 import { AriaLabels, PagePaths } from '.';
-import { FaAdn } from 'react-icons/fa';
+import { PiUserBold, PiHeartBold } from 'react-icons/pi';
 import { PrivateLinks } from '@/types/types';
 
 const privateLinks: PrivateLinks = [
   {
-    title: 'Log In',
-    href: PagePaths.personalDataPath,
-    icon: FaAdn,
-    ariaLabel: AriaLabels.personalData,
-  },
-  {
     title: 'Favorites',
     href: PagePaths.favoritesPath,
-    icon: FaAdn,
+    icon: PiHeartBold,
     ariaLabel: AriaLabels.favorites,
   },
   {
-    title: '',
-    href: PagePaths.basketPath,
-    icon: FaAdn,
-    ariaLabel: AriaLabels.basket,
+    title: 'Log In',
+    href: PagePaths.personalDataPath,
+    icon: PiUserBold,
+    ariaLabel: AriaLabels.personalData,
   },
 ];
 

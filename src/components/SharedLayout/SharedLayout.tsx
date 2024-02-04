@@ -1,18 +1,13 @@
 import { FC } from 'react';
 import { Footer, Header, Main } from './SharedLayout.styled';
-import NavLinks from '@/components/NavLinks';
-import { navLinks } from '@/constants';
 import { Outlet } from 'react-router-dom';
-import PrivateLinks from '@/components/PrivateLinks';
-import privateLinks from '@/constants/privateLinks';
+import NavBar from '@/components/NavBar';
 
 const SharedLayout: FC = () => {
   return (
     <>
       <Header>
-        <NavLinks navLinks={navLinks} />
-        {/* searchBar */}
-        <PrivateLinks navLinks={privateLinks} />
+        <NavBar />
       </Header>
       <Main>
         <Outlet />
