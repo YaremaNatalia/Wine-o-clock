@@ -1,25 +1,26 @@
 import Logo from '@/icons/logo.svg?react';
-import { PagePaths } from '@/constants';
+import { ClassNames, PagePaths } from '@/constants';
 import { Link, NavLink } from 'react-router-dom';
 import { FC } from 'react';
 import { IProps } from './NavBar.types';
+import { LinksList, ListItem, Nav } from './NavBar.styled';
 
 const NavBar: FC<IProps> = ({ navLinks }) => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to={PagePaths.homePath}>
+    <Nav>
+      <LinksList>
+        <ListItem>
+          <Link to={PagePaths.homePath} className={ClassNames.logo}>
             <Logo />
           </Link>
-        </li>
+        </ListItem>
         {navLinks.map(({ href, title }) => (
-          <li key={title}>
+          <ListItem key={title}>
             <NavLink to={href}>{title}</NavLink>
-          </li>
+          </ListItem>
         ))}
-      </ul>
-    </nav>
+      </LinksList>
+    </Nav>
   );
 };
 
