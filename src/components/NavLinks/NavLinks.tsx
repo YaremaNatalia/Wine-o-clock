@@ -1,16 +1,20 @@
 import Logo from '@/icons/logo.svg?react';
-import { ClassNames, PagePaths } from '@/constants';
+import { AriaLabels, ClassNames, PagePaths } from '@/constants';
 import { Link, NavLink } from 'react-router-dom';
 import { FC } from 'react';
-import { IProps } from './NavBar.types';
-import { LinksList, ListItem, Nav } from './NavBar.styled';
+import { IProps } from './NavLinks.types';
+import { LinksList, ListItem, Nav } from './NavLinks.styled';
 
-const NavBar: FC<IProps> = ({ navLinks }) => {
+const NavLinks: FC<IProps> = ({ navLinks }) => {
   return (
     <Nav>
       <LinksList>
         <ListItem>
-          <Link to={PagePaths.homePath} className={ClassNames.logo}>
+          <Link
+            to={PagePaths.homePath}
+            aria-label={AriaLabels.logo}
+            className={ClassNames.logo}
+          >
             <Logo />
           </Link>
         </ListItem>
@@ -24,4 +28,4 @@ const NavBar: FC<IProps> = ({ navLinks }) => {
   );
 };
 
-export default NavBar;
+export default NavLinks;

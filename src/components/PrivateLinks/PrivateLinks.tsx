@@ -1,28 +1,22 @@
 import { ClassNames, PagePaths } from '@/constants';
-import { IconType } from 'react-icons';
-import { FaAdn } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { LinksList, ListItem, Title } from './PrivateLinks.types';
+import { LinksList, ListItem, Title } from './PrivateLinks.styled';
+import { IProps } from './PrivateLinks.types';
+import { FC } from 'react';
 
-const navLinks: {
-  title: string;
-  href: PagePaths;
-  icon: IconType;
-}[] = [
-  { title: 'Log In', href: PagePaths.personalDataPath, icon: FaAdn },
-  { title: 'Favorites', href: PagePaths.favoritesPath, icon: FaAdn },
-  { title: '', href: PagePaths.basketPath, icon: FaAdn },
-];
-
-const PrivateLinks = () => {
+const PrivateLinks: FC<IProps> = ({ navLinks }) => {
   return (
     <LinksList>
-      {navLinks.map(({ href, icon: Icon, title }) => {
+      {navLinks.map(({ href, icon: Icon, title, ariaLabel }) => {
         const isBasketLink = href === PagePaths.basketPath;
 
         return (
-          <ListItem>
-            <Link to={href} className={isBasketLink ? ClassNames.basket : ''}>
+          <ListItem key={href}>
+            <Link
+              to={href}
+              aria-label={ariaLabel}
+              className={isBasketLink ? ClassNames.basket : ''}
+            >
               {title ? (
                 <>
                   <Icon />

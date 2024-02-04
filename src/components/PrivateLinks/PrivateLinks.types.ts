@@ -1,7 +1,5 @@
-import styled from '@emotion/styled';
+import { PrivateLinks } from '@/types/types';
 
-export const LinksList = styled.ul``;
-
-export const ListItem = styled.li``;
-
-export const Title = styled.span``;
+export interface IProps {
+  navLinks: PrivateLinks;
+}

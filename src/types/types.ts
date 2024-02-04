@@ -1,4 +1,5 @@
-import { FormTypes } from '@/constants';
+import { AriaLabels, FormTypes, PagePaths } from '@/constants';
+import { IconType } from 'react-icons';
 
 export interface ISetInputStyleProps {
   formType: FormTypes;
@@ -11,3 +12,12 @@ export interface INavLink {
 }
 
 export type NavLinks = Readonly<INavLink[]>;
+
+export interface IPrivateLink {
+  title: string;
+  href: PagePaths;
+  icon: IconType;
+  ariaLabel: AriaLabels;
+}
+
+export type PrivateLinks = Readonly<IPrivateLink[]>;
