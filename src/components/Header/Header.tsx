@@ -1,13 +1,12 @@
 import { BtnClickEvent } from '@/types/types';
 import { makeBlur } from '@/utils';
 import { useEffect, useState } from 'react';
-import { MobileMenuBtn, Navigation, StyledHeader } from './Header.styled';
+import { StyledHeader } from './Header.styled';
 import Container from '@/components/Container';
-import { PiBasketBold, PiListBold, PiXBold } from 'react-icons/pi';
+import { PiBasketBold } from 'react-icons/pi';
 import {
   AriaLabels,
   ClassNames,
-  IconSizes,
   PagePaths,
   navLinks,
   privateLinks,
@@ -16,6 +15,8 @@ import { Link } from 'react-router-dom';
 import Logo from '@/icons/logo.svg?react';
 import NavLinks from '@/components/NavLinks';
 import PrivateLinks from '@/components/PrivateLinks';
+import MobileMenu from '@/components/MobileMenu';
+import MobileMenuBtn from '@/components/MobileMenuBtn';
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
@@ -36,13 +37,10 @@ const Header = () => {
   return (
     <StyledHeader>
       <Container>
-        <MobileMenuBtn onClick={onMobileMenuBtnClick}>
-          {showMobileMenu ? (
-            <PiXBold size={IconSizes.otherSize} />
-          ) : (
-            <PiListBold size={IconSizes.otherSize} />
-          )}
-        </MobileMenuBtn>
+        <MobileMenuBtn
+          showMobileMenu={showMobileMenu}
+          onBtnClick={onMobileMenuBtnClick}
+        />
         <Link
           to={PagePaths.homePath}
           aria-label={AriaLabels.logo}
@@ -60,13 +58,11 @@ const Header = () => {
           <PiBasketBold />
         </Link>
         {showMobileMenu && (
-          <Navigation>
-            <NavLinks navLinks={navLinks} onNavLinkClick={onNavLinkClick} />
-            <PrivateLinks
-              navLinks={privateLinks}
-              onNavLinkClick={onNavLinkClick}
-            />
-          </Navigation>
+          <MobileMenu
+            onNavLinkClick={onNavLinkClick}
+            navLinks={navLinks}
+            privateLinks={privateLinks}
+          />
         )}
       </Container>
     </StyledHeader>
