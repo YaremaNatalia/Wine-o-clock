@@ -5,7 +5,7 @@ import { InputTypes } from '@/constants';
 
 const Input: FC<IProps> = ({
   formType,
-  settings = {},
+  settings,
   label,
   type = InputTypes.text,
   ...otherProps

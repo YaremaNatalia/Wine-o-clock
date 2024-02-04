@@ -66,7 +66,7 @@ export const FooterContentWrapper = styled.div`
 export const LogoStyled = styled.img`
   width: 126px;
   height: 47px;
-  transition: all ${({ theme }) => theme.transitionDurationAndFunc};
+  transition: ${({ theme }) => theme.transitionDurationAndFunc};
   &:hover,
   &:focus {
     transform: scale(1.1);
@@ -74,9 +74,8 @@ export const LogoStyled = styled.img`
   @media screen and (min-width: 768px) {
     position: absolute;
     bottom: 50px;
-    transform: translateX(-50%);
     left: 50%;
-    margin-bottom: 0;
+    margin-left: -63px;
   }
 `;
 export const FooterTitle = styled.h4`
@@ -152,7 +151,7 @@ export const PaymentLogoWrapper = styled.ul`
     flex-wrap: wrap;
     gap: 0;
     width: 135px;
-    li:first-child {
+    li:first-of-type {
       margin-right: ${({ theme }) => theme.spacing(5)};
     }
   }

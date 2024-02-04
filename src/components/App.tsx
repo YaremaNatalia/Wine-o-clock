@@ -4,6 +4,7 @@ import Button from './Button';
 import { MouseEvent } from 'react';
 import { makeBlur } from '@/utils';
 import { ButtonDesign } from '@/constants';
+import { Toaster } from 'react-hot-toast';
 import Footer from './Footer';
 // import MasterCard from '../icons/masterCard.svg?react';
 
@@ -14,22 +15,25 @@ const App = () => {
   };
 
   return (
-    <Section>
-      <Container>
-        <p>App</p>
-        <Button
-          width={275}
-          height={60}
-          sidePadding={20}
-          fontSize={16}
-          title='Shop now'
-          onClick={onBtnClick}
-          buttonDesign={ButtonDesign.burgundy}
-        />
-        {/* <MasterCard /> */}
-        <Footer/>
-      </Container>
-    </Section>
+    <>
+      <Section>
+        <Container>
+          <p>App</p>
+          <Button
+            width={275}
+            height={60}
+            sidePadding={20}
+            fontSize={16}
+            title='Shop now'
+            onClick={onBtnClick}
+            buttonDesign={ButtonDesign.burgundy}
+          />
+          {/* <MasterCard /> */}
+          <Footer />
+        </Container>
+      </Section>
+      <Toaster position='top-right' reverseOrder={false} />
+    </>
   );
 };
 
