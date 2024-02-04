@@ -3,13 +3,15 @@ import { FC } from 'react';
 import { IProps } from './NavLinks.types';
 import { LinksList, ListItem, Nav } from './NavLinks.styled';
 
-const NavLinks: FC<IProps> = ({ navLinks }) => {
+const NavLinks: FC<IProps> = ({ navLinks, onNavLinkClick }) => {
   return (
     <Nav>
       <LinksList>
         {navLinks.map(({ href, title }) => (
           <ListItem key={title}>
-            <NavLink to={href}>{title}</NavLink>
+            <NavLink to={href} onClick={onNavLinkClick}>
+              {title}
+            </NavLink>
           </ListItem>
         ))}
       </LinksList>

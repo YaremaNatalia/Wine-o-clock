@@ -1,4 +1,5 @@
 import { AriaLabels, FormTypes, PagePaths } from '@/constants';
+import { MouseEvent } from 'react';
 import { IconType } from 'react-icons';
 
 export interface ISetInputStyleProps {
@@ -21,3 +22,5 @@ export interface IPrivateLink {
 }
 
 export type PrivateLinks = Readonly<IPrivateLink[]>;
+
+export type BtnClickEvent = MouseEvent<HTMLButtonElement>;
