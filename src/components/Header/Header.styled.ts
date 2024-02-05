@@ -2,6 +2,8 @@ import { ClassNames } from '@/constants';
 import styled from '@emotion/styled';
 
 export const StyledHeader = styled.header`
+  display: inline-block;
+  min-width: 100%;
   position: relative;
   & > div {
     display: flex;
@@ -46,6 +48,10 @@ export const StyledHeader = styled.header`
         color: ${({ theme }) => theme.colors.primaryWhite};
       }
     }
+  }
+
+  @media screen and (max-width: 767px) {
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
   }
 
   @media screen and (max-width: 1439px) {

@@ -5,7 +5,6 @@ export const Navigation = styled.div`
   top: 48px;
   left: 0;
   width: 100%;
-  overflow: scroll;
   background-color: #ffffff;
 
   & li {
