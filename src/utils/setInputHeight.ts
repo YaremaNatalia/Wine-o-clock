@@ -5,7 +5,7 @@ const setInputHeight = ({
   formType,
   breakpoint,
 }: ISetInputStyleProps): number => {
-  const isTabletBreakpoint = breakpoint === theme.breakpoints.desktop;
+  const isTabletBreakpoint = breakpoint === theme.breakpoints.tablet;
   const isDesktopBreakpoint = breakpoint === theme.breakpoints.desktop;
   const isSearchForm = formType === FormTypes.search;
 
