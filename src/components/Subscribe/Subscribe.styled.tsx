@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const SubscribeWrapper = styled.div`
+export const Form = styled.form`
   position: relative;
   width: 307px;
   @media screen and (min-width: 768px) {
@@ -9,9 +9,9 @@ export const SubscribeWrapper = styled.div`
   @media screen and (min-width: 1440px) {
     width: 350px;
   }
-`;
-export const ButtonWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  right: -1px;
+  button {
+    position: absolute;
+    top: 0;
+    right: -1px;
+  }
 `;

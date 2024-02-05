@@ -1,0 +1,67 @@
+import styled from '@emotion/styled';
+
+export const FooterNewsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  @media screen and (min-width: 768px) and (max-width: 1439.98px) {
+    margin: 32px 0;
+    width: 100%;
+
+    flex-direction: row;
+    justify-content: space-between;
+  }
+`;
+
+export const NewsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media screen and (min-width: 768px) {
+    align-items: flex-start;
+  }
+
+  .newsTitle {
+    width: 196px;
+
+    @media screen and (min-width: 768px) {
+      width: auto;
+    }
+  }
+`;
+
+export const NetworksWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media screen and (min-width: 1440px) {
+    align-items: flex-start;
+  }
+`;
+
+export const NetworkLogoWrapper = styled.ul`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing(5)};
+
+  li {
+    transition: all ${({ theme }) => theme.transitionDurationAndFunc};
+    &:hover,
+    &:focus {
+      transform: scale(1.1);
+    }
+  }
+
+  svg {
+    display: block;
+    color: ${({ theme }) => theme.colors.primaryWhite};
+    transition: all ${({ theme }) => theme.transitionDurationAndFunc};
+    &:hover,
+    &:focus {
+      color: ${({ theme }) => theme.colors.primaryBurgundy};
+    }
+  }
+`;

@@ -6,8 +6,9 @@ import toast from 'react-hot-toast';
 import Input from '../Input';
 import { ButtonTypes, FormTypes, InputTypes } from '@/constants';
 import Button from '../Button';
-import { ButtonWrapper, SubscribeWrapper } from './Subscribe.styled';
+import { Form } from './Subscribe.styled';
 import { FormData } from './Subscribe.types';
+import { makeBlur } from '@/utils';
 
 const schema = yup.object().shape({
   email: yup.string().email('Invalid email').required('Email is required'),
@@ -15,7 +16,7 @@ const schema = yup.object().shape({
 
 const Subscribe: FC = () => {
   const {
-    register,
+
     handleSubmit,
     control,
     formState: { isSubmitSuccessful },
@@ -33,7 +34,6 @@ const Subscribe: FC = () => {
 
       toast.success('Email subscription successful!');
       reset();
-      console.log('Form reset successful');
     } catch (error) {
       toast.error('Error subscribing to emails. Please try again.');
     }
@@ -42,37 +42,35 @@ const Subscribe: FC = () => {
     reset();
   }
   return (
-    <SubscribeWrapper>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          name='email'
-          control={control}
-          render={({ field }) => (
-            <Input
-              {...field}
-              {...register('email')}
-              formType={FormTypes.subscribe}
-              settings={{
-                placeholder: 'Enter email',
-                required: true,
-              }}
-              type={InputTypes.email}
-            />
-          )}
-        />
-
-        <ButtonWrapper>
-          <Button
-            title='Subscribe'
-            width={120}
-            height={50}
-            sidePadding={20}
-            fontSize={16}
-            type={ButtonTypes.submit}
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        name='email'
+        control={control}
+        render={({ field }) => (
+          <Input
+            {...field}
+    
+            formType={FormTypes.subscribe}
+            settings={{
+              placeholder: 'Enter email',
+              required: true,
+            }}
+            type={InputTypes.email}
           />
-        </ButtonWrapper>
-      </form>
-    </SubscribeWrapper>
+        )}
+      />
+      <Button
+        title='Subscribe'
+        width={120}
+        height={48}
+        sidePadding={20}
+        fontSize={16}
+        type={ButtonTypes.submit}
+         onClick={(e) => {
+            makeBlur(e.currentTarget);
+          }}
+      />
+    </Form>
   );
 };
 
