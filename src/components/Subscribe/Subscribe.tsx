@@ -15,6 +15,7 @@ const schema = yup.object().shape({
 
 const Subscribe: FC = () => {
   const {
+    register,
     handleSubmit,
     control,
     formState: { isSubmitSuccessful },
@@ -32,7 +33,7 @@ const Subscribe: FC = () => {
 
       toast.success('Email subscription successful!');
       reset();
-        console.log('Form reset successful');
+      console.log('Form reset successful');
     } catch (error) {
       toast.error('Error subscribing to emails. Please try again.');
     }
@@ -49,6 +50,7 @@ const Subscribe: FC = () => {
           render={({ field }) => (
             <Input
               {...field}
+              {...register('email')}
               formType={FormTypes.subscribe}
               settings={{
                 placeholder: 'Enter email',
