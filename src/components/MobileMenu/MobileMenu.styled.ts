@@ -2,20 +2,14 @@ import styled from '@emotion/styled';
 
 export const Navigation = styled.div`
   position: fixed;
-  top: 32px;
+  top: 48px;
   left: 0;
   width: 100%;
   overflow: scroll;
   background-color: #ffffff;
 
   & li {
-    border-bottom: 1px solid rgb(234, 233, 233);
-  }
-
-  & a {
-    gap: 10px;
-    padding: 32px;
-    width: 100%;
+    border-bottom: 1px solid #eae9e9;
   }
 
   & > ul {

@@ -6,6 +6,7 @@ export const StyledHeader = styled.header`
   & > div {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     & a[class=${ClassNames.logo}] {
       display: inline-block;
@@ -13,6 +14,16 @@ export const StyledHeader = styled.header`
         display: block;
         width: 86px;
         height: 32px;
+
+        @media screen and (min-width: 768px) {
+          width: 122px;
+          height: 45px;
+        }
+
+        @media screen and (min-width: 1440px) {
+          width: 163px;
+          height: 60.49px;
+        }
       }
     }
 
@@ -23,9 +34,11 @@ export const StyledHeader = styled.header`
       background-color: ${({ theme }) => theme.colors.primaryBurgundy};
       transition: background-color
         ${({ theme }) => theme.transitionDurationAndFunc};
+
       &:is(:hover, :focus) {
         background-color: ${({ theme }) => theme.colors.primaryAccentColor};
       }
+
       & svg {
         display: block;
         width: 20px;
@@ -33,5 +46,10 @@ export const StyledHeader = styled.header`
         color: ${({ theme }) => theme.colors.primaryWhite};
       }
     }
+  }
+
+  @media screen and (max-width: 1439px) {
+    padding-top: ${({ theme }) => theme.spacing(4)};
+    padding-bottom: ${({ theme }) => theme.spacing(4)};
   }
 `;

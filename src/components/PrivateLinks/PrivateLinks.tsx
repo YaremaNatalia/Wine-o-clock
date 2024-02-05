@@ -7,7 +7,7 @@ const PrivateLinks: FC<IProps> = ({ navLinks, onNavLinkClick }) => {
   return (
     <LinksList>
       {navLinks.map(({ href, icon: Icon, title, ariaLabel }) => (
-        <ListItem key={href}>
+        <ListItem key={href} href={href}>
           <NavLink to={href} aria-label={ariaLabel} onClick={onNavLinkClick}>
             <Icon />
             <Title>{title}</Title>

@@ -8,7 +8,7 @@ const NavLinks: FC<IProps> = ({ navLinks, onNavLinkClick }) => {
     <Nav>
       <LinksList>
         {navLinks.map(({ href, title }) => (
-          <ListItem key={title}>
+          <ListItem key={title} href={href}>
             <NavLink to={href} onClick={onNavLinkClick}>
               {title}
             </NavLink>
