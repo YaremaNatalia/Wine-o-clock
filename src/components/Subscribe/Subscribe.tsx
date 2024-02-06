@@ -1,28 +1,15 @@
 import { FC } from 'react';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import { useForm, SubmitHandler, useController } from 'react-hook-form';
+
 import toast from 'react-hot-toast';
-import Input from '../Input';
+import Input from '@/components/Input';
 import { ButtonTypes, FormTypes, InputTypes } from '@/constants';
-import Button from '../Button';
+import Button from '@/components/Button';
 import { Form } from './Subscribe.styled';
 import { FormData } from './Subscribe.types';
-import { makeBlur } from '@/utils';
-
-const schema = yup.object().shape({
-  email: yup.string().email('Invalid email').required('Email is required'),
-});
 
 const Subscribe: FC = () => {
-  const {
-
-    handleSubmit,
-    control,
-    formState: { isSubmitSuccessful },
-    reset,
-  } = useForm<FormData>({
-    resolver: yupResolver(schema),
+  const { handleSubmit, control, reset } = useForm<FormData>({
     defaultValues: {
       email: '',
     },
@@ -35,30 +22,24 @@ const Subscribe: FC = () => {
       toast.success('Email subscription successful!');
       reset();
     } catch (error) {
-      toast.error('Error subscribing to emails. Please try again.');
+      toast.error('Error subscribing to email. Please try again.');
+      reset();
     }
   };
-  if (isSubmitSuccessful) {
-    reset();
-  }
+  const { field } = useController({ name: 'email', control });
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        name='email'
-        control={control}
-        render={({ field }) => (
-          <Input
-            {...field}
-    
-            formType={FormTypes.subscribe}
-            settings={{
-              placeholder: 'Enter email',
-              required: true,
-            }}
-            type={InputTypes.email}
-          />
-        )}
+      <Input
+        {...field}
+        formType={FormTypes.subscribe}
+        settings={{
+          placeholder: 'Enter email',
+          required: true,
+        }}
+        type={InputTypes.email}
       />
+
       <Button
         title='Subscribe'
         width={120}
@@ -66,9 +47,9 @@ const Subscribe: FC = () => {
         sidePadding={20}
         fontSize={16}
         type={ButtonTypes.submit}
-         onClick={(e) => {
-            makeBlur(e.currentTarget);
-          }}
+        onClick={(e) => {
+          e.currentTarget.blur();
+        }}
       />
     </Form>
   );

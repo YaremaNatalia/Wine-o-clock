@@ -9,7 +9,7 @@ export const FooterDeliveryWrapper = styled.div`
 `;
 
 export const DeliveryWrapper = styled.div`
-  margin-bottom: 30px;
+  margin-bottom: ${({ theme }) => theme.spacing(7)};
 `;
 
 export const PaymentWrapper = styled.div`

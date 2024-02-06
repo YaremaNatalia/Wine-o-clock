@@ -13,11 +13,7 @@ export const FooterStyled = styled.footer`
 
   @media screen and (min-width: 768px) {
     gap: 0;
-    padding: 50px 0 97px;
-  }
-
-  @media screen and (min-width: 1440px) {
-    padding: 50px 0 97px;
+    padding: 50px 0 97px; // прибрати коли буде в секції
   }
 `;
 
@@ -61,7 +57,7 @@ export const LogoStyled = styled.img`
 export const FooterTitle = styled.h4`
   text-align: center;
   text-transform: uppercase;
-  margin-bottom: 30px;
+  margin-bottom: ${({ theme }) => theme.spacing(7)};
   font-size: 18px;
   font-weight: ${({ theme }) => theme.fontWeight.medium};
 
@@ -72,7 +68,7 @@ export const FooterTitle = styled.h4`
   }
 
   @media screen and (min-width: 1440) {
-    margin-bottom: 30px;
+    margin-bottom: ${({ theme }) => theme.spacing(7)};
     font-size: 18px;
   }
 `;

@@ -3,10 +3,10 @@ import styled from '@emotion/styled';
 export const FooterNewsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: ${({ theme }) => theme.spacing(7)};
 
   @media screen and (min-width: 768px) and (max-width: 1439.98px) {
-    margin: 32px 0;
+    margin: ${({ theme }) => theme.spacing(8)} 0;
     width: 100%;
 
     flex-direction: row;
