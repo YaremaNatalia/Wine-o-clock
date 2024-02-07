@@ -1,11 +1,15 @@
 import { FC } from 'react';
-import { Footer, Header, Main } from './SharedLayout.styled';
+import { Footer, Main } from './SharedLayout.styled';
+import { Outlet } from 'react-router-dom';
+import Header from '@/components/Header';
 
 const SharedLayout: FC = () => {
   return (
     <>
       <Header />
-      <Main />
+      <Main>
+        <Outlet />
+      </Main>
       <Footer />
     </>
   );
