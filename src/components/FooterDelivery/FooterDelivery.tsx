@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { FooterList, FooterTitle } from '@/components/Footer/Footer.styled';
+import { FooterList, FooterTitle } from '@/components/Footer/Footer.Styled';
 import { FaApplePay } from 'react-icons/fa';
 import { RiVisaLine } from 'react-icons/ri';
 import MasterCard from '@/icons/masterCard.svg?react';

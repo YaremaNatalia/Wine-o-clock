@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { FooterList, FooterTitle } from '@/components/Footer/Footer.styled';
+import { FooterList, FooterTitle } from '@/components/Footer/Footer.Styled';
 import {
   FooterInfoBlockWrapper,
   StyledNavLink,

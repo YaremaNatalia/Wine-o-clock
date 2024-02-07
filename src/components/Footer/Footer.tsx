@@ -6,10 +6,7 @@ import FooterInformation from '@/components/FooterInformation';
 import FooterDelivery from '@/components/FooterDelivery';
 import FooterCallCenter from '@/components/FooterCallCenter';
 import FooterNews from '@/components/FooterNews';
-import {
-  FooterContentWrapper,
-  FooterStyled,
-} from './Footer.styled';
+import { FooterContentWrapper, FooterStyled } from './Footer.Styled';
 
 const Footer: FC = () => (
   <>
