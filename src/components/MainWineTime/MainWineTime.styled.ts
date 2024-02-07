@@ -17,6 +17,10 @@ export const WineTimeWrapper = styled.div`
     font-size: 40px;
     font-weight: ${({ theme }) => theme.fontWeight.bold};
     color: ${({ theme }) => theme.colors.primaryWhite};
+
+    @media screen and (min-width: 1440px) {
+      font-size: 83px;
+    }
   }
 `;
 
@@ -26,6 +30,16 @@ export const MainWineTimeBg = styled.img`
   background-repeat: no-repeat;
   width: 375px;
   height: 357px;
+
+  @media screen and (min-width: 768px) {
+    width: 374px;
+    height: 358px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    width: 720px;
+    height: 598px;
+  }
 `;
 
 export const WineTimeText = styled.p`

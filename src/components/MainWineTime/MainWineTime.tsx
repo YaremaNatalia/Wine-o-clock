@@ -11,11 +11,40 @@ import {
 } from './MainWineTime.styled';
 import { wineTime } from '@/images/mainPage';
 
-
 const MainWineTime: FC = () => (
   <MainWineTimeWrapper>
     <WineTimeWrapper>
-      <MainWineTimeBg src={wineTime.mob1xJpg} />
+      <picture>
+        <source
+          srcSet={`${wineTime.tab1xWebp}1x, ${wineTime.tab2xWebp}2x`}
+          type='image/webp'
+          media={'min-width: 1440px'}
+        />
+        <source
+          srcSet={`${wineTime.tab1xWebp}1x, ${wineTime.tab2xWebp}2x`}
+          type='image/webp'
+          media={'min-width: 768px'}
+        />
+        <source
+          srcSet={`${wineTime.mob1xWebp}1x, ${wineTime.mob2xWebp}2x`}
+          type='image/webp'
+          media={'min-width: 320px'}
+        />
+        <source
+          srcSet={`${wineTime.tab1xJpg}1x, ${wineTime.tab2xJpg}2x,`}
+          media={'min-width: 1440px'}
+        />
+        <source
+          srcSet={`${wineTime.tab1xJpg}1x, ${wineTime.tab2xJpg}2x,`}
+          media={'min-width: 768px'}
+        />
+        <source
+          srcSet={`${wineTime.mob1xJpg}1x, ${wineTime.mob2xJpg}2x,`}
+          media={'min-width: 320px'}
+        />
+        <MainWineTimeBg src={`${wineTime.mob1xJpg}`} alt='Wine time image' />
+      </picture>
+
       <WineTimeText>Wine time </WineTimeText>
       <EveryHourText>every hour</EveryHourText>
     </WineTimeWrapper>
