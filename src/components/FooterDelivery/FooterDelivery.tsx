@@ -2,8 +2,13 @@ import { FC } from 'react';
 import { FooterList, FooterTitle } from '@/components/Footer/Footer.styled';
 import { FaApplePay } from 'react-icons/fa';
 import { RiVisaLine } from 'react-icons/ri';
-import MasterCard from '@/images/masterCard.svg?react';
-import { DeliveryWrapper, FooterDeliveryWrapper, PaymentLogoWrapper, PaymentWrapper } from './FooterDelivery.styled';
+import MasterCard from '@/icons/masterCard.svg?react';
+import {
+  DeliveryWrapper,
+  FooterDeliveryWrapper,
+  PaymentLogoWrapper,
+  PaymentWrapper,
+} from './FooterDelivery.styled';
 
 const FooterDelivery: FC = () => (
   <FooterDeliveryWrapper>
