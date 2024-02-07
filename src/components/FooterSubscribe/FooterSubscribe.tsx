@@ -5,8 +5,8 @@ import toast from 'react-hot-toast';
 import Input from '@/components/Input';
 import { ButtonTypes, FormTypes, InputTypes } from '@/constants';
 import Button from '@/components/Button';
-import { Form } from './Subscribe.styled';
-import { FormData } from './Subscribe.types';
+import { Form } from './FooterSubscribe.styled';
+import { FormData } from './FooterSubscribe.types';
 
 const Subscribe: FC = () => {
   const { handleSubmit, control, reset } = useForm<FormData>({

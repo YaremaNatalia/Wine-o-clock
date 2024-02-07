@@ -3,6 +3,7 @@
 import { Route, Routes } from 'react-router-dom';
 import SharedLayout from '@/components/SharedLayout';
 import { PagePaths } from '@/constants';
+import MainPage from '@/pages/MainPage';
 
 // const CatalogPage = lazy(() => import('pages/CatalogPage'));
 
@@ -11,7 +12,7 @@ const App = () => {
     <Routes>
       <Route path={PagePaths.homePath} element={<SharedLayout />}>
         <Route path={PagePaths.storePath} element={<div>storePath</div>} />
-        <Route index element={<div>home</div>} />
+        <Route index element={<MainPage />} />
         <Route path={PagePaths.aboutUsPath} element={<div>aboutUsPath</div>} />
         <Route
           path={PagePaths.personalDataPath}

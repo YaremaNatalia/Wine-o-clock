@@ -1,22 +1,31 @@
 import styled from '@emotion/styled';
 
-export const MainWineTimeWrapper = styled.div`
+export const MainWineTimeStyled = styled.div`
+  background-color: ${({ theme }) => theme.colors.primaryBlack};
+  color: ${({ theme }) => theme.colors.primaryWhite};
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
 
   @media screen and (min-width: 768px) {
     flex-direction: row;
+    gap: ${({ theme }) => theme.spacing(5)};
+  }
+
+  @media screen and (min-width: 1440px) {
+    gap: ${({ theme }) => theme.spacing(28)};
   }
 `;
 
-export const WineTimeWrapper = styled.div`
+export const WineTimePictureWrapper = styled.div`
   position: relative;
 
   p {
     text-transform: uppercase;
+    font-family: ${({ theme }) => theme.fontFamily.otherFontFamily};
     font-size: 40px;
     font-weight: ${({ theme }) => theme.fontWeight.bold};
-    color: ${({ theme }) => theme.colors.primaryWhite};
 
     @media screen and (min-width: 1440px) {
       font-size: 83px;
@@ -25,17 +34,6 @@ export const WineTimeWrapper = styled.div`
 `;
 
 export const MainWineTimeBg = styled.img`
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 375px;
-  height: 357px;
-
-  @media screen and (min-width: 768px) {
-    width: 374px;
-    height: 358px;
-  }
-
   @media screen and (min-width: 1440px) {
     width: 720px;
     height: 598px;
@@ -44,20 +42,29 @@ export const MainWineTimeBg = styled.img`
 
 export const WineTimeText = styled.p`
   position: absolute;
-  top: 126px;
-  left: 0;
+  top: ${({ theme }) => theme.spacing(32)};
+  left: ${({ theme }) => theme.spacing(10)};
+
+  @media screen and (min-width: 1440px) {
+    top: ${({ theme }) => theme.spacing(45)};
+    left: ${({ theme }) => theme.spacing(20)};
+  }
 `;
 
 export const EveryHourText = styled.p`
   position: absolute;
-  bottom: 126px;
-  right: 0;
+  right: ${({ theme }) => theme.spacing(10)};
+  bottom: ${({ theme }) => theme.spacing(32)};
+
+  @media screen and (min-width: 1440px) {
+    bottom: ${({ theme }) => theme.spacing(45)};
+    right: ${({ theme }) => theme.spacing(20)};
+  }
 `;
 
 export const MainWineTimeDescription = styled.div`
-  padding-top: ${({ theme }) => theme.spacing(6)};
-  color: ${({ theme }) => theme.colors.primaryWhite};
-  background-color: ${({ theme }) => theme.colors.primaryBlack};
+  width: 375px;
+  padding: ${({ theme }) => theme.spacing(6)};
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing(4)};
@@ -65,15 +72,16 @@ export const MainWineTimeDescription = styled.div`
   justify-content: center;
 
   @media screen and (min-width: 768px) {
-    width: 334px;
-    padding-top: 0;
-    padding-left: ${({ theme }) => theme.spacing(6)};
+    width: 373px;
+    padding-right: ${({ theme }) => theme.spacing(10)};
+    padding-left: 0;
   }
 
   @media screen and (min-width: 1440px) {
-    width: 517px;
+    width: 606px;
     align-items: start;
     gap: ${({ theme }) => theme.spacing(7)};
+    padding-right: ${({ theme }) => theme.spacing(20)};
   }
 
   h2 {

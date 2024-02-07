@@ -1,19 +1,41 @@
 import styled from '@emotion/styled';
 
 export const FooterStyled = styled.footer`
-  position: relative;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing(10)};
+  justify-content: center;
+  position: relative;
   background-color: ${({ theme }) => theme.colors.primaryBlack};
   color: ${({ theme }) => theme.colors.primaryWhite};
   font-size: 14px;
   font-weight: ${({ theme }) => theme.fontWeight.regular};
+  padding-top: ${({ theme }) => theme.spacing(32)};
+  padding-bottom: ${({ theme }) => theme.spacing(25)};
+
+  .footerLogo {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    margin-left: -63px;
+
+    width: 126px;
+    height: 47px;
+    transition: ${({ theme }) => theme.transitionDurationAndFunc};
+    &:hover,
+    &:focus {
+      transform: scale(1.1);
+    }
+
+    @media screen and (min-width: 768px) {
+      top: unset;
+
+      bottom: 50px;
+      left: 50%;
+      margin-left: -63px;
+    }
+  }
 
   @media screen and (min-width: 768px) {
-    gap: 0;
-    padding: 50px 0 97px; // прибрати коли буде в секції
+    padding-top: ${({ theme }) => theme.spacing(12)};
   }
 `;
 
@@ -34,23 +56,6 @@ export const FooterContentWrapper = styled.div`
   @media screen and (min-width: 1440px) {
     flex-wrap: nowrap;
     gap: ${({ theme }) => theme.spacing(17)};
-  }
-`;
-
-export const LogoStyled = styled.img`
-  width: 126px;
-  height: 47px;
-  transition: ${({ theme }) => theme.transitionDurationAndFunc};
-  &:hover,
-  &:focus {
-    transform: scale(1.1);
-  }
-
-  @media screen and (min-width: 768px) {
-    position: absolute;
-    bottom: 50px;
-    left: 50%;
-    margin-left: -63px;
   }
 `;
 

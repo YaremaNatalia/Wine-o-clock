@@ -9,6 +9,7 @@ export const Form = styled.form`
   @media screen and (min-width: 1440px) {
     width: 350px;
   }
+
   button {
     position: absolute;
     top: 0;

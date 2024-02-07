@@ -1,19 +1,19 @@
 import { FC } from 'react';
-import Button from '../Button';
 import { ButtonDesign, ButtonTypes } from '@/constants';
+import Button from '@/components/Button';
+import { wineTime } from '@/images/mainPage';
 import {
   EveryHourText,
   MainWineTimeBg,
   MainWineTimeDescription,
-  MainWineTimeWrapper,
+  MainWineTimeStyled,
   WineTimeText,
-  WineTimeWrapper,
+  WineTimePictureWrapper,
 } from './MainWineTime.styled';
-import { wineTime } from '@/images/mainPage';
 
 const MainWineTime: FC = () => (
-  <MainWineTimeWrapper>
-    <WineTimeWrapper>
+  <MainWineTimeStyled>
+    <WineTimePictureWrapper>
       <picture>
         <source
           srcSet={`${wineTime.tab1xWebp}1x, ${wineTime.tab2xWebp}2x`}
@@ -44,10 +44,9 @@ const MainWineTime: FC = () => (
         />
         <MainWineTimeBg src={`${wineTime.mob1xJpg}`} alt='Wine time image' />
       </picture>
-
       <WineTimeText>Wine time </WineTimeText>
       <EveryHourText>every hour</EveryHourText>
-    </WineTimeWrapper>
+    </WineTimePictureWrapper>
     <MainWineTimeDescription>
       <h2>Wine o`clock</h2>
       <p>
@@ -68,7 +67,7 @@ const MainWineTime: FC = () => (
         }}
       />
     </MainWineTimeDescription>
-  </MainWineTimeWrapper>
+  </MainWineTimeStyled>
 );
 
 export default MainWineTime;

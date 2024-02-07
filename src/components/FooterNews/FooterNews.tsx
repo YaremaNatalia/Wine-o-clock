@@ -3,7 +3,7 @@ import { FaInstagram } from 'react-icons/fa';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { FaFacebook } from 'react-icons/fa';
 
-import Subscribe from '@/components/Subscribe';
+import FooterSubscribe from '@/components/FooterSubscribe';
 import { FooterTitle } from '@/components/Footer/Footer.styled';
 import {
   FooterNewsWrapper,
@@ -18,7 +18,7 @@ const FooterNews: FC = () => (
       <FooterTitle className='newsTitle'>
         RECEIVE NEWS AND DISCOUNTS
       </FooterTitle>
-      <Subscribe />
+      <FooterSubscribe />
     </NewsWrapper>
 
     <NetworksWrapper>

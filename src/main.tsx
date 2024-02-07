@@ -5,6 +5,7 @@ import { ThemeProvider } from '@emotion/react';
 import GlobalStyles from '@/components/GlobalStyles';
 import { theme } from '@/constants';
 import App from '@/components/App';
+import { Toaster } from 'react-hot-toast';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -12,6 +13,7 @@ createRoot(document.getElementById('root') as HTMLElement).render(
       <ThemeProvider theme={theme}>
         <App />
         <GlobalStyles />
+        <Toaster position='top-right' reverseOrder={false} />
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
