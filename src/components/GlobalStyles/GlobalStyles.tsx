@@ -8,12 +8,20 @@ import {
   montserratSemiBold,
   montserratThin,
   poppinsMedium,
+  fontSpringDemoQuicheSans,
 } from '@/fonts';
 import { FontFamilyNames, theme } from '@/constants';
 
 const GlobalStyles: FC = () => (
   <Global
     styles={css`
+      @font-face {
+        font-family: ${FontFamilyNames.fontSpringDemoQuicheSans};
+        src: local(${FontFamilyNames.fontSpringDemoQuicheSans}),
+          url(${fontSpringDemoQuicheSans}) format('opentype');
+        font-weight: ${theme.fontWeight.bold};
+      }
+
       @font-face {
         font-family: ${FontFamilyNames.montserrat};
         src: local(${FontFamilyNames.montserrat}),

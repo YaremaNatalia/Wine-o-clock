@@ -18,6 +18,7 @@ interface ITheme {
   fontFamily: {
     primaryFontFamily: FontFamilyNames;
     secondaryFontFamily: FontFamilyNames;
+    otherFontFamily: FontFamilyNames;
   };
   fontWeight: {
     bold: number;
@@ -66,6 +67,7 @@ const theme: ITheme = {
   fontFamily: {
     primaryFontFamily: FontFamilyNames.montserrat,
     secondaryFontFamily: FontFamilyNames.poppins,
+    otherFontFamily: FontFamilyNames.fontSpringDemoQuicheSans,
   },
   fontWeight: {
     bold: 700,

@@ -6,3 +6,7 @@ export { default as FormTypes } from './formTypes';
 export { default as FontFamilyNames } from './fontFamilyNames';
 export { default as InputTypes } from './inputTypes';
 export { default as ButtonDesign } from './buttonDesign';
+export { default as PagePaths } from './pagePaths';
+export { default as navLinks } from './navLinks';
+export { default as ClassNames } from './classNames';
+export { default as privateLinks } from './privateLinks';

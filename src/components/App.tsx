@@ -1,40 +1,30 @@
-import Container from '@/components/Container';
-import Section from '@/components/Section';
-import Button from './Button';
-import { MouseEvent } from 'react';
-import { makeBlur } from '@/utils';
-import { ButtonDesign } from '@/constants';
-import { Toaster } from 'react-hot-toast';
-import Footer from './Footer';
-import MainWineTime from './MainWineTime';
+// import MasterCard from '../icons/masterCard.svg?react';
 
+import { Route, Routes } from 'react-router-dom';
+import SharedLayout from '@/components/SharedLayout';
+import { PagePaths } from '@/constants';
+
+// const CatalogPage = lazy(() => import('pages/CatalogPage'));
 
 const App = () => {
-  // const onBtnClick = (e: MouseEvent<HTMLButtonElement>) => {
-  //   makeBlur(e.currentTarget);
-  //   console.log(11111);
-  // };
-
   return (
-    <>
-      <Section>
-        <Container>
-          {/* <p>App</p> */}
-          {/* <Button
-            width={275}
-            height={60}
-            sidePadding={20}
-            fontSize={16}
-            title='Shop now'
-            onClick={onBtnClick}
-            buttonDesign={ButtonDesign.burgundy}
-          /> */}
-          <MainWineTime />
-          <Footer />
-        </Container>
-      </Section>
-      <Toaster position='top-right' reverseOrder={false} />
-    </>
+    <Routes>
+      <Route path={PagePaths.homePath} element={<SharedLayout />}>
+        <Route path={PagePaths.storePath} element={<div>storePath</div>} />
+        <Route index element={<div>home</div>} />
+        <Route path={PagePaths.aboutUsPath} element={<div>aboutUsPath</div>} />
+        <Route
+          path={PagePaths.personalDataPath}
+          element={<div>personalDataPath</div>}
+        />
+        <Route
+          path={PagePaths.favoritesPath}
+          element={<div>favoritesPath</div>}
+        />
+        <Route path={PagePaths.basketPath} element={<div>basketPath</div>} />
+        <Route path='*' element={<div>notFound</div>} />
+      </Route>
+    </Routes>
   );
 };
 
