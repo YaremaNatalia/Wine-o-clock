@@ -4,3 +4,4 @@ export { default as montserratRegular } from './montserrat/Montserrat-Regular.tt
 export { default as montserratSemiBold } from './montserrat/Montserrat-SemiBold.ttf';
 export { default as montserratThin } from './montserrat/Montserrat-Thin.ttf';
 export { default as poppinsMedium } from './poppins/Poppins-Medium.ttf';
+export { default as fontSpringDemoQuicheSans } from './fontSpringDemoQuicheSans/Fontspring-DEMO-quichesans-bold.otf';
