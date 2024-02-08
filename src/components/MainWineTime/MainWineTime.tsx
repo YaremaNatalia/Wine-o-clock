@@ -28,7 +28,7 @@ const MainWineTime: FC = () => (
         <source
           srcSet={`${wineTime.mob1xWebp}1x, ${wineTime.mob2xWebp}2x`}
           type='image/webp'
-          media={'min-width: 320px'}
+          media={'min-width: 375px'}
         />
         <source
           srcSet={`${wineTime.tab1xJpg}1x, ${wineTime.tab2xJpg}2x,`}
@@ -40,7 +40,7 @@ const MainWineTime: FC = () => (
         />
         <source
           srcSet={`${wineTime.mob1xJpg}1x, ${wineTime.mob2xJpg}2x,`}
-          media={'min-width: 320px'}
+          media={'min-width: 375px'}
         />
         <MainWineTimeBg src={`${wineTime.mob1xJpg}`} alt='Wine time image' />
       </picture>
