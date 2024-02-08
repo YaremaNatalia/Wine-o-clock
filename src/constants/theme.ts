@@ -32,7 +32,11 @@ interface ITheme {
     // secondaryFontSize: number
   };
   padding: {
-    containerPadding: number;
+    containerPadding: {
+      desktop: number;
+      tablet: number;
+      mobile: number;
+    };
     sectionPadding: {
       desktop: number;
       tablet: number;
@@ -81,7 +85,11 @@ const theme: ITheme = {
     // secondaryFontSize: 18,
   },
   padding: {
-    containerPadding: 16,
+    containerPadding: {
+      desktop: 80,
+      tablet: 40,
+      mobile: 24,
+    },
     sectionPadding: {
       desktop: 50,
       tablet: 40,
