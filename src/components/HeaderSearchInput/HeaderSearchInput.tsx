@@ -1,27 +1,41 @@
-import { FC } from 'react';
-import { useForm, SubmitHandler, useController } from 'react-hook-form';
+import React, { FC, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 import Input from '@/components/Input';
 import { AriaLabels, ButtonTypes, FormTypes, InputTypes } from '@/constants';
 import { FormData } from './HeaderSearchInput.types';
 import { Form } from './HeaderSearchInput.styled';
-import IconButton from '../IconButton';
+import IconButton from '@/components/IconButton';
 import { IoSearch } from 'react-icons/io5';
 
+import wineData from '../../utils/data.json';
+import WineList from '@/components/WineList/WineList';
+import { IWine, IWineKeys } from '@/types/types';
+
 const HeaderSearchInput: FC = () => {
-  const { handleSubmit, control, reset } = useForm<FormData>({
+  const { register, reset } = useForm<FormData>({
     defaultValues: {
       search: '',
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
-    try {
-      console.log(data.search);
+  const [wines, setWines] = useState<IWine[]>([]);
+  const keys = ['name', 'color', 'sweetness', 'country', 'region', 'price'];
 
-      reset();
-    } catch (error) {
-      reset();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchValue = e.target.value;
+    if (searchValue.length >= 2) {
+      const result = wineData.filter((wine: IWineKeys) =>
+        keys.some((key) =>
+          wine[key]
+            ?.toString()
+            .toLowerCase()
+            .includes(searchValue.toLowerCase())
+        )
+      );
+      setWines(result);
+    } else {
+      setWines([]);
     }
   };
 
@@ -29,23 +43,24 @@ const HeaderSearchInput: FC = () => {
     try {
       console.log('click');
       reset();
+      setWines([]);
     } catch (error) {
-      reset();
+      console.error('Error:', error);
+      setWines([]);
     }
   };
 
-  const { field } = useController({ name: 'search', control });
-
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form>
       <Input
-        {...field}
+        {...register('search')}
         formType={FormTypes.search}
         settings={{
           placeholder: 'Search',
           required: true,
         }}
         type={InputTypes.text}
+        onChange={handleChange}
       />
       <IconButton
         btnSize={32}
@@ -55,6 +70,7 @@ const HeaderSearchInput: FC = () => {
       >
         <IoSearch size={20} />
       </IconButton>
+      <WineList wines={wines} />
     </Form>
   );
 };
