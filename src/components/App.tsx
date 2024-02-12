@@ -4,9 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import SharedLayout from '@/components/SharedLayout';
 import { PagePaths } from '@/constants';
 import MainPage from '@/pages/MainPage';
-import { lazy } from 'react';
-
-const LoginPage = lazy(() => import('@/pages/LoginPage'));
+import LoginPage from '@/pages/LoginPage';
 
 const App = () => {
   return (

@@ -25,6 +25,8 @@ export type PrivateLinks = Readonly<IPrivateLink[]>;
 
 export type BtnClickEvent = MouseEvent<HTMLButtonElement>;
 
+export type LinkClickEvent = MouseEvent<HTMLAnchorElement>;
+
 export interface ICredentials {
   email: string;
   password: string;

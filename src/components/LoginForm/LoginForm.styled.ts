@@ -1,4 +1,4 @@
-import { theme } from '@/constants';
+import { ClassNames, theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const Header = styled.div`
@@ -24,6 +24,21 @@ export const Form = styled.form`
     margin-bottom: ${({ theme }) => theme.spacing(2)};
   }
 
+  & a[class=${ClassNames.signUpLink}] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    border: 1px solid;
+    border-color: ${({ theme }) => theme.colors.primaryBurgundy};
+    border-radius: 24px;
+    color: ${({ theme }) => theme.colors.primaryBurgundy};
+    font-family: ${({ theme }) => theme.fontFamily.primaryFontFamily};
+    font-size: 16px;
+    font-weight: ${({ theme }) => theme.fontWeight.regular};
+    line-height: 1.25;
+  }
+
   & > a {
     display: block;
     margin-top: ${({ theme }) => theme.spacing(4)};
@@ -47,6 +62,24 @@ export const Form = styled.form`
 
     & > a {
       margin-top: ${({ theme }) => theme.spacing(9)};
+    }
+  }
+`;
+
+export const ButtonsWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing(4)};
+  margin-top: ${({ theme }) => theme.spacing(8)};
+
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0;
+
+    & button,
+    & a {
+      width: 208px;
     }
   }
 `;
