@@ -4,8 +4,9 @@ import { Route, Routes } from 'react-router-dom';
 import SharedLayout from '@/components/SharedLayout';
 import { PagePaths } from '@/constants';
 import MainPage from '@/pages/MainPage';
+import { lazy } from 'react';
 
-// const CatalogPage = lazy(() => import('pages/CatalogPage'));
+const LoginPage = lazy(() => import('@/pages/LoginPage'));
 
 const App = () => {
   return (
@@ -14,10 +15,7 @@ const App = () => {
         <Route path={PagePaths.storePath} element={<div>storePath</div>} />
         <Route index element={<MainPage />} />
         <Route path={PagePaths.aboutUsPath} element={<div>aboutUsPath</div>} />
-        <Route
-          path={PagePaths.personalDataPath}
-          element={<div>personalDataPath</div>}
-        />
+        <Route path={PagePaths.personalDataPath} element={<LoginPage />} />
         <Route
           path={PagePaths.favoritesPath}
           element={<div>favoritesPath</div>}

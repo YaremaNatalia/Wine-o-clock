@@ -24,3 +24,8 @@ export interface IPrivateLink {
 export type PrivateLinks = Readonly<IPrivateLink[]>;
 
 export type BtnClickEvent = MouseEvent<HTMLButtonElement>;
+
+export interface ICredentials {
+  email: string;
+  password: string;
+}

@@ -10,7 +10,7 @@ import {
 } from '@/utils';
 
 export const StyledButton = styled.button<IStyledProps>`
-  width: ${({ width }) => width}px;
+  width: ${({ width }) => (width ? `${width}px` : '100%')};
   height: ${({ height }) => height}px;
   padding-left: ${({ sidePadding }) => sidePadding}px;
   padding-right: ${({ sidePadding }) => sidePadding}px;

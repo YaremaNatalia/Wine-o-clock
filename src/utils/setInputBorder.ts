@@ -5,6 +5,9 @@ const setInputBorder = (formType: FormTypes): string => {
     case FormTypes.register:
       return `${theme.border.primaryBorder} ${theme.colors.decorativeColor}`;
 
+    case FormTypes.logIn:
+      return `${theme.border.primaryBorder} ${theme.colors.decorativeColor}`;
+
     default:
       return 'none';
   }
