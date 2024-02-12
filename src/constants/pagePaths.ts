@@ -7,6 +7,7 @@ const enum PagePaths {
   personalDataPath = '/personal-data',
   forgotPasswordPath = '/forgot-password',
   signUpPath = '/signup',
+  logInPath = '/login',
 }
 
 export default PagePaths;
