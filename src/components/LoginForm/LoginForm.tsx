@@ -6,6 +6,7 @@ import { ICredentials } from '@/types/types';
 import { ClassNames, FormTypes, PagePaths } from '@/constants';
 import { Link } from 'react-router-dom';
 import Button from '@/components/Button';
+import AlternativeAuthLinks from '@/components/AlternativeAuthLinks';
 
 const LoginForm: FC = () => {
   const {
@@ -44,6 +45,7 @@ const LoginForm: FC = () => {
             Sign up
           </Link>
         </ButtonsWrap>
+        <AlternativeAuthLinks />
         <Link to={PagePaths.forgotPasswordPath}>Forgot your password?</Link>
       </Form>
     </>
