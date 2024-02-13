@@ -20,14 +20,9 @@ const WineCard: FC<IProps> = ({ wine }) => {
     <WineCardStyled>
       <img src={photo} alt='Wine photo' />
       <p>Name: {name}</p>
-      <p>Sweetness: {sweetness}</p>
       <p>Country: {country}</p>
-      <p>Region: {region}</p>
-      <p>Volume: {volume}</p>
       <p>Price: {price}</p>
-      <p>Description: {description}</p>
-      <p> Number in stock: {number_in_stock}</p>
-      <p>Alcohol: {alcohol}</p>
+
     </WineCardStyled>
   );
 };

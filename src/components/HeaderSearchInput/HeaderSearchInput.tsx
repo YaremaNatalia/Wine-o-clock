@@ -21,19 +21,19 @@ const HeaderSearchInput: FC = () => {
   });
 
   const [wines, setWines] = useState<IWine[]>([]);
+
   const [isButtonActive, setIsButtonActive] = useState(false);
+
   const keys = ['name', 'color', 'sweetness', 'country', 'region', 'price'];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchValue = e.target.value;
-    if (searchValue.length >= 2) {
+    const value = e.target.value;
+
+    if (value.length >= 2) {
       setIsButtonActive(true);
       const result = wineData.filter((wine: IWineKeys) =>
         keys.some((key) =>
-          wine[key]
-            ?.toString()
-            .toLowerCase()
-            .includes(searchValue.toLowerCase())
+          wine[key]?.toString().toLowerCase().includes(value.toLowerCase())
         )
       );
       setWines(result);
@@ -79,7 +79,11 @@ const HeaderSearchInput: FC = () => {
         <IoSearch size={20} />
       </IconButton>
       {wines.length > 0 && (
-        <HeaderSearchDropdown wines={wines} resetForm={reset} />
+        <HeaderSearchDropdown
+          wines={wines}
+          resetForm={reset}
+          setWines={setWines}
+        />
       )}
       {/* <WineList wines={wines} /> */}
     </Form>
