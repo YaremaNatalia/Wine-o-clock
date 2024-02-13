@@ -11,6 +11,7 @@ import { IoSearch } from 'react-icons/io5';
 import wineData from '../../utils/data.json';
 import WineList from '@/components/WineList/WineList';
 import { IWine, IWineKeys } from '@/types/types';
+import HeaderSearchDropdown from '../HeaderSearchDropdown';
 
 const HeaderSearchInput: FC = () => {
   const { register, reset } = useForm<FormData>({
@@ -20,11 +21,13 @@ const HeaderSearchInput: FC = () => {
   });
 
   const [wines, setWines] = useState<IWine[]>([]);
+  const [isButtonActive, setIsButtonActive] = useState(false);
   const keys = ['name', 'color', 'sweetness', 'country', 'region', 'price'];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchValue = e.target.value;
     if (searchValue.length >= 2) {
+      setIsButtonActive(true);
       const result = wineData.filter((wine: IWineKeys) =>
         keys.some((key) =>
           wine[key]
@@ -35,18 +38,22 @@ const HeaderSearchInput: FC = () => {
       );
       setWines(result);
     } else {
+      setIsButtonActive(false);
       setWines([]);
     }
   };
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
       console.log('click');
+      e.currentTarget.blur();
       reset();
-      setWines([]);
+      setIsButtonActive(false);
     } catch (error) {
       console.error('Error:', error);
+      reset();
       setWines([]);
+      setIsButtonActive(false);
     }
   };
 
@@ -67,10 +74,14 @@ const HeaderSearchInput: FC = () => {
         ariaLabel={AriaLabels.search}
         type={ButtonTypes.button}
         onClick={handleClick}
+        disabled={!isButtonActive}
       >
         <IoSearch size={20} />
       </IconButton>
-      <WineList wines={wines} />
+      {wines.length > 0 && (
+        <HeaderSearchDropdown wines={wines} resetForm={reset} />
+      )}
+      {/* <WineList wines={wines} /> */}
     </Form>
   );
 };
