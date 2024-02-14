@@ -9,7 +9,7 @@ import IconButton from '@/components/IconButton';
 import { IoSearch } from 'react-icons/io5';
 
 import wineData from '../../utils/data.json';
-import WineList from '@/components/WineList/WineList';
+// import WineList from '@/components/WineList/WineList';
 import { IWine, IWineKeys } from '@/types/types';
 import HeaderSearchDropdown from '../HeaderSearchDropdown';
 
