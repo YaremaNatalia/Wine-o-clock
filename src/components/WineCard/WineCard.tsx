@@ -7,14 +7,8 @@ const WineCard: FC<IProps> = ({ wine }) => {
     // _id,
     photo,
     name,
-    sweetness,
     country,
-    region,
-    volume,
     price,
-    description,
-    number_in_stock,
-    alcohol,
   } = wine;
   return (
     <WineCardStyled>
@@ -22,7 +16,6 @@ const WineCard: FC<IProps> = ({ wine }) => {
       <p>Name: {name}</p>
       <p>Country: {country}</p>
       <p>Price: {price}</p>
-
     </WineCardStyled>
   );
 };
