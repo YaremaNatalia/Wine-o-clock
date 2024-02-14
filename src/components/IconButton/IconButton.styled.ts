@@ -11,10 +11,22 @@ export const Button = styled.button<IStyledProps>`
   border-radius: 50%;
   background-color: ${({ theme }) => theme.colors.primaryBurgundy};
   transition: background-color ${({ theme }) => theme.transitionDurationAndFunc};
-  & svg {
-    color: ${({ theme }) => theme.colors.primaryWhite};
+
+  &[disabled] {
+    background-color: transparent;
+    cursor: default;
   }
-  &:is(:hover, :focus) {
+
+  & svg {
+    color: ${({ theme, disabled }) =>
+      disabled ? theme.colors.decorativeColor : theme.colors.primaryWhite};
+  }
+
+  svg[disabled] {
+    color: ${({ theme }) => theme.colors.secondaryGreen};
+  }
+
+  &:is(:hover:not(:disabled), :focus:not(:disabled)) {
     background-color: ${({ theme }) => theme.colors.primaryAccentColor};
   }
 `;

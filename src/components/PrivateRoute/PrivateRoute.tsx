@@ -1,10 +1,17 @@
-// import { Navigate } from 'react-router-dom';
-// import { useAuth } from '../redux/hooks/useAuth';
+import { FC, useState } from 'react';
+import { IProps } from './PrivateRoute.types';
+import { Navigate, useLocation } from 'react-router-dom';
+import { PagePaths } from '@/constants';
 
-// const PrivateRoute = ({ component: Component, redirectTo = '/' }) => {
-//   const { isLoggedIn, isRefreshing } = useAuth();
-//   const shouldRedirect = !isLoggedIn && !isRefreshing;
-//   return shouldRedirect ? <Navigate to={redirectTo} /> : Component;
-// };
+const PrivateRoute: FC<IProps> = ({ element }) => {
+  const [isLoggedIn] = useState<boolean>(false);
+  const location = useLocation();
 
-// export default PrivateRoute;
+  return isLoggedIn ? (
+    element
+  ) : (
+    <Navigate to={PagePaths.logInPath} state={{ from: location }} />
+  );
+};
+
+export default PrivateRoute;
