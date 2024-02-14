@@ -5,6 +5,8 @@ export const StyledHeader = styled.header`
   display: inline-block;
   min-width: 100%;
   position: relative;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+
   & > div {
     display: flex;
     justify-content: space-between;
@@ -46,12 +48,21 @@ export const StyledHeader = styled.header`
         width: 20px;
         height: 20px;
         color: ${({ theme }) => theme.colors.primaryWhite};
+
+        @media screen and (min-width: 768px) {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      @media screen and (min-width: 768px) {
+        padding: 10px;
+      }
+
+      @media screen and (min-width: 1440px) {
+        padding: 18px;
       }
     }
-  }
-
-  @media screen and (max-width: 767px) {
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
   }
 
   @media screen and (max-width: 1439px) {
