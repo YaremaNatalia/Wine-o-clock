@@ -46,6 +46,19 @@ export const StyledHeader = styled.header`
         width: 20px;
         height: 20px;
         color: ${({ theme }) => theme.colors.primaryWhite};
+
+        @media screen and (min-width: 768px) {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      @media screen and (min-width: 768px) {
+        padding: 10px;
+      }
+
+      @media screen and (min-width: 1440px) {
+        padding: 18px;
       }
     }
   }
