@@ -17,6 +17,7 @@ import NavLinks from '@/components/NavLinks';
 import PrivateLinks from '@/components/PrivateLinks';
 import MobileMenu from '@/components/MobileMenu';
 import MobileMenuBtn from '@/components/MobileMenuBtn';
+import HeaderSearchInput from '../HeaderSearchInput';
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
@@ -64,6 +65,9 @@ const Header = () => {
             privateLinks={privateLinks}
           />
         )}
+      </Container>
+      <Container>
+        <HeaderSearchInput />
       </Container>
     </StyledHeader>
   );
