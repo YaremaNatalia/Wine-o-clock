@@ -3,8 +3,8 @@ import { MouseEvent } from 'react';
 
 export interface IProps {
   title: string;
-  width: number;
-  height?: number;
+  width?: number;
+  height: number;
   sidePadding: number;
   fontSize: number;
   type?: ButtonTypes;
@@ -14,7 +14,7 @@ export interface IProps {
 }
 
 export interface IStyledProps {
-  width: number;
+  width?: number;
   height: number;
   sidePadding: number;
   fontSize: number;

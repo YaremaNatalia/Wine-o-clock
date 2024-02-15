@@ -6,7 +6,7 @@ import { ButtonTypes } from '@/constants';
 const Button: FC<IProps> = ({
   title,
   width,
-  height = width,
+  height,
   sidePadding,
   fontSize,
   type = ButtonTypes.button,

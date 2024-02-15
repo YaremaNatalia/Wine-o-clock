@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 export const Navigation = styled.div`
   position: fixed;
+  z-index: 9999;
   top: 48px;
   left: 0;
   width: 100%;
