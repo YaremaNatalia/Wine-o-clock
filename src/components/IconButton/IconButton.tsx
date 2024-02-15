@@ -7,12 +7,14 @@ const IconButton: FC<IProps> = ({
   btnSize,
   children,
   ariaLabel,
+  disabled,
   type = ButtonTypes.button,
   onClick,
 }) => (
   <Button
     btnSize={btnSize}
     aria-label={ariaLabel}
+    disabled={disabled}
     onClick={onClick}
     type={type}
   >

@@ -21,7 +21,7 @@ export const MainWineTimeStyled = styled.div`
 export const WineTimePictureWrapper = styled.div`
   position: relative;
 
-  p {
+  h2 {
     text-transform: uppercase;
     font-family: ${({ theme }) => theme.fontFamily.otherFontFamily};
     font-size: 40px;
@@ -40,7 +40,7 @@ export const MainWineTimeBg = styled.img`
   }
 `;
 
-export const WineTimeText = styled.p`
+export const WineTimeText = styled.h2`
   position: absolute;
   top: ${({ theme }) => theme.spacing(32)};
   left: ${({ theme }) => theme.spacing(10)};
@@ -51,7 +51,7 @@ export const WineTimeText = styled.p`
   }
 `;
 
-export const EveryHourText = styled.p`
+export const EveryHourText = styled.h2`
   position: absolute;
   right: ${({ theme }) => theme.spacing(10)};
   bottom: ${({ theme }) => theme.spacing(32)};

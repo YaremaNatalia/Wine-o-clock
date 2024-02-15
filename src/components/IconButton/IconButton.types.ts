@@ -6,6 +6,7 @@ export interface IProps {
   children: ReactNode;
   ariaLabel: AriaLabels;
   type?: ButtonTypes;
+  disabled?: boolean;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
