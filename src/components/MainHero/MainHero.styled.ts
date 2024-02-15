@@ -1,38 +1,5 @@
 import styled from '@emotion/styled';
 
-// import wMob from '@/icons/letters/mob/wIcon.svg';
-// import eMob from '@/icons/letters/mob/eIcon.svg';
-// import lMob from '@/icons/letters/mob/lIcon.svg';
-// import oMob from '@/icons/letters/mob/oIcon.svg';
-// import vMob from '@/icons/letters/mob/vIcon.svg';
-// import iMob from '@/icons/letters/mob/iIcon.svg';
-// import fMom from '@/icons/letters/mob/fIcon.svg';
-// import nMob from '@/icons/letters/mob/nIcon.svg';
-// import dMob from '@/icons/letters/mob/dIcon.svg';
-// import aMob from '@/icons/letters/mob/aIcon.svg';
-
-// import wTab from '@/icons/letters/tab/wTab.svg';
-// import eTab from '@/icons/letters/tab/eTab.svg';
-// import lTab from '@/icons/letters/tab/lTab.svg';
-// import oTab from '@/icons/letters/tab/oTab.svg';
-// import vTab from '@/icons/letters/tab/vTab.svg';
-// import iTab from '@/icons/letters/tab/iTab.svg';
-// import fTab from '@/icons/letters/tab/fTab.svg';
-// import nTab from '@/icons/letters/tab/nTab.svg';
-// import dTab from '@/icons/letters/tab/dTab.svg';
-// import aTab from '@/icons/letters/tab/aTab.svg';
-
-// import wDesk from '@/icons/letters/desk/wDesc.svg';
-// import eDesk from '@/icons/letters/desk/eDesc.svg';
-// import lDesk from '@/icons/letters/desk/lDesc.svg';
-// import oDesk from '@/icons/letters/desk/oDesk.svg';
-// import vDesk from '@/icons/letters/desk/vDesk.svg';
-// import iDesk from '@/icons/letters/desk/iDesk.svg';
-// import fDesk from '@/icons/letters/desk/fDesk.svg';
-// import nDesk from '@/icons/letters/desk/nDesk.svg';
-// import dDesk from '@/icons/letters/desk/dDesk.svg';
-// import aDesk from '@/icons/letters/desk/aDesk.svg';
-
 export const MainHeroStyled = styled.div`
   background-color: ${({ theme }) => theme.colors.primaryWhite};
   color: ${({ theme }) => theme.colors.primaryBlack};
@@ -157,7 +124,7 @@ export const SvgTopLine = styled.div`
     fill: ${({ theme }) => theme.colors.primaryBlack};
   }
 
-  svg:nth-child(2) {
+  svg:nth-of-type(2) {
     margin-right: ${({ theme }) => theme.spacing(3)};
 
     @media screen and (min-width: 768px) {
@@ -165,7 +132,7 @@ export const SvgTopLine = styled.div`
     }
   }
 
-  svg:nth-child(6) {
+  svg:nth-of-type(6) {
     margin-right: ${({ theme }) => theme.spacing(3)};
 
     @media screen and (min-width: 768px) {
@@ -201,7 +168,7 @@ export const SvgBottomLine = styled.div`
     fill: ${({ theme }) => theme.colors.primaryWhite};
   }
 
-  svg:nth-child(3) {
+  svg:nth-of-type(3) {
     margin-right: ${({ theme }) => theme.spacing(3)};
 
     @media screen and (min-width: 768px) {

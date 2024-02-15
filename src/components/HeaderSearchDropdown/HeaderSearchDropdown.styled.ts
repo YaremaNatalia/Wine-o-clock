@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom';
 
-export const SearchDropdownStyled = styled.div`
+export const SearchDropdownStyled = styled.ul`
   max-height: 60vh;
   width: 90%;
   overflow-y: auto;
