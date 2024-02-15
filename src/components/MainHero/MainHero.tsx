@@ -101,7 +101,7 @@ const MainHero: FC = () => {
         <HeroPictureWrapper>
           <picture>
             <source
-              srcSet={`${hero.heroDesc1xWebp} 1x, ${hero.heroDesc2xWebp} 2x`}
+              srcSet={`${hero.heroDesk1xWebp} 1x, ${hero.heroDesk2xWebp} 2x`}
               type='image/webp'
               media='(min-width: 1440px)'
             />
@@ -116,7 +116,7 @@ const MainHero: FC = () => {
               media='(min-width: 320px)'
             />
             <source
-              srcSet={`${hero.heroDesc1xJpg} 1x, ${hero.heroDesc2xJpg} 2x,`}
+              srcSet={`${hero.heroDesk1xJpg} 1x, ${hero.heroDesk2xJpg} 2x,`}
               media='(min-width: 1440px)'
             />
             <source

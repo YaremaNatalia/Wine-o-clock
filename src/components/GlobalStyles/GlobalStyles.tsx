@@ -65,6 +65,7 @@ const GlobalStyles: FC = () => (
       }
 
       body {
+        line-height: 1.2;
         font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
           'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
           'Helvetica Neue', sans-serif;
