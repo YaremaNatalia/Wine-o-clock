@@ -2,7 +2,7 @@ import { ClassNames, theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const Header = styled.div`
-  padding-top: ${({ theme }) => theme.spacing(8)};
+  padding-top: ${({ theme }) => theme.spacing(11)};
   padding-bottom: ${({ theme }) => theme.spacing(8)};
   border-bottom: 1px solid #eae9e9;
 `;
