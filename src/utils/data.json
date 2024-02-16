@@ -25,7 +25,7 @@
     "evaluation": 4.7,
     "bottlesSoldCounter": 200,
     "addedDateTime": "2024-02-16T21:10:48.470Z",
-    "imageUrl": "https://www.bodegasvaldelana.com/wp-content/uploads/2018/06/AGNVS-CRIANZA.jpg"
+    "imageUrl": "https://minuman.com/cdn/shop/files/B_G-CUVEE-SPECIALE-ROUGE-SWEET-WINE_600x600_crop_center.jpg?v=1700117745"
   },
   {
     "id": 2,
@@ -53,7 +53,7 @@
     "evaluation": 4.6,
     "bottlesSoldCounter": 150,
     "addedDateTime": "2024-02-16T21:10:48.470Z",
-    "imageUrl": "https://www.wine-searcher.com/images/labels/93/98/rosso-di-barolo-bussia-giacosa-piedmont-italy-10769398.jpg"
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHcztu12nW6zSZhOGt28EmLFMiy5cVGxltCKLj4B-zngUg8Nh-PtV4sGwK2AwkN1y2ZS4&usqp=CAU"
   },
   {
     "id": 3,
@@ -81,7 +81,7 @@
     "evaluation": 4.8,
     "bottlesSoldCounter": 180,
     "addedDateTime": "2024-02-16T21:10:48.470Z",
-    "imageUrl": "https://www.wine-searcher.com/images/labels/12/15/20191215.png"
+    "imageUrl": "https://minuman.com/cdn/shop/files/B_G-CUVEE-SPECIALE-ROUGE-SWEET-WINE_600x600_crop_center.jpg?v=1700117745"
   },
   {
     "id": 4,
@@ -109,7 +109,7 @@
     "evaluation": 4.9,
     "bottlesSoldCounter": 120,
     "addedDateTime": "2024-02-16T21:10:48.470Z",
-    "imageUrl": "https://www.wine-searcher.com/images/labels/91/66/rioja-reserva-bodegas-gomez-ribera-alta-spain-1079166.jpg"
+    "imageUrl": "https://minuman.com/cdn/shop/files/B_G-CUVEE-SPECIALE-ROUGE-SWEET-WINE_600x600_crop_center.jpg?v=1700117745"
   },
   {
     "id": 24,
@@ -137,12 +137,12 @@
     "evaluation": 4.9,
     "bottlesSoldCounter": 150,
     "addedDateTime": "2024-02-16T21:10:48.470Z",
-    "imageUrl": "https://cdn11.bigcommerce.com/s-ug4hvq9t3c/images/stencil/1280x1280/products/208/3216/Opus-One-2017__08528.1617225201.jpg"
+    "imageUrl": "https://minuman.com/cdn/shop/files/B_G-CUVEE-SPECIALE-ROUGE-SWEET-WINE_600x600_crop_center.jpg?v=1700117745"
   },
   {
     "id": 36,
-    "wineName": "Barolo",
-    "price": 120,
+    "wineName": "Baro",
+    "price": 150,
     "adminDiscountPercentage": 5,
     "wineDescription": "An elegant Italian wine from Piedmont.",
     "quantity": 40,
@@ -165,7 +165,7 @@
     "evaluation": 4.8,
     "bottlesSoldCounter": 180,
     "addedDateTime": "2024-02-16T21:10:48.470Z",
-    "imageUrl": "https://www.totalwine.com/dynamic/490x/media/sys_master/twmmedia/h34/h6b/12345893708830.png"
+    "imageUrl": "https://minuman.com/cdn/shop/files/B_G-CUVEE-SPECIALE-ROUGE-SWEET-WINE_600x600_crop_center.jpg?v=1700117745"
   },
   {
     "id": 47,
@@ -193,6 +193,6 @@
     "evaluation": 4.6,
     "bottlesSoldCounter": 220,
     "addedDateTime": "2024-02-16T21:10:48.470Z",
-    "imageUrl": "https://bodegasderiojanavarro.com/193-large_default/reserva-tempranillo.jpg"
+    "imageUrl": "https://minuman.com/cdn/shop/files/B_G-CUVEE-SPECIALE-ROUGE-SWEET-WINE_600x600_crop_center.jpg?v=1700117745"
   }
 ]

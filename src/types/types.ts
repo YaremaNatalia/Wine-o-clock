@@ -32,24 +32,6 @@ export interface ICredentials {
   password: string;
 }
 
-// export interface IWine {
-//   _id: string;
-//   name: string;
-//   photo: string;
-//   color: string;
-//   sweetness: string;
-//   country: string;
-//   region?: string;
-//   volume: string;
-//   alcohol: string;
-//   price: number;
-//   description: string;
-//   number_in_stock: number;
-//   sale?: boolean;
-//   discount?: number;
-//   [key: string]: string | number | boolean | undefined;
-// }
-
 export interface IWine {
   id: number;
   wineName: string;

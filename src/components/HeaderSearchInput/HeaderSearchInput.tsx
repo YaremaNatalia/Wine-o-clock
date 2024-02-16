@@ -31,16 +31,22 @@ const HeaderSearchInput: FC = () => {
       setIsButtonActive(true);
 
       const keysToExclude = [
-        '_id',
-        'photo',
-        'description',
-        'number_in_stock',
-        'discount',
+        'id',
+        'imageUrl',
+        'wineDescription',
+        'quantity',
+        'wineComments',
+        'bottlesSoldCounter',
+        'addedDateTime',
+        'bottleCapacity',
+        'evaluation',
+        'adminDiscountPercentage',
+        'alcohol',
       ];
 
       const result = wineData.filter((wine: IWine) => {
         if (query === 'sale') {
-          return wine.sale === true;
+          return wine.isSale === true;
         } else {
           return Object.keys(wine)
             .filter((key) => !keysToExclude.includes(key))
@@ -50,6 +56,10 @@ const HeaderSearchInput: FC = () => {
                 return value.toLowerCase().includes(query);
               } else if (typeof value === 'number') {
                 return value.toString().toLowerCase() === query;
+              } else if (typeof value === 'object') {
+                if ('name' in value && typeof value.name === 'string') {
+                  return value.name.toLowerCase().includes(query);
+                }
               }
               return false;
             });

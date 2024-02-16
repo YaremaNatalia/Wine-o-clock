@@ -28,11 +28,11 @@ const HeaderSearchDropdown: FC<IHeaderSearchDropdown> = ({
   return (
     <SearchDropdownStyled>
       {wines.map((wine) => (
-        <li key={wine._id}>
+        <li key={wine.id}>
           <StyledNavLink to='/store' onClick={handleClick}>
-            <WinePhoto src={wine.photo} alt={wine.name} />
+            <WinePhoto src={wine.imageUrl} alt={wine.wineName} />
             <WineDetails>
-              <WineName>{wine.name}</WineName>
+              <WineName>{wine.wineName}</WineName>
               <WinePrice>${wine.price}</WinePrice>
             </WineDetails>
           </StyledNavLink>
