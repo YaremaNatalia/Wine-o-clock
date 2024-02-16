@@ -10,8 +10,8 @@ import { IoSearch } from 'react-icons/io5';
 
 import wineData from '../../utils/data.json';
 // import WineList from '@/components/WineList/WineList';
-import { IWine, IWineKeys } from '@/types/types';
-import HeaderSearchDropdown from '../HeaderSearchDropdown';
+import { IWine } from '@/types/types';
+import HeaderSearchDropdown from '@/components/HeaderSearchDropdown';
 
 const HeaderSearchInput: FC = () => {
   const { register, reset } = useForm<FormData>({
@@ -24,18 +24,38 @@ const HeaderSearchInput: FC = () => {
 
   const [isButtonActive, setIsButtonActive] = useState(false);
 
-  const keys = ['name', 'color', 'sweetness', 'country', 'region', 'price'];
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const query = e.target.value.toLowerCase();
 
-    if (value.length >= 2) {
+    if (query.length >= 2) {
       setIsButtonActive(true);
-      const result = wineData.filter((wine: IWineKeys) =>
-        keys.some((key) =>
-          wine[key]?.toString().toLowerCase().includes(value.toLowerCase())
-        )
-      );
+
+      const keysToExclude = [
+        '_id',
+        'photo',
+        'description',
+        'number_in_stock',
+        'discount',
+      ];
+
+      const result = wineData.filter((wine: IWine) => {
+        if (query === 'sale') {
+          return wine.sale === true;
+        } else {
+          return Object.keys(wine)
+            .filter((key) => !keysToExclude.includes(key))
+            .some((key: string) => {
+              const value = wine[key];
+              if (typeof value === 'string') {
+                return value.toLowerCase().includes(query);
+              } else if (typeof value === 'number') {
+                return value.toString().toLowerCase() === query;
+              }
+              return false;
+            });
+        }
+      });
+
       setWines(result);
     } else {
       setIsButtonActive(false);

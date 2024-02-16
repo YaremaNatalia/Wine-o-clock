@@ -10,6 +10,7 @@ import {
   PagePaths,
   navLinks,
   privateLinks,
+  theme,
 } from '@/constants';
 import { Link } from 'react-router-dom';
 import Logo from '@/icons/logo.svg?react';
@@ -20,7 +21,22 @@ import MobileMenuBtn from '@/components/MobileMenuBtn';
 import HeaderSearchInput from '../HeaderSearchInput';
 
 const Header = () => {
+  const [isDesktopScreen, setIsDesktopScreen] = useState<boolean>(
+    window.innerWidth > theme.breakpoints.desktop
+  );
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktopScreen(window.innerWidth > theme.breakpoints.desktop);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     document.body.style.overflowY = showMobileMenu ? 'hidden' : 'auto';
@@ -38,36 +54,37 @@ const Header = () => {
   return (
     <StyledHeader>
       <Container>
-        <MobileMenuBtn
-          showMobileMenu={showMobileMenu}
-          onBtnClick={onMobileMenuBtnClick}
-        />
-        <Link
-          to={PagePaths.homePath}
-          aria-label={AriaLabels.logo}
-          className={ClassNames.logo}
-        >
-          <Logo />
-        </Link>
-        <NavLinks navLinks={navLinks} />
-        <PrivateLinks navLinks={privateLinks} />
-        <Link
-          to={PagePaths.basketPath}
-          aria-label={AriaLabels.basket}
-          className={ClassNames.basket}
-        >
-          <PiBasketBold />
-        </Link>
-        {showMobileMenu && (
-          <MobileMenu
-            onNavLinkClick={onNavLinkClick}
-            navLinks={navLinks}
-            privateLinks={privateLinks}
+        <div className='headerWrapper'>
+          <MobileMenuBtn
+            showMobileMenu={showMobileMenu}
+            onBtnClick={onMobileMenuBtnClick}
           />
-        )}
-      </Container>
-      <Container>
-        <HeaderSearchInput />
+          <Link
+            to={PagePaths.homePath}
+            aria-label={AriaLabels.logo}
+            className={ClassNames.logo}
+          >
+            <Logo />
+          </Link>
+          <NavLinks navLinks={navLinks} />
+          {isDesktopScreen && <HeaderSearchInput />}
+          <PrivateLinks navLinks={privateLinks} />
+          <Link
+            to={PagePaths.basketPath}
+            aria-label={AriaLabels.basket}
+            className={ClassNames.basket}
+          >
+            <PiBasketBold />
+          </Link>
+          {showMobileMenu && (
+            <MobileMenu
+              onNavLinkClick={onNavLinkClick}
+              navLinks={navLinks}
+              privateLinks={privateLinks}
+            />
+          )}
+        </div>
+        {!isDesktopScreen && <HeaderSearchInput />}
       </Container>
     </StyledHeader>
   );

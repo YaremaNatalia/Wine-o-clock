@@ -48,8 +48,7 @@ export interface IWine {
   number_in_stock: number;
   sale?: boolean;
   discount?: number;
+  [key: string]: string | number | boolean | undefined;
 }
 
-export type IWineKeys = {
-  [key: string]: string | number | boolean | undefined;
-};
+

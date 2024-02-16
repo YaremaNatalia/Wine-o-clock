@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
 
 export const Form = styled.form`
-  margin: 0 auto;
-  margin-top: 8px;
   position: relative;
   width: 100%;
 
