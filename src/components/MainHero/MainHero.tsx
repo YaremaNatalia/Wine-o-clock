@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Container from '@/components/Container';
 import Section from '@/components/Section';
-import { ButtonTypes } from '@/constants';
+import { ButtonTypes, theme } from '@/constants';
 import Button from '@/components/Button';
 import { hero } from '@/images/mainPage';
 import W from '@/icons/letters/mob/wIcon.svg?react';
@@ -48,17 +48,23 @@ import {
 
 const MainHero: FC = () => {
   const [screenSize, setScreenSize] = useState({
-    isDesktopScreen: typeof window !== 'undefined' && window.innerWidth >= 1440,
-    isTabletScreen: window.innerWidth >= 768 && window.innerWidth < 1440,
-    isMobileScreen: window.innerWidth >= 320 && window.innerWidth < 768,
+    isDesktopScreen:
+      typeof window !== 'undefined' &&
+      window.innerWidth >= theme.breakpoints.desktop,
+    isTabletScreen:
+      window.innerWidth >= theme.breakpoints.tablet &&
+      window.innerWidth < theme.breakpoints.desktop,
+    isMobileScreen: window.innerWidth < theme.breakpoints.tablet,
   });
 
   useEffect(() => {
     const handleWindowResize = () => {
       setScreenSize({
-        isDesktopScreen: window.innerWidth >= 1440,
-        isTabletScreen: window.innerWidth >= 768 && window.innerWidth < 1440,
-        isMobileScreen: window.innerWidth >= 320 && window.innerWidth < 768,
+        isDesktopScreen: window.innerWidth >= theme.breakpoints.desktop,
+        isTabletScreen:
+          window.innerWidth >= theme.breakpoints.tablet &&
+          window.innerWidth < theme.breakpoints.desktop,
+        isMobileScreen: window.innerWidth < theme.breakpoints.tablet,
       });
     };
 

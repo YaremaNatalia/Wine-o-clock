@@ -9,6 +9,17 @@ export const StyledHeader = styled.header`
 
   & > div {
     display: flex;
+    flex-direction: column;
+    gap: ${({ theme }) => theme.spacing(4)};
+
+    @media screen and (min-width: 768px) {
+      gap: ${({ theme }) => theme.spacing(2)};
+    }
+  }
+
+  .headerWrapper {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
 
@@ -62,6 +73,10 @@ export const StyledHeader = styled.header`
       @media screen and (min-width: 1440px) {
         padding: 18px;
       }
+    }
+
+    @media screen and (min-width: 1440px) {
+      flex-wrap: nowrap;
     }
   }
 

@@ -12,7 +12,7 @@
     "price": 12.5,
     "description": "88 pts Robert Parker - A pale yellow wine with a green hue. It has a fresh and crisp nose demonstrating its youthful character, with predominantly citrus and green apple aromas and good minerality. Its fresh acidity, light and well-balanced body with its fruit and alcohol content lend it a lively and prolonged finish.",
     "number_in_stock": 8,
-    "sale": true,
+    "sale": false,
     "discount": 5
   },
   {
@@ -28,7 +28,7 @@
     "price": 20,
     "description": "A classic Rioja Reserva with a deep ruby color. Aromas of ripe black fruit, vanilla, and spices. Smooth and balanced on the palate with well-integrated tannins and a long, elegant finish.",
     "number_in_stock": 15,
-    "sale": false,
+    "sale": true,
     "discount": 0
   },
   {
