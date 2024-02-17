@@ -1,5 +1,5 @@
 import { FormTypes, InputTypes } from '@/constants';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, ReactNode } from 'react';
 
 export interface IProps {
   formType: FormTypes;
@@ -11,9 +11,16 @@ export interface IProps {
   label?: string;
   leftDistance?: number;
   type?: InputTypes;
+  altElem?: ReactNode;
+  checked?: boolean;
+  description?: ReactNode;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface IStyledProps {
   formType: FormTypes;
+}
+
+export interface IStyledCheckboxProps {
+  checked: boolean | undefined;
 }

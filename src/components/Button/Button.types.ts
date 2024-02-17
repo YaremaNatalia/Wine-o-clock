@@ -10,6 +10,7 @@ export interface IProps {
   type?: ButtonTypes;
   transparentBody?: boolean;
   buttonDesign?: ButtonDesign;
+  disabled?: boolean;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 

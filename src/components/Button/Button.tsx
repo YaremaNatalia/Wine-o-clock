@@ -11,6 +11,7 @@ const Button: FC<IProps> = ({
   fontSize,
   type = ButtonTypes.button,
   buttonDesign,
+  disabled,
   onClick,
 }) => (
   <StyledButton
@@ -21,6 +22,7 @@ const Button: FC<IProps> = ({
     type={type}
     onClick={onClick}
     buttonDesign={buttonDesign}
+    disabled={disabled}
   >
     {title}
   </StyledButton>

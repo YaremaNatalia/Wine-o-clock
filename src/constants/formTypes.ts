@@ -2,7 +2,7 @@ const enum FormTypes {
   subscribe = 'subscribe',
   search = 'search',
   register = 'register',
-  logIn = 'logIn',
+  auth = 'auth',
 }
 
 export default FormTypes;

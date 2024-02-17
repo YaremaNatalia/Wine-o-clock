@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { IStyledProps } from './Input.types';
+import { IStyledCheckboxProps, IStyledProps } from './Input.types';
 import {
   setInputBorder,
   setInputHeight,
@@ -84,3 +84,11 @@ export const StyledInput = styled.input<IStyledProps>`
       2}px;
   }
 `;
+
+export const InputContainer = styled.div`
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: space-between; */
+`;
+
+export const AltElem = styled.label<IStyledCheckboxProps>``;
