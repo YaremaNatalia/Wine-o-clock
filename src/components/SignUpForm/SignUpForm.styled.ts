@@ -37,9 +37,34 @@ export const Form = styled.form`
 export const PrivacyPolicyContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 302px;
+  gap: ${({ theme }) => theme.spacing(4)};
   margin-top: ${({ theme }) => theme.spacing(8)};
 
   @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     flex-direction: column-reverse;
+    gap: ${({ theme }) => theme.spacing(6)};
+  }
+
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
+    width: 432px;
+
+    & > div {
+      padding-left: ${({ theme }) => theme.spacing(3)};
+      padding-right: ${({ theme }) => theme.spacing(3)};
+    }
+  }
+`;
+
+export const PrivacyPolicy = styled.p`
+  color: ${({ theme }) => theme.colors.primaryBlack};
+  font-family: ${({ theme }) => theme.fontFamily.primaryFontFamily};
+  font-size: 14px;
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
+  line-height: 1.21;
+
+  & a {
+    color: ${({ theme }) => theme.colors.primaryBurgundy};
+    text-decoration: underline;
   }
 `;

@@ -86,9 +86,34 @@ export const StyledInput = styled.input<IStyledProps>`
 `;
 
 export const InputContainer = styled.div`
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: space-between; */
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing(5)};
 `;
 
-export const AltElem = styled.label<IStyledCheckboxProps>``;
+export const AltElem = styled.label<IStyledCheckboxProps>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border: 1.6px solid;
+  border-color: ${({ checked }) => (checked ? 'transparent' : '#eae9e9')};
+  background-color: ${({ checked, theme }) =>
+    checked ? theme.colors.primaryBurgundy : 'transparent'};
+  cursor: pointer;
+  transition: background-color ${({ theme }) => theme.transitionDurationAndFunc},
+    border-color ${({ theme }) => theme.transitionDurationAndFunc};
+
+  & input {
+    position: fixed;
+    transform: scale(0);
+  }
+
+  &:has([type='checkbox']) svg {
+    color: ${({ theme, checked }) =>
+      checked ? theme.colors.primaryWhite : 'transparent'};
+    transition: color ${({ theme }) => theme.transitionDurationAndFunc};
+  }
+`;

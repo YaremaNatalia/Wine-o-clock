@@ -3,6 +3,7 @@ const enum IconSizes {
   defaultSize = 24,
   primarySize = 20,
   secondarySize = 18,
+  checkbox = 16,
   otherSize = 32,
 }
 
