@@ -15,6 +15,7 @@ interface ITheme {
     decorativeColor: string;
     primaryAccentColor: string;
     fillGreyColor: string;
+    decorativeLightGrey: string;
   };
   fontFamily: {
     primaryFontFamily: FontFamilyNames;
@@ -69,6 +70,7 @@ const theme: ITheme = {
     decorativeColor: '#6C6C6C',
     primaryAccentColor: '#540016',
     fillGreyColor: '#F6F6F6',
+    decorativeLightGrey: '#EFEFEF',
   },
   fontFamily: {
     primaryFontFamily: FontFamilyNames.montserrat,

@@ -7,6 +7,7 @@ export const MainHeroStyled = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding-top: ${({ theme }) => theme.spacing(10)};
 
   & > div {
     display: flex;
@@ -46,6 +47,10 @@ export const MainHeroStyled = styled.div`
         }
       }
     }
+  }
+
+  @media screen and (min-width: 768px) {
+    padding-top: ${({ theme }) => theme.spacing(8)};
   }
 `;
 
