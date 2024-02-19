@@ -8,17 +8,17 @@ const setInputWidth = ({
   const isTabletBreakpoint = breakpoint === theme.breakpoints.tablet;
   const isDesktopBreakpoint = breakpoint === theme.breakpoints.desktop;
   const isSearchForm = formType === FormTypes.search;
-  const isLogInForm = formType === FormTypes.logIn;
+  const isAuthForm = formType === FormTypes.auth;
 
   if (isSearchForm && isDesktopBreakpoint) {
     return '363px';
   }
 
-  if (isLogInForm && (isTabletBreakpoint || isDesktopBreakpoint)) {
+  if (isAuthForm && (isTabletBreakpoint || isDesktopBreakpoint)) {
     return '432px';
   }
 
-  if (isLogInForm) {
+  if (isAuthForm) {
     return '302px';
   }
 

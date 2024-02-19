@@ -9,7 +9,7 @@ const setInputPadding = ({
   const isDesktopBreakpoint = breakpoint === theme.breakpoints.desktop;
   const isSearchForm = formType === FormTypes.search;
   const isRegisterForm = formType === FormTypes.register;
-  const isLogInForm = formType === FormTypes.logIn;
+  const isAuthForm = formType === FormTypes.auth;
   const isSubscribeForm = formType === FormTypes.subscribe;
 
   if (
@@ -30,7 +30,7 @@ const setInputPadding = ({
     return '0 16px 0 16px';
   }
 
-  if (isRegisterForm || isLogInForm) {
+  if (isRegisterForm || isAuthForm) {
     return '0 19px 0 19px';
   }
 

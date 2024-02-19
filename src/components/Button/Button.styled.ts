@@ -29,4 +29,8 @@ export const StyledButton = styled.button<IStyledProps>`
     border-color: ${({ buttonDesign }) => setBtnBorderColorHover(buttonDesign)};
     color: ${({ buttonDesign }) => setBtnFontColorHover(buttonDesign)};
   }
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.secondaryGrey};
+  }
 `;
