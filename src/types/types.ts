@@ -47,6 +47,7 @@ export interface IWine {
   number_in_stock: number;
   sale?: boolean;
   discount?: number;
+  [key: string]: string | number | boolean | undefined;
 }
 
 export type IWineKeys = {
@@ -60,3 +61,4 @@ export interface INewUser {
   phone: string;
   password: string;
 }
+
