@@ -12,14 +12,12 @@ export const Title = styled.p`
   font-family: ${({ theme }) => theme.fontFamily.primaryFontFamily};
   font-size: 18px;
   font-weight: ${({ theme }) => theme.fontWeight.semiBold};
-  line-height: 3.89;
+  line-height: 1.11;
   letter-spacing: 2.2%;
   text-align: center;
 
   @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     font-size: 32px;
-    line-height: 2.19;
-    letter-spacing: 2.2%;
   }
 `;
 
