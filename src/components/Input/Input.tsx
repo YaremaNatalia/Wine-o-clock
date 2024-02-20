@@ -1,11 +1,26 @@
 import { FC, forwardRef } from 'react';
 import { IProps } from './Input.types';
-import { Label, StyledInput, Title } from './Input.styled';
+import {
+  AltElem,
+  InputContainer,
+  Label,
+  StyledInput,
+  Title,
+} from './Input.styled';
 import { InputTypes } from '@/constants';
 
 const Input: FC<IProps> = forwardRef<HTMLInputElement, IProps>(
   (
-    { formType, settings, label, type = InputTypes.text, ...otherProps },
+    {
+      formType,
+      settings,
+      label,
+      type = InputTypes.text,
+      altElem,
+      checked,
+      description,
+      ...otherProps
+    },
     ref
   ) => {
     const input = (
@@ -17,6 +32,19 @@ const Input: FC<IProps> = forwardRef<HTMLInputElement, IProps>(
         {...otherProps}
       />
     );
+
+    if (type === InputTypes.checkbox) {
+      return (
+        <InputContainer>
+          <AltElem checked={checked}>
+            {altElem}
+            {input}
+          </AltElem>
+          {description}
+        </InputContainer>
+      );
+    }
+
     return label ? (
       <Label>
         <Title formType={formType}>{label}</Title>

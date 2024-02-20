@@ -1,4 +1,4 @@
-import { ClassNames, theme } from '@/constants';
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const Header = styled.div`
@@ -29,34 +29,6 @@ export const Form = styled.form`
     margin-bottom: ${({ theme }) => theme.spacing(2)};
   }
 
-  & a[class=${ClassNames.signUpLink}] {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 48px;
-    border: 1px solid;
-    border-color: ${({ theme }) => theme.colors.primaryBurgundy};
-    border-radius: 24px;
-    color: ${({ theme }) => theme.colors.primaryBurgundy};
-    font-family: ${({ theme }) => theme.fontFamily.primaryFontFamily};
-    font-size: 16px;
-    font-weight: ${({ theme }) => theme.fontWeight.regular};
-    line-height: 1.25;
-  }
-
-  & > a {
-    display: block;
-    margin-top: ${({ theme }) => theme.spacing(4)};
-    color: #f42408;
-    font-family: ${({ theme }) => theme.fontFamily.primaryFontFamily};
-    font-size: 14px;
-    font-weight: ${({ theme }) => theme.fontWeight.medium};
-    line-height: 1.71;
-    letter-spacing: 1.1%;
-    text-align: center;
-    text-decoration-line: underline;
-  }
-
   @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     padding: ${({ theme }) =>
       `${theme.spacing(8)} ${theme.spacing(20)} ${theme.spacing(8)}`};
@@ -64,27 +36,40 @@ export const Form = styled.form`
     & > label:not(:last-of-type) {
       margin-bottom: ${({ theme }) => theme.spacing(4)};
     }
-
-    & > a {
-      margin-top: ${({ theme }) => theme.spacing(9)};
-    }
   }
 `;
 
-export const ButtonsWrap = styled.div`
+export const PrivacyPolicyContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 302px;
   gap: ${({ theme }) => theme.spacing(4)};
   margin-top: ${({ theme }) => theme.spacing(8)};
 
   @media screen and (min-width: ${theme.breakpoints.tablet}px) {
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 0;
+    flex-direction: column-reverse;
+    gap: ${({ theme }) => theme.spacing(6)};
+  }
 
-    & button,
-    & a {
-      width: 208px;
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
+    width: 432px;
+
+    & > div {
+      padding-left: ${({ theme }) => theme.spacing(3)};
+      padding-right: ${({ theme }) => theme.spacing(3)};
     }
+  }
+`;
+
+export const PrivacyPolicy = styled.p`
+  color: ${({ theme }) => theme.colors.primaryBlack};
+  font-family: ${({ theme }) => theme.fontFamily.primaryFontFamily};
+  font-size: 14px;
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
+  line-height: 1.21;
+
+  & a {
+    color: ${({ theme }) => theme.colors.primaryBurgundy};
+    text-decoration: underline;
   }
 `;

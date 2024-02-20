@@ -25,7 +25,6 @@ export type PrivateLinks = Readonly<IPrivateLink[]>;
 
 export type BtnClickEvent = MouseEvent<HTMLButtonElement>;
 
-
 export type LinkClickEvent = MouseEvent<HTMLAnchorElement>;
 
 export interface ICredentials {
@@ -51,4 +50,15 @@ export interface IWine {
   [key: string]: string | number | boolean | undefined;
 }
 
+export type IWineKeys = {
+  [key: string]: string | number | boolean | undefined;
+};
+
+export interface INewUser {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  password: string;
+}
 

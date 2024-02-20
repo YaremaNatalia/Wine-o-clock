@@ -4,6 +4,7 @@ import { PagePaths } from '@/constants';
 import MainPage from '@/pages/MainPage';
 import PrivateRoute from '@/components/PrivateRoute';
 import LoginPage from '@/pages/LoginPage';
+import SignUpPage from '@/pages/SignUpPage';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           element={<div>favoritesPath</div>}
         />
         <Route path={PagePaths.logInPath} element={<LoginPage />} />
+        <Route path={PagePaths.signUpPath} element={<SignUpPage />} />
         <Route path={PagePaths.basketPath} element={<div>basketPath</div>} />
         <Route path='*' element={<div>notFound</div>} />
       </Route>
