@@ -85,9 +85,6 @@ const SignUpForm: FC = () => {
             sidePadding={20}
             title='Sign up'
             disabled={!agree}
-            onClick={() => {
-              console.log(11111);
-            }}
           />
           <Input
             formType={FormTypes.auth}
