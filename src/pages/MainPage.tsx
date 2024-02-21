@@ -1,10 +1,10 @@
 import MainHero from '@/components/MainHero';
 import MainQualities from '@/components/MainQualities';
 import MainWineTime from '@/components/MainWineTime';
-import WineList from '@/components/WineList';
 import { FC } from 'react';
 
 import wineData from '../utils/data.json';
+import MainWineListSection from '@/components/MainWineListSection';
 
 const MainPage: FC = () => {
   const sales = wineData.filter((wine) => wine.isSale);
@@ -18,15 +18,17 @@ const MainPage: FC = () => {
     <>
       <MainHero />
       {newWines.length > 0 && (
-        <WineList wines={newWines} sectionTitle='New collection' />
+        <MainWineListSection wines={newWines} sectionTitle='New collection' />
       )}
       <MainWineTime />
       {bestsellers.length > 0 && (
-        <WineList wines={bestsellers} sectionTitle='Bestsellers' />
+        <MainWineListSection wines={bestsellers} sectionTitle='Bestsellers' />
       )}
       <MainQualities />
 
-      {sales.length > 0 && <WineList wines={sales} sectionTitle='Sales' />}
+      {sales.length > 0 && (
+        <MainWineListSection wines={sales} sectionTitle='Sales' />
+      )}
     </>
   );
 };

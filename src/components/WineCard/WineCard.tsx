@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { IProps } from './WineCard.types';
 import { IoMdHeartEmpty } from 'react-icons/io';
 import { WineCardStyled } from './WineCard.styled';
-import IconButton from '../IconButton';
+import IconButton from '@/components/IconButton';
 import { AriaLabels, ButtonTypes } from '@/constants';
 import BasketPlus from '@/icons/basketPlus.svg?react';
 
@@ -26,7 +26,7 @@ const WineCard: FC<IProps> = ({ wine }) => {
   };
   return (
     <WineCardStyled>
-     <div className='imgWrapper'>
+      <div className='imgWrapper'>
         <img className='wineImg' src={imageUrl} alt='Wine image' />
         <div className='iconsWrapper'>
           <div className='labelWrapper'>
@@ -35,7 +35,7 @@ const WineCard: FC<IProps> = ({ wine }) => {
           </div>
           <IoMdHeartEmpty />
         </div>
-     </div>
+      </div>
       <div className='wineCardInfo'>
         <p className='wineName'>{wineName}</p>
         <p className='wineCountry'>{country.name}</p>
