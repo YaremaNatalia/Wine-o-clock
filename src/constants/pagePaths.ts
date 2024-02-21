@@ -8,6 +8,7 @@ const enum PagePaths {
   forgotPasswordPath = '/forgot-password',
   signUpPath = '/signup',
   logInPath = '/login',
+  confOfRegPath = 'confirmation-of-registration',
 }
 
 export default PagePaths;
