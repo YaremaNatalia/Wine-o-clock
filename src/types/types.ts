@@ -87,3 +87,11 @@ export interface IComment {
   comment: string;
   addedCommentTime: string;
 }
+
+export interface INewUser {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  password: string;
+}
