@@ -55,7 +55,7 @@ const MainAgeModal: FC<IProps> = ({ onModalClose }) => {
         reset();
       }
     } catch (error) {
-      toast.error('Error subscribing to email. Please try again.');
+      toast.error('Error. Please try again.');
       reset();
     }
   };
