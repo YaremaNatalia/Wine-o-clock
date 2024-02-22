@@ -95,3 +95,5 @@ export interface INewUser {
   phone: string;
   password: string;
 }
+
+export type ConfOfReg = Pick<INewUser, 'password'>;

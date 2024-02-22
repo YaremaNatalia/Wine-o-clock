@@ -5,6 +5,7 @@ import MainPage from '@/pages/MainPage';
 import PrivateRoute from '@/components/PrivateRoute';
 import LoginPage from '@/pages/LoginPage';
 import SignUpPage from '@/pages/SignUpPage';
+import ConfOfRegPage from '@/pages/ConfOfRegPage';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         />
         <Route path={PagePaths.logInPath} element={<LoginPage />} />
         <Route path={PagePaths.signUpPath} element={<SignUpPage />} />
+        <Route path={PagePaths.confOfRegPath} element={<ConfOfRegPage />} />
         <Route path={PagePaths.basketPath} element={<div>basketPath</div>} />
         <Route path='*' element={<div>notFound</div>} />
       </Route>
