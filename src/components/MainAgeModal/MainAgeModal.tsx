@@ -39,7 +39,7 @@ const MainAgeModal: FC<IProps> = ({ onModalClose }) => {
       const { year1, year2, year3, year4 } = data;
       const age = currentYear - parseInt(`${year1}${year2}${year3}${year4}`);
       console.log(age);
-      if (age >= 18 && age <= 90) {
+      if (age >= 18 && age <= 99) {
         onModalClose();
       } else {
         toast(
