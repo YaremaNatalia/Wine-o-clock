@@ -1,12 +1,28 @@
 import MainHero from '@/components/MainHero';
 import MainQualities from '@/components/MainQualities';
 import MainWineTime from '@/components/MainWineTime';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import wineData from '../utils/data.json';
 import MainWineListSection from '@/components/MainWineListSection';
+import ModalWin from '@/components/ModalWin';
+import MainAgeModal from '@/components/MainAgeModal';
 
 const MainPage: FC = () => {
+  const [ageModalIsOpen, setAgeModalIsOpen] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAgeModalIsOpen(true);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleCloseAgeModal = () => {
+    setAgeModalIsOpen(false);
+  };
+
   const sales = wineData.filter((wine) => wine.isSale);
   const newWines = wineData.filter((wine) => wine.isNewCollection);
 
@@ -28,6 +44,11 @@ const MainPage: FC = () => {
 
       {sales.length > 0 && (
         <MainWineListSection wines={sales} sectionTitle='Sales' />
+      )}
+      {ageModalIsOpen && (
+        <ModalWin>
+          <MainAgeModal onModalClose={handleCloseAgeModal} />
+        </ModalWin>
       )}
     </>
   );
