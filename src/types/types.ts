@@ -33,26 +33,60 @@ export interface ICredentials {
 }
 
 export interface IWine {
-  _id: string;
-  name: string;
-  photo: string;
-  color: string;
-  sweetness: string;
-  country: string;
-  region?: string;
-  volume: string;
-  alcohol: string;
+  id: number;
+  wineName: string;
   price: number;
-  description: string;
-  number_in_stock: number;
-  sale?: boolean;
-  discount?: number;
-  [key: string]: string | number | boolean | undefined;
+  adminDiscountPercentage: number;
+  wineDescription: string;
+  quantity: number;
+  bottleCapacity: string;
+  alcohol: string;
+  isNewCollection: boolean;
+  isBestSeller: boolean;
+  isSale: boolean;
+  isWineTimePromotion: boolean;
+  winemaking: string;
+  grapeVarieties: string;
+  tastingNotes: string;
+  storeAndServeAdvices: string;
+  foodPairing: string;
+  reviewsAndAwards?: string;
+  wineColor: string;
+  sugarConsistency: string;
+  country: ICountry;
+  region: IRegion;
+  evaluation?: number;
+  wineComments?: IComment[];
+  bottlesSoldCounter: number;
+  addedDateTime: string;
+  imageUrl: string;
+  [key: string]:
+    | string
+    | number
+    | boolean
+    | ICountry
+    | IRegion
+    | IComment[]
+    | undefined;
 }
 
-export type IWineKeys = {
-  [key: string]: string | number | boolean | undefined;
-};
+export interface ICountry {
+  id: number;
+  name: string;
+}
+
+export interface IRegion {
+  id: number;
+  name: string;
+}
+
+export interface IComment {
+  id: number;
+  userFirstName: string;
+  userLastName: string;
+  comment: string;
+  addedCommentTime: string;
+}
 
 export interface INewUser {
   email: string;

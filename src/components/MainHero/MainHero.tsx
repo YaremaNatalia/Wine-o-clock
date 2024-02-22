@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Container from '@/components/Container';
-import Section from '@/components/Section';
 import { ButtonTypes, theme } from '@/constants';
 import Button from '@/components/Button';
 import { hero } from '@/images/mainPage';
@@ -75,146 +74,144 @@ const MainHero: FC = () => {
   }, [screenSize]);
 
   return (
-    <Section>
-      <MainHeroStyled>
-        <Container>
-          <HeroTitle>
-            <span className='firstHeroLine'>buy craft wine</span> <br />
-            from our catalog <br />
-            <span className='thirdHeroLine'>
-              with <span className='freeDelivery'>free delivery</span>
-            </span>
-          </HeroTitle>
-          <p>
-            All people need something that helps us calm down at the end of the
-            day, a great way to fill this gap can be compensated through a glass
-            of wine.
-          </p>
-          <Link to='/store'>
-            <Button
-              title='Shop now'
-              width={327}
-              height={43}
-              sidePadding={20}
-              fontSize={14}
-              type={ButtonTypes.button}
-              onClick={(e) => {
-                e.currentTarget.blur();
-              }}
-            />
-          </Link>
-        </Container>
-        <HeroPictureWrapper>
-          <picture>
-            <source
-              srcSet={`${hero.heroDesk1xWebp} 1x, ${hero.heroDesk2xWebp} 2x`}
-              type='image/webp'
-              media='(min-width: 1440px)'
-            />
-            <source
-              srcSet={`${hero.heroTab1xWebp} 1x, ${hero.heroTab2xWebp} 2x`}
-              type='image/webp'
-              media='(min-width: 768px)'
-            />
-            <source
-              srcSet={`${hero.heroMob1xWebp} 1x, ${hero.heroMob2xWebp} 2x`}
-              type='image/webp'
-              media='(min-width: 320px)'
-            />
-            <source
-              srcSet={`${hero.heroDesk1xJpg} 1x, ${hero.heroDesk2xJpg} 2x,`}
-              media='(min-width: 1440px)'
-            />
-            <source
-              srcSet={`${hero.heroTab1xJpg} 1x, ${hero.heroTab2xJpg} 2x,`}
-              media='(min-width: 768px)'
-            />
-            <source
-              srcSet={`${hero.heroMob1xJpg} 1x, ${hero.heroMob2xJpg} 2x,`}
-              media='(min-width: 320px)'
-            />
-            <img src={`${hero.heroMob1xJpg}`} alt='Hero image' />
-          </picture>
+    <MainHeroStyled>
+      <Container>
+        <HeroTitle>
+          <span className='firstHeroLine'>buy craft wine</span> <br />
+          from our catalog <br />
+          <span className='thirdHeroLine'>
+            with <span className='freeDelivery'>free delivery</span>
+          </span>
+        </HeroTitle>
+        <p>
+          All people need something that helps us calm down at the end of the
+          day, a great way to fill this gap can be compensated through a glass
+          of wine.
+        </p>
+        <Link to='/store'>
+          <Button
+            title='Shop now'
+            width={327}
+            height={43}
+            sidePadding={20}
+            fontSize={14}
+            type={ButtonTypes.button}
+            onClick={(e) => {
+              e.currentTarget.blur();
+            }}
+          />
+        </Link>
+      </Container>
+      <HeroPictureWrapper>
+        <picture>
+          <source
+            srcSet={`${hero.heroDesk1xWebp} 1x, ${hero.heroDesk2xWebp} 2x`}
+            type='image/webp'
+            media='(min-width: 1440px)'
+          />
+          <source
+            srcSet={`${hero.heroTab1xWebp} 1x, ${hero.heroTab2xWebp} 2x`}
+            type='image/webp'
+            media='(min-width: 768px)'
+          />
+          <source
+            srcSet={`${hero.heroMob1xWebp} 1x, ${hero.heroMob2xWebp} 2x`}
+            type='image/webp'
+            media='(min-width: 320px)'
+          />
+          <source
+            srcSet={`${hero.heroDesk1xJpg} 1x, ${hero.heroDesk2xJpg} 2x,`}
+            media='(min-width: 1440px)'
+          />
+          <source
+            srcSet={`${hero.heroTab1xJpg} 1x, ${hero.heroTab2xJpg} 2x,`}
+            media='(min-width: 768px)'
+          />
+          <source
+            srcSet={`${hero.heroMob1xJpg} 1x, ${hero.heroMob2xJpg} 2x,`}
+            media='(min-width: 320px)'
+          />
+          <img src={`${hero.heroMob1xJpg}`} alt='Hero image' />
+        </picture>
 
-          <SvgTopLine>
-            {screenSize.isMobileScreen ? (
-              <>
-                <W />
-                <E />
-                <L />
-                <O />
-                <V />
-                <E />
-                <L />
-                <I />
-                <F />
-                <E />
-              </>
-            ) : screenSize.isTabletScreen ? (
-              <>
-                <WTab />
-                <ETab />
-                <LTab />
-                <OTab />
-                <VTab />
-                <ETab />
-                <LTab />
-                <ITab />
-                <FTab />
-                <ETab />
-              </>
-            ) : (
-              <>
-                <WDesk />
-                <EDesk />
-                <LDesk />
-                <ODesk />
-                <VDesk />
-                <EDesk />
-                <LDesk />
-                <IDesk />
-                <FDesk />
-                <EDesk />
-              </>
-            )}
-          </SvgTopLine>
+        <SvgTopLine>
+          {screenSize.isMobileScreen ? (
+            <>
+              <W />
+              <E />
+              <L />
+              <O />
+              <V />
+              <E />
+              <L />
+              <I />
+              <F />
+              <E />
+            </>
+          ) : screenSize.isTabletScreen ? (
+            <>
+              <WTab />
+              <ETab />
+              <LTab />
+              <OTab />
+              <VTab />
+              <ETab />
+              <LTab />
+              <ITab />
+              <FTab />
+              <ETab />
+            </>
+          ) : (
+            <>
+              <WDesk />
+              <EDesk />
+              <LDesk />
+              <ODesk />
+              <VDesk />
+              <EDesk />
+              <LDesk />
+              <IDesk />
+              <FDesk />
+              <EDesk />
+            </>
+          )}
+        </SvgTopLine>
 
-          <SvgBottomLine>
-            {screenSize.isMobileScreen ? (
-              <>
-                <A />
-                <N />
-                <D />
-                <W />
-                <I />
-                <N />
-                <E />
-              </>
-            ) : screenSize.isTabletScreen ? (
-              <>
-                <ATab />
-                <NTab />
-                <DTab />
-                <WTab />
-                <ITab />
-                <NTab />
-                <ETab />
-              </>
-            ) : (
-              <>
-                <ADesk />
-                <NDesk />
-                <DDesk />
-                <WDesk />
-                <IDesk />
-                <NDesk />
-                <EDesk />
-              </>
-            )}
-          </SvgBottomLine>
-        </HeroPictureWrapper>
-      </MainHeroStyled>
-    </Section>
+        <SvgBottomLine>
+          {screenSize.isMobileScreen ? (
+            <>
+              <A />
+              <N />
+              <D />
+              <W />
+              <I />
+              <N />
+              <E />
+            </>
+          ) : screenSize.isTabletScreen ? (
+            <>
+              <ATab />
+              <NTab />
+              <DTab />
+              <WTab />
+              <ITab />
+              <NTab />
+              <ETab />
+            </>
+          ) : (
+            <>
+              <ADesk />
+              <NDesk />
+              <DDesk />
+              <WDesk />
+              <IDesk />
+              <NDesk />
+              <EDesk />
+            </>
+          )}
+        </SvgBottomLine>
+      </HeroPictureWrapper>
+    </MainHeroStyled>
   );
 };
 

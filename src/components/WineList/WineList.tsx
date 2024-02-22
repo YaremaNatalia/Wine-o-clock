@@ -1,16 +1,22 @@
 import { FC } from 'react';
 
-import { WineListStyled } from './Wine.list.styled';
-import { IProps } from './WineList.types';
 import WineCard from '@/components/WineCard';
+import Container from '@/components/Container';
+import Section from '@/components/Section';
+import { IProps } from './WineList.types';
+import { WineListStyled } from './WineList.styled';
 
 const WineList: FC<IProps> = ({ wines }) => {
   return (
-    <WineListStyled>
-      {wines.map((wine) => (
-        <WineCard key={wine._id} wine={wine} />
-      ))}
-    </WineListStyled>
+    <Section>
+      <Container>
+        <WineListStyled>
+          {wines.map((wine) => (
+            <WineCard key={wine.id} wine={wine} />
+          ))}
+        </WineListStyled>
+      </Container>
+    </Section>
   );
 };
 
