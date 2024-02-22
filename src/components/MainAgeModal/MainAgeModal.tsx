@@ -18,10 +18,11 @@ const CustomToast: FC<{ message: string }> = ({ message }) => {
     <div
       style={{
         backgroundColor: 'white',
-        color: 'black',
+        color: '#7C0021',
         padding: '10px 20px',
         borderRadius: '8px',
         textAlign: 'center',
+        fontWeight: 'bold',
         zIndex: 9999,
       }}
     >
