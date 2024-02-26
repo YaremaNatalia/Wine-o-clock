@@ -115,15 +115,15 @@ export const WineCardStyled = styled.li`
         height: 70px;
         width: 70px;
       }
-    }
 
-    svg {
-      height: 32px;
-      width: 32px;
+      svg {
+        height: 32px;
+        width: 32px;
 
-      @media screen and (min-width: 1440px) {
-        height: 42px;
-        width: 42px;
+        @media screen and (min-width: 1440px) {
+          height: 42px;
+          width: 42px;
+        }
       }
     }
   }

@@ -21,7 +21,6 @@ const HeaderSearchInput: FC = () => {
   });
 
   const [wines, setWines] = useState<IWine[]>([]);
-
   const [isButtonActive, setIsButtonActive] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
