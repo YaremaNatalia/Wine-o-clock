@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { FormData, IProps } from './MainAgeModal.types';
 import Button from '../Button';
 import { ButtonTypes } from '@/constants';
+import CustomToast from '../CustomToast';
 import {
   FormStyled,
   Input,
@@ -13,37 +14,47 @@ import {
   NumbStyled,
 } from './MainAgeModal.styled';
 
-const CustomToast: FC<{ message: string }> = ({ message }) => {
-  return (
-    <div
-      style={{
-        backgroundColor: 'white',
-        color: '#7C0021',
-        padding: '10px 20px',
-        borderRadius: '8px',
-        textAlign: 'center',
-        fontWeight: 'bold',
-        zIndex: 9999,
-      }}
-    >
-      {message}
-    </div>
-  );
-};
-
 const MainAgeModal: FC<IProps> = ({ onModalClose }) => {
-  const { handleSubmit, register, reset } = useForm<FormData>();
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { isValid },
+  } = useForm<FormData>();
+
+  // const useInputWithFocus = (
+  //   ref: React.MutableRefObject<(HTMLInputElement | null)[]>,
+  //   index: number,
+  //   focusNextInput: (currentIndex: number) => void
+  // ) => {
+  //   return {
+  //     ref: (el: HTMLInputElement | null) => {
+  //       ref.current[index] = el;
+  //     },
+  //     onChange: () => {
+  //       focusNextInput(index);
+  //     },
+  //   };
+  // };
+
+  // const inputRefs = useRef<HTMLInputElement[]>([]);
+
+  // const focusNextInput = (currentInputIndex: number) => {
+  //   const nextInputIndex = currentInputIndex + 1;
+  //   if (inputRefs.current[nextInputIndex]) {
+  //     inputRefs.current[nextInputIndex]?.focus();
+  //   }
+  // };
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     try {
       const currentYear = new Date().getFullYear();
       const { year1, year2, year3, year4 } = data;
       const age = currentYear - parseInt(`${year1}${year2}${year3}${year4}`);
-      console.log(age);
       if (age >= 18 && age <= 99) {
         onModalClose();
       } else {
-        toast(
+        toast.error(
           <CustomToast
             message='We are sorry, 
                 according to your age, 
@@ -76,29 +87,48 @@ const MainAgeModal: FC<IProps> = ({ onModalClose }) => {
           <Input
             type='text'
             inputMode='numeric'
-            {...register('year1', { required: true })}
+            placeholder='0'
+            {...register('year1', {
+              required: true,
+              pattern: /^[0-9]*$/,
+            })}
             maxLength={1}
+            // {...useInputWithFocus(inputRefs, 0, focusNextInput)}
           />
           <Input
             type='text'
             inputMode='numeric'
-            {...register('year2', { required: true })}
+            placeholder='0'
+            {...register('year2', {
+              required: true,
+              pattern: /^[0-9]*$/,
+            })}
             maxLength={1}
+            // {...useInputWithFocus(inputRefs, 1, focusNextInput)}
           />
           <Input
             type='text'
             inputMode='numeric'
-            {...register('year3', { required: true })}
+            placeholder='0'
+            {...register('year3', {
+              required: true,
+              pattern: /^[0-9]*$/,
+            })}
             maxLength={1}
+            // {...useInputWithFocus(inputRefs, 2, focusNextInput)}
           />
           <Input
             type='text'
             inputMode='numeric'
-            {...register('year4', { required: true })}
+            placeholder='0'
+            {...register('year4', {
+              required: true,
+              pattern: /^[0-9]*$/,
+            })}
             maxLength={1}
+            // {...useInputWithFocus(inputRefs, 3, focusNextInput)}
           />
         </InputContainer>
-
         <Button
           title='Confirm'
           height={48}
@@ -108,6 +138,7 @@ const MainAgeModal: FC<IProps> = ({ onModalClose }) => {
           onClick={(e) => {
             e.currentTarget.blur();
           }}
+          disabled={!isValid}
         />
       </FormStyled>
     </MainAgeModalStyled>

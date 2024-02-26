@@ -97,3 +97,13 @@ export interface INewUser {
 }
 
 export type ConfOfReg = Pick<INewUser, 'password'>;
+
+export interface IPagination<T> {
+  currentPage: number;
+  currentItems: T[];
+  totalPages: number;
+  toNextPage: () => void;
+  toPrevPage: () => void;
+}
+
+export type ScreenSize = 'mobile' | 'tablet' | 'desktop';

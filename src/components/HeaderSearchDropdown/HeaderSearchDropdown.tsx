@@ -1,5 +1,4 @@
-import { IWine } from '@/types/types';
-import { Dispatch, FC, SetStateAction } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import {
   SearchDropdownStyled,
   StyledNavLink,
@@ -8,32 +7,42 @@ import {
   WinePhoto,
   WinePrice,
 } from './HeaderSearchDropdown.styled';
+import { IProps } from './HeaderSearchDropdown.type';
 
-interface IHeaderSearchDropdown {
-  wines: IWine[];
-  resetForm: () => void;
-  setWines: Dispatch<SetStateAction<IWine[]>>;
-}
+const HeaderSearchDropdown: FC<IProps> = ({ wines, resetForm, setWines }) => {
+  const dropdownRef = useRef<HTMLUListElement>(null);
 
-const HeaderSearchDropdown: FC<IHeaderSearchDropdown> = ({
-  wines,
-  resetForm,
-  setWines,
-}) => {
   const handleClick = () => {
     resetForm();
     setWines([]);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        resetForm();
+        setWines([]);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [resetForm, setWines]);
+
   return (
-    <SearchDropdownStyled>
-      {wines.map((wine) => (
-        <li key={wine.id}>
+    <SearchDropdownStyled ref={dropdownRef}>
+      {wines.map(({ id, wineName, price, imageUrl }) => (
+        <li key={id}>
           <StyledNavLink to='/store' onClick={handleClick}>
-            <WinePhoto src={wine.imageUrl} alt={wine.wineName} />
+            <WinePhoto src={imageUrl} alt={wineName} />
             <WineDetails>
-              <WineName>{wine.wineName}</WineName>
-              <WinePrice>${wine.price}</WinePrice>
+              <WineName>{wineName}</WineName>
+              <WinePrice>${price}</WinePrice>
             </WineDetails>
           </StyledNavLink>
         </li>

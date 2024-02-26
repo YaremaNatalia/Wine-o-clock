@@ -72,14 +72,18 @@ export const InputContainer = styled.div`
 export const Input = styled.input`
   width: 44px;
   height: 61px;
-  border: 1px solid ${({ theme }) => theme.colors.modalYearColor};
+  border: 1px solid ${({ theme }) => theme.colors.modalInputColor};
   text-align: center;
-  font-size: 25px;
-  color: ${({ theme }) => theme.colors.modalYearColor};
+  font-size: 35px;
+  color: ${({ theme }) => theme.colors.modalInputColor};
 
   @media screen and (min-width: 768px) {
-    width: 64px;
+    width: 65px;
     height: 81px;
-    font-size: 40px;
+    font-size: 46px;
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.placeholderColor};
   }
 `;

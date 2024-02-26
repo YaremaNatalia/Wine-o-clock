@@ -9,3 +9,7 @@ export { default as setBtnFontColor } from './setBtnFontColor';
 export { default as setBtnBgColorHover } from './setBtnBgColorHover';
 export { default as setBtnBorderColorHover } from './setBtnBorderColorHover';
 export { default as setBtnFontColorHover } from './setBtnFontColorHover';
+export { default as keysToExclude } from './setSearchKeysToExclude';
+export { default as usePagination } from './usePagination';
+export { default as useWindowResize } from './useWindowResize';
+export { default as setAnimationLetterSize } from './setAnimationLetterSize';

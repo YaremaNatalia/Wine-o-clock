@@ -11,6 +11,7 @@ import { IoSearch } from 'react-icons/io5';
 import wineData from '../../utils/data.json';
 import { IWine } from '@/types/types';
 import HeaderSearchDropdown from '@/components/HeaderSearchDropdown';
+import { keysToExclude } from '@/utils';
 
 const HeaderSearchInput: FC = () => {
   const { register, reset } = useForm<FormData>({
@@ -28,20 +29,6 @@ const HeaderSearchInput: FC = () => {
 
     if (query.length >= 2) {
       setIsButtonActive(true);
-
-      const keysToExclude = [
-        'id',
-        'imageUrl',
-        'wineDescription',
-        'quantity',
-        'wineComments',
-        'bottlesSoldCounter',
-        'addedDateTime',
-        'bottleCapacity',
-        'evaluation',
-        'adminDiscountPercentage',
-        'alcohol',
-      ];
 
       const result = wineData.filter((wine: IWine) => {
         if (query === 'sale') {
