@@ -46,14 +46,17 @@ export const MainWineListSectionStyled = styled.div`
       border-radius: 50%;
       border: 1px solid ${({ theme }) => theme.colors.decorativeLightGrey};
       padding: ${({ theme }) => theme.spacing(1.5)};
-      cursor: pointer;
-
       margin: 0;
+      cursor: pointer;
 
       @media screen and (min-width: 768px) {
         width: ${({ theme }) => theme.spacing(10)};
         height: ${({ theme }) => theme.spacing(10)};
         padding: ${({ theme }) => theme.spacing(2.5)};
+      }
+
+      svg {
+        color: ${({ theme }) => theme.colors.primaryBlack};
       }
     }
 

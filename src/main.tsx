@@ -13,7 +13,7 @@ createRoot(document.getElementById('root') as HTMLElement).render(
       <ThemeProvider theme={theme}>
         <App />
         <GlobalStyles />
-        <Toaster position='top-right' reverseOrder={false} />
+        <Toaster position='top-center' reverseOrder={false} />
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
