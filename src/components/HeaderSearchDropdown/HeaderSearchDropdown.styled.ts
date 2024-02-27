@@ -33,13 +33,15 @@ export const StyledNavLink = styled(NavLink)`
 `;
 
 export const WinePhoto = styled.img`
+
   width: 80px;
   min-width: 80px;
   height: 80px;
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 export const WineDetails = styled.div`
+width: 200px;
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing(1)};

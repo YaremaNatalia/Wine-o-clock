@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Input from '@/components/Input';
@@ -8,10 +8,11 @@ import { Form } from './HeaderSearchInput.styled';
 import IconButton from '@/components/IconButton';
 import { IoSearch } from 'react-icons/io5';
 
-import wineData from '../../utils/data.json';
+// import wineData from '../../utils/data.json';
 import { IWine } from '@/types/types';
 import HeaderSearchDropdown from '@/components/HeaderSearchDropdown';
 import { keysToExclude } from '@/utils';
+import axios from 'axios';
 
 const HeaderSearchInput: FC = () => {
   const { register, reset } = useForm<FormData>({
@@ -19,9 +20,24 @@ const HeaderSearchInput: FC = () => {
       search: '',
     },
   });
-
-  const [wines, setWines] = useState<IWine[]>([]);
+  const [fetchWines, setFetchWines] = useState<IWine[]>([]);
+  const [searchResults, setSearchResults] = useState<IWine[]>([]);
   const [isButtonActive, setIsButtonActive] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          'https://craft-wine-shop.onrender.com/api/v1/craft_wines'
+        );
+        setFetchWines(response.data);
+      } catch (error) {
+        console.error('Error fetching wine data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value.toLowerCase();
@@ -29,7 +45,7 @@ const HeaderSearchInput: FC = () => {
     if (query.length >= 2) {
       setIsButtonActive(true);
 
-      const result = wineData.filter((wine: IWine) => {
+      const result = fetchWines.filter((wine: IWine) => {
         if (query === 'sale') {
           return wine.isSale === true;
         } else {
@@ -51,10 +67,10 @@ const HeaderSearchInput: FC = () => {
         }
       });
 
-      setWines(result);
+      setSearchResults(result);
     } else {
       setIsButtonActive(false);
-      setWines([]);
+      setSearchResults([]);
     }
   };
 
@@ -67,8 +83,8 @@ const HeaderSearchInput: FC = () => {
     } catch (error) {
       console.error('Error:', error);
       reset();
-      setWines([]);
       setIsButtonActive(false);
+      setSearchResults([]);
     }
   };
 
@@ -93,11 +109,11 @@ const HeaderSearchInput: FC = () => {
       >
         <IoSearch size={20} />
       </IconButton>
-      {wines.length > 0 && (
+      {searchResults.length > 0 && (
         <HeaderSearchDropdown
-          wines={wines}
+          wines={searchResults}
           resetForm={reset}
-          setWines={setWines}
+          setWines={setSearchResults}
         />
       )}
     </Form>

@@ -7,7 +7,7 @@ export const MainAgeModalStyled = styled.div`
   justify-content: center;
   align-items: center;
   width: 80vw;
-  height: 80vh;
+  height: 350px;
   padding: ${({ theme }) => theme.spacing(6)};
 
   @media screen and (min-width: 768px) {
