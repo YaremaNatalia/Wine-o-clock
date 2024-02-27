@@ -5,9 +5,9 @@ import MainWineTime from '@/components/MainWineTime';
 import MainWineListSection from '@/components/MainWineListSection';
 import ModalWin from '@/components/ModalWin';
 import MainAgeModal from '@/components/MainAgeModal';
-// import { $instance } from '@/utils/backendURL';
+import { $instance } from '@/utils/backendURL';
 import { IWine } from '@/types/types';
-import axios from 'axios';
+
 
 const MainPage: FC = () => {
   const [ageModalIsOpen, setAgeModalIsOpen] = useState(false);
@@ -16,10 +16,7 @@ const MainPage: FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = await $instance.get('v1/craft_wines');
-        const response = await axios.get(
-          'https://craft-wine-shop.onrender.com/api/v1/craft_wines'
-        );
+        const response = await $instance.get('v1/craft_wines');
         setWineData(response.data);
       } catch (error) {
         console.error('Error fetching wine data:', error);

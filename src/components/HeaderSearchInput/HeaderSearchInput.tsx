@@ -7,12 +7,10 @@ import { FormData } from './HeaderSearchInput.types';
 import { Form } from './HeaderSearchInput.styled';
 import IconButton from '@/components/IconButton';
 import { IoSearch } from 'react-icons/io5';
-
-// import wineData from '../../utils/data.json';
 import { IWine } from '@/types/types';
 import HeaderSearchDropdown from '@/components/HeaderSearchDropdown';
 import { keysToExclude } from '@/utils';
-import axios from 'axios';
+import { $instance } from '@/utils/backendURL';
 
 const HeaderSearchInput: FC = () => {
   const { register, reset } = useForm<FormData>({
@@ -27,9 +25,7 @@ const HeaderSearchInput: FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          'https://craft-wine-shop.onrender.com/api/v1/craft_wines'
-        );
+        const response = await $instance.get('v1/craft_wines');
         setFetchWines(response.data);
       } catch (error) {
         console.error('Error fetching wine data:', error);
