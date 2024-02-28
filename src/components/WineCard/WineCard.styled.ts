@@ -63,8 +63,13 @@ export const WineCardStyled = styled.li`
   }
 
   .wineImg {
-    width: 100%;
-    height: 100%;
+    margin: 0 auto;
+    width: auto;
+    height: 194px;
+
+    @media screen and (min-width: 1440px) {
+      height: 346px;
+    }
   }
 
   .wineNewLabel {
