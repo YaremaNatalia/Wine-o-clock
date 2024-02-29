@@ -25,7 +25,7 @@ const MainAgeModal: FC<IProps> = ({ onModalClose }) => {
   const move = (
     event: React.KeyboardEvent<HTMLInputElement>,
     toInpId: string
-  ) => {
+  ): void => {
     const fromInp = event.currentTarget;
     const length = fromInp.value.length;
     const maxLength = parseInt(fromInp.getAttribute('maxLength') || '0');

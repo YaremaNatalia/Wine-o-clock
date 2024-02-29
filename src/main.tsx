@@ -6,15 +6,20 @@ import GlobalStyles from '@/components/GlobalStyles';
 import { theme } from '@/constants';
 import App from '@/components/App';
 import { Toaster } from 'react-hot-toast';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const client = new QueryClient();
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <App />
-        <GlobalStyles />
-        <Toaster position='top-center' reverseOrder={false} />
-      </ThemeProvider>
-    </BrowserRouter>
+    <QueryClientProvider client={client}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <App />
+          <GlobalStyles />
+          <Toaster position='top-center' reverseOrder={false} />
+        </ThemeProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 );
