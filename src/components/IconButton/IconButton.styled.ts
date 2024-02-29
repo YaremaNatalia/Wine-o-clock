@@ -9,6 +9,7 @@ export const Button = styled.button<IStyledProps>`
   height: ${({ btnSize }) => btnSize}px;
   border-color: transparent;
   border-radius: 50%;
+  padding: 0;
   background-color: ${({ theme }) => theme.colors.primaryBurgundy};
   transition: background-color ${({ theme }) => theme.transitionDurationAndFunc};
 
