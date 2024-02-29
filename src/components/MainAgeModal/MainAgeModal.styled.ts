@@ -72,6 +72,7 @@ export const InputContainer = styled.div`
 export const Input = styled.input`
   width: 44px;
   height: 61px;
+  padding: 0;
   border: 1px solid ${({ theme }) => theme.colors.modalInputColor};
   text-align: center;
   font-size: 35px;

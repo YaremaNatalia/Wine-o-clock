@@ -22,29 +22,25 @@ const MainAgeModal: FC<IProps> = ({ onModalClose }) => {
     formState: { isValid },
   } = useForm<FormData>();
 
-  // const useInputWithFocus = (
-  //   ref: React.MutableRefObject<(HTMLInputElement | null)[]>,
-  //   index: number,
-  //   focusNextInput: (currentIndex: number) => void
-  // ) => {
-  //   return {
-  //     ref: (el: HTMLInputElement | null) => {
-  //       ref.current[index] = el;
-  //     },
-  //     onChange: () => {
-  //       focusNextInput(index);
-  //     },
-  //   };
-  // };
+  const move = (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    toInpId: string
+  ) => {
+    const fromInp = event.currentTarget;
+    const length = fromInp.value.length;
+    const maxLength = parseInt(fromInp.getAttribute('maxLength') || '0');
 
-  // const inputRefs = useRef<HTMLInputElement[]>([]);
+    if (length === maxLength) {
+      document.getElementById(toInpId)?.focus();
+    }
 
-  // const focusNextInput = (currentInputIndex: number) => {
-  //   const nextInputIndex = currentInputIndex + 1;
-  //   if (inputRefs.current[nextInputIndex]) {
-  //     inputRefs.current[nextInputIndex]?.focus();
-  //   }
-  // };
+    if (event.key === 'Backspace' && length === 0) {
+      const prevInput = fromInp.previousElementSibling as HTMLInputElement;
+      if (prevInput) {
+        prevInput.focus();
+      }
+    }
+  };
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     try {
@@ -85,6 +81,7 @@ const MainAgeModal: FC<IProps> = ({ onModalClose }) => {
       <FormStyled onSubmit={handleSubmit(onSubmit)}>
         <InputContainer>
           <Input
+            id='inp1'
             type='text'
             inputMode='numeric'
             placeholder='0'
@@ -93,9 +90,10 @@ const MainAgeModal: FC<IProps> = ({ onModalClose }) => {
               pattern: /^[0-9]*$/,
             })}
             maxLength={1}
-            // {...useInputWithFocus(inputRefs, 0, focusNextInput)}
+            onKeyUp={(e) => move(e, 'inp2')}
           />
           <Input
+            id='inp2'
             type='text'
             inputMode='numeric'
             placeholder='0'
@@ -104,9 +102,10 @@ const MainAgeModal: FC<IProps> = ({ onModalClose }) => {
               pattern: /^[0-9]*$/,
             })}
             maxLength={1}
-            // {...useInputWithFocus(inputRefs, 1, focusNextInput)}
+            onKeyUp={(e) => move(e, 'inp3')}
           />
           <Input
+            id='inp3'
             type='text'
             inputMode='numeric'
             placeholder='0'
@@ -115,9 +114,10 @@ const MainAgeModal: FC<IProps> = ({ onModalClose }) => {
               pattern: /^[0-9]*$/,
             })}
             maxLength={1}
-            // {...useInputWithFocus(inputRefs, 2, focusNextInput)}
+            onKeyUp={(e) => move(e, 'inp4')}
           />
           <Input
+            id='inp4'
             type='text'
             inputMode='numeric'
             placeholder='0'
@@ -126,7 +126,7 @@ const MainAgeModal: FC<IProps> = ({ onModalClose }) => {
               pattern: /^[0-9]*$/,
             })}
             maxLength={1}
-            // {...useInputWithFocus(inputRefs, 3, focusNextInput)}
+            onKeyUp={(e) => move(e, '')}
           />
         </InputContainer>
         <Button
