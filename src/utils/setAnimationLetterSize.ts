@@ -59,11 +59,11 @@ const setAnimationTopLetterSize = (screenSize: ScreenSize) => {
 const setAnimationBottomLetterSize = (screenSize: ScreenSize) => {
   switch (screenSize) {
     case 'mobile':
-      return [A, D, N, W, I, N, E];
+      return [A, N, D, W, I, N, E];
     case 'tablet':
-      return [ATab, DTab, NTab, WTab, ITab, NTab, ETab];
+      return [ATab, NTab, DTab, WTab, ITab, NTab, ETab];
     case 'desktop':
-      return [ADesk, DDesk, NDesk, WDesk, IDesk, NDesk, EDesk];
+      return [ADesk, NDesk, DDesk, WDesk, IDesk, NDesk, EDesk];
     default:
       return [];
   }
