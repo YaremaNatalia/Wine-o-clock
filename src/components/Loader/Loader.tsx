@@ -7,7 +7,7 @@ const Loader: FC = () => (
     <RotatingLines
       visible={true}
       width='56'
-      strokeColor='#3470FF'
+      strokeColor='#7C0021'
       strokeWidth='5'
       animationDuration='0.75'
       ariaLabel='rotating-lines-loading'

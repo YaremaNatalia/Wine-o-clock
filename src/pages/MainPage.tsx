@@ -5,29 +5,27 @@ import MainWineTime from '@/components/MainWineTime';
 import MainWineListSection from '@/components/MainWineListSection';
 import ModalWin from '@/components/ModalWin';
 import MainAgeModal from '@/components/MainAgeModal';
-import { $instance } from '@/utils/backendURL';
 import { IWine } from '@/types/types';
-
+import { useQuery } from '@tanstack/react-query';
+import { fetchAllWines } from '@/query/wines/operations';
+import Loader from '@/components/Loader';
 
 const MainPage: FC = () => {
   const [ageModalIsOpen, setAgeModalIsOpen] = useState(false);
-  const [wineData, setWineData] = useState<IWine[]>([]);
+
+  const {
+    data: wineData,
+    isLoading,
+    isSuccess,
+  } = useQuery<IWine[]>({
+    queryFn: () => fetchAllWines(),
+    queryKey: ['wines'],
+  });
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await $instance.get('v1/craft_wines');
-        setWineData(response.data);
-      } catch (error) {
-        console.error('Error fetching wine data:', error);
-      }
-    };
-
-    fetchData();
-
     const timer = setTimeout(() => {
       setAgeModalIsOpen(true);
-    }, 3000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -35,6 +33,9 @@ const MainPage: FC = () => {
   const handleCloseAgeModal = () => {
     setAgeModalIsOpen(false);
   };
+
+  if (isLoading) return <Loader />;
+  if (!isSuccess) return <div>page 404</div>;
 
   const sales = wineData.filter((wine) => wine.isSale);
   const newWines = wineData.filter((wine) => wine.isNewCollection);
