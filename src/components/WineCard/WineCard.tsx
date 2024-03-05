@@ -5,6 +5,7 @@ import { WineCardStyled } from './WineCard.styled';
 import IconButton from '@/components/IconButton';
 import { AriaLabels, ButtonTypes } from '@/constants';
 import BasketPlus from '@/icons/basketPlus.svg?react';
+import { BtnClickEvent } from '@/types/types';
 
 const WineCard: FC<IProps> = ({ wine }) => {
   const {
@@ -16,14 +17,11 @@ const WineCard: FC<IProps> = ({ wine }) => {
     isNewCollection,
   } = wine;
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    try {
-      console.log('click');
-      e.currentTarget.blur();
-    } catch (error) {
-      console.error('Error:', error);
-    }
+  const handleClick = (e: BtnClickEvent) => {
+    console.log('click');
+    e.currentTarget.blur();
   };
+
   return (
     <WineCardStyled>
       <div className='imgWrapper'>
