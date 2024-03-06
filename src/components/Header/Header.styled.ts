@@ -25,10 +25,17 @@ export const StyledHeader = styled.header`
 
     & a[class=${ClassNames.logo}] {
       display: inline-block;
+
       & svg {
         display: block;
         width: 86px;
         height: 32px;
+
+        transition: ${({ theme }) => theme.transitionDurationAndFunc};
+        &:hover,
+        &:focus {
+          transform: scale(1.1);
+        }
 
         @media screen and (min-width: 768px) {
           width: 122px;

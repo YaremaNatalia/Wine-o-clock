@@ -1,6 +1,6 @@
 import { $instance } from '@/utils/backendURL';
 
-export const fetchAllWines = async () => {
+  const getAllWines = async () => {
   try {
     const response = await $instance.get('v1/craft_wines');
     return response.data;
@@ -8,3 +8,12 @@ export const fetchAllWines = async () => {
     console.error('Error fetching wine data:', error);
   }
 };
+
+
+
+const operations = {
+  getAllWines,
+ 
+};
+
+export default operations;

@@ -7,8 +7,10 @@ import ModalWin from '@/components/ModalWin';
 import MainAgeModal from '@/components/MainAgeModal';
 import { IWine } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
-import { fetchAllWines } from '@/query/wines/operations';
+
 import Loader from '@/components/Loader';
+
+import { QueryKeys, operations } from '@/tanStackQuery';
 
 const MainPage: FC = () => {
   const [ageModalIsOpen, setAgeModalIsOpen] = useState(false);
@@ -18,8 +20,8 @@ const MainPage: FC = () => {
     isLoading,
     isSuccess,
   } = useQuery<IWine[]>({
-    queryFn: () => fetchAllWines(),
-    queryKey: ['wines'],
+    queryFn: () => operations.getAllWines(),
+    queryKey: [QueryKeys.wines],
   });
 
   useEffect(() => {
@@ -39,12 +41,9 @@ const MainPage: FC = () => {
 
   const sales = wineData.filter((wine) => wine.isSale);
   const newWines = wineData.filter((wine) => wine.isNewCollection);
-
-  // const bestsellers = wineData
-  //   .filter((wine) => wine.bottlesSoldCounter > 0)
-  //   .sort((a, b) => b.bottlesSoldCounter - a.bottlesSoldCounter);
-
-  const bestsellers = wineData.filter((wine) => wine.isBestSeller);
+  const bestsellers = wineData
+    .filter((wine) => wine.isBestSeller)
+    .sort((a, b) => b.bottlesSoldCounter - a.bottlesSoldCounter);
 
   return (
     <>
