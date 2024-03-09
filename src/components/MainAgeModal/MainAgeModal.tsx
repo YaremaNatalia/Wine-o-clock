@@ -131,9 +131,6 @@ const MainAgeModal: FC<IProps> = ({ onModalClose }) => {
         </InputContainer>
         <Button
           title='Confirm'
-          height={48}
-          sidePadding={20}
-          fontSize={14}
           type={ButtonTypes.submit}
           onClick={(e) => {
             e.currentTarget.blur();

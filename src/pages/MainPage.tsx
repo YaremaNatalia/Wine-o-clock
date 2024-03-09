@@ -11,6 +11,7 @@ import { useQuery } from '@tanstack/react-query';
 import Loader from '@/components/Loader';
 
 import { QueryKeys, operations } from '@/tanStackQuery';
+import NotFoundPage from './NotFoundPage';
 
 const MainPage: FC = () => {
   const [ageModalIsOpen, setAgeModalIsOpen] = useState(false);
@@ -37,7 +38,9 @@ const MainPage: FC = () => {
   };
 
   if (isLoading) return <Loader />;
-  if (!isSuccess) return <div>page 404</div>;
+  if (!isSuccess) {
+    return <NotFoundPage />;
+  }
 
   const sales = wineData.filter((wine) => wine.isSale);
   const newWines = wineData.filter((wine) => wine.isNewCollection);

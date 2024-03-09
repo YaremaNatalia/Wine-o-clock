@@ -7,6 +7,7 @@ import { ButtonTypes, FormTypes, InputTypes } from '@/constants';
 import Button from '@/components/Button';
 import { Form } from './FooterSubscribe.styled';
 import { FormData } from './FooterSubscribe.types';
+import ButtonForms from '@/constants/buttonForms';
 
 const Subscribe: FC = () => {
   const { handleSubmit, control, reset } = useForm<FormData>({
@@ -41,11 +42,9 @@ const Subscribe: FC = () => {
       />
 
       <Button
+        buttonForm={ButtonForms.other}
         title='Subscribe'
         width={120}
-        height={48}
-        sidePadding={20}
-        fontSize={16}
         type={ButtonTypes.submit}
         onClick={(e) => {
           e.currentTarget.blur();

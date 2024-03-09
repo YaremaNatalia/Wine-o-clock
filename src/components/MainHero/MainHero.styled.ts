@@ -33,6 +33,7 @@ export const MainHeroStyled = styled.div`
 
     & > a {
       margin-right: auto;
+      width: 100%;
 
       & > button {
         margin-bottom: ${({ theme }) => theme.spacing(15)};
@@ -40,10 +41,13 @@ export const MainHeroStyled = styled.div`
         @media screen and (min-width: 768px) {
           margin-bottom: ${({ theme }) => theme.spacing(7)};
           width: 245px;
-          height: 48px;
+          
         }
         @media screen and (min-width: 1440px) {
           margin-bottom: ${({ theme }) => theme.spacing(12)};
+          width: 275px;
+         
+     
         }
       }
     }

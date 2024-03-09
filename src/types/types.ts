@@ -1,9 +1,15 @@
-import { AriaLabels, FormTypes, PagePaths } from '@/constants';
+import { AriaLabels,  FormTypes, PagePaths } from '@/constants';
+import ButtonForms from '@/constants/buttonForms';
 import { MouseEvent } from 'react';
 import { IconType } from 'react-icons';
 
 export interface ISetInputStyleProps {
   formType: FormTypes;
+  breakpoint?: number;
+}
+
+export interface ISetButtonStyleProps {
+  buttonForm: ButtonForms;
   breakpoint?: number;
 }
 

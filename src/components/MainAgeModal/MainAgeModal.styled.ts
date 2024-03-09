@@ -47,12 +47,8 @@ export const FormStyled = styled.form`
   align-items: center;
 
   button {
-    max-width: 275px;
-
     @media screen and (min-width: 768px) {
       width: 275px;
-      height: 60px;
-      font-size: 16px;
     }
   }
 `;

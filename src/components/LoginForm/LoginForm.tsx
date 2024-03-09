@@ -3,7 +3,13 @@ import { Form, Header, Title, ButtonsWrap } from './LoginForm.styled';
 import Input from '@/components/Input';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ICredentials } from '@/types/types';
-import { ClassNames, FormTypes, InputTypes, PagePaths } from '@/constants';
+import {
+  ButtonForms,
+  ClassNames,
+  FormTypes,
+  InputTypes,
+  PagePaths,
+} from '@/constants';
 import { Link } from 'react-router-dom';
 import Button from '@/components/Button';
 import AlternativeAuthLinks from '@/components/AlternativeAuthLinks';
@@ -41,7 +47,7 @@ const LoginForm: FC = () => {
           leftDistance={19}
         />
         <ButtonsWrap>
-          <Button fontSize={16} height={48} sidePadding={20} title='Log in' />
+          <Button buttonForm={ButtonForms.other} title='Log in' />
           <Link to={PagePaths.signUpPath} className={ClassNames.signUpLink}>
             Sign up
           </Link>
