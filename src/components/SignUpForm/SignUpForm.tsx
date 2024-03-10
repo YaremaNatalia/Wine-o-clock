@@ -1,4 +1,10 @@
-import { FormTypes, IconSizes, InputTypes, PagePaths } from '@/constants';
+import {
+  ButtonTypes,
+  FormTypes,
+  IconSizes,
+  InputTypes,
+  PagePaths,
+} from '@/constants';
 import { INewUser } from '@/types/types';
 import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -13,17 +19,24 @@ import {
 import AlternativeAuthLinks from '@/components/AlternativeAuthLinks';
 import Button from '@/components/Button';
 import { FaCheck } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { operations } from '@/tanStackQuery';
+import toast from 'react-hot-toast';
 
 const SignUpForm: FC = () => {
   const [agree, setAgree] = useState<boolean>(false);
+  const { mutate: signUp } = useMutation({
+    mutationFn: operations.signUp,
+    onSuccess: onSuccessHTTPRequest,
+    onError: onFailedHTTPRequest,
+  });
   const {
     register,
     // formState: { errors, isSubmitting },
     handleSubmit,
-    reset,
   } = useForm<INewUser>();
-
+  const navigate = useNavigate();
   const checkboxDescription = (
     <PrivacyPolicy>
       I have read the <Link to={PagePaths.homePath}>terms and conditions</Link>{' '}
@@ -31,9 +44,16 @@ const SignUpForm: FC = () => {
     </PrivacyPolicy>
   );
 
+  function onSuccessHTTPRequest(): void {
+    navigate(PagePaths.logInPath);
+  }
+
+  function onFailedHTTPRequest(error: Error): void {
+    toast.error(error.message);
+  }
+
   const handleFormSubmit: SubmitHandler<INewUser> = (data) => {
-    console.log(data);
-    reset();
+    signUp(data);
   };
 
   const onCheckboxChange = () => {
@@ -66,7 +86,7 @@ const SignUpForm: FC = () => {
           leftDistance={19}
         />
         <Input
-          settings={{ ...register('phone') }}
+          settings={{ ...register('phoneNumber') }}
           formType={FormTypes.auth}
           label='Phone'
           leftDistance={19}
@@ -78,6 +98,12 @@ const SignUpForm: FC = () => {
           label='Password'
           leftDistance={19}
         />
+        <Input
+          settings={{ ...register('confirmationThePassword') }}
+          formType={FormTypes.auth}
+          label='Confirmation the password'
+          leftDistance={19}
+        />
         <PrivacyPolicyContainer>
           <Button
             fontSize={16}
@@ -85,6 +111,7 @@ const SignUpForm: FC = () => {
             sidePadding={20}
             title='Sign up'
             disabled={!agree}
+            type={ButtonTypes.submit}
           />
           <Input
             formType={FormTypes.auth}

@@ -90,10 +90,11 @@ export interface IComment {
 
 export interface INewUser {
   email: string;
+  password: string;
+  confirmationThePassword: string;
+  phoneNumber: string;
   firstName: string;
   lastName: string;
-  phone: string;
-  password: string;
 }
 
 export type ConfOfReg = Pick<INewUser, 'password'>;
