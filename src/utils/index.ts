@@ -13,3 +13,4 @@ export { default as keysToExclude } from './setSearchKeysToExclude';
 export { default as usePagination } from './usePagination';
 export { default as useWindowResize } from './useWindowResize';
 export { default as setAnimationLetterSize } from './setAnimationLetterSize';
+export { default as setButtonHeight } from './setButtonHeight';

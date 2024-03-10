@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ButtonDesign, ButtonTypes } from '@/constants';
+import { ButtonDesign } from '@/constants';
 import Button from '@/components/Button';
 import { wineTime } from '@/images/mainPage';
 import {
@@ -10,6 +10,7 @@ import {
   WineTimeText,
   WineTimePictureWrapper,
 } from './MainWineTime.styled';
+import { Link } from 'react-router-dom';
 
 const MainWineTime: FC = () => (
   <MainWineTimeStyled>
@@ -57,18 +58,15 @@ const MainWineTime: FC = () => (
         people need something that helps us calm down at the end of the day, a
         great way to fill this gap can be compensated through a glass of wine.
       </p>
-      <Button
-        title='See more'
-        width={327}
-        height={41}
-        sidePadding={20}
-        fontSize={14}
-        type={ButtonTypes.button}
-        buttonDesign={ButtonDesign.white}
-        onClick={(e) => {
-          e.currentTarget.blur();
-        }}
-      />
+      <Link to='/about-us'>
+        <Button
+          title='See more'
+          buttonDesign={ButtonDesign.white}
+          onClick={(e) => {
+            e.currentTarget.blur();
+          }}
+        />
+      </Link>
     </MainWineTimeDescription>
   </MainWineTimeStyled>
 );

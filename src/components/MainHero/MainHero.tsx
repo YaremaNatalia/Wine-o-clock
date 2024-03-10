@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import Container from '@/components/Container';
-import { ButtonTypes } from '@/constants';
 import Button from '@/components/Button';
 import { hero } from '@/images/mainPage';
 import {
@@ -12,6 +11,7 @@ import {
   SvgTopLine,
 } from './MainHero.styled';
 import { setAnimationLetterSize, useWindowResize } from '@/utils';
+
 
 const MainHero: FC = () => {
   const screenSize = useWindowResize();
@@ -48,11 +48,6 @@ const MainHero: FC = () => {
         <Link to='/store'>
           <Button
             title='Shop now'
-            width={327}
-            height={43}
-            sidePadding={20}
-            fontSize={14}
-            type={ButtonTypes.button}
             onClick={(e) => {
               e.currentTarget.blur();
             }}

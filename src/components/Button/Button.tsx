@@ -2,23 +2,20 @@ import { FC } from 'react';
 import { StyledButton } from './Button.styled';
 import { IProps } from './Button.types';
 import { ButtonTypes } from '@/constants';
+import ButtonForms from '@/constants/buttonForms';
 
 const Button: FC<IProps> = ({
+  buttonForm = ButtonForms.button,
   title,
   width,
-  height,
-  sidePadding,
-  fontSize,
   type = ButtonTypes.button,
   buttonDesign,
   disabled,
   onClick,
 }) => (
   <StyledButton
+    buttonForm={buttonForm}
     width={width}
-    height={height}
-    sidePadding={sidePadding}
-    fontSize={fontSize}
     type={type}
     onClick={onClick}
     buttonDesign={buttonDesign}

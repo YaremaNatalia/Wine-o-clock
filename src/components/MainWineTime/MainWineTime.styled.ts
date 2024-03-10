@@ -105,15 +105,16 @@ export const MainWineTimeDescription = styled.div`
     }
   }
 
-  button {
-    @media screen and (min-width: 768px) {
-      width: 158px;
-      height: 40px;
-    }
-    @media screen and (min-width: 1440px) {
-      width: 275px;
-      height: 60px;
-      font-size: 16px;
+  & > a {
+    width: 100%;
+
+    & > button {
+      @media screen and (min-width: 768px) {
+        width: 158px;
+      }
+      @media screen and (min-width: 1440px) {
+        width: 275px;
+      }
     }
   }
 `;
