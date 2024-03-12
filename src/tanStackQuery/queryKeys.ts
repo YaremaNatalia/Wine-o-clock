@@ -1,5 +1,7 @@
 const enum QueryKeys {
-    wines='wines',
+  wines = 'wines',
+  token = 'token',
+  isLoggedIn = 'isLoggedIn',
 }
 
 export default QueryKeys;

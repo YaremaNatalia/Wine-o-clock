@@ -108,3 +108,7 @@ export interface IPagination<T> {
 }
 
 export type ScreenSize = 'mobile' | 'tablet' | 'desktop';
+
+export interface AxiosError {
+  response: { data: { message: string } };
+}

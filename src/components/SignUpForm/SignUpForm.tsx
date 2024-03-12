@@ -1,12 +1,14 @@
 import {
+  AuthParams,
   ButtonTypes,
   FormTypes,
   IconSizes,
   InputTypes,
+  Messages,
   PagePaths,
 } from '@/constants';
-import { INewUser } from '@/types/types';
-import { FC, useState } from 'react';
+import { AxiosError, INewUser } from '@/types/types';
+import { FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Input from '@/components/Input';
 import {
@@ -23,6 +25,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { operations } from '@/tanStackQuery';
 import toast from 'react-hot-toast';
+import regExp from '@/constants/regExp';
 
 const SignUpForm: FC = () => {
   const [agree, setAgree] = useState<boolean>(false);
@@ -33,7 +36,7 @@ const SignUpForm: FC = () => {
   });
   const {
     register,
-    // formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting },
     handleSubmit,
   } = useForm<INewUser>();
   const navigate = useNavigate();
@@ -44,12 +47,41 @@ const SignUpForm: FC = () => {
     </PrivacyPolicy>
   );
 
+  useEffect(() => {
+    errors.email && toast.error(Messages.emailReqErr);
+    errors.firstName &&
+      toast.error(
+        errors.firstName.type === 'required'
+          ? Messages.firstNameReqErr
+          : Messages.firstNameErr
+      );
+    errors.lastName &&
+      toast.error(
+        errors.lastName.type === 'required'
+          ? Messages.lastNameReqErr
+          : Messages.lastNameErr
+      );
+    errors.phoneNumber &&
+      toast.error(
+        errors.phoneNumber.type === 'required'
+          ? Messages.phoneNumberReqErr
+          : Messages.phoneNumberErr
+      );
+    errors.password &&
+      toast.error(
+        errors.password.type === 'required'
+          ? Messages.passwordReqErr
+          : Messages.passwordLengthErr
+      );
+    errors.confirmationThePassword && toast.error(Messages.confThePassReqErr);
+  }, [isSubmitting, errors]);
+
   function onSuccessHTTPRequest(): void {
     navigate(PagePaths.logInPath);
   }
 
-  function onFailedHTTPRequest(error: Error): void {
-    toast.error(error.message);
+  function onFailedHTTPRequest(error: AxiosError): void {
+    toast.error(error.response.data.message);
   }
 
   const handleFormSubmit: SubmitHandler<INewUser> = (data) => {
@@ -67,39 +99,62 @@ const SignUpForm: FC = () => {
       </Header>
       <Form onSubmit={handleSubmit(handleFormSubmit)}>
         <Input
-          settings={{ ...register('email') }}
+          settings={{ ...register('email', { required: true }) }}
           formType={FormTypes.auth}
           label='Email'
           leftDistance={19}
           type={InputTypes.email}
         />
         <Input
-          settings={{ ...register('firstName') }}
+          settings={{
+            ...register('firstName', {
+              required: true,
+              pattern: regExp.name,
+            }),
+          }}
           formType={FormTypes.auth}
           label='First name'
           leftDistance={19}
         />
         <Input
-          settings={{ ...register('lastName') }}
+          settings={{
+            ...register('lastName', {
+              required: true,
+              pattern: regExp.name,
+            }),
+          }}
           formType={FormTypes.auth}
           label='Last name'
           leftDistance={19}
         />
         <Input
-          settings={{ ...register('phoneNumber') }}
+          settings={{
+            ...register('phoneNumber', {
+              required: true,
+              pattern: regExp.phoneNumber,
+            }),
+          }}
           formType={FormTypes.auth}
           label='Phone'
           leftDistance={19}
           type={InputTypes.phone}
         />
         <Input
-          settings={{ ...register('password') }}
+          settings={{
+            ...register('password', {
+              required: true,
+              minLength: AuthParams.passwordMinLength,
+              maxLength: AuthParams.passwordMaxLength,
+            }),
+          }}
           formType={FormTypes.auth}
           label='Password'
           leftDistance={19}
         />
         <Input
-          settings={{ ...register('confirmationThePassword') }}
+          settings={{
+            ...register('confirmationThePassword', { required: true }),
+          }}
           formType={FormTypes.auth}
           label='Confirmation the password'
           leftDistance={19}

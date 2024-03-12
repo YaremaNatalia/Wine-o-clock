@@ -1,4 +1,4 @@
-import { INewUser } from '@/types/types';
+import { ICredentials, INewUser } from '@/types/types';
 import { $instance } from '@/utils/backendURL';
 
 const getAllWines = async () => {
@@ -13,9 +13,13 @@ const getAllWines = async () => {
 const signUp = async (data: INewUser): Promise<void> =>
   await $instance.post('v1/reg/registration', data);
 
+const login = async (data: ICredentials): Promise<void> =>
+  await $instance.post('v1/auth/login', data);
+
 const operations = {
   getAllWines,
   signUp,
+  login,
 };
 
 export default operations;

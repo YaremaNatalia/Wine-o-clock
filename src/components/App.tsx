@@ -6,6 +6,7 @@ import PrivateRoute from '@/components/PrivateRoute';
 import LoginPage from '@/pages/LoginPage';
 import SignUpPage from '@/pages/SignUpPage';
 import ConfOfRegPage from '@/pages/ConfOfRegPage';
+import PublicRoute from './PublicRoute';
 
 const App = () => {
   return (
@@ -20,12 +21,24 @@ const App = () => {
         />
         <Route
           path={PagePaths.favoritesPath}
-          element={<div>favoritesPath</div>}
+          element={<PrivateRoute element={<div>favoritesPath</div>} />}
         />
-        <Route path={PagePaths.logInPath} element={<LoginPage />} />
-        <Route path={PagePaths.signUpPath} element={<SignUpPage />} />
-        <Route path={PagePaths.confOfRegPath} element={<ConfOfRegPage />} />
-        <Route path={PagePaths.basketPath} element={<div>basketPath</div>} />
+        <Route
+          path={PagePaths.logInPath}
+          element={<PublicRoute element={<LoginPage />} restricted />}
+        />
+        <Route
+          path={PagePaths.signUpPath}
+          element={<PublicRoute element={<SignUpPage />} restricted />}
+        />
+        <Route
+          path={PagePaths.confOfRegPath}
+          element={<PublicRoute element={<ConfOfRegPage />} restricted />}
+        />
+        <Route
+          path={PagePaths.basketPath}
+          element={<PrivateRoute element={<div>basketPath</div>} />}
+        />
         <Route path='*' element={<div>notFound</div>} />
       </Route>
     </Routes>
