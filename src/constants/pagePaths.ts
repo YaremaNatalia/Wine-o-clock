@@ -9,6 +9,7 @@ const enum PagePaths {
   signUpPath = '/signup',
   logInPath = '/login',
   confOfRegPath = 'confirmation-of-registration',
+  wineTimePath = 'wine-time',
 }
 
 export default PagePaths;

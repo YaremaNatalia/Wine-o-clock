@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { ButtonDesign } from '@/constants';
 import Button from '@/components/Button';
-import { wineTime } from '@/images/mainPage';
+import { mainWineTime } from '@/images/mainPage';
 import {
   EveryHourText,
   MainWineTimeBg,
@@ -17,34 +17,34 @@ const MainWineTime: FC = () => (
     <WineTimePictureWrapper>
       <picture>
         <source
-          srcSet={`${wineTime.wineTab1xWebp} 1x, ${wineTime.wineTab2xWebp} 2x`}
+          srcSet={`${mainWineTime.wineTab1xWebp} 1x, ${mainWineTime.wineTab2xWebp} 2x`}
           type='image/webp'
           media='(min-width: 1440px)'
         />
         <source
-          srcSet={`${wineTime.wineTab1xWebp} 1x, ${wineTime.wineTab2xWebp} 2x`}
+          srcSet={`${mainWineTime.wineTab1xWebp} 1x, ${mainWineTime.wineTab2xWebp} 2x`}
           type='image/webp'
           media='(min-width: 768px)'
         />
         <source
-          srcSet={`${wineTime.wineMob1xWebp} 1x, ${wineTime.wineMob2xWebp} 2x`}
+          srcSet={`${mainWineTime.wineMob1xWebp} 1x, ${mainWineTime.wineMob2xWebp} 2x`}
           type='image/webp'
           media='(min-width: 320px)'
         />
         <source
-          srcSet={`${wineTime.wineTab1xJpg} 1x, ${wineTime.wineTab2xJpg} 2x,`}
+          srcSet={`${mainWineTime.wineTab1xJpg} 1x, ${mainWineTime.wineTab2xJpg} 2x,`}
           media='(min-width: 1440px)'
         />
         <source
-          srcSet={`${wineTime.wineTab1xJpg} 1x, ${wineTime.wineTab2xJpg} 2x,`}
+          srcSet={`${mainWineTime.wineTab1xJpg} 1x, ${mainWineTime.wineTab2xJpg} 2x,`}
           media='(min-width: 768px)'
         />
         <source
-          srcSet={`${wineTime.wineMob1xJpg} 1x, ${wineTime.wineMob2xJpg} 2x,`}
+          srcSet={`${mainWineTime.wineMob1xJpg} 1x, ${mainWineTime.wineMob2xJpg} 2x,`}
           media='(min-width: 320px)'
         />
         <MainWineTimeBg
-          src={`${wineTime.wineMob1xJpg}`}
+          src={`${mainWineTime.wineMob1xJpg}`}
           alt='Wine time image'
         />
       </picture>
