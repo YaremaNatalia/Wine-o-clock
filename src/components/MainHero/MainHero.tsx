@@ -11,6 +11,7 @@ import {
   SvgTopLine,
 } from './MainHero.styled';
 import { setAnimationLetterSize, useWindowResize } from '@/utils';
+import { PagePaths } from '@/constants';
 
 
 const MainHero: FC = () => {
@@ -45,7 +46,7 @@ const MainHero: FC = () => {
           day, a great way to fill this gap can be compensated through a glass
           of wine.
         </p>
-        <Link to='/store'>
+        <Link to={PagePaths.storePath}>
           <Button
             title='Shop now'
             onClick={(e) => {

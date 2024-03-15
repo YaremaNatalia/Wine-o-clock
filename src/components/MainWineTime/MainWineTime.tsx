@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ButtonDesign } from '@/constants';
+import { ButtonDesign, PagePaths } from '@/constants';
 import Button from '@/components/Button';
 import { mainWineTime } from '@/images/mainPage';
 import {
@@ -58,7 +58,7 @@ const MainWineTime: FC = () => (
         people need something that helps us calm down at the end of the day, a
         great way to fill this gap can be compensated through a glass of wine.
       </p>
-      <Link to='/about-us'>
+      <Link to={PagePaths.aboutUsPath}>
         <Button
           title='See more'
           buttonDesign={ButtonDesign.white}
