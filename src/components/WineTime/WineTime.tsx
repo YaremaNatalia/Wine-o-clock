@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { IWine } from '@/types/types';
+import { FC, useEffect, useState } from 'react';
+import { BtnClickEvent, IWine } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import { QueryKeys, operations } from '@/tanStackQuery';
 
@@ -11,11 +11,19 @@ import WineTimeDescription from '@/components/WineTimeDescription';
 import PageNavigation from '@/components/PageNavigation';
 import WineTimer from '@/components/WineTimer';
 import Button from '@/components/Button';
-import { ButtonDesign } from '@/constants';
+import { ButtonDesign, theme } from '@/constants';
 import NotFoundPage from '@/pages/NotFoundPage';
 import { WineTimeStyled } from './WineTime.styled';
 
 const WineTime: FC = () => {
+  const [displayedWines, setDisplayedWines] = useState(6);
+
+  useEffect(() => {
+    const initialWinesPerPage =
+      window.innerWidth >= theme.breakpoints.tablet ? 8 : 6;
+    setDisplayedWines(initialWinesPerPage);
+  }, []);
+
   const {
     data: wineData,
     isLoading,
@@ -32,6 +40,12 @@ const WineTime: FC = () => {
 
   const wineTimeWines = wineData.filter((wine) => wine.isWineTimePromotion);
 
+  const handleShowMore = (e: BtnClickEvent) => {
+    const winesPerPage = window.innerWidth >= theme.breakpoints.tablet ? 8 : 6;
+    setDisplayedWines((prevDisplayed) => prevDisplayed + winesPerPage);
+    e.currentTarget.blur();
+  };
+
   return (
     <WineTimeStyled>
       <WineTimeHero />
@@ -39,14 +53,16 @@ const WineTime: FC = () => {
       <WineTimeDescription />
       <WineTimer />
       <Container>
-        {wineTimeWines.length > 0 && <WineList wines={wineTimeWines} />}
-        <Button
-          title='Show more'
-          buttonDesign={ButtonDesign.burgundy}
-          onClick={(e) => {
-            e.currentTarget.blur();
-          }}
-        />
+        {wineTimeWines.length > 0 && (
+          <WineList wines={wineTimeWines.slice(0, displayedWines)} />
+        )}
+        {wineTimeWines.length > displayedWines && (
+          <Button
+            title='Show more'
+            buttonDesign={ButtonDesign.burgundy}
+            onClick={handleShowMore}
+          />
+        )}
       </Container>
     </WineTimeStyled>
   );
