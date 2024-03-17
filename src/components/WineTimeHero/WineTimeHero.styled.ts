@@ -21,46 +21,87 @@ export const WineTimeHeroStyled = styled.div`
 export const WineTimeHeroPictureWrapper = styled.div`
   position: relative;
 
-  h2 {
-    text-transform: uppercase;
-    font-family: ${({ theme }) => theme.fontFamily.otherFontFamily};
-    font-size: 32px;
-    font-weight: ${({ theme }) => theme.fontWeight.bold};
+  > div {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+
+    svg {
+      fill: ${({ theme }) => theme.colors.primaryWhite};
+    }
 
     @media screen and (min-width: 768px) {
-      font-size: 34px;
-    }
-
-    @media screen and (min-width: 1440px) {
-      font-size: 83px;
+      gap: 2px;
     }
   }
 `;
 
-export const WineTimeBg = styled.img`
-  
-`;
+export const SvgTopLine = styled.div`
+  /* top: ${({ theme }) => theme.spacing(18)};
+  left: ${({ theme }) => theme.spacing(27)};
 
-export const WineTimeHeroText = styled.h2`
-  position: absolute;
-  top: ${({ theme }) => theme.spacing(32)};
-  left: ${({ theme }) => theme.spacing(10)};
+  @media screen and (min-width: 768px) {
+    top: ${({ theme }) => theme.spacing(18)};
+  } */
 
   @media screen and (min-width: 1440px) {
-    top: ${({ theme }) => theme.spacing(45)};
-    left: ${({ theme }) => theme.spacing(20)};
+    top: ${({ theme }) => theme.spacing(18)};
+    left: ${({ theme }) => theme.spacing(27)};
+  }
+
+  svg:nth-of-type(4) {
+    margin-right: ${({ theme }) => theme.spacing(3)};
+
+    @media screen and (min-width: 768px) {
+      margin-right: ${({ theme }) => theme.spacing(4)};
+    }
+  }
+
+  animation: slideFromLeft 3s ease forwards;
+  @keyframes slideFromLeft {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
 `;
 
-export const EveryHourHeroText = styled.h2`
-  position: absolute;
-  right: ${({ theme }) => theme.spacing(10)};
-  bottom: ${({ theme }) => theme.spacing(32)};
+export const SvgBottomLine = styled.div`
+  /* bottom: ${({ theme }) => theme.spacing(34)};
+  right: ${({ theme }) => theme.spacing(130)};
+
+  @media screen and (min-width: 768px) {
+    bottom: ${({ theme }) => theme.spacing(34)};
+  } */
 
   @media screen and (min-width: 1440px) {
-    bottom: ${({ theme }) => theme.spacing(45)};
-    right: ${({ theme }) => theme.spacing(20)};
+    bottom: ${({ theme }) => theme.spacing(34)};
+    right: ${({ theme }) => theme.spacing(130)};
+  }
+
+  svg:nth-of-type(5) {
+    margin-right: ${({ theme }) => theme.spacing(3)};
+
+    @media screen and (min-width: 768px) {
+      margin-right: ${({ theme }) => theme.spacing(4)};
+    }
+  }
+
+  animation: slideFromRight 3s ease forwards;
+  @keyframes slideFromRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
 `;
 
-
+export const WineTimeBg = styled.img``;
