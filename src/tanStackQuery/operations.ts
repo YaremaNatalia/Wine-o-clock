@@ -9,7 +9,7 @@ import { $instance } from '@/utils/backendURL';
 //   }
 // };
 
-const getAllWines = async (page: number, per_page: number) => {
+const getAllWines = async (page: number = 1, per_page: number = 8) => {
   const response = await $instance.get(
     `v1/craft_wines?page=${page}&per_page=${per_page}`
   );
