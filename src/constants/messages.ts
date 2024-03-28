@@ -1,4 +1,4 @@
-import { AuthParams } from './';
+import AuthParams from './authParams';
 
 const enum Messages {
   emailReqErr = 'Email is required',

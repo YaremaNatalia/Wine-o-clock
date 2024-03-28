@@ -112,3 +112,11 @@ export type ScreenSize = 'mobile' | 'tablet' | 'desktop';
 export interface AxiosError {
   response: { data: { message: string } };
 }
+
+export interface IUser {
+  email: string;
+  firstName: string;
+  lastName: string;
+  deliveryAddress: string;
+  favorites: IWine[];
+}

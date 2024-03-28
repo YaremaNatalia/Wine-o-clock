@@ -19,6 +19,7 @@ import { useMutation } from '@tanstack/react-query';
 import { QueryKeys, client, operations } from '@/tanStackQuery';
 import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
+import { $instance } from '@/utils/backendURL';
 
 const LoginForm: FC = () => {
   const {
@@ -42,8 +43,9 @@ const LoginForm: FC = () => {
       );
   }, [isSubmitting, errors]);
 
-  function onSuccessHTTPRequest(): void {
-    client.setQueryData([QueryKeys.isLoggedIn], true);
+  function onSuccessHTTPRequest(token: string): void {
+    client.setQueryData([QueryKeys.token], token);
+    $instance.defaults.headers.common.Authorization = `Bearer ${token}`;
   }
 
   function onFailedHTTPRequest(error: AxiosError): void {

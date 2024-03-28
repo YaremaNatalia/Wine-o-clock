@@ -7,9 +7,23 @@ import LoginPage from '@/pages/LoginPage';
 import SignUpPage from '@/pages/SignUpPage';
 import ConfOfRegPage from '@/pages/ConfOfRegPage';
 import PublicRoute from './PublicRoute';
+import { useQuery } from '@tanstack/react-query';
+import { QueryKeys, operations } from '@/tanStackQuery';
+import Loader from '@/components/Loader';
+import { IUser } from '@/types/types';
 
 const App = () => {
-  return (
+  const { data: token } = useQuery<string>({
+    queryKey: [QueryKeys.token],
+  });
+  const { isFetching } = useQuery<IUser | null>({
+    queryKey: [QueryKeys.user, token],
+    queryFn: () => operations.refreshUser(token),
+  });
+
+  return isFetching ? (
+    <Loader />
+  ) : (
     <Routes>
       <Route path={PagePaths.homePath} element={<SharedLayout />}>
         <Route path={PagePaths.storePath} element={<div>storePath</div>} />
