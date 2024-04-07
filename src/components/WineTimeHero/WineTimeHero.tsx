@@ -1,6 +1,8 @@
 import { FC } from 'react';
 
 import { wineTimeHero } from '@/images/wineTimePage';
+import WineTime from '@/icons/WINE TIME.svg?react';
+
 import {
   SvgBottomLine,
   SvgTopLine,
@@ -75,6 +77,7 @@ const WineTimeHero: FC = () => {
             <Letter key={index} />
           ))}
         </SvgBottomLine>
+        <WineTime title='Wine time' />
       </WineTimeHeroPictureWrapper>
     </WineTimeHeroStyled>
   );

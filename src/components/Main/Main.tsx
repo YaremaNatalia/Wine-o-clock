@@ -5,7 +5,7 @@ import MainWineTime from '@/components/MainWineTime';
 import MainWineListSection from '@/components/MainWineListSection';
 import ModalWin from '@/components/ModalWin';
 import MainAgeModal from '@/components/MainAgeModal';
-import { IWine } from '@/types/types';
+import { IAllWinesData } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 
 import Loader from '@/components/Loader';
@@ -17,11 +17,7 @@ import NotFoundPage from '@/pages/NotFoundPage';
 const Main: FC = () => {
   const [ageModalIsOpen, setAgeModalIsOpen] = useState(false);
 
-  const {
-    data: wineData,
-    isLoading,
-    isSuccess,
-  } = useQuery<IWine[]>({
+  const { data, isLoading, isSuccess } = useQuery<IAllWinesData>({
     queryFn: () => operations.getAllWines(),
     queryKey: [QueryKeys.wines],
   });
@@ -43,6 +39,7 @@ const Main: FC = () => {
     return <NotFoundPage />;
   }
 
+  const wineData = data.data;
   const sales = wineData.filter((wine) => wine.isSale);
   const newWines = wineData.filter((wine) => wine.isNewCollection);
   const bestsellers = wineData

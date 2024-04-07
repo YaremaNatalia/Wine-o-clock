@@ -28,6 +28,7 @@ export const WineTimeHeroPictureWrapper = styled.div`
 
     svg {
       fill: ${({ theme }) => theme.colors.primaryWhite};
+      /* stroke: ${({ theme }) => theme.colors.primaryBurgundy}; */
     }
 
     @media screen and (min-width: 768px) {
