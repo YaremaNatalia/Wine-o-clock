@@ -1,6 +1,6 @@
 import { $instance } from '@/utils/backendURL';
 
-const getAllWines = async (page: number = 0, limit: number = 8) => {
+const getAllWines = async (page: number = 1, limit: number = 8) => {
   try {
     const response = await $instance.get(
       `v1/craft_wines?page=${page}&limit=${limit}`
@@ -11,7 +11,7 @@ const getAllWines = async (page: number = 0, limit: number = 8) => {
   }
 };
 
-const getPromotion = async (page: number = 0, limit: number = 8) => {
+const getPromotion = async (page: number = 1, limit: number = 8) => {
   try {
     const response = await $instance.get(
       `v1/wine_time_promotion/get_promotion?page=${page}&per_page=${limit}`
@@ -20,6 +20,7 @@ const getPromotion = async (page: number = 0, limit: number = 8) => {
   } catch (error) {
     console.error('Error fetching data:', error);
   }
+
 };
 
 const operations = {

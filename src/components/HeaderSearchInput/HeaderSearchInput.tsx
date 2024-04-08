@@ -7,10 +7,13 @@ import { FormData } from './HeaderSearchInput.types';
 import { Form } from './HeaderSearchInput.styled';
 import IconButton from '@/components/IconButton';
 import { IoSearch } from 'react-icons/io5';
-import { IWine } from '@/types/types';
+import { IAllWinesData, IWine } from '@/types/types';
 import HeaderSearchDropdown from '@/components/HeaderSearchDropdown';
 import { keysToExclude } from '@/utils';
-import { $instance } from '@/utils/backendURL';
+import { QueryKeys, operations } from '@/tanStackQuery';
+import { useQuery } from '@tanstack/react-query';
+import Loader from '@/components/Loader';
+import NotFoundPage from '@/pages/NotFoundPage';
 
 const HeaderSearchInput: FC = () => {
   const { register, reset } = useForm<FormData>({
@@ -22,18 +25,21 @@ const HeaderSearchInput: FC = () => {
   const [searchResults, setSearchResults] = useState<IWine[]>([]);
   const [isButtonActive, setIsButtonActive] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await $instance.get('v1/craft_wines');
-        setFetchWines(response.data);
-      } catch (error) {
-        console.error('Error fetching wine data:', error);
-      }
-    };
+  const { data, isLoading, isSuccess } = useQuery<IAllWinesData>({
+    queryFn: () => operations.getAllWines(),
+    queryKey: [QueryKeys.wines],
+  });
 
-    fetchData();
-  }, []);
+  useEffect(() => {
+    if (isSuccess && data) {
+      setFetchWines(data.data);
+    }
+  }, [isSuccess, data]);
+
+  if (isLoading) return <Loader />;
+  if (!isSuccess) {
+    return <NotFoundPage />;
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value.toLowerCase();

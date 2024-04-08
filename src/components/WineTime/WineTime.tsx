@@ -16,9 +16,9 @@ import NotFoundPage from '@/pages/NotFoundPage';
 import { WineTimeStyled } from './WineTime.styled';
 
 const WineTime: FC = () => {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [promWines, setPromWines] = useState<IWine[]>([]);
-  const [promCountry, setPromCountry] = useState<ICountry[]>([]);
+  const [promCountries, setPromCountries] = useState<ICountry[]>([]);
 
   const perPage = window.innerWidth >= theme.breakpoints.tablet ? 8 : 6;
 
@@ -30,8 +30,8 @@ const WineTime: FC = () => {
   useEffect(() => {
     if (isSuccess && data) {
       const { dataDTO, producedCountryList } = data;
-      setPromWines((prevWines) => [...prevWines, ...dataDTO.data]);
-      setPromCountry(producedCountryList);
+      setPromWines(dataDTO.data);
+      setPromCountries(producedCountryList);
     }
   }, [isSuccess, data]);
 
@@ -42,6 +42,9 @@ const WineTime: FC = () => {
 
   const handleShowMore = async (e: BtnClickEvent) => {
     await refetch();
+    if (isSuccess && data.dataDTO.data) {
+      setPromWines((prevWines) => [...prevWines, ...data.dataDTO.data]);
+    }
     setPage((prevPage) => prevPage + 1);
     e.currentTarget.blur();
   };
@@ -51,7 +54,7 @@ const WineTime: FC = () => {
       <WineTimeHero />
       <PageNavigation firstPageTitle='Main page' secondPageTitle='Wine time' />
       <WineTimeDescription />
-      {promWines.length > 0 && <WineTimer country={promCountry[0]} />}
+      {promWines.length > 0 && <WineTimer countries={promCountries} />}
       <Container>
         {promWines.length > 0 && <WineList wines={promWines} />}
 
