@@ -14,6 +14,7 @@ import Button from '@/components/Button';
 import { ButtonDesign, theme } from '@/constants';
 import NotFoundPage from '@/pages/NotFoundPage';
 import { WineTimeStyled } from './WineTime.styled';
+import ComingSoon from '@/icons/coming-soon.svg?react';
 
 const WineTime: FC = () => {
   const [page, setPage] = useState(1);
@@ -56,8 +57,11 @@ const WineTime: FC = () => {
       <WineTimeDescription />
       {promWines.length > 0 && <WineTimer countries={promCountries} />}
       <Container>
-        {promWines.length > 0 && <WineList wines={promWines} />}
-
+        {promWines.length > 0 ? (
+          <WineList wines={promWines} />
+        ) : (
+          <ComingSoon title='Coming soon' />
+        )}
         {!isLoading && promWines.length > perPage && (
           <Button
             title='Show more'

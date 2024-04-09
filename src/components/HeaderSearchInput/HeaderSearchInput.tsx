@@ -12,8 +12,6 @@ import HeaderSearchDropdown from '@/components/HeaderSearchDropdown';
 import { keysToExclude } from '@/utils';
 import { QueryKeys, operations } from '@/tanStackQuery';
 import { useQuery } from '@tanstack/react-query';
-import Loader from '@/components/Loader';
-import NotFoundPage from '@/pages/NotFoundPage';
 
 const HeaderSearchInput: FC = () => {
   const { register, reset } = useForm<FormData>({
@@ -25,7 +23,7 @@ const HeaderSearchInput: FC = () => {
   const [searchResults, setSearchResults] = useState<IWine[]>([]);
   const [isButtonActive, setIsButtonActive] = useState(false);
 
-  const { data, isLoading, isSuccess } = useQuery<IAllWinesData>({
+  const { data, isSuccess } = useQuery<IAllWinesData>({
     queryFn: () => operations.getAllWines(),
     queryKey: [QueryKeys.wines],
   });
@@ -35,11 +33,6 @@ const HeaderSearchInput: FC = () => {
       setFetchWines(data.data);
     }
   }, [isSuccess, data]);
-
-  if (isLoading) return <Loader />;
-  if (!isSuccess) {
-    return <NotFoundPage />;
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value.toLowerCase();
