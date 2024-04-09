@@ -1,5 +1,6 @@
-import { ICountry } from '@/types/types';
+import { ICountry, IWine } from '@/types/types';
 
 export interface IProps {
+  wines: IWine[];
   countries: ICountry[];
 }

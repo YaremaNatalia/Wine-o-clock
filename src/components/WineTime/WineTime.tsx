@@ -55,7 +55,7 @@ const WineTime: FC = () => {
       <WineTimeHero />
       <PageNavigation firstPageTitle='Main page' secondPageTitle='Wine time' />
       <WineTimeDescription />
-      {promWines.length > 0 && <WineTimer countries={promCountries} />}
+      <WineTimer wines={promWines} countries={promCountries} />
       <Container>
         {promWines.length > 0 ? (
           <WineList wines={promWines} />

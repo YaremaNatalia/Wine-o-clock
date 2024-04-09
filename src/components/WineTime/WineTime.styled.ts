@@ -9,13 +9,10 @@ export const WineTimeStyled = styled.div`
         width: 300px;
         height: 300px;
         fill: ${({ theme }) => theme.colors.primaryBurgundy};
-        margin-bottom: 40px;
-
+       
         @media screen and (min-width: 1440px) {
          width: 400px;
         height: 400px;
-         margin-bottom: 50px;
-
       }
       }
       
