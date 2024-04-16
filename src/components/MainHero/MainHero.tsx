@@ -7,16 +7,13 @@ import {
   HeroPictureWrapper,
   HeroTitle,
   MainHeroStyled,
-  SvgBottomLine,
-  SvgTopLine,
 } from './MainHero.styled';
 import { setAnimationLetterSize, useWindowResize } from '@/utils';
 import { PagePaths } from '@/constants';
 
-
 const MainHero: FC = () => {
   const screenSize = useWindowResize();
-  const topLetters = setAnimationLetterSize.setAnimationTopLetterMain(
+  const TopHeroText = setAnimationLetterSize.setAnimationTopMain(
     screenSize.isMobileScreen
       ? 'mobile'
       : screenSize.isTabletScreen
@@ -24,13 +21,14 @@ const MainHero: FC = () => {
       : 'desktop'
   );
 
-  const bottomLetters = setAnimationLetterSize.setAnimationBottomLetterMain(
+  const BottomHeroText = setAnimationLetterSize.setAnimationBottomMain(
     screenSize.isMobileScreen
       ? 'mobile'
       : screenSize.isTabletScreen
       ? 'tablet'
       : 'desktop'
   );
+
   return (
     <MainHeroStyled>
       <Container>
@@ -86,18 +84,8 @@ const MainHero: FC = () => {
           />
           <img src={`${hero.heroMob1xJpg}`} alt='Hero image' />
         </picture>
-
-        <SvgTopLine>
-          {topLetters.map((Letter, index) => (
-            <Letter key={index} />
-          ))}
-        </SvgTopLine>
-
-        <SvgBottomLine>
-          {bottomLetters.map((Letter, index) => (
-            <Letter key={index} />
-          ))}
-        </SvgBottomLine>
+        <TopHeroText title='we love life' className='topText' />
+        <BottomHeroText title='and wine' className='bottomText' />
       </HeroPictureWrapper>
     </MainHeroStyled>
   );

@@ -21,86 +21,61 @@ export const WineTimeHeroStyled = styled.div`
 export const WineTimeHeroPictureWrapper = styled.div`
   position: relative;
 
-  > div {
+  svg {
     position: absolute;
-    display: flex;
-    flex-direction: row;
+  }
 
-    svg {
-      fill: ${({ theme }) => theme.colors.primaryWhite};
-      /* stroke: ${({ theme }) => theme.colors.primaryBurgundy}; */
-    }
+  .topText {
+    top: ${({ theme }) => theme.spacing(19)};
+    left: ${({ theme }) => theme.spacing(6)};
 
     @media screen and (min-width: 768px) {
-      gap: 2px;
+      top: ${({ theme }) => theme.spacing(24)};
+      left: ${({ theme }) => theme.spacing(10)};
+    }
+
+    @media screen and (min-width: 1440px) {
+      /* top: ${({ theme }) => theme.spacing(18)};
+      left: ${({ theme }) => theme.spacing(27)}; */
+    }
+
+    animation: slideFromLeft 3s ease forwards;
+    @keyframes slideFromLeft {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
     }
   }
-`;
 
-export const SvgTopLine = styled.div`
-  /* top: ${({ theme }) => theme.spacing(18)};
-  left: ${({ theme }) => theme.spacing(27)};
-
-  @media screen and (min-width: 768px) {
-    top: ${({ theme }) => theme.spacing(18)};
-  } */
-
-  @media screen and (min-width: 1440px) {
-    top: ${({ theme }) => theme.spacing(18)};
-    left: ${({ theme }) => theme.spacing(27)};
-  }
-
-  svg:nth-of-type(4) {
-    margin-right: ${({ theme }) => theme.spacing(3)};
+  .bottomText {
+    bottom: ${({ theme }) => theme.spacing(19)};
+    left: ${({ theme }) => theme.spacing(6)};
 
     @media screen and (min-width: 768px) {
-      margin-right: ${({ theme }) => theme.spacing(4)};
+      bottom: ${({ theme }) => theme.spacing(24)};
+      left: ${({ theme }) => theme.spacing(32)};
     }
-  }
 
-  animation: slideFromLeft 3s ease forwards;
-  @keyframes slideFromLeft {
-    from {
-      transform: translateX(-100%);
-      opacity: 0;
+    @media screen and (min-width: 1440px) {
+      /* bottom: ${({ theme }) => theme.spacing(34)};
+      right: ${({ theme }) => theme.spacing(130)}; */
     }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-`;
 
-export const SvgBottomLine = styled.div`
-  /* bottom: ${({ theme }) => theme.spacing(34)};
-  right: ${({ theme }) => theme.spacing(130)};
-
-  @media screen and (min-width: 768px) {
-    bottom: ${({ theme }) => theme.spacing(34)};
-  } */
-
-  @media screen and (min-width: 1440px) {
-    bottom: ${({ theme }) => theme.spacing(34)};
-    right: ${({ theme }) => theme.spacing(130)};
-  }
-
-  svg:nth-of-type(5) {
-    margin-right: ${({ theme }) => theme.spacing(3)};
-
-    @media screen and (min-width: 768px) {
-      margin-right: ${({ theme }) => theme.spacing(4)};
-    }
-  }
-
-  animation: slideFromRight 3s ease forwards;
-  @keyframes slideFromRight {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
+    animation: slideFromRight 3s ease forwards;
+    @keyframes slideFromRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
     }
   }
 `;

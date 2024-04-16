@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { BtnClickEvent, ICountry, IPromData, IWine } from '@/types/types';
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { QueryKeys, operations } from '@/tanStackQuery';
 
 import Loader from '@/components/Loader';
@@ -20,19 +20,24 @@ const WineTime: FC = () => {
   const [page, setPage] = useState(1);
   const [promWines, setPromWines] = useState<IWine[]>([]);
   const [promCountries, setPromCountries] = useState<ICountry[]>([]);
+  const [totalPages, setTotalPages] = useState(0);
 
   const perPage = window.innerWidth >= theme.breakpoints.tablet ? 8 : 6;
 
-  const { data, isLoading, isSuccess, refetch } = useQuery<IPromData>({
+  const { data, isLoading, isSuccess } = useQuery<IPromData>({
     queryFn: () => operations.getPromotion(page, perPage),
-    queryKey: [QueryKeys.promotion],
+    queryKey: [QueryKeys.promotion, page],
+    placeholderData: keepPreviousData,
   });
 
   useEffect(() => {
     if (isSuccess && data) {
       const { dataDTO, producedCountryList } = data;
-      setPromWines(dataDTO.data);
+      setPromWines((prevWines) => [...prevWines, ...data.dataDTO.data]);
       setPromCountries(producedCountryList);
+      if (dataDTO.totalPages !== undefined) {
+        setTotalPages(dataDTO.totalPages);
+      }
     }
   }, [isSuccess, data]);
 
@@ -42,10 +47,6 @@ const WineTime: FC = () => {
   }
 
   const handleShowMore = async (e: BtnClickEvent) => {
-    await refetch();
-    if (isSuccess && data.dataDTO.data) {
-      setPromWines((prevWines) => [...prevWines, ...data.dataDTO.data]);
-    }
     setPage((prevPage) => prevPage + 1);
     e.currentTarget.blur();
   };
@@ -62,11 +63,12 @@ const WineTime: FC = () => {
         ) : (
           <ComingSoon title='Coming soon' />
         )}
-        {!isLoading && promWines.length > perPage && (
+        {!isLoading && page < totalPages && (
           <Button
-            title='Show more'
+            title={isLoading ? 'Loading more...' : 'Show more'}
             buttonDesign={ButtonDesign.burgundy}
             onClick={handleShowMore}
+            disabled={isLoading}
           />
         )}
       </Container>

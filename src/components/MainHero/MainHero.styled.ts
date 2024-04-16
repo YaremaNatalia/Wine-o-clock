@@ -41,13 +41,10 @@ export const MainHeroStyled = styled.div`
         @media screen and (min-width: 768px) {
           margin-bottom: ${({ theme }) => theme.spacing(7)};
           width: 245px;
-          
         }
         @media screen and (min-width: 1440px) {
           margin-bottom: ${({ theme }) => theme.spacing(12)};
           width: 275px;
-         
-     
         }
       }
     }
@@ -101,99 +98,61 @@ export const HeroTitle = styled.h1`
 export const HeroPictureWrapper = styled.div`
   position: relative;
 
-  > div {
+  svg {
     position: absolute;
-    display: flex;
-    flex-direction: row;
+  }
+
+  .topText {
+    top: ${({ theme }) => theme.spacing(-8)};
     right: ${({ theme }) => theme.spacing(6)};
 
     @media screen and (min-width: 768px) {
+      top: ${({ theme }) => theme.spacing(-13)};
       right: ${({ theme }) => theme.spacing(10)};
-      gap: 2px;
     }
 
     @media screen and (min-width: 1440px) {
+      top: ${({ theme }) => theme.spacing(-16)};
       right: ${({ theme }) => theme.spacing(20)};
     }
-  }
-`;
 
-export const SvgTopLine = styled.div`
-  top: ${({ theme }) => theme.spacing(-8)};
-
-  @media screen and (min-width: 768px) {
-    top: ${({ theme }) => theme.spacing(-12)};
-  }
-
-  @media screen and (min-width: 1440px) {
-    top: ${({ theme }) => theme.spacing(-16)};
-  }
-
-  svg {
-    fill: ${({ theme }) => theme.colors.primaryBlack};
+    animation: slideFromLeft 3s ease forwards;
+    @keyframes slideFromLeft {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
   }
 
-  svg:nth-of-type(2) {
-    margin-right: ${({ theme }) => theme.spacing(3)};
+  .bottomText {
+    top: ${({ theme }) => theme.spacing(2)};
+    right: ${({ theme }) => theme.spacing(6)};
 
     @media screen and (min-width: 768px) {
-      margin-right: ${({ theme }) => theme.spacing(4)};
+      top: ${({ theme }) => theme.spacing(4)};
+      right: ${({ theme }) => theme.spacing(10)};
     }
-  }
 
-  svg:nth-of-type(6) {
-    margin-right: ${({ theme }) => theme.spacing(3)};
-
-    @media screen and (min-width: 768px) {
-      margin-right: ${({ theme }) => theme.spacing(4)};
+    @media screen and (min-width: 1440px) {
+      top: ${({ theme }) => theme.spacing(4)};
+      right: ${({ theme }) => theme.spacing(20)};
     }
-  }
 
-  animation: slideFromLeft 3s ease forwards;
-  @keyframes slideFromLeft {
-    from {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-`;
-
-export const SvgBottomLine = styled.div`
-  top: ${({ theme }) => theme.spacing(2)};
-
-  @media screen and (min-width: 768px) {
-    top: ${({ theme }) => theme.spacing(3)};
-  }
-
-  @media screen and (min-width: 1440px) {
-    top: ${({ theme }) => theme.spacing(6)};
-  }
-
-  svg {
-    fill: ${({ theme }) => theme.colors.primaryWhite};
-  }
-
-  svg:nth-of-type(3) {
-    margin-right: ${({ theme }) => theme.spacing(3)};
-
-    @media screen and (min-width: 768px) {
-      margin-right: ${({ theme }) => theme.spacing(4)};
-    }
-  }
-
-  animation: slideFromRight 3s ease forwards;
-  @keyframes slideFromRight {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
+    animation: slideFromRight 3s ease forwards;
+    @keyframes slideFromRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
     }
   }
 `;

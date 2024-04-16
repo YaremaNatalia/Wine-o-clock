@@ -1,11 +1,7 @@
 import { FC } from 'react';
 
 import { wineTimeHero } from '@/images/wineTimePage';
-import WineTime from '@/icons/WINE TIME.svg?react';
-
 import {
-  SvgBottomLine,
-  SvgTopLine,
   WineTimeBg,
   WineTimeHeroPictureWrapper,
   WineTimeHeroStyled,
@@ -14,7 +10,7 @@ import { setAnimationLetterSize, useWindowResize } from '@/utils';
 
 const WineTimeHero: FC = () => {
   const screenSize = useWindowResize();
-  const topLetters = setAnimationLetterSize.setAnimationTopLetterWineTime(
+  const TopHeroText = setAnimationLetterSize.setAnimationTopWineTime(
     screenSize.isMobileScreen
       ? 'mobile'
       : screenSize.isTabletScreen
@@ -22,7 +18,7 @@ const WineTimeHero: FC = () => {
       : 'desktop'
   );
 
-  const bottomLetters = setAnimationLetterSize.setAnimationBottomLetterWineTime(
+  const BottomHeroText = setAnimationLetterSize.setAnimationBottomWineTime(
     screenSize.isMobileScreen
       ? 'mobile'
       : screenSize.isTabletScreen
@@ -66,18 +62,8 @@ const WineTimeHero: FC = () => {
             alt='Wine time image'
           />
         </picture>
-        <SvgTopLine>
-          {topLetters.map((Letter, index) => (
-            <Letter key={index} />
-          ))}
-        </SvgTopLine>
-
-        <SvgBottomLine>
-          {bottomLetters.map((Letter, index) => (
-            <Letter key={index} />
-          ))}
-        </SvgBottomLine>
-        <WineTime title='Wine time' />
+        <TopHeroText title='wine time' className='topText' />
+        <BottomHeroText title='every hour' className='bottomText' />
       </WineTimeHeroPictureWrapper>
     </WineTimeHeroStyled>
   );

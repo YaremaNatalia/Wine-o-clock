@@ -2,20 +2,17 @@ import styled from '@emotion/styled';
 
 export const WineTimeStyled = styled.div`
   & > div {
-    
-      & > svg {
-        display: block;
-        margin: auto;
-        width: 300px;
-        height: 300px;
-        fill: ${({ theme }) => theme.colors.primaryBurgundy};
-       
-        @media screen and (min-width: 1440px) {
-         width: 400px;
+    & > svg {
+      display: block;
+      margin: auto;
+      width: 300px;
+      height: 300px;
+      fill: ${({ theme }) => theme.colors.primaryBurgundy};
+
+      @media screen and (min-width: 1440px) {
+        width: 400px;
         height: 400px;
       }
-      }
-      
     }
 
     & > button {
