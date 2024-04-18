@@ -1,16 +1,22 @@
-import { FC, useState, useEffect } from 'react';
-import moment from 'moment';
+import { FC, useState, useEffect, useRef } from 'react';
+import { format } from 'date-fns';
+
 import { ClockStyled } from './Clock.styled';
 
 const Clock: FC = () => {
   const [currentTime, setCurrentTime] = useState<string>('');
+  const interval = useRef<number | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(moment().format('HH:mm:ss'));
+    interval.current = setInterval(() => {
+      setCurrentTime(format(new Date(), 'HH:mm:ss'));
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => {
+      if (interval.current) {
+        clearInterval(interval.current);
+      }
+    };
   }, []);
 
   return <ClockStyled>{currentTime}</ClockStyled>;

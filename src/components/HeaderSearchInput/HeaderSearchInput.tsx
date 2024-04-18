@@ -23,16 +23,16 @@ const HeaderSearchInput: FC = () => {
   const [searchResults, setSearchResults] = useState<IWine[]>([]);
   const [isButtonActive, setIsButtonActive] = useState(false);
 
-  const { data, isSuccess } = useQuery<IAllWinesData>({
+  const { data, isError } = useQuery<IAllWinesData>({
     queryFn: () => operations.getAllWines(),
     queryKey: [QueryKeys.wines],
   });
 
   useEffect(() => {
-    if (isSuccess && data) {
+    if (!isError && data) {
       setFetchWines(data.data);
     }
-  }, [isSuccess, data]);
+  }, [isError, data]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value.toLowerCase();

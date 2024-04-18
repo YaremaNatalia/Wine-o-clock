@@ -24,14 +24,14 @@ const WineTime: FC = () => {
 
   const perPage = window.innerWidth >= theme.breakpoints.tablet ? 8 : 6;
 
-  const { data, isLoading, isSuccess } = useQuery<IPromData>({
+  const { data, isLoading, isError, refetch } = useQuery<IPromData>({
     queryFn: () => operations.getPromotion(page, perPage),
     queryKey: [QueryKeys.promotion, page],
     placeholderData: keepPreviousData,
   });
 
   useEffect(() => {
-    if (isSuccess && data) {
+    if (!isError && data) {
       const { dataDTO, producedCountryList } = data;
       setPromWines((prevWines) => [...prevWines, ...data.dataDTO.data]);
       setPromCountries(producedCountryList);
@@ -39,10 +39,35 @@ const WineTime: FC = () => {
         setTotalPages(dataDTO.totalPages);
       }
     }
-  }, [isSuccess, data]);
+  }, [isError, data]);
+
+  useEffect(() => {
+    const currentTime = new Date();
+    const remainingMilliseconds = 3600000 - (currentTime.getTime() % 3600000);
+    const intervalId = setTimeout(() => {
+      setPage(1);
+      refetch();
+      const nextHourIntervalId = setInterval(() => {
+        setPage(1);
+        refetch();
+      }, 3600000);
+
+      return () => {
+        if (nextHourIntervalId) {
+          clearInterval(nextHourIntervalId);
+        }
+      };
+    }, remainingMilliseconds);
+
+    return () => {
+      if (intervalId) {
+        clearTimeout(intervalId);
+      }
+    };
+  }, [refetch, setPage]);
 
   if (isLoading) return <Loader />;
-  if (!isSuccess) {
+  if (isError) {
     return <NotFoundPage />;
   }
 
@@ -63,6 +88,7 @@ const WineTime: FC = () => {
         ) : (
           <ComingSoon title='Coming soon' />
         )}
+
         {!isLoading && page < totalPages && (
           <Button
             title={isLoading ? 'Loading more...' : 'Show more'}

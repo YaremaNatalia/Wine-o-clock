@@ -13,11 +13,10 @@ import Loader from '@/components/Loader';
 import { QueryKeys, operations } from '@/tanStackQuery';
 import NotFoundPage from '@/pages/NotFoundPage';
 
-
 const Main: FC = () => {
   const [ageModalIsOpen, setAgeModalIsOpen] = useState(false);
 
-  const { data, isLoading, isSuccess } = useQuery<IAllWinesData>({
+  const { data, isLoading, isError } = useQuery<IAllWinesData>({
     queryFn: () => operations.getAllWines(),
     queryKey: [QueryKeys.wines],
   });
@@ -27,7 +26,11 @@ const Main: FC = () => {
       setAgeModalIsOpen(true);
     }, 1000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
   }, []);
 
   const handleCloseAgeModal = () => {
@@ -35,30 +38,30 @@ const Main: FC = () => {
   };
 
   if (isLoading) return <Loader />;
-  if (!isSuccess) {
+  if (isError) {
     return <NotFoundPage />;
   }
 
-  const wineData = data.data;
-  const sales = wineData.filter((wine) => wine.isSale);
-  const newWines = wineData.filter((wine) => wine.isNewCollection);
+  const wineData = data?.data;
+  const sales = wineData?.filter((wine) => wine.isSale);
+  const newWines = wineData?.filter((wine) => wine.isNewCollection);
   const bestsellers = wineData
-    .filter((wine) => wine.isBestSeller)
+    ?.filter((wine) => wine.isBestSeller)
     .sort((a, b) => b.bottlesSoldCounter - a.bottlesSoldCounter);
 
   return (
     <>
       <MainHero />
-      {newWines.length > 0 && (
+      {newWines && newWines.length > 0 && (
         <MainWineListSection wines={newWines} sectionTitle='New collection' />
       )}
       <MainWineTime />
-      {bestsellers.length > 0 && (
+      {bestsellers && bestsellers.length > 0 && (
         <MainWineListSection wines={bestsellers} sectionTitle='Bestsellers' />
       )}
       <MainQualities />
 
-      {sales.length > 0 && (
+      {sales && sales.length > 0 && (
         <MainWineListSection wines={sales} sectionTitle='Sales' />
       )}
       {ageModalIsOpen && (
