@@ -7,6 +7,7 @@ import LoginPage from '@/pages/LoginPage';
 import SignUpPage from '@/pages/SignUpPage';
 import ConfOfRegPage from '@/pages/ConfOfRegPage';
 import NotFoundPage from '@/pages/NotFoundPage';
+import WineTimePage from '@/pages/WineTimePage';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <Route path={PagePaths.homePath} element={<SharedLayout />}>
         <Route path={PagePaths.storePath} element={<div>storePath</div>} />
         <Route index element={<MainPage />} />
+        <Route path={PagePaths.wineTimePath} element={<WineTimePage/>} />
         <Route path={PagePaths.aboutUsPath} element={<div>aboutUsPath</div>} />
         <Route
           path={PagePaths.personalDataPath}
@@ -27,7 +29,7 @@ const App = () => {
         <Route path={PagePaths.signUpPath} element={<SignUpPage />} />
         <Route path={PagePaths.confOfRegPath} element={<ConfOfRegPage />} />
         <Route path={PagePaths.basketPath} element={<div>basketPath</div>} />
-        <Route path='*' element={<NotFoundPage/>} />
+        <Route path='*' element={<NotFoundPage />} />
       </Route>
     </Routes>
   );

@@ -1,71 +1,72 @@
-import W from '@/icons/letters/mob/wIcon.svg?react';
-import E from '@/icons/letters/mob/eIcon.svg?react';
-import L from '@/icons/letters/mob/lIcon.svg?react';
-import O from '@/icons/letters/mob/oIcon.svg?react';
-import V from '@/icons/letters/mob/vIcon.svg?react';
-import I from '@/icons/letters/mob/iIcon.svg?react';
-import F from '@/icons/letters/mob/fIcon.svg?react';
-import N from '@/icons/letters/mob/nIcon.svg?react';
-import D from '@/icons/letters/mob/dIcon.svg?react';
-import A from '@/icons/letters/mob/aIcon.svg?react';
+import andWineDesk from '@/icons/and-wine-desk.svg?react';
+import andWineTab from '@/icons/and-wine-tab.svg?react';
+import andWineMob from '@/icons/and-wine-mob.svg?react';
 
-import WTab from '@/icons/letters/tab/wTab.svg?react';
-import ETab from '@/icons/letters/tab/eTab.svg?react';
-import LTab from '@/icons/letters/tab/lTab.svg?react';
-import OTab from '@/icons/letters/tab/oTab.svg?react';
-import VTab from '@/icons/letters/tab/vTab.svg?react';
-import ITab from '@/icons/letters/tab/iTab.svg?react';
-import FTab from '@/icons/letters/tab/fTab.svg?react';
-import NTab from '@/icons/letters/tab/nTab.svg?react';
-import DTab from '@/icons/letters/tab/dTab.svg?react';
-import ATab from '@/icons/letters/tab/aTab.svg?react';
+import weLoveLifeDesk from '@/icons/we-love-life-desk.svg?react';
+import weLoveLifeTab from '@/icons/we-love-life-tab.svg?react';
+import weLoveLifeMob from '@/icons/we-love-life-mob.svg?react';
+import wineTimeMob from '@/icons/wine-time-mob.svg?react';
+import wineTimeTab from '@/icons/wine-time-tab.svg?react';
+import everyHourMob from '@/icons/every-hour-mob.svg?react';
+import everyHourTab from '@/icons/every-hour-tab.svg?react';
 
-import WDesk from '@/icons/letters/desk/wDesc.svg?react';
-import EDesk from '@/icons/letters/desk/eDesc.svg?react';
-import LDesk from '@/icons/letters/desk/lDesc.svg?react';
-import ODesk from '@/icons/letters/desk/oDesk.svg?react';
-import VDesk from '@/icons/letters/desk/vDesk.svg?react';
-import IDesk from '@/icons/letters/desk/iDesk.svg?react';
-import FDesk from '@/icons/letters/desk/fDesk.svg?react';
-import NDesk from '@/icons/letters/desk/nDesk.svg?react';
-import DDesk from '@/icons/letters/desk/dDesk.svg?react';
-import ADesk from '@/icons/letters/desk/aDesk.svg?react';
 import { ScreenSize } from '@/types/types';
 
-const setAnimationTopLetterSize = (screenSize: ScreenSize) => {
+const setAnimationTopMain = (screenSize: ScreenSize) => {
   switch (screenSize) {
     case 'mobile':
-      return [W, E, L, O, V, E, L, I, F, E];
+      return weLoveLifeMob;
     case 'tablet':
-      return [WTab, ETab, LTab, OTab, VTab, ETab, LTab, ITab, FTab, ETab];
+      return weLoveLifeTab;
     case 'desktop':
-      return [
-        WDesk,
-        EDesk,
-        LDesk,
-        ODesk,
-        VDesk,
-        EDesk,
-        LDesk,
-        IDesk,
-        FDesk,
-        EDesk,
-      ];
+      return weLoveLifeDesk;
     default:
-      return [];
+      return weLoveLifeMob;
   }
 };
 
-const setAnimationBottomLetterSize = (screenSize: ScreenSize) => {
+const setAnimationBottomMain = (screenSize: ScreenSize) => {
   switch (screenSize) {
     case 'mobile':
-      return [A, N, D, W, I, N, E];
+      return andWineMob;
     case 'tablet':
-      return [ATab, NTab, DTab, WTab, ITab, NTab, ETab];
+      return andWineTab;
     case 'desktop':
-      return [ADesk, NDesk, DDesk, WDesk, IDesk, NDesk, EDesk];
+      return andWineDesk;
     default:
-      return [];
+      return andWineMob;
   }
 };
-export default { setAnimationTopLetterSize, setAnimationBottomLetterSize };
+
+const setAnimationTopWineTime = (screenSize: ScreenSize) => {
+  switch (screenSize) {
+    case 'mobile':
+      return wineTimeMob;
+    case 'tablet':
+      return wineTimeTab;
+    case 'desktop':
+      return wineTimeTab;
+    default:
+      return wineTimeMob;
+  }
+};
+
+const setAnimationBottomWineTime = (screenSize: ScreenSize) => {
+  switch (screenSize) {
+    case 'mobile':
+      return everyHourMob;
+    case 'tablet':
+      return everyHourTab;
+    case 'desktop':
+      return everyHourTab;
+    default:
+      return everyHourMob;
+  }
+};
+
+export default {
+  setAnimationTopMain,
+  setAnimationBottomMain,
+  setAnimationTopWineTime,
+  setAnimationBottomWineTime,
+};

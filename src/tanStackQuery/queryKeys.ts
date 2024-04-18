@@ -1,5 +1,6 @@
 const enum QueryKeys {
-    wines='wines',
+  wines = 'wines',
+  promotion = 'promotion',
 }
 
 export default QueryKeys;

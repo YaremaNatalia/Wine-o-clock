@@ -5,25 +5,28 @@ import {
   FooterInfoBlockWrapper,
   StyledNavLink,
 } from './FooterInformation.styled';
+import { PagePaths } from '@/constants';
 
 const FooterInformation: FC = () => (
   <FooterInfoBlockWrapper>
     <FooterTitle>INFORMATION</FooterTitle>
     <FooterList className='infoWrapper'>
       <li>
-        <StyledNavLink to='/'>About us</StyledNavLink>
+        <StyledNavLink to={PagePaths.aboutUsPath}>About us</StyledNavLink>
       </li>
       <li>
-        <StyledNavLink to='/'>Contacts</StyledNavLink>
+        <StyledNavLink to={PagePaths.homePath}>Contacts</StyledNavLink>
       </li>
       <li>
-        <StyledNavLink to='/'>Terms of delivery and payment</StyledNavLink>
+        <StyledNavLink to={PagePaths.homePath}>
+          Terms of delivery and payment
+        </StyledNavLink>
       </li>
       <li>
-        <StyledNavLink to='/'>Privacy Policy</StyledNavLink>
+        <StyledNavLink to={PagePaths.homePath}>Privacy Policy</StyledNavLink>
       </li>
       <li>
-        <StyledNavLink to='/'>User agreement</StyledNavLink>
+        <StyledNavLink to={PagePaths.homePath}>User agreement</StyledNavLink>
       </li>
     </FooterList>
   </FooterInfoBlockWrapper>

@@ -4,7 +4,8 @@ import PagePaths from './pagePaths';
 const navLinks: NavLinks = [
   { href: PagePaths.storePath, title: 'Store' },
   { href: PagePaths.aboutUsPath, title: 'About Us' },
-  { href: PagePaths.homePath, title: 'Wine time' },
+  { href: PagePaths.wineTimePath, title: 'Wine time' },
+  // { href: PagePaths.homePath, title: '' },
 ];
 
 export default navLinks;

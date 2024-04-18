@@ -7,12 +7,13 @@ import FooterDelivery from '@/components/FooterDelivery';
 import FooterCallCenter from '@/components/FooterCallCenter';
 import FooterNews from '@/components/FooterNews';
 import { FooterContentWrapper, FooterStyled } from './Footer.Styled';
+import { PagePaths } from '@/constants';
 
 const Footer: FC = () => (
   <>
     <FooterStyled>
       <Container>
-        <NavLink to='/'>
+        <NavLink to={PagePaths.homePath}>
           <Logo className='footerLogo' title='Wine store logo' />
         </NavLink>
         <FooterContentWrapper>

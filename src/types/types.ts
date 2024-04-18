@@ -1,4 +1,4 @@
-import { AriaLabels,  FormTypes, PagePaths } from '@/constants';
+import { AriaLabels, FormTypes, PagePaths } from '@/constants';
 import ButtonForms from '@/constants/buttonForms';
 import { MouseEvent } from 'react';
 import { IconType } from 'react-icons';
@@ -76,9 +76,29 @@ export interface IWine {
     | undefined;
 }
 
+export interface IAllWinesData {
+  data: IWine[];
+  page?: number;
+  limit?: number;
+  totalElements?: number;
+  totalPages?: number;
+}
+
 export interface ICountry {
   id: number;
   name: string;
+}
+
+export interface DataDTO {
+  data: IWine[];
+  page?: number;
+  limit?: number;
+  totalElements?: number;
+  totalPages?: number;
+}
+export interface IPromData {
+  dataDTO: DataDTO;
+  producedCountryList: ICountry[];
 }
 
 export interface IRegion {

@@ -38,7 +38,7 @@ import qualitiesDesk1xWebp from './bgQualities-desk@1x.webp';
 import qualitiesDesk2xJpg from './bgQualities-desk@2x.jpg';
 import qualitiesDesk2xWebp from './bgQualities-desk@2x.webp';
 
-export const wineTime = {
+export const mainWineTime = {
   wineMob1xJpg,
   wineMob1xWebp,
   wineMob2xJpg,

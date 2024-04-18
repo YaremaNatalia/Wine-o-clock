@@ -23,7 +23,7 @@ const FooterDelivery: FC = () => (
       <FooterTitle className='paymentTitle'>PAYMENT</FooterTitle>
       <PaymentLogoWrapper>
         <li>
-          <MasterCard />
+          <MasterCard title='MasterCard' />
         </li>
         <li>
           <RiVisaLine className='visaIcon' title='VISA' size={56} />
