@@ -22,7 +22,7 @@ const WineTime: FC = () => {
   const [promCountries, setPromCountries] = useState<ICountry[]>([]);
   const [totalPages, setTotalPages] = useState(0);
 
-  const perPage = window.innerWidth >= theme.breakpoints.tablet ? 1 : 6;
+  const perPage = window.innerWidth >= theme.breakpoints.tablet ? 8 : 6;
 
   const { data, isLoading, isError, refetch } = useQuery<IPromData>({
     queryFn: () => operations.getPromotion(page, perPage),
