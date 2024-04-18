@@ -22,7 +22,7 @@ const WineTime: FC = () => {
   const [promCountries, setPromCountries] = useState<ICountry[]>([]);
   const [totalPages, setTotalPages] = useState(0);
 
-  const perPage = window.innerWidth >= theme.breakpoints.tablet ? 8 : 6;
+  const perPage = window.innerWidth >= theme.breakpoints.tablet ? 1 : 6;
 
   const { data, isLoading, isError, refetch } = useQuery<IPromData>({
     queryFn: () => operations.getPromotion(page, perPage),
@@ -46,9 +46,11 @@ const WineTime: FC = () => {
     const remainingMilliseconds = 3600000 - (currentTime.getTime() % 3600000);
     const intervalId = setTimeout(() => {
       setPage(1);
+      setPromWines([]);
       refetch();
       const nextHourIntervalId = setInterval(() => {
         setPage(1);
+        setPromWines([]);
         refetch();
       }, 3600000);
 

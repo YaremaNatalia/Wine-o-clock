@@ -22,7 +22,7 @@ const Main: FC = () => {
   });
 
   useEffect(() => {
-    let timer = null;
+    let timer: number | null = null;
     timer = setTimeout(() => {
       setAgeModalIsOpen(true);
     }, 1000);
