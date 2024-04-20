@@ -10,6 +10,15 @@ const keysToExclude = [
   'evaluation',
   'adminDiscountPercentage',
   'alcohol',
+  'reviewsAndAwards',
+  'isNewCollection',
+  'isBestSeller',
+  'isWineTimePromotion',
+  'winemaking',
+  'grapeVarieties',
+  'tastingNotes',
+  'storeAndServeAdvices',
+  'foodPairing',
 ];
 
 export default keysToExclude;

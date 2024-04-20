@@ -1,14 +1,12 @@
 import {
-  AuthParams,
-  ButtonTypes,
+  ButtonForms,
   FormTypes,
   IconSizes,
   InputTypes,
-  Messages,
   PagePaths,
 } from '@/constants';
-import { AxiosError, INewUser } from '@/types/types';
-import { FC, useEffect, useState } from 'react';
+import { INewUser } from '@/types/types';
+import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Input from '@/components/Input';
 import {
@@ -161,9 +159,7 @@ const SignUpForm: FC = () => {
         />
         <PrivacyPolicyContainer>
           <Button
-            fontSize={16}
-            height={48}
-            sidePadding={20}
+            buttonForm={ButtonForms.other}
             title='Sign up'
             disabled={!agree}
             type={ButtonTypes.submit}

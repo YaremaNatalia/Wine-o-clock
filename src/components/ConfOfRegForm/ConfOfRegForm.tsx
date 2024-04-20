@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Form, Header, Title } from './ConfOfRegForm.styled';
 import { ConfOfReg } from '@/types/types';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { FormTypes } from '@/constants';
+import { ButtonForms, FormTypes } from '@/constants';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 
@@ -31,7 +31,7 @@ const ConfOfRegForm: FC = () => {
           label='Password'
           leftDistance={19}
         />
-        <Button fontSize={16} height={48} sidePadding={20} title='Log in' />
+        <Button buttonForm={ButtonForms.other} title='Log in' />
       </Form>
     </>
   );

@@ -1,12 +1,11 @@
 import { ButtonDesign, ButtonTypes } from '@/constants';
+import ButtonForms from '@/constants/buttonForms';
 import { MouseEvent } from 'react';
 
 export interface IProps {
+  buttonForm?: ButtonForms;
   title: string;
   width?: number;
-  height: number;
-  sidePadding: number;
-  fontSize: number;
   type?: ButtonTypes;
   transparentBody?: boolean;
   buttonDesign?: ButtonDesign;
@@ -15,9 +14,7 @@ export interface IProps {
 }
 
 export interface IStyledProps {
+  buttonForm: ButtonForms;
   width?: number;
-  height: number;
-  sidePadding: number;
-  fontSize: number;
   buttonDesign: ButtonDesign | undefined;
 }

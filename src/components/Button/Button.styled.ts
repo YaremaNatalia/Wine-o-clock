@@ -7,20 +7,24 @@ import {
   setBtnBorderColorHover,
   setBtnFontColor,
   setBtnFontColorHover,
+  setButtonHeight,
 } from '@/utils';
+
+import { ButtonForms, theme } from '@/constants';
 
 export const StyledButton = styled.button<IStyledProps>`
   width: ${({ width }) => (width ? `${width}px` : '100%')};
-  height: ${({ height }) => height}px;
-  padding-left: ${({ sidePadding }) => sidePadding}px;
-  padding-right: ${({ sidePadding }) => sidePadding}px;
+  height: ${({ buttonForm }) => setButtonHeight({ buttonForm })}px;
+  padding-left: 20px;
+  padding-right: 20px;
   border: 1px solid;
   border-color: ${({ buttonDesign }) => setBtnBorderColor(buttonDesign)};
-  border-radius: ${({ height }) => height / 2}px;
+  border-radius: 47px;
   background-color: ${({ buttonDesign }) => setBtnBgColor(buttonDesign)};
   color: ${({ buttonDesign }) => setBtnFontColor(buttonDesign)};
   font-family: ${({ theme }) => theme.fontFamily.primaryFontFamily};
-  font-size: ${({ fontSize }) => fontSize}px;
+  font-size: ${({ buttonForm }) =>
+    buttonForm === ButtonForms.other ? 16 : 14}px;
   font-weight: ${({ theme }) => theme.fontWeight.regular};
   transition: ${({ theme: { transitionDurationAndFunc } }) =>
     `background-color ${transitionDurationAndFunc}, border-color ${transitionDurationAndFunc}, color ${transitionDurationAndFunc}`};
@@ -32,5 +36,11 @@ export const StyledButton = styled.button<IStyledProps>`
 
   &:disabled {
     background-color: ${({ theme }) => theme.colors.secondaryGrey};
+  }
+
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
+    height: ${({ buttonForm, theme }) =>
+      setButtonHeight({ buttonForm, breakpoint: theme.breakpoints.desktop })}px;
+    font-size: 16px;
   }
 `;

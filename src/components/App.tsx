@@ -6,11 +6,8 @@ import PrivateRoute from '@/components/PrivateRoute';
 import LoginPage from '@/pages/LoginPage';
 import SignUpPage from '@/pages/SignUpPage';
 import ConfOfRegPage from '@/pages/ConfOfRegPage';
-import PublicRoute from './PublicRoute';
-import { useQuery } from '@tanstack/react-query';
-import { QueryKeys, operations } from '@/tanStackQuery';
-import Loader from '@/components/Loader';
-import { IUser } from '@/types/types';
+import NotFoundPage from '@/pages/NotFoundPage';
+import WineTimePage from '@/pages/WineTimePage';
 
 const App = () => {
   const { data: token } = useQuery<string>({
@@ -28,6 +25,7 @@ const App = () => {
       <Route path={PagePaths.homePath} element={<SharedLayout />}>
         <Route path={PagePaths.storePath} element={<div>storePath</div>} />
         <Route index element={<MainPage />} />
+        <Route path={PagePaths.wineTimePath} element={<WineTimePage />} />
         <Route path={PagePaths.aboutUsPath} element={<div>aboutUsPath</div>} />
         <Route
           path={PagePaths.personalDataPath}
@@ -53,7 +51,11 @@ const App = () => {
           path={PagePaths.basketPath}
           element={<PrivateRoute element={<div>basketPath</div>} />}
         />
-        <Route path='*' element={<div>notFound</div>} />
+        <Route path={PagePaths.logInPath} element={<LoginPage />} />
+        <Route path={PagePaths.signUpPath} element={<SignUpPage />} />
+        <Route path={PagePaths.confOfRegPath} element={<ConfOfRegPage />} />
+        <Route path={PagePaths.basketPath} element={<div>basketPath</div>} />
+        <Route path='*' element={<NotFoundPage />} />
       </Route>
     </Routes>
   );

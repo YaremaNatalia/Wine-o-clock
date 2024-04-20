@@ -29,7 +29,9 @@ const WineCard: FC<IProps> = ({ wine }) => {
         <div className='iconsWrapper'>
           <div className='labelWrapper'>
             {isNewCollection && <p className='wineNewLabel'>New</p>}
-            <p className='wineDiscountLabel'>-{adminDiscountPercentage}%</p>
+            {adminDiscountPercentage > 0 && (
+              <p className='wineDiscountLabel'>-{adminDiscountPercentage}%</p>
+            )}
           </div>
           <IoMdHeartEmpty />
         </div>

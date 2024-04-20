@@ -2,13 +2,27 @@ import { ICredentials, INewUser, IUser } from '@/types/types';
 import { $instance } from '@/utils/backendURL';
 import { QueryKeys, client } from './';
 
-const getAllWines = async () => {
+const getAllWines = async (page: number = 1, limit: number=8) => {
   try {
-    const response = await $instance.get('v1/craft_wines');
+    const response = await $instance.get(
+      `v1/craft_wines?page=${page}&limit=${limit}`
+    );
     return response.data;
   } catch (error) {
-    console.error('Error fetching wine data:', error);
+    console.error('Error fetching data:', error);
   }
+};
+
+const getPromotion = async (page: number = 1, limit: number = 8) => {
+  try {
+    const response = await $instance.get(
+      `v1/wine_time_promotion/get_promotion?page=${page}&limit=${limit}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+
 };
 
 const signUp = async (data: INewUser): Promise<void> =>
@@ -48,13 +62,10 @@ const refreshUser = async (
   } catch (error) {
     return null;
   }
-};
 
 const operations = {
   getAllWines,
-  signUp,
-  login,
-  refreshUser,
+  getPromotion,
 };
 
 export default operations;
