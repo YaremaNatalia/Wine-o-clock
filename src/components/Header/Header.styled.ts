@@ -2,10 +2,15 @@ import { ClassNames } from '@/constants';
 import styled from '@emotion/styled';
 
 export const StyledHeader = styled.header`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
   display: inline-block;
   min-width: 100%;
-  position: relative;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  background-color: #fff;
 
   & > div {
     display: flex;
