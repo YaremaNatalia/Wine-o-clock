@@ -8,6 +8,11 @@ import SignUpPage from '@/pages/SignUpPage';
 import ConfOfRegPage from '@/pages/ConfOfRegPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import WineTimePage from '@/pages/WineTimePage';
+import PublicRoute from '@/components/PublicRoute';
+import Loader from '@/components/Loader';
+import { QueryKeys, operations } from '@/tanStackQuery';
+import { useQuery } from '@tanstack/react-query';
+import { IUser } from '@/types/types';
 
 const App = () => {
   const { data: token } = useQuery<string>({

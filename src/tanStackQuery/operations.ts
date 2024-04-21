@@ -2,7 +2,7 @@ import { ICredentials, INewUser, IUser } from '@/types/types';
 import { $instance } from '@/utils/backendURL';
 import { QueryKeys, client } from './';
 
-const getAllWines = async (page: number = 1, limit: number=8) => {
+const getAllWines = async (page: number = 1, limit: number = 8) => {
   try {
     const response = await $instance.get(
       `v1/craft_wines?page=${page}&limit=${limit}`
@@ -22,7 +22,6 @@ const getPromotion = async (page: number = 1, limit: number = 8) => {
   } catch (error) {
     console.error('Error fetching data:', error);
   }
-
 };
 
 const signUp = async (data: INewUser): Promise<void> =>
@@ -36,36 +35,25 @@ const login = async (data: ICredentials): Promise<string> => {
 const refreshUser = async (
   token: string | undefined
 ): Promise<IUser | null> => {
-  // client.setQueryData([QueryKeys.isLoggedIn], false);
-  // if (!token) return null;
-  // $instance.defaults.headers.common['Authorization'] = `Bearer`;
+  client.setQueryData([QueryKeys.isLoggedIn], false);
+  if (!token) return null;
+  $instance.defaults.headers.common.Authorization = `Bearer ${token}`;
 
   try {
-    // const response = await $instance.get('v1/user/get_user');
-    // console.log(response);
-    // client.setQueryData([QueryKeys.isLoggedIn], true);
-    // return response.data;
-    const options = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    fetch('https://craft-wine-shop.onrender.com/api/v1/user/get_user', options)
-      .then((res) => res.json())
-      .then((data) => data)
-      .catch((error) => {
-        console.log(error);
-      });
+    const response = await $instance.get('v1/user/get_user');
+    client.setQueryData([QueryKeys.isLoggedIn], true);
+    return response.data;
   } catch (error) {
     return null;
   }
+};
 
 const operations = {
   getAllWines,
   getPromotion,
+  refreshUser,
+  login,
+  signUp,
 };
 
 export default operations;

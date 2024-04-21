@@ -1,12 +1,13 @@
 import {
   ButtonForms,
+  ButtonTypes,
   FormTypes,
   IconSizes,
   InputTypes,
   PagePaths,
 } from '@/constants';
-import { INewUser } from '@/types/types';
-import { FC, useState } from 'react';
+import { AxiosError, INewUser } from '@/types/types';
+import { FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Input from '@/components/Input';
 import {
@@ -24,6 +25,8 @@ import { useMutation } from '@tanstack/react-query';
 import { operations } from '@/tanStackQuery';
 import toast from 'react-hot-toast';
 import regExp from '@/constants/regExp';
+import AuthParams from '@/constants/authParams';
+import Messages from '@/constants/messages';
 
 const SignUpForm: FC = () => {
   const [agree, setAgree] = useState<boolean>(false);

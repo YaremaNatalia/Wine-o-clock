@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ICredentials } from '@/types/types';
 import {
   ButtonForms,
+  ButtonTypes,
   ClassNames,
   FormTypes,
   InputTypes,
@@ -18,6 +19,8 @@ import { QueryKeys, client, operations } from '@/tanStackQuery';
 import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
 import { $instance } from '@/utils/backendURL';
+import AuthParams from '@/constants/authParams';
+import Messages from '@/constants/messages';
 
 const LoginForm: FC = () => {
   const {
@@ -80,7 +83,11 @@ const LoginForm: FC = () => {
           leftDistance={19}
         />
         <ButtonsWrap>
-          <Button buttonForm={ButtonForms.other} title='Log in' />
+          <Button
+            buttonForm={ButtonForms.other}
+            title='Log in'
+            type={ButtonTypes.submit}
+          />
           <Link to={PagePaths.signUpPath} className={ClassNames.signUpLink}>
             Sign up
           </Link>
