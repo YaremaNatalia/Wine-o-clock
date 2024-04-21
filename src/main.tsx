@@ -6,14 +6,14 @@ import GlobalStyles from '@/components/GlobalStyles';
 import { theme } from '@/constants';
 import App from '@/components/App';
 import { Toaster } from 'react-hot-toast';
-import {  QueryClientProvider } from '@tanstack/react-query';
 import { client } from './tanStackQuery';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-
+import { persister } from './tanStackQuery/client';
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <QueryClientProvider client={client}>
+    <PersistQueryClientProvider client={client} persistOptions={{ persister }}>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <App />
@@ -22,6 +22,6 @@ createRoot(document.getElementById('root') as HTMLElement).render(
         </ThemeProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    </PersistQueryClientProvider>
   </React.StrictMode>
 );

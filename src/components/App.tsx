@@ -8,14 +8,29 @@ import SignUpPage from '@/pages/SignUpPage';
 import ConfOfRegPage from '@/pages/ConfOfRegPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 import WineTimePage from '@/pages/WineTimePage';
+import PublicRoute from '@/components/PublicRoute';
+import Loader from '@/components/Loader';
+import { QueryKeys, operations } from '@/tanStackQuery';
+import { useQuery } from '@tanstack/react-query';
+import { IUser } from '@/types/types';
 
 const App = () => {
-  return (
+  const { data: token } = useQuery<string>({
+    queryKey: [QueryKeys.token],
+  });
+  const { isFetching } = useQuery<IUser | null>({
+    queryKey: [QueryKeys.user, token],
+    queryFn: () => operations.refreshUser(token),
+  });
+
+  return isFetching ? (
+    <Loader />
+  ) : (
     <Routes>
       <Route path={PagePaths.homePath} element={<SharedLayout />}>
         <Route path={PagePaths.storePath} element={<div>storePath</div>} />
         <Route index element={<MainPage />} />
-        <Route path={PagePaths.wineTimePath} element={<WineTimePage/>} />
+        <Route path={PagePaths.wineTimePath} element={<WineTimePage />} />
         <Route path={PagePaths.aboutUsPath} element={<div>aboutUsPath</div>} />
         <Route
           path={PagePaths.personalDataPath}
@@ -23,7 +38,23 @@ const App = () => {
         />
         <Route
           path={PagePaths.favoritesPath}
-          element={<div>favoritesPath</div>}
+          element={<PrivateRoute element={<div>favoritesPath</div>} />}
+        />
+        <Route
+          path={PagePaths.logInPath}
+          element={<PublicRoute element={<LoginPage />} restricted />}
+        />
+        <Route
+          path={PagePaths.signUpPath}
+          element={<PublicRoute element={<SignUpPage />} restricted />}
+        />
+        <Route
+          path={PagePaths.confOfRegPath}
+          element={<PublicRoute element={<ConfOfRegPage />} restricted />}
+        />
+        <Route
+          path={PagePaths.basketPath}
+          element={<PrivateRoute element={<div>basketPath</div>} />}
         />
         <Route path={PagePaths.logInPath} element={<LoginPage />} />
         <Route path={PagePaths.signUpPath} element={<SignUpPage />} />

@@ -116,10 +116,11 @@ export interface IComment {
 
 export interface INewUser {
   email: string;
+  password: string;
+  confirmationThePassword: string;
+  phoneNumber: string;
   firstName: string;
   lastName: string;
-  phone: string;
-  password: string;
 }
 
 export type ConfOfReg = Pick<INewUser, 'password'>;
@@ -133,3 +134,15 @@ export interface IPagination<T> {
 }
 
 export type ScreenSize = 'mobile' | 'tablet' | 'desktop';
+
+export interface AxiosError {
+  response: { data: { message: string } };
+}
+
+export interface IUser {
+  email: string;
+  firstName: string;
+  lastName: string;
+  deliveryAddress: string;
+  favorites: IWine[];
+}

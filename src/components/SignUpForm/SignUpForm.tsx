@@ -1,6 +1,13 @@
-import { ButtonForms, FormTypes, IconSizes, InputTypes, PagePaths } from '@/constants';
-import { INewUser } from '@/types/types';
-import { FC, useState } from 'react';
+import {
+  ButtonForms,
+  ButtonTypes,
+  FormTypes,
+  IconSizes,
+  InputTypes,
+  PagePaths,
+} from '@/constants';
+import { AxiosError, INewUser } from '@/types/types';
+import { FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Input from '@/components/Input';
 import {
@@ -13,17 +20,27 @@ import {
 import AlternativeAuthLinks from '@/components/AlternativeAuthLinks';
 import Button from '@/components/Button';
 import { FaCheck } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { operations } from '@/tanStackQuery';
+import toast from 'react-hot-toast';
+import regExp from '@/constants/regExp';
+import AuthParams from '@/constants/authParams';
+import Messages from '@/constants/messages';
 
 const SignUpForm: FC = () => {
   const [agree, setAgree] = useState<boolean>(false);
+  const { mutate: signUp } = useMutation({
+    mutationFn: operations.signUp,
+    onSuccess: onSuccessHTTPRequest,
+    onError: onFailedHTTPRequest,
+  });
   const {
     register,
-    // formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting },
     handleSubmit,
-    reset,
   } = useForm<INewUser>();
-
+  const navigate = useNavigate();
   const checkboxDescription = (
     <PrivacyPolicy>
       I have read the <Link to={PagePaths.homePath}>terms and conditions</Link>{' '}
@@ -31,9 +48,45 @@ const SignUpForm: FC = () => {
     </PrivacyPolicy>
   );
 
+  useEffect(() => {
+    errors.email && toast.error(Messages.emailReqErr);
+    errors.firstName &&
+      toast.error(
+        errors.firstName.type === 'required'
+          ? Messages.firstNameReqErr
+          : Messages.firstNameErr
+      );
+    errors.lastName &&
+      toast.error(
+        errors.lastName.type === 'required'
+          ? Messages.lastNameReqErr
+          : Messages.lastNameErr
+      );
+    errors.phoneNumber &&
+      toast.error(
+        errors.phoneNumber.type === 'required'
+          ? Messages.phoneNumberReqErr
+          : Messages.phoneNumberErr
+      );
+    errors.password &&
+      toast.error(
+        errors.password.type === 'required'
+          ? Messages.passwordReqErr
+          : Messages.passwordLengthErr
+      );
+    errors.confirmationThePassword && toast.error(Messages.confThePassReqErr);
+  }, [isSubmitting, errors]);
+
+  function onSuccessHTTPRequest(): void {
+    navigate(PagePaths.logInPath);
+  }
+
+  function onFailedHTTPRequest(error: AxiosError): void {
+    toast.error(error.response.data.message);
+  }
+
   const handleFormSubmit: SubmitHandler<INewUser> = (data) => {
-    console.log(data);
-    reset();
+    signUp(data);
   };
 
   const onCheckboxChange = () => {
@@ -47,35 +100,64 @@ const SignUpForm: FC = () => {
       </Header>
       <Form onSubmit={handleSubmit(handleFormSubmit)}>
         <Input
-          settings={{ ...register('email') }}
+          settings={{ ...register('email', { required: true }) }}
           formType={FormTypes.auth}
           label='Email'
           leftDistance={19}
           type={InputTypes.email}
         />
         <Input
-          settings={{ ...register('firstName') }}
+          settings={{
+            ...register('firstName', {
+              required: true,
+              pattern: regExp.name,
+            }),
+          }}
           formType={FormTypes.auth}
           label='First name'
           leftDistance={19}
         />
         <Input
-          settings={{ ...register('lastName') }}
+          settings={{
+            ...register('lastName', {
+              required: true,
+              pattern: regExp.name,
+            }),
+          }}
           formType={FormTypes.auth}
           label='Last name'
           leftDistance={19}
         />
         <Input
-          settings={{ ...register('phone') }}
+          settings={{
+            ...register('phoneNumber', {
+              required: true,
+              pattern: regExp.phoneNumber,
+            }),
+          }}
           formType={FormTypes.auth}
           label='Phone'
           leftDistance={19}
           type={InputTypes.phone}
         />
         <Input
-          settings={{ ...register('password') }}
+          settings={{
+            ...register('password', {
+              required: true,
+              minLength: AuthParams.passwordMinLength,
+              maxLength: AuthParams.passwordMaxLength,
+            }),
+          }}
           formType={FormTypes.auth}
           label='Password'
+          leftDistance={19}
+        />
+        <Input
+          settings={{
+            ...register('confirmationThePassword', { required: true }),
+          }}
+          formType={FormTypes.auth}
+          label='Confirmation the password'
           leftDistance={19}
         />
         <PrivacyPolicyContainer>
@@ -83,6 +165,7 @@ const SignUpForm: FC = () => {
             buttonForm={ButtonForms.other}
             title='Sign up'
             disabled={!agree}
+            type={ButtonTypes.submit}
           />
           <Input
             formType={FormTypes.auth}
