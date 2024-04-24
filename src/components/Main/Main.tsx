@@ -22,16 +22,13 @@ const Main: FC = () => {
   });
 
   useEffect(() => {
-    let timer: number | null = null;
-    timer = setTimeout(() => {
-      setAgeModalIsOpen(true);
-    }, 1000);
-
-    return () => {
-      if (timer) {
-        clearTimeout(timer);
-      }
-    };
+    const hasVisitedBefore = localStorage.getItem('hasVisited');
+    if (!hasVisitedBefore) {
+      setTimeout(() => {
+        setAgeModalIsOpen(true);
+        localStorage.setItem('hasVisited', 'true');
+      }, 1000);
+    }
   }, []);
 
   const handleCloseAgeModal = () => {
