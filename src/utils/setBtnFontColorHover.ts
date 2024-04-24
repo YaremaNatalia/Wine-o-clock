@@ -5,7 +5,7 @@ const setBtnFontColorHover = (
 ): string => {
   switch (buttonDesign) {
     case ButtonDesign.burgundy:
-      return theme.colors.primaryAccentColor;
+      return theme.colors.primaryWhite;
 
     case ButtonDesign.white:
       return theme.colors.decorativeColor;
