@@ -48,12 +48,23 @@ const refreshUser = async (
   }
 };
 
+const useSiteVisited = () => {
+  const isVisited =
+    client.getQueryData<boolean>([QueryKeys.isVisited]) ?? false;
+  const setVisited = () => {
+    client.setQueryData([QueryKeys.isVisited], true);
+  };
+
+  return { isVisited, setVisited };
+};
+
 const operations = {
   getAllWines,
   getPromotion,
   refreshUser,
   login,
   signUp,
+  useSiteVisited,
 };
 
 export default operations;

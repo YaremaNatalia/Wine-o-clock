@@ -15,6 +15,7 @@ import NotFoundPage from '@/pages/NotFoundPage';
 
 const Main: FC = () => {
   const [ageModalIsOpen, setAgeModalIsOpen] = useState(false);
+  const { isVisited, setVisited } = operations.useSiteVisited();
 
   const { data, isLoading, isError } = useQuery<IAllWinesData>({
     queryFn: () => operations.getAllWines(),
@@ -22,17 +23,16 @@ const Main: FC = () => {
   });
 
   useEffect(() => {
-    const hasVisitedBefore = localStorage.getItem('hasVisited');
-    if (!hasVisitedBefore) {
+    if (!isVisited) {
       setTimeout(() => {
         setAgeModalIsOpen(true);
-        localStorage.setItem('hasVisited', 'true');
       }, 1000);
     }
-  }, []);
+  }, [isVisited]);
 
   const handleCloseAgeModal = () => {
     setAgeModalIsOpen(false);
+    setVisited();
   };
 
   if (isLoading) return <Loader />;
