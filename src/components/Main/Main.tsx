@@ -14,8 +14,9 @@ import { QueryKeys, operations } from '@/tanStackQuery';
 import NotFoundPage from '@/pages/NotFoundPage';
 
 const Main: FC = () => {
+  const { useSiteVisited } = operations;
   const [ageModalIsOpen, setAgeModalIsOpen] = useState(false);
-  const { isVisited, setVisited } = operations.useSiteVisited();
+  const { isVisited, setVisited } = useSiteVisited();
 
   const { data, isLoading, isError } = useQuery<IAllWinesData>({
     queryFn: () => operations.getAllWines(),
