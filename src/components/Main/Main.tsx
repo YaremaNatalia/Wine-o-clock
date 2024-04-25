@@ -14,7 +14,9 @@ import { QueryKeys, operations } from '@/tanStackQuery';
 import NotFoundPage from '@/pages/NotFoundPage';
 
 const Main: FC = () => {
+  const { useSiteVisited } = operations;
   const [ageModalIsOpen, setAgeModalIsOpen] = useState(false);
+  const { isVisited, setVisited } = useSiteVisited();
 
   const { data, isLoading, isError } = useQuery<IAllWinesData>({
     queryFn: () => operations.getAllWines(),
@@ -22,20 +24,16 @@ const Main: FC = () => {
   });
 
   useEffect(() => {
-    let timer: number | null = null;
-    timer = setTimeout(() => {
-      setAgeModalIsOpen(true);
-    }, 1000);
-
-    return () => {
-      if (timer) {
-        clearTimeout(timer);
-      }
-    };
-  }, []);
+    if (!isVisited) {
+      setTimeout(() => {
+        setAgeModalIsOpen(true);
+      }, 1000);
+    }
+  }, [isVisited]);
 
   const handleCloseAgeModal = () => {
     setAgeModalIsOpen(false);
+    setVisited();
   };
 
   if (isLoading) return <Loader />;

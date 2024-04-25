@@ -1,5 +1,6 @@
 export interface IProps {
   onModalClose: () => void;
+
 }
 
 export interface FormData {
