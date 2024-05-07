@@ -8,7 +8,7 @@ const WineList: FC<IProps> = ({ wines }) => {
   return (
     <WineListStyled>
       {wines.map((wine) => (
-        <WineCard key={wine.id} wine={wine} />
+        <WineCard key={wine._id} wine={wine} />
       ))}
     </WineListStyled>
   );

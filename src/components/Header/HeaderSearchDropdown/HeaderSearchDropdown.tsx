@@ -36,12 +36,12 @@ const HeaderSearchDropdown: FC<IProps> = ({ wines, resetForm, setWines }) => {
 
   return (
     <SearchDropdownStyled ref={dropdownRef}>
-      {wines.map(({ id, wineName, price, imageUrl }) => (
-        <li key={id}>
+      {wines.map(({ _id, title, price, imageUrl }) => (
+        <li key={_id}>
           <StyledNavLink to='/store' onClick={handleClick}>
-            <WinePhoto src={imageUrl} alt={wineName} />
+            <WinePhoto src={imageUrl} alt={title} />
             <WineDetails>
-              <WineName>{wineName}</WineName>
+              <WineName>{title}</WineName>
               <WinePrice>${price}</WinePrice>
             </WineDetails>
           </StyledNavLink>

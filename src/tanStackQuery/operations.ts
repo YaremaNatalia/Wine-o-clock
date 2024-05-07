@@ -2,10 +2,14 @@ import { ICredentials, INewUser, IUser } from '@/types/types';
 import { $instance } from '@/utils/backendURL';
 import { QueryKeys, client } from './';
 
-const getAllWines = async (page: number = 1, limit: number = 8) => {
+const getAllWines = async (
+  page: number = 1,
+  limit: number = 8,
+  title: string = ''
+) => {
   try {
     const response = await $instance.get(
-      `v1/craft_wines?page=${page}&limit=${limit}`
+      `api/products?page=${page}&limit=${limit}&title=${title}`
     );
     return response.data;
   } catch (error) {
@@ -23,16 +27,18 @@ const getWineById = async (id: number) => {
   }
 };
 
-const getPromotion = async (page: number = 1, limit: number = 8) => {
-  try {
-    const response = await $instance.get(
-      `v1/wine_time_promotion/get_promotion?page=${page}&limit=${limit}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
+
+
+// const getPromotion = async (page: number = 1, limit: number = 8) => {
+//   try {
+//     const response = await $instance.get(
+//       `v1/wine_time_promotion/get_promotion?page=${page}&limit=${limit}`
+//     );
+//     return response.data;
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// };
 
 const signUp = async (data: INewUser): Promise<void> =>
   await $instance.post('v1/reg/registration', data);
@@ -71,7 +77,7 @@ const useSiteVisited = () => {
 const operations = {
   getAllWines,
   getWineById,
-  getPromotion,
+  // getPromotion,
   refreshUser,
   login,
   signUp,
