@@ -13,6 +13,16 @@ const getAllWines = async (page: number = 1, limit: number = 8) => {
   }
 };
 
+const getWineById = async (id: number) => {
+  try {
+    const response = await $instance.get(`
+/api/v1/get_by_id/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
 const getPromotion = async (page: number = 1, limit: number = 8) => {
   try {
     const response = await $instance.get(
@@ -60,6 +70,7 @@ const useSiteVisited = () => {
 
 const operations = {
   getAllWines,
+  getWineById,
   getPromotion,
   refreshUser,
   login,

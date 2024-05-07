@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Global, css } from '@emotion/react';
 import 'modern-normalize';
 import {
@@ -10,107 +10,138 @@ import {
   poppinsMedium,
   fontSpringDemoQuicheSans,
 } from '@/fonts';
+
 import { FontFamilyNames, theme } from '@/constants';
 
-const GlobalStyles: FC = () => (
-  <Global
-    styles={css`
-      @font-face {
-        font-family: ${FontFamilyNames.fontSpringDemoQuicheSans};
-        src: local(${FontFamilyNames.fontSpringDemoQuicheSans}),
-          url(${fontSpringDemoQuicheSans}) format('opentype');
-        font-weight: ${theme.fontWeight.bold};
-      }
+const GlobalStyles: FC = () => {
+  const [headerHeight, setHeaderHeight] = useState(0);
 
-      @font-face {
-        font-family: ${FontFamilyNames.montserrat};
-        src: local(${FontFamilyNames.montserrat}),
-          url(${montserratBold}) format('truetype');
-        font-weight: ${theme.fontWeight.bold};
-      }
+  useEffect(() => {
+    const header = document.querySelector('header');
 
-      @font-face {
-        font-family: ${FontFamilyNames.montserrat};
-        src: local(${FontFamilyNames.montserrat}),
-          url(${montserratSemiBold}) format('truetype');
-        font-weight: ${theme.fontWeight.semiBold};
+    const updateHeaderHeight = () => {
+      if (header) {
+        setHeaderHeight(header.offsetHeight);
       }
+    };
 
-      @font-face {
-        font-family: ${FontFamilyNames.montserrat};
-        src: local(${FontFamilyNames.montserrat}),
-          url(${montserratMedium}) format('truetype');
-        font-weight: ${theme.fontWeight.medium};
-      }
+    updateHeaderHeight();
 
-      @font-face {
-        font-family: ${FontFamilyNames.montserrat};
-        src: local(${FontFamilyNames.montserrat}),
-          url(${montserratRegular}) format('truetype');
-        font-weight: ${theme.fontWeight.regular};
-      }
+    window.addEventListener('resize', updateHeaderHeight);
 
-      @font-face {
-        font-family: ${FontFamilyNames.montserrat};
-        src: local(${FontFamilyNames.montserrat}),
-          url(${montserratThin}) format('truetype');
-        font-weight: ${theme.fontWeight.thin};
-      }
+    return () => {
+      window.removeEventListener('resize', updateHeaderHeight);
+    };
+  }, []);
 
-      @font-face {
-        font-family: ${FontFamilyNames.poppins};
-        src: local(${FontFamilyNames.poppins}),
-          url(${poppinsMedium}) format('truetype');
-        font-weight: ${theme.fontWeight.medium};
-      }
+  useEffect(() => {
+    document.body.style.marginTop = `${headerHeight}px`;
+  }, [headerHeight]);
 
-      body {
-        line-height: 1.2;
-        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-          'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-          'Helvetica Neue', sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        overflow-y: scroll;
-      }
+  return (
+    <Global
+      styles={css`
+        @font-face {
+          font-family: ${FontFamilyNames.fontSpringDemoQuicheSans};
+          src: local(${FontFamilyNames.fontSpringDemoQuicheSans}),
+            url(${fontSpringDemoQuicheSans}) format('opentype');
+          font-weight: ${theme.fontWeight.bold};
+        }
 
-      code {
-        font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-          monospace;
-      }
+        @font-face {
+          font-family: ${FontFamilyNames.montserrat};
+          src: local(${FontFamilyNames.montserrat}),
+            url(${montserratBold}) format('truetype');
+          font-weight: ${theme.fontWeight.bold};
+        }
 
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6,
-      p {
-        margin: 0;
-      }
+        @font-face {
+          font-family: ${FontFamilyNames.montserrat};
+          src: local(${FontFamilyNames.montserrat}),
+            url(${montserratSemiBold}) format('truetype');
+          font-weight: ${theme.fontWeight.semiBold};
+        }
 
-      ul,
-      ol {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
+        @font-face {
+          font-family: ${FontFamilyNames.montserrat};
+          src: local(${FontFamilyNames.montserrat}),
+            url(${montserratMedium}) format('truetype');
+          font-weight: ${theme.fontWeight.medium};
+        }
 
-      img {
-        display: block;
-        max-width: 100%;
-        height: auto;
-      }
+        @font-face {
+          font-family: ${FontFamilyNames.montserrat};
+          src: local(${FontFamilyNames.montserrat}),
+            url(${montserratRegular}) format('truetype');
+          font-weight: ${theme.fontWeight.regular};
+        }
 
-      button {
-        cursor: pointer;
-      }
+        @font-face {
+          font-family: ${FontFamilyNames.montserrat};
+          src: local(${FontFamilyNames.montserrat}),
+            url(${montserratThin}) format('truetype');
+          font-weight: ${theme.fontWeight.thin};
+        }
 
-      a {
-        text-decoration: none;
-      }
-    `}
-  />
-);
+        @font-face {
+          font-family: ${FontFamilyNames.poppins};
+          src: local(${FontFamilyNames.poppins}),
+            url(${poppinsMedium}) format('truetype');
+          font-weight: ${theme.fontWeight.medium};
+        }
+
+        body {
+          line-height: 1.2;
+          font-family: 'Montserrat', -apple-system, BlinkMacSystemFont,
+            'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+            'Droid Sans', 'Helvetica Neue', sans-serif;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          overflow-y: scroll;
+          /* margin-top: 112px;
+        @media screen and (min-width: 768px) {
+          margin-top: 153px;
+        } */
+        }
+
+        code {
+          font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+            monospace;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p {
+          margin: 0;
+        }
+
+        ul,
+        ol {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+
+        img {
+          display: block;
+          max-width: 100%;
+          height: auto;
+        }
+
+        button {
+          cursor: pointer;
+        }
+
+        a {
+          text-decoration: none;
+        }
+      `}
+    />
+  );
+};
 
 export default GlobalStyles;

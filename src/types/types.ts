@@ -61,7 +61,7 @@ export interface IWine {
   sugarConsistency: string;
   country: ICountry;
   region: IRegion;
-  evaluation?: number;
+  evaluation: number;
   wineComments?: IComment[];
   bottlesSoldCounter: number;
   addedDateTime: string;

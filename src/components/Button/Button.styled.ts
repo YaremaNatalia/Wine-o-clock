@@ -44,3 +44,27 @@ export const StyledButton = styled.button<IStyledProps>`
     font-size: 16px;
   }
 `;
+
+export const ChildrenWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${({ theme }) => theme.spacing(4)};
+
+  svg {
+    @media screen and (min-width: 1440px) {
+      width: 42px;
+      height: 42px;
+    }
+  }
+`;
+
+export const PriceWrapper = styled.div`
+  font-size: 20px;
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  margin-left: auto;
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+`;

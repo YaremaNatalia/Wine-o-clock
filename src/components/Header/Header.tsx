@@ -17,8 +17,8 @@ import Logo from '@/icons/logo.svg?react';
 import NavLinks from '@/components/NavLinks';
 import PrivateLinks from '@/components/PrivateLinks';
 import MobileMenu from '@/components/MobileMenu';
-import MobileMenuBtn from '@/components/MobileMenuBtn';
-import HeaderSearchInput from '../HeaderSearchInput';
+import MobileMenuBtn from '@/components/MobileMenu/MobileMenuBtn';
+import HeaderSearchInput from './HeaderSearchInput';
 
 const Header = () => {
   const [isDesktopScreen, setIsDesktopScreen] = useState<boolean>(

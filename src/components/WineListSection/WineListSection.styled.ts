@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const MainWineListSectionStyled = styled.div`
+export const WineListSectionStyled = styled.div`
   .sectionTitle {
     font-size: 18px;
     font-weight: ${({ theme }) => theme.fontWeight.bold};

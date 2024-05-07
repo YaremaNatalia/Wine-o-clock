@@ -8,7 +8,7 @@ import { Form } from './HeaderSearchInput.styled';
 import IconButton from '@/components/IconButton';
 import { IoSearch } from 'react-icons/io5';
 import { IAllWinesData, IWine } from '@/types/types';
-import HeaderSearchDropdown from '@/components/HeaderSearchDropdown';
+import HeaderSearchDropdown from '@/components/Header/HeaderSearchDropdown';
 import { keysToExclude } from '@/utils';
 import { QueryKeys, operations } from '@/tanStackQuery';
 import { useQuery } from '@tanstack/react-query';
