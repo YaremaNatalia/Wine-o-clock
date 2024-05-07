@@ -23,6 +23,7 @@ const Main: FC = () => {
     queryKey: [QueryKeys.wines],
   });
 
+
   useEffect(() => {
     if (!isVisited) {
       setTimeout(() => {
@@ -41,7 +42,7 @@ const Main: FC = () => {
     return <NotFoundPage />;
   }
 
-  const wineData = data?.data;
+  const wineData = data?.products;
   const sales = wineData?.filter((wine) => wine.isSale);
   const newWines = wineData?.filter((wine) => wine.isNewCollection);
   const bestsellers = wineData

@@ -9,7 +9,7 @@ import { BtnClickEvent } from '@/types/types';
 
 const WineCard: FC<IProps> = ({ wine }) => {
   const {
-    wineName,
+    title,
     country,
     price,
     imageUrl,
@@ -37,8 +37,8 @@ const WineCard: FC<IProps> = ({ wine }) => {
         </div>
       </div>
       <div className='wineCardInfo'>
-        <p className='wineName'>{wineName}</p>
-        <p className='wineCountry'>{country.name}</p>
+        <p className='wineName'>{title}</p>
+        <p className='wineCountry'>{country}</p>
         <div className='priceWrapper'>
           <p className='winePrice'>{price} ₴</p>
           <IconButton

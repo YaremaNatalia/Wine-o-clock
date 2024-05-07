@@ -5,7 +5,7 @@ import Clock from '@/components/Clock';
 import { IProps } from './WineTimer.types';
 
 const WineTimer: FC<IProps> = ({ wines, countries }) => {
-  const countryNames = countries.map((country) => country.name).join(', ');
+  const countryNames = countries.map((country) => country).join(', ');
   return (
     <WineTimerWrapper>
       <Container>
