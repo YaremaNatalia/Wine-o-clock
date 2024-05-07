@@ -11,8 +11,8 @@ import { useLocation } from 'react-router-dom';
 const WineCard: FC<IProps> = ({ wine }) => {
   const location = useLocation();
   const {
-    id,
-    wineName,
+    _id,
+    title,
     country,
     price,
     imageUrl,
@@ -26,7 +26,7 @@ const WineCard: FC<IProps> = ({ wine }) => {
   };
 
   return (
-    <WineDetailsLink state={{ from: location }} to={`/store/${id}`}>
+    <WineDetailsLink state={{ from: location }} to={`/store/${_id}`}>
       <WineCardStyled>
         <div className='imgWrapper'>
           <img className='wineImg' src={imageUrl} alt='Wine image' />
@@ -41,8 +41,8 @@ const WineCard: FC<IProps> = ({ wine }) => {
           </div>
         </div>
         <div className='wineCardInfo'>
-          <p className='wineName'>{wineName}</p>
-          <p className='wineCountry'>{country.name}</p>
+          <p className='wineName'>{title}</p>
+          <p className='wineCountry'>{country}</p>
           <div className='priceWrapper'>
             <p className='winePrice'>{price} ₴</p>
             <IconButton

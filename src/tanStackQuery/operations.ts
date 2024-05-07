@@ -17,15 +17,15 @@ const getAllWines = async (
   }
 };
 
-const getWineById = async (id: number) => {
-  try {
-    const response = await $instance.get(`
-/api/v1/get_by_id/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
+// const getWineById = async (id: number) => {
+//   try {
+//     const response = await $instance.get(`
+// /api/v1/get_by_id/${id}`);
+//     return response.data;
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// };
 
 
 
@@ -76,7 +76,7 @@ const useSiteVisited = () => {
 
 const operations = {
   getAllWines,
-  getWineById,
+  // getWineById,
   // getPromotion,
   refreshUser,
   login,

@@ -7,11 +7,12 @@ import { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import NotFoundPage from './NotFoundPage';
 
-import data from '../utils/Data.json';
+
 
 const WineDetailsPage: FC = () => {
-  const id = 5;
+  // const id = 5;
   // const { id } = useParams();
+  
   // const { data, isLoading, isError } = useQuery<IWine>({
   //   queryFn: () =>
   //     id
@@ -26,7 +27,9 @@ const WineDetailsPage: FC = () => {
   // }
   // if (!data) return null;
 
-  const wineById = data?.data.find((wine: IWine) => wine.id === Number(id));
+  // const wineById = data?.data?.find((wine: IWine) => wine.id === Number(id));
+  const wineById = false;
+
 
   return <>{wineById && <WineDetails wine={wineById} />}</>;
 };

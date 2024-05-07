@@ -13,18 +13,15 @@ import { QueryKeys, operations } from '@/tanStackQuery';
 import NotFoundPage from '@/pages/NotFoundPage';
 import WineListSection from '@/components/WineListSection';
 
-import data from '../../utils/Data.json';
-
 const Main: FC = () => {
   const { useSiteVisited } = operations;
   const [ageModalIsOpen, setAgeModalIsOpen] = useState(false);
   const { isVisited, setVisited } = useSiteVisited();
 
-  // const { data, isLoading, isError } = useQuery<IAllWinesData>({
-  //   queryFn: () => operations.getAllWines(),
-  //   queryKey: [QueryKeys.wines],
-  // });
-
+  const { data, isLoading, isError } = useQuery<IAllWinesData>({
+    queryFn: () => operations.getAllWines(),
+    queryKey: [QueryKeys.wines],
+  });
 
   useEffect(() => {
     if (!isVisited) {
@@ -39,10 +36,10 @@ const Main: FC = () => {
     setVisited();
   };
 
-  // if (isLoading) return <Loader />;
-  // if (isError) {
-  //   return <NotFoundPage />;
-  // }
+  if (isLoading) return <Loader />;
+  if (isError) {
+    return <NotFoundPage />;
+  }
 
   const wineData = data?.products;
   const sales = wineData?.filter((wine) => wine.isSale);

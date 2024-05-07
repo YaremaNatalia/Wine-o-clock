@@ -4,10 +4,10 @@ export interface IProps {
   sweetness: string;
   country: string;
   region: string;
-  volume: string;
-  alcohol: string;
+  volume: number;
+  alcohol: number;
   price: number;
-  name: string;
+  title: string;
   rating: number;
   quantity: number;
 }

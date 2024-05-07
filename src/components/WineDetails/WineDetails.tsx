@@ -15,7 +15,7 @@ import WineInfo from './WineInfo';
 import WineDescription from './WineDescription';
 import { IProps } from './WineDetails.types';
 import { useQuery } from '@tanstack/react-query';
-import { IAllWinesData, IWine } from '@/types/types';
+import { IAllWinesData } from '@/types/types';
 import { QueryKeys, operations } from '@/tanStackQuery';
 import Loader from '../Loader';
 import NotFoundPage from '@/pages/NotFoundPage';
@@ -23,7 +23,6 @@ import WineListSection from '../WineListSection';
 
 import StarRating from './StarRating';
 
-import data from '../../utils/Data.json';
 import Container from '../Container';
 
 const WineDetails: FC<IProps> = ({ wine }) => {
@@ -31,17 +30,17 @@ const WineDetails: FC<IProps> = ({ wine }) => {
   const [isDescriptionActive, setIsDescriptionActive] = useState(false);
   const [isReviewsActive, setIsReviewsActive] = useState(false);
 
-  // const { data, isLoading, isError } = useQuery<IAllWinesData>({
-  //   queryFn: () => operations.getAllWines(),
-  //   queryKey: [QueryKeys.wines],
-  // });
+  const { data, isLoading, isError } = useQuery<IAllWinesData>({
+    queryFn: () => operations.getAllWines(),
+    queryKey: [QueryKeys.wines],
+  });
 
-  // if (isLoading) return <Loader />;
-  // if (isError) {
-  //   return <NotFoundPage />;
-  // }
+  if (isLoading) return <Loader />;
+  if (isError) {
+    return <NotFoundPage />;
+  }
 
-  const wineData = data?.data;
+  const wineData = data?.products;
   const bestsellers = wineData
     ?.filter((wine) => wine.isBestSeller)
     .sort((a, b) => b.bottlesSoldCounter - a.bottlesSoldCounter);
@@ -65,11 +64,11 @@ const WineDetails: FC<IProps> = ({ wine }) => {
   };
 
   const {
-    id,
-    wineName,
+    _id,
+    title,
     price,
     adminDiscountPercentage,
-    wineDescription,
+    description,
     bottleCapacity,
     alcohol,
     isNewCollection,
@@ -78,7 +77,7 @@ const WineDetails: FC<IProps> = ({ wine }) => {
     country,
     region,
     evaluation = 0,
-    wineComments,
+    comments,
     imageUrl,
     quantity,
   } = wine ?? {};
@@ -88,13 +87,13 @@ const WineDetails: FC<IProps> = ({ wine }) => {
       <PageNavigation
         firstTitle='Main page'
         secondTitle='Store'
-        thirdTitle={wineName}
+        thirdTitle={title}
       />
       <Container>
         <WineWrapper>
           <WineCardWrapper>
             <div className='nameWrapper'>
-              <p className='wineName'>{wineName}</p>
+              <p className='wineName'>{title}</p>
               <StarRating data={evaluation} />
             </div>
             <div className='imgWrapper'>
@@ -131,30 +130,30 @@ const WineDetails: FC<IProps> = ({ wine }) => {
                 onClick={handleReviewsClick}
                 className={isReviewsActive ? 'active' : ''}
               >
-                Review ({wineComments?.length})
+                Review ({comments?.length})
               </a>
             </WineDetailsLinks>
             <DetailsWrapper>
               {isGeneralInfoActive && (
                 <WineInfo
-                  id={id}
+                  id={_id}
                   color={wineColor}
                   sweetness={sugarConsistency}
-                  country={country.name}
-                  region={region.name}
+                  country={country}
+                  region={region}
                   volume={bottleCapacity}
                   alcohol={alcohol}
                   price={price}
-                  name={wineName}
+                  title={title}
                   rating={evaluation}
                   quantity={quantity}
                 />
               )}
               {isDescriptionActive && (
-                <WineDescription description={wineDescription} />
+                <WineDescription description={description} />
               )}
-              {isReviewsActive && wineComments && (
-                <WineReviews reviews={wineComments} />
+              {isReviewsActive && comments && (
+                <WineReviews reviews={comments} />
               )}
             </DetailsWrapper>
           </InfoWrapper>
