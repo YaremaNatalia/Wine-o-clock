@@ -30,7 +30,7 @@ const HeaderSearchInput: FC = () => {
 
   useEffect(() => {
     if (!isError && data) {
-      setFetchWines(data.data);
+      setFetchWines(data.products);
     }
   }, [isError, data]);
 
@@ -52,10 +52,6 @@ const HeaderSearchInput: FC = () => {
                 return value.toLowerCase().includes(query);
               } else if (typeof value === 'number') {
                 return value.toString().toLowerCase() === query;
-              } else if (typeof value === 'object') {
-                if ('name' in value && typeof value.name === 'string') {
-                  return value.name.toLowerCase().includes(query);
-                }
               }
               return false;
             });

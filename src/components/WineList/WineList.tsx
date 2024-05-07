@@ -10,7 +10,7 @@ const WineList: FC<IProps> = ({ wines }) => {
     <Section>
       <WineListStyled>
         {wines.map((wine) => (
-          <WineCard key={wine.id} wine={wine} />
+          <WineCard key={wine._id} wine={wine} />
         ))}
       </WineListStyled>
     </Section>

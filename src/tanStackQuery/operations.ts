@@ -5,7 +5,7 @@ import { QueryKeys, client } from './';
 const getAllWines = async (
   page: number = 1,
   limit: number = 8,
-  title: string
+  title: string = ''
 ) => {
   try {
     const response = await $instance.get(

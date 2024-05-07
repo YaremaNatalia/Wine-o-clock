@@ -67,14 +67,14 @@ export interface IWine {
   bottlesSoldCounter: number;
   // addedDateTime: string;
   imageUrl: string;
-  // [key: string]:
-  //   | string
-  //   | number
-  //   | boolean
-  //   | ICountry
-  //   | IRegion
-  //   | IComment[]
-  //   | undefined;
+  [key: string]:
+    | string
+    | number
+    | boolean
+    // | ICountry
+    // | IRegion
+    | IComment[]
+    | undefined;
 }
 
 // export interface IAllWinesData {
