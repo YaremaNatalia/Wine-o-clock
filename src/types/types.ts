@@ -39,14 +39,14 @@ export interface ICredentials {
 }
 
 export interface IWine {
-  id: number;
-  wineName: string;
+  _id: number;
+  title: string;
   price: number;
   adminDiscountPercentage: number;
-  wineDescription: string;
+  description: string;
   quantity: number;
-  bottleCapacity: string;
-  alcohol: string;
+  bottleCapacity: number;
+  alcohol: number;
   isNewCollection: boolean;
   isBestSeller: boolean;
   isSale: boolean;
@@ -59,52 +59,58 @@ export interface IWine {
   reviewsAndAwards?: string;
   wineColor: string;
   sugarConsistency: string;
-  country: ICountry;
-  region: IRegion;
+  country: string;
+  region: string;
   evaluation?: number;
-  wineComments?: IComment[];
+  // comments?: IComment[];
+  comments?: [];
   bottlesSoldCounter: number;
-  addedDateTime: string;
+  // addedDateTime: string;
   imageUrl: string;
-  [key: string]:
-    | string
-    | number
-    | boolean
-    | ICountry
-    | IRegion
-    | IComment[]
-    | undefined;
+  // [key: string]:
+  //   | string
+  //   | number
+  //   | boolean
+  //   | ICountry
+  //   | IRegion
+  //   | IComment[]
+  //   | undefined;
 }
+
+// export interface IAllWinesData {
+//   data: IWine[];
+//   page?: number;
+//   limit?: number;
+//   totalElements?: number;
+//   totalPages?: number;
+// }
 
 export interface IAllWinesData {
-  data: IWine[];
-  page?: number;
-  limit?: number;
-  totalElements?: number;
-  totalPages?: number;
+  products: IWine[];
+  count: number;
 }
 
-export interface ICountry {
-  id: number;
-  name: string;
-}
+// export interface ICountry {
+//   id: number;
+//   name: string;
+// }
 
-export interface DataDTO {
-  data: IWine[];
-  page?: number;
-  limit?: number;
-  totalElements?: number;
-  totalPages?: number;
-}
-export interface IPromData {
-  dataDTO: DataDTO;
-  producedCountryList: ICountry[];
-}
+// export interface DataDTO {
+//   data: IWine[];
+//   page?: number;
+//   limit?: number;
+//   totalElements?: number;
+//   totalPages?: number;
+// }
+// export interface IPromData {
+//   dataDTO: DataDTO;
+//   producedCountryList: ICountry[];
+// }
 
-export interface IRegion {
-  id: number;
-  name: string;
-}
+// export interface IRegion {
+//   id: number;
+//   name: string;
+// }
 
 export interface IComment {
   id: number;
