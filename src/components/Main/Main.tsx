@@ -21,6 +21,7 @@ const Main: FC = () => {
   const { data, isLoading, isError } = useQuery<IAllWinesData>({
     queryFn: () => operations.getAllWines(),
     queryKey: [QueryKeys.wines],
+    refetchOnMount: true,
   });
 
   useEffect(() => {

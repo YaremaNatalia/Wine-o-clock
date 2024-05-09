@@ -26,6 +26,7 @@ const HeaderSearchInput: FC = () => {
   const { data, isError } = useQuery<IAllWinesData>({
     queryFn: () => operations.getAllWines(),
     queryKey: [QueryKeys.wines],
+    refetchOnMount: true,
   });
 
   useEffect(() => {
