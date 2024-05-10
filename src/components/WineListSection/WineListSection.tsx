@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC} from 'react';
 
 import { WineListSectionStyled } from './WineListSection.styled';
 import { IProps } from './WineListSection.types';
@@ -6,7 +6,6 @@ import Section from '@/components/Section';
 import Container from '@/components/Container';
 import { IoIosArrowForward } from 'react-icons/io';
 import { IoIosArrowBack } from 'react-icons/io';
-import { IWine } from '@/types/types';
 import WineList from '@/components/WineList';
 import { usePagination, useWindowResize } from '@/utils';
 
@@ -15,18 +14,8 @@ const WineListSection: FC<IProps> = ({
   sectionTitle,
   componentTitle,
 }) => {
-  const [wineCards, setWineCards] = useState<IWine[]>([]);
 
   const screenSize = useWindowResize();
-
-  useEffect(() => {
-    const fetchWines = async () => {
-      const data = wines;
-
-      setWineCards(data);
-    };
-    fetchWines();
-  }, [wines]);
 
   let wineCardsPerPage: number;
   if (componentTitle === 'MainPage') {
@@ -36,7 +25,7 @@ const WineListSection: FC<IProps> = ({
   }
 
   const { currentPage, currentItems, totalPages, toNextPage, toPrevPage } =
-    usePagination(wineCards, wineCardsPerPage);
+    usePagination(wines, wineCardsPerPage);
 
   return (
     <Section>

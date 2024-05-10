@@ -5,8 +5,17 @@ const usePagination = <T,>(
   totalItems: T[],
   itemsPerPage: number
 ): IPagination<T> => {
-  
   const [currentPage, setCurrentPage] = useState(1);
+
+  if (!totalItems) {
+    return {
+      currentPage: 1,
+      currentItems: [],
+      totalPages: 0,
+      toNextPage: () => {},
+      toPrevPage: () => {},
+    };
+  }
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;

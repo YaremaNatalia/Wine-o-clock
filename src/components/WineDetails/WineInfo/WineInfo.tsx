@@ -7,6 +7,8 @@ import { ButtonForms, ButtonTypes } from '@/constants';
 import BasketPlus from '@/icons/basketPlus.svg?react';
 import { BtnClickEvent } from '@/types/types';
 import Counter from '../Counter';
+import toast from 'react-hot-toast';
+import CustomToast from '@/components/CustomToast';
 
 const WineInfo: FC<IProps> = ({
   id,
@@ -16,7 +18,7 @@ const WineInfo: FC<IProps> = ({
   region,
   volume,
   alcohol,
-  name,
+  title,
   rating,
   price,
   quantity,
@@ -26,15 +28,20 @@ const WineInfo: FC<IProps> = ({
   const handleBtnClick = (e: BtnClickEvent) => {
     if (counterValue <= quantity) {
       console.log(id, counterValue);
+      toast.success(
+        <CustomToast message={`Wine ${title} added to your cart!`} />
+      );
+      setCounterValue(1);
     }
-
     e.currentTarget.blur();
   };
-  const totalPrice = counterValue * price;
+
+  const totalPrice = (counterValue * price).toFixed(2);
+
   return (
     <WineInfoStyled>
       <div className='nameWrapper'>
-        <p className='wineName'>{name}</p>
+        <p className='wineName'>{title}</p>
         <StarRating data={rating} />
       </div>
       <WineInfoList>
@@ -57,7 +64,11 @@ const WineInfo: FC<IProps> = ({
           Alcohol: <span> {alcohol}%</span>
         </li>
       </WineInfoList>
-      <Counter quantity={quantity} onCounterChange={setCounterValue} />
+      <Counter
+        quantity={quantity}
+        counterValue={counterValue}
+        onCounterChange={setCounterValue}
+      />
       <p className='winePrice'>{price} ₴</p>
       <Button
         svg={<BasketPlus />}

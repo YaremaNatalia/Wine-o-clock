@@ -1,22 +1,18 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 import { IoIosArrowBack } from 'react-icons/io';
 import { IProps } from './Counter.types';
 import { CounterStyled } from './Counter.styled';
 
-const Counter: FC<IProps> = ({ quantity, onCounterChange }) => {
-  const [counterValue, setCounterValue] = useState(1);
-
+const Counter: FC<IProps> = ({ quantity, counterValue, onCounterChange }) => {
   const onDecrBtnClick = () => {
     if (counterValue > 1) {
-      setCounterValue((prevState) => prevState - 1);
       onCounterChange(counterValue - 1);
     }
   };
 
   const onIncrBtnClick = () => {
     if (counterValue < quantity) {
-      setCounterValue((prevState) => prevState + 1);
       onCounterChange(counterValue + 1);
     }
   };

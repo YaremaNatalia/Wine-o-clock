@@ -1,4 +1,4 @@
-import { ICredentials, INewUser, IUser } from '@/types/types';
+import { IAllWinesData, ICredentials, INewUser, IUser } from '@/types/types';
 import { $instance } from '@/utils/backendURL';
 import { QueryKeys, client } from './';
 
@@ -17,17 +17,22 @@ const getAllWines = async (
   }
 };
 
-// const getWineById = async (id: number) => {
-//   try {
-//     const response = await $instance.get(`
-// /api/v1/get_by_id/${id}`);
-//     return response.data;
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//   }
-// };
+const setGlobalStateAllWines = (data: IAllWinesData) => {
+  client.setQueryData([QueryKeys.wines], data);
+};
 
+const allWines = ()=> {
+   return client.getQueryData<IAllWinesData>([QueryKeys.wines])?.products || [];
+}
 
+const getWineById = async (productId: string) => {
+  try {
+    const response = await $instance.get(`api/products/${productId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
 
 // const getPromotion = async (page: number = 1, limit: number = 8) => {
 //   try {
@@ -76,7 +81,9 @@ const useSiteVisited = () => {
 
 const operations = {
   getAllWines,
-  // getWineById,
+  setGlobalStateAllWines,
+  allWines,
+  getWineById,
   // getPromotion,
   refreshUser,
   login,

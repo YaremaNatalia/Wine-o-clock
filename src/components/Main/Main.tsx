@@ -4,12 +4,10 @@ import MainQualities from '@/components/Main/MainQualities';
 import MainWineTime from '@/components/Main/MainWineTime';
 import ModalWin from '@/components/ModalWin';
 import MainAgeModal from '@/components/Main/MainAgeModal';
-import { IAllWinesData } from '@/types/types';
-import { useQuery } from '@tanstack/react-query';
 
 import Loader from '@/components/Loader';
 
-import { QueryKeys, operations } from '@/tanStackQuery';
+import { operations } from '@/tanStackQuery';
 import NotFoundPage from '@/pages/NotFoundPage';
 import WineListSection from '@/components/WineListSection';
 
@@ -17,12 +15,6 @@ const Main: FC = () => {
   const { useSiteVisited } = operations;
   const [ageModalIsOpen, setAgeModalIsOpen] = useState(false);
   const { isVisited, setVisited } = useSiteVisited();
-
-  const { data, isLoading, isError } = useQuery<IAllWinesData>({
-    queryFn: () => operations.getAllWines(),
-    queryKey: [QueryKeys.wines],
-    refetchOnMount: true,
-  });
 
   useEffect(() => {
     if (!isVisited) {
@@ -37,15 +29,15 @@ const Main: FC = () => {
     setVisited();
   };
 
-  if (isLoading) return <Loader />;
-  if (isError) {
-    return <NotFoundPage />;
-  }
+  // if (isLoading) return <Loader />;
+  // if (isError) {
+  //   return <NotFoundPage />;
+  // }
 
-  const wineData = data?.products;
-  const sales = wineData?.filter((wine) => wine.isSale);
-  const newWines = wineData?.filter((wine) => wine.isNewCollection);
-  const bestsellers = wineData
+  const wines = operations.allWines();
+  const sales = wines?.filter((wine) => wine.isSale);
+  const newWines = wines?.filter((wine) => wine.isNewCollection);
+  const bestsellers = wines
     ?.filter((wine) => wine.isBestSeller)
     .sort((a, b) => b.bottlesSoldCounter - a.bottlesSoldCounter);
 

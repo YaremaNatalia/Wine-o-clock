@@ -12,6 +12,8 @@ import HeaderSearchDropdown from '@/components/Header/HeaderSearchDropdown';
 import { keysToExclude } from '@/utils';
 import { QueryKeys, operations } from '@/tanStackQuery';
 import { useQuery } from '@tanstack/react-query';
+import Loader from '@/components/Loader';
+import NotFoundPage from '@/pages/NotFoundPage';
 
 const HeaderSearchInput: FC = () => {
   const { register, reset } = useForm<FormData>({
@@ -19,11 +21,11 @@ const HeaderSearchInput: FC = () => {
       search: '',
     },
   });
-  const [fetchWines, setFetchWines] = useState<IWine[]>([]);
+
   const [searchResults, setSearchResults] = useState<IWine[]>([]);
   const [isButtonActive, setIsButtonActive] = useState(false);
 
-  const { data, isError } = useQuery<IAllWinesData>({
+  const { data, isError, isLoading } = useQuery<IAllWinesData>({
     queryFn: () => operations.getAllWines(),
     queryKey: [QueryKeys.wines],
     refetchOnMount: true,
@@ -31,9 +33,14 @@ const HeaderSearchInput: FC = () => {
 
   useEffect(() => {
     if (!isError && data) {
-      setFetchWines(data.products);
+      operations.setGlobalStateAllWines(data);
     }
   }, [isError, data]);
+
+  if (isLoading) return <Loader />;
+  if (isError) {
+    return <NotFoundPage />;
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value.toLowerCase();
@@ -41,7 +48,9 @@ const HeaderSearchInput: FC = () => {
     if (query.length >= 2) {
       setIsButtonActive(true);
 
-      const result = fetchWines.filter((wine: IWine) => {
+      const wines = operations.allWines();
+
+      const result = wines.filter((wine: IWine) => {
         if (query === 'sale') {
           return wine.isSale === true;
         } else {

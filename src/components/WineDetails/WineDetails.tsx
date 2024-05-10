@@ -14,15 +14,9 @@ import WineReviews from './WineReviews';
 import WineInfo from './WineInfo';
 import WineDescription from './WineDescription';
 import { IProps } from './WineDetails.types';
-import { useQuery } from '@tanstack/react-query';
-import { IAllWinesData } from '@/types/types';
-import { QueryKeys, operations } from '@/tanStackQuery';
-import Loader from '../Loader';
-import NotFoundPage from '@/pages/NotFoundPage';
+import { operations } from '@/tanStackQuery';
 import WineListSection from '../WineListSection';
-
 import StarRating from './StarRating';
-
 import Container from '../Container';
 
 const WineDetails: FC<IProps> = ({ wine }) => {
@@ -30,18 +24,9 @@ const WineDetails: FC<IProps> = ({ wine }) => {
   const [isDescriptionActive, setIsDescriptionActive] = useState(false);
   const [isReviewsActive, setIsReviewsActive] = useState(false);
 
-  const { data, isLoading, isError } = useQuery<IAllWinesData>({
-    queryFn: () => operations.getAllWines(),
-    queryKey: [QueryKeys.wines],
-  });
+  const wines = operations.allWines();
 
-  if (isLoading) return <Loader />;
-  if (isError) {
-    return <NotFoundPage />;
-  }
-
-  const wineData = data?.products;
-  const bestsellers = wineData
+  const bestsellers = wines
     ?.filter((wine) => wine.isBestSeller)
     .sort((a, b) => b.bottlesSoldCounter - a.bottlesSoldCounter);
 
@@ -101,7 +86,7 @@ const WineDetails: FC<IProps> = ({ wine }) => {
               <div className='iconsWrapper'>
                 <div className='labelWrapper'>
                   {isNewCollection && <p className='wineNewLabel'>New</p>}
-                  {adminDiscountPercentage && adminDiscountPercentage > 0 && (
+                  {adminDiscountPercentage > 0 && (
                     <p className='wineDiscountLabel'>
                       -{adminDiscountPercentage}%
                     </p>

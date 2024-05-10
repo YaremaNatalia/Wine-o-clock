@@ -8,12 +8,12 @@ import { useParams } from 'react-router-dom';
 import NotFoundPage from './NotFoundPage';
 
 const WineDetailsPage: FC = () => {
-  const { id } = useParams();
+  const { wineId } = useParams();
 
   const { data, isLoading, isError } = useQuery<IWine>({
     queryFn: () =>
-      id
-        ? operations.getWineById(parseInt(id))
+      wineId
+        ? operations.getWineById(wineId)
         : Promise.reject('ID is undefined'),
     queryKey: [QueryKeys.wineById],
     refetchOnMount: true,
@@ -25,9 +25,9 @@ const WineDetailsPage: FC = () => {
   }
   if (!data) return null;
 
-  const wineById = data?.data?.find((wine: IWine) => wine.id === Number(id));
 
-  return <>{wineById && <WineDetails wine={wineById} />}</>;
+
+  return <>{data && <WineDetails wine={data} />}</>;
 };
 
 export default WineDetailsPage;

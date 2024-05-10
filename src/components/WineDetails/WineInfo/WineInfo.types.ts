@@ -1,5 +1,5 @@
 export interface IProps {
-  id: number;
+  id: string;
   color: string;
   sweetness: string;
   country: string;
