@@ -4,12 +4,12 @@ import MainQualities from '@/components/Main/MainQualities';
 import MainWineTime from '@/components/Main/MainWineTime';
 import ModalWin from '@/components/ModalWin';
 import MainAgeModal from '@/components/Main/MainAgeModal';
-
 import Loader from '@/components/Loader';
-
-import { operations } from '@/tanStackQuery';
+import { QueryKeys, operations } from '@/tanStackQuery';
 import NotFoundPage from '@/pages/NotFoundPage';
 import WineListSection from '@/components/WineListSection';
+import { useQuery } from '@tanstack/react-query';
+import { IAllWinesData } from '@/types/types';
 
 const Main: FC = () => {
   const { useSiteVisited } = operations;
@@ -29,16 +29,27 @@ const Main: FC = () => {
     setVisited();
   };
 
-  // if (isLoading) return <Loader />;
-  // if (isError) {
-  //   return <NotFoundPage />;
-  // }
+  const { data, isError, isLoading } = useQuery<IAllWinesData>({
+    queryFn: () => operations.getAllWines(),
+    queryKey: [QueryKeys.wines],
+    refetchOnMount: true,
+  });
 
-  const wines = operations.allWines();
-  const sales = wines?.filter((wine) => wine.isSale);
-  const newWines = wines?.filter((wine) => wine.isNewCollection);
-  const bestsellers = wines
-    ?.filter((wine) => wine.isBestSeller)
+  useEffect(() => {
+    if (!isError && data) {
+      operations.setGlobalStateAllWines(data);
+    }
+  }, [isError, data]);
+
+  if (isLoading) return <Loader />;
+  if (isError) {
+    return <NotFoundPage />;
+  }
+
+  const sales = data?.products.filter((wine) => wine.isSale);
+  const newWines = data?.products.filter((wine) => wine.isNewCollection);
+  const bestsellers = data?.products
+    .filter((wine) => wine.isBestSeller)
     .sort((a, b) => b.bottlesSoldCounter - a.bottlesSoldCounter);
 
   return (

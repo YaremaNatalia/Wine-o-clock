@@ -24,9 +24,9 @@ const WineDetails: FC<IProps> = ({ wine }) => {
   const [isDescriptionActive, setIsDescriptionActive] = useState(false);
   const [isReviewsActive, setIsReviewsActive] = useState(false);
 
-  const wines = operations.allWines();
+  const allWines = operations.allWines();
 
-  const bestsellers = wines
+  const bestsellers = allWines
     ?.filter((wine) => wine.isBestSeller)
     .sort((a, b) => b.bottlesSoldCounter - a.bottlesSoldCounter);
 
