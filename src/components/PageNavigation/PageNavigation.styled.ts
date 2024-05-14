@@ -9,7 +9,7 @@ export const PageNavigationWrapper = styled.div`
   color: ${({ theme }) => theme.colors.secondaryGrey};
   font-size: 12px;
   font-weight: ${({ theme }) => theme.fontWeight.medium};
-  padding: 16px 0 0;
+  padding: 24px 0 0;
 
   p {
     color: ${({ theme }) => theme.colors.secondaryGrey};

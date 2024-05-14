@@ -10,6 +10,14 @@ import wineTimeTab from '@/icons/wine-time-tab.svg?react';
 import everyHourMob from '@/icons/every-hour-mob.svg?react';
 import everyHourTab from '@/icons/every-hour-tab.svg?react';
 
+import wineTimeRedDesk from '@/icons/wine-time-red-desk.svg?react';
+import wineTimeRedTab from '@/icons/wine-time-red-tab.svg?react';
+import wineTimeRedMob from '@/icons/wine-time-red-mob.svg?react';
+
+import everyHourRedDesk from '@/icons/every-hour-red-desk.svg?react';
+import everyHourRedTab from '@/icons/every-hour-red-tab.svg?react';
+import everyHourRedMob from '@/icons/every-hour-red-mob.svg?react';
+
 import { ScreenSize } from '@/types/types';
 
 const setAnimationTopMain = (screenSize: ScreenSize) => {
@@ -64,9 +72,37 @@ const setAnimationBottomWineTime = (screenSize: ScreenSize) => {
   }
 };
 
+const setWineTimeSizeAboutUs = (screenSize: ScreenSize) => {
+  switch (screenSize) {
+    case 'mobile':
+      return wineTimeRedMob;
+    case 'tablet':
+      return wineTimeRedTab;
+    case 'desktop':
+      return wineTimeRedDesk;
+    default:
+      return wineTimeRedMob;
+  }
+};
+
+const setEveryHourSizeAboutUs = (screenSize: ScreenSize) => {
+  switch (screenSize) {
+    case 'mobile':
+      return everyHourRedMob;
+    case 'tablet':
+      return everyHourRedTab;
+    case 'desktop':
+      return everyHourRedDesk;
+    default:
+      return everyHourRedMob;
+  }
+};
+
 export default {
   setAnimationTopMain,
   setAnimationBottomMain,
   setAnimationTopWineTime,
   setAnimationBottomWineTime,
+  setWineTimeSizeAboutUs,
+  setEveryHourSizeAboutUs,
 };

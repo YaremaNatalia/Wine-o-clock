@@ -13,6 +13,7 @@ import Loader from '@/components/Loader';
 import { QueryKeys, operations } from '@/tanStackQuery';
 import { useQuery } from '@tanstack/react-query';
 import { IUser } from '@/types/types';
+import AboutUsPage from '@/pages/AboutUsPage';
 
 const App = () => {
   const { data: token } = useQuery<string>({
@@ -31,7 +32,7 @@ const App = () => {
         <Route path={PagePaths.storePath} element={<div>storePath</div>} />
         <Route index element={<MainPage />} />
         <Route path={PagePaths.wineTimePath} element={<WineTimePage />} />
-        <Route path={PagePaths.aboutUsPath} element={<div>aboutUsPath</div>} />
+        <Route path={PagePaths.aboutUsPath} element={<AboutUsPage/>} />
         <Route
           path={PagePaths.personalDataPath}
           element={<PrivateRoute element={<div>personalDataPath</div>} />}
