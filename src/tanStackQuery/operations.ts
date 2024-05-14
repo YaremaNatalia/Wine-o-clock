@@ -17,13 +17,9 @@ const getAllWines = async (
   }
 };
 
-const setGlobalStateAllWines = (data: IAllWinesData) => {
-  client.setQueryData([QueryKeys.wines], data);
+const allWines = () => {
+  return client.getQueryData<IAllWinesData>([QueryKeys.wines])?.products || [];
 };
-
-const allWines = ()=> {
-   return client.getQueryData<IAllWinesData>([QueryKeys.wines])?.products || [];
-}
 
 const getWineById = async (productId: string) => {
   try {
@@ -81,7 +77,6 @@ const useSiteVisited = () => {
 
 const operations = {
   getAllWines,
-  setGlobalStateAllWines,
   allWines,
   getWineById,
   // getPromotion,

@@ -35,12 +35,6 @@ const Main: FC = () => {
     refetchOnMount: true,
   });
 
-  useEffect(() => {
-    if (!isError && data) {
-      operations.setGlobalStateAllWines(data);
-    }
-  }, [isError, data]);
-
   if (isLoading) return <Loader />;
   if (isError) {
     return <NotFoundPage />;
