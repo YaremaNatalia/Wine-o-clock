@@ -14,6 +14,7 @@ import PageNavigation from '@/components/PageNavigation';
 // import { ButtonDesign, theme } from '@/constants';
 // import NotFoundPage from '@/pages/NotFoundPage';
 import { WineTimeStyled } from './WineTime.styled';
+import { PagePaths } from '@/constants';
 // import ComingSoon from '@/icons/coming-soon.svg?react';
 
 const WineTime: FC = () => {
@@ -81,11 +82,15 @@ const WineTime: FC = () => {
   return (
     <WineTimeStyled>
       <WineTimeHero />
-      <PageNavigation firstTitle='Main page' secondTitle='Wine time' />
+      <PageNavigation
+        firstTitle='Main page'
+        firstLink={PagePaths.homePath}
+        secondTitle='Wine time'
+      />
       <WineTimeDescription />
       {/* <WineTimer wines={promWines} countries={promCountries} /> */}
       <Container>
-        <p>COMING SOON</p>
+        {''}
         {/* {promWines.length > 0 ? (
           <WineList wines={promWines} />
         ) : (

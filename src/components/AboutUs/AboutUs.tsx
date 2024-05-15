@@ -3,11 +3,16 @@ import AboutUsHero from './AboutUsHero';
 import PageNavigation from '../PageNavigation';
 import AboutUsInst from './AboutUsInst';
 import { AboutUsStyled } from './AboutUs.styled';
+import { PagePaths } from '@/constants';
 
 const AboutUs: FC = () => {
   return (
     <AboutUsStyled>
-      <PageNavigation firstPageTitle='Main page' secondPageTitle='About us' />
+      <PageNavigation
+        firstTitle='Main page'
+        firstLink={PagePaths.homePath}
+        secondTitle='About us'
+      />
       <AboutUsHero />
       <AboutUsInst />
     </AboutUsStyled>

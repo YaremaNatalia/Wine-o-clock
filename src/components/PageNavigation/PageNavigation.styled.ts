@@ -28,7 +28,7 @@ export const PageNavigationWrapper = styled.div`
   @media screen and (min-width: 768px) {
     padding: ${({ theme }) => theme.spacing(8)} 0;
     font-size: 14px;
-    padding: 32px 0 0;
+    padding: ${({ theme }) => theme.spacing(8)} 0;
     gap: ${({ theme }) => theme.spacing(2.5)};
   }
 

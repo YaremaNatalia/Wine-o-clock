@@ -7,8 +7,10 @@ export const WineTimeDescriptionStyled = styled.div`
   justify-content: center;
   flex-direction: column;
   font-size: 14px;
+  margin-bottom: ${({ theme }) => theme.spacing(6)};
 
   @media screen and (min-width: 1440px) {
+    margin-bottom: ${({ theme }) => theme.spacing(27)};
     font-size: 18px;
   }
 
@@ -16,6 +18,7 @@ export const WineTimeDescriptionStyled = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
 
   .subtitle {
@@ -23,6 +26,7 @@ export const WineTimeDescriptionStyled = styled.div`
     text-align: center;
 
     @media screen and (min-width: 1440px) {
+      width: 400px;
       margin-bottom: ${({ theme }) => theme.spacing(10)};
     }
   }
