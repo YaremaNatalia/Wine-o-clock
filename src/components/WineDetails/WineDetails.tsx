@@ -18,6 +18,7 @@ import { operations } from '@/tanStackQuery';
 import WineListSection from '../WineListSection';
 import StarRating from './StarRating';
 import Container from '../Container';
+import { PagePaths } from '@/constants';
 
 const WineDetails: FC<IProps> = ({ wine }) => {
   const [isGeneralInfoActive, setIsGeneralInfoActive] = useState(true);
@@ -71,7 +72,9 @@ const WineDetails: FC<IProps> = ({ wine }) => {
     <WineDetailsStyled>
       <PageNavigation
         firstTitle='Main page'
+        firstLink={PagePaths.homePath}
         secondTitle='Store'
+        secondLink={PagePaths.storePath}
         thirdTitle={title}
       />
       <Container>

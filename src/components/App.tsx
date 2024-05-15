@@ -14,6 +14,7 @@ import { QueryKeys, operations } from '@/tanStackQuery';
 import { useQuery } from '@tanstack/react-query';
 import { IUser } from '@/types/types';
 import WineDetailsPage from '@/pages/WineDetailsPage';
+import AboutUsPage from '@/pages/AboutUsPage';
 
 const App = () => {
   const { data: token } = useQuery<string>({
@@ -33,7 +34,7 @@ const App = () => {
         <Route index element={<MainPage />} />
         <Route path={PagePaths.wineTimePath} element={<WineTimePage />} />
         <Route path={PagePaths.wineDetailsPath} element={<WineDetailsPage />} />
-        <Route path={PagePaths.aboutUsPath} element={<div>aboutUsPath</div>} />
+        <Route path={PagePaths.aboutUsPath} element={<AboutUsPage/>} />
         <Route
           path={PagePaths.personalDataPath}
           element={<PrivateRoute element={<div>personalDataPath</div>} />}
