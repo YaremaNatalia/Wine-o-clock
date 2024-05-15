@@ -3,7 +3,7 @@ import { FaInstagram } from 'react-icons/fa';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { FaFacebook } from 'react-icons/fa';
 
-import FooterSubscribe from '@/components/FooterSubscribe';
+import FooterSubscribe from '@/components/Footer/FooterSubscribe';
 import { FooterTitle } from '@/components/Footer/Footer.Styled';
 import {
   FooterNewsWrapper,

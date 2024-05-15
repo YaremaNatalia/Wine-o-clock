@@ -1,20 +1,29 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+
 import Container from '@/components/Container';
 import { IoIosArrowForward } from 'react-icons/io';
 import { IProps } from './PageNavigation.types';
 import { PageNavigationWrapper } from './PageNavigation.styled';
-import { PagePaths } from '@/constants';
 
-const PageNavigation: FC<IProps> = ({ firstPageTitle, secondPageTitle }) => {
+const PageNavigation: FC<IProps> = ({
+  firstTitle,
+  secondTitle,
+  thirdTitle,
+}) => {
+  const isLastTitle = !thirdTitle;
+
   return (
     <Container>
       <PageNavigationWrapper>
-        <Link to={PagePaths.homePath}>
-          <p>{firstPageTitle}</p>
-        </Link>
+        <p>{firstTitle}</p>
         <IoIosArrowForward size={12} />
-        <p className='currentPageTitle'>{secondPageTitle}</p>
+        <p className={isLastTitle ? 'currentPageTitle' : ''}>{secondTitle}</p>
+        {thirdTitle && (
+          <>
+            <IoIosArrowForward size={12} />
+            <p className='currentPageTitle'>{thirdTitle}</p>
+          </>
+        )}
       </PageNavigationWrapper>
     </Container>
   );

@@ -1,4 +1,4 @@
-import { ICredentials, INewUser, IUser } from '@/types/types';
+import { IAllWinesData, ICredentials, INewUser, IUser } from '@/types/types';
 import { $instance } from '@/utils/backendURL';
 import { QueryKeys, client } from './';
 
@@ -11,6 +11,19 @@ const getAllWines = async (
     const response = await $instance.get(
       `api/products?page=${page}&limit=${limit}&title=${title}`
     );
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+const allWines = () => {
+  return client.getQueryData<IAllWinesData>([QueryKeys.wines])?.products || [];
+};
+
+const getWineById = async (productId: string) => {
+  try {
+    const response = await $instance.get(`api/products/${productId}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -64,6 +77,8 @@ const useSiteVisited = () => {
 
 const operations = {
   getAllWines,
+  allWines,
+  getWineById,
   // getPromotion,
   refreshUser,
   login,

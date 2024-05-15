@@ -1,4 +1,18 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
+
+export const WineDetailsLink = styled(Link)`
+  cursor: pointer;
+  text-decoration: none;
+  transition: ${({ theme }) => theme.transitionDurationAndFunc};
+  color: ${({ theme }) => theme.colors.primaryBlack};
+
+  &:hover,
+  &:focus {
+    transform: scale(1.1);
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.25);
+  }
+`;
 
 export const WineCardStyled = styled.li`
   display: flex;
@@ -10,12 +24,6 @@ export const WineCardStyled = styled.li`
   margin-right: auto;
   padding: ${({ theme }) => `${theme.spacing(4)} ${theme.spacing(3)}`};
   border-radius: 10px;
-  transition: ${({ theme }) => theme.transitionDurationAndFunc};
-  &:hover,
-  &:focus {
-    transform: scale(1.1);
-    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.25);
-  }
 
   @media screen and (min-width: 1440px) {
     gap: ${({ theme }) => theme.spacing(2.5)};

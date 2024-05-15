@@ -18,6 +18,8 @@ interface ITheme {
     decorativeLightGrey: string;
     modalInputColor: string;
     placeholderColor: string;
+    starColor: string;
+    starBorderColor: string;
   };
   fontFamily: {
     primaryFontFamily: FontFamilyNames;
@@ -75,6 +77,8 @@ const theme: ITheme = {
     decorativeLightGrey: '#EFEFEF',
     modalInputColor: '#464646',
     placeholderColor: '#eae9e9',
+    starColor: '#FFE500',
+    starBorderColor: '#e4ba06',
   },
   fontFamily: {
     primaryFontFamily: FontFamilyNames.montserrat,

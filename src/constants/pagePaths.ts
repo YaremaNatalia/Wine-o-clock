@@ -1,6 +1,7 @@
 const enum PagePaths {
   homePath = '/',
   storePath = '/store',
+  wineDetailsPath = '/store/:wineId',
   aboutUsPath = '/about-us',
   basketPath = '/basket',
   favoritesPath = '/favorites',

@@ -39,7 +39,7 @@ export interface ICredentials {
 }
 
 export interface IWine {
-  _id: number;
+  _id: string;
   title: string;
   price: number;
   adminDiscountPercentage: number;

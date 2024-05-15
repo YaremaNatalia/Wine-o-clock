@@ -1,4 +1,5 @@
 export interface IProps {
-  firstPageTitle: string;
-  secondPageTitle: string;
+  firstTitle: string;
+  secondTitle: string;
+  thirdTitle?: string;
 }

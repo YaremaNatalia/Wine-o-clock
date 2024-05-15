@@ -5,10 +5,12 @@ import andWineMob from '@/icons/and-wine-mob.svg?react';
 import weLoveLifeDesk from '@/icons/we-love-life-desk.svg?react';
 import weLoveLifeTab from '@/icons/we-love-life-tab.svg?react';
 import weLoveLifeMob from '@/icons/we-love-life-mob.svg?react';
-import wineTimeMob from '@/icons/wine-time-mob.svg?react';
+import wineTimeDesk from '@/icons/wine-time-desk.svg?react';
 import wineTimeTab from '@/icons/wine-time-tab.svg?react';
-import everyHourMob from '@/icons/every-hour-mob.svg?react';
+import wineTimeMob from '@/icons/wine-time-mob.svg?react';
+import everyHourDesk from '@/icons/every-hour-desk.svg?react';
 import everyHourTab from '@/icons/every-hour-tab.svg?react';
+import everyHourMob from '@/icons/every-hour-mob.svg?react';
 
 import wineTimeRedDesk from '@/icons/wine-time-red-desk.svg?react';
 import wineTimeRedTab from '@/icons/wine-time-red-tab.svg?react';
@@ -53,7 +55,7 @@ const setAnimationTopWineTime = (screenSize: ScreenSize) => {
     case 'tablet':
       return wineTimeTab;
     case 'desktop':
-      return wineTimeTab;
+      return wineTimeDesk;
     default:
       return wineTimeMob;
   }
@@ -66,7 +68,7 @@ const setAnimationBottomWineTime = (screenSize: ScreenSize) => {
     case 'tablet':
       return everyHourTab;
     case 'desktop':
-      return everyHourTab;
+      return everyHourDesk;
     default:
       return everyHourMob;
   }
