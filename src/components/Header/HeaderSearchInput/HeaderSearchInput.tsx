@@ -1,17 +1,15 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
-
 import Input from '@/components/Input';
 import { AriaLabels, ButtonTypes, FormTypes, InputTypes } from '@/constants';
 import { FormData } from './HeaderSearchInput.types';
 import { Form } from './HeaderSearchInput.styled';
 import IconButton from '@/components/IconButton';
 import { IoSearch } from 'react-icons/io5';
-import { IAllWinesData, IWine } from '@/types/types';
-import HeaderSearchDropdown from '@/components/HeaderSearchDropdown';
+import { IWine } from '@/types/types';
+import HeaderSearchDropdown from '@/components/Header/HeaderSearchDropdown';
 import { keysToExclude } from '@/utils';
-import { QueryKeys, operations } from '@/tanStackQuery';
-import { useQuery } from '@tanstack/react-query';
+import { operations } from '@/tanStackQuery';
 
 const HeaderSearchInput: FC = () => {
   const { register, reset } = useForm<FormData>({
@@ -19,20 +17,9 @@ const HeaderSearchInput: FC = () => {
       search: '',
     },
   });
-  const [fetchWines, setFetchWines] = useState<IWine[]>([]);
+
   const [searchResults, setSearchResults] = useState<IWine[]>([]);
   const [isButtonActive, setIsButtonActive] = useState(false);
-
-  const { data, isError } = useQuery<IAllWinesData>({
-    queryFn: () => operations.getAllWines(),
-    queryKey: [QueryKeys.wines],
-  });
-
-  useEffect(() => {
-    if (!isError && data) {
-      setFetchWines(data.products);
-    }
-  }, [isError, data]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value.toLowerCase();
@@ -40,7 +27,9 @@ const HeaderSearchInput: FC = () => {
     if (query.length >= 2) {
       setIsButtonActive(true);
 
-      const result = fetchWines.filter((wine: IWine) => {
+      const wines = operations.allWines();
+
+      const result = wines.filter((wine: IWine) => {
         if (query === 'sale') {
           return wine.isSale === true;
         } else {

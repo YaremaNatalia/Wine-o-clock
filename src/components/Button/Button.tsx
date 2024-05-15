@@ -1,5 +1,9 @@
 import { FC } from 'react';
-import { StyledButton } from './Button.styled';
+import {
+  ChildrenWrapper,
+  PriceWrapper,
+  StyledButton,
+} from './Button.styled';
 import { IProps } from './Button.types';
 import { ButtonTypes } from '@/constants';
 import ButtonForms from '@/constants/buttonForms';
@@ -12,6 +16,8 @@ const Button: FC<IProps> = ({
   buttonDesign,
   disabled,
   onClick,
+  price,
+  svg,
 }) => (
   <StyledButton
     buttonForm={buttonForm}
@@ -21,7 +27,11 @@ const Button: FC<IProps> = ({
     buttonDesign={buttonDesign}
     disabled={disabled}
   >
-    {title}
+    <ChildrenWrapper>
+      {svg && svg}
+      {title}
+      {price && <PriceWrapper>{price}</PriceWrapper>}
+    </ChildrenWrapper>
   </StyledButton>
 );
 

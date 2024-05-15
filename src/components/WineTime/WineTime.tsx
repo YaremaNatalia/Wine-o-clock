@@ -6,8 +6,8 @@ import { FC } from 'react';
 // import Loader from '@/components/Loader';
 // import WineList from '@/components/WineList';
 import Container from '@/components/Container';
-import WineTimeHero from '@/components/WineTimeHero';
-import WineTimeDescription from '@/components/WineTimeDescription';
+import WineTimeHero from '@/components/WineTime/WineTimeHero';
+import WineTimeDescription from '@/components/WineTime/WineTimeDescription';
 import PageNavigation from '@/components/PageNavigation';
 // import WineTimer from '@/components/WineTimer';
 // import Button from '@/components/Button';
@@ -81,7 +81,7 @@ const WineTime: FC = () => {
   return (
     <WineTimeStyled>
       <WineTimeHero />
-      <PageNavigation firstPageTitle='Main page' secondPageTitle='Wine time' />
+      <PageNavigation firstTitle='Main page' secondTitle='Wine time' />
       <WineTimeDescription />
       {/* <WineTimer wines={promWines} countries={promCountries} /> */}
       <Container>

@@ -11,7 +11,7 @@ import {
   WineTimeDescriptionStyled,
   WineTimeList,
 } from './WineTimeDescription.styled';
-import Section from '../Section';
+import Section from '../../Section';
 
 const WineTimeDescription: FC = () => {
   return (

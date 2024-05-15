@@ -9,7 +9,7 @@ export const PageNavigationWrapper = styled.div`
   color: ${({ theme }) => theme.colors.secondaryGrey};
   font-size: 12px;
   font-weight: ${({ theme }) => theme.fontWeight.medium};
-  padding: 16px 0 0;
+  padding: ${({ theme }) => theme.spacing(6)} 0;
 
   p {
     color: ${({ theme }) => theme.colors.secondaryGrey};
@@ -25,10 +25,13 @@ export const PageNavigationWrapper = styled.div`
       height: 18px;
     }
   }
-
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: 768px) {
+    padding: ${({ theme }) => theme.spacing(8)} 0;
     font-size: 14px;
     gap: ${({ theme }) => theme.spacing(2.5)};
-    padding: 50px 0 0;
+  }
+
+  @media screen and (min-width: 1440px) {
+    padding: ${({ theme }) => theme.spacing(12.5)} 0;
   }
 `;

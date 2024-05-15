@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Container from '@/components/Container';
 import { WineTimerWrapper } from './WineTimer.styled';
-import Clock from '@/components/Clock';
+import Clock from '@/components/WineTime/Clock';
 import { IProps } from './WineTimer.types';
 
 const WineTimer: FC<IProps> = ({ wines, countries }) => {

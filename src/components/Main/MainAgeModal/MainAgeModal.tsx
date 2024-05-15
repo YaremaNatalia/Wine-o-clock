@@ -2,9 +2,9 @@ import { FC } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { FormData, IProps } from './MainAgeModal.types';
-import Button from '../Button';
+import Button from '../../Button';
 import { ButtonTypes } from '@/constants';
-import CustomToast from '../CustomToast';
+import CustomToast from '../../CustomToast';
 import {
   FormStyled,
   Input,
