@@ -26,9 +26,13 @@ export const PageNavigationWrapper = styled.div`
     }
   }
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: 768px) {
     font-size: 14px;
+    padding: 32px 0 0;
     gap: ${({ theme }) => theme.spacing(2.5)};
-    padding: 50px 0 0;
+  }
+
+  @media screen and (min-width: 1440px) {
+    padding: 54px 0 0;
   }
 `;

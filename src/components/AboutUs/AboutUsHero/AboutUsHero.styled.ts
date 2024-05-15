@@ -18,12 +18,15 @@ export const AboutUsHeroStyled = styled.div`
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
     grid-column-gap: ${({ theme }) => theme.spacing(5)};
+    grid-row-gap: 0;
     align-items: start;
     grid-template-areas:
       'title title'
       'wineTimeImgWrap firstParagraph'
-      'middleParagraph middleParagraph'
-      'lastParagraph everyHourImgWrap ';
+      'wineTimeImgWrap middleParagraph'
+      'wineTimeImgWrap everyHourImgWrap'
+      'lastParagraph everyHourImgWrap '
+      'emptySpace  everyHourImgWrap ';
   }
 
   .aboutUsTitle {
@@ -32,6 +35,13 @@ export const AboutUsHeroStyled = styled.div`
     font-size: 20px;
     font-weight: ${({ theme }) => theme.fontWeight.bold};
     color: ${({ theme }) => theme.colors.primaryBurgundy};
+
+    @media screen and (min-width: 768px) {
+      text-transform: uppercase;
+      font-size: 32px;
+      margin-top: ${({ theme }) => theme.spacing(8)};
+      margin-bottom: ${({ theme }) => theme.spacing(11)};
+    }
   }
 
   & > p {
@@ -48,12 +58,28 @@ export const AboutUsHeroStyled = styled.div`
   .firstParagraph {
     grid-area: firstParagraph;
     margin-bottom: ${({ theme }) => theme.spacing(4)};
+
+    @media screen and (min-width: 768px) {
+      margin-bottom: 0;
+    }
+  }
+
+  .middleParagraph {
+    @media screen and (min-width: 768px) {
+      margin-bottom: ${({ theme }) => theme.spacing(6)};
+    }
   }
 
   .lastParagraph {
     grid-area: lastParagraph;
     margin-top: ${({ theme }) => theme.spacing(4)};
     text-align: center;
+
+    @media screen and (min-width: 768px) {
+      margin-top: 0;
+      text-align: start;
+      align-self: start;
+    }
   }
 
   .wineTimeImgWrap {
