@@ -27,9 +27,9 @@ const HeaderSearchInput: FC = () => {
     if (query.length >= 2) {
       setIsButtonActive(true);
 
-      const wines = operations.allWines();
+      const data = operations.allWines();
 
-      const result = wines.filter((wine: IWine) => {
+      const result = data?.products.filter((wine: IWine) => {
         if (query === 'sale') {
           return wine.isSale === true;
         } else {
@@ -47,7 +47,7 @@ const HeaderSearchInput: FC = () => {
         }
       });
 
-      setSearchResults(result);
+      setSearchResults(result || []);
     } else {
       setIsButtonActive(false);
       setSearchResults([]);

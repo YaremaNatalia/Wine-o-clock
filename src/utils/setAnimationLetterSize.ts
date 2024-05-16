@@ -20,9 +20,17 @@ import everyHourRedDesk from '@/icons/every-hour-red-desk.svg?react';
 import everyHourRedTab from '@/icons/every-hour-red-tab.svg?react';
 import everyHourRedMob from '@/icons/every-hour-red-mob.svg?react';
 
+import aPlaceDesk from '@/icons/a-place-tab.svg?react';
+import aPlaceTab from '@/icons/a-place-tab.svg?react';
+import aPlaceMob from '@/icons/a-place-mob.svg?react';
+
+import forGoodWineDesk from '@/icons/for-good-wine-tab.svg?react';
+import forGoodWineTab from '@/icons/for-good-wine-tab.svg?react';
+import forGoodWineMob from '@/icons/for-good-wine-mob.svg?react';
+
 import { ScreenSize } from '@/types/types';
 
-const setAnimationTopMain = (screenSize: ScreenSize) => {
+const setTopTextMain = (screenSize: ScreenSize) => {
   switch (screenSize) {
     case 'mobile':
       return weLoveLifeMob;
@@ -35,7 +43,7 @@ const setAnimationTopMain = (screenSize: ScreenSize) => {
   }
 };
 
-const setAnimationBottomMain = (screenSize: ScreenSize) => {
+const setBottomTextMain = (screenSize: ScreenSize) => {
   switch (screenSize) {
     case 'mobile':
       return andWineMob;
@@ -48,7 +56,7 @@ const setAnimationBottomMain = (screenSize: ScreenSize) => {
   }
 };
 
-const setAnimationTopWineTime = (screenSize: ScreenSize) => {
+const setTopTextWineTime = (screenSize: ScreenSize) => {
   switch (screenSize) {
     case 'mobile':
       return wineTimeMob;
@@ -61,7 +69,7 @@ const setAnimationTopWineTime = (screenSize: ScreenSize) => {
   }
 };
 
-const setAnimationBottomWineTime = (screenSize: ScreenSize) => {
+const setBottomTextWineTime = (screenSize: ScreenSize) => {
   switch (screenSize) {
     case 'mobile':
       return everyHourMob;
@@ -74,7 +82,7 @@ const setAnimationBottomWineTime = (screenSize: ScreenSize) => {
   }
 };
 
-const setWineTimeSizeAboutUs = (screenSize: ScreenSize) => {
+const setTopTextAboutUs = (screenSize: ScreenSize) => {
   switch (screenSize) {
     case 'mobile':
       return wineTimeRedMob;
@@ -87,7 +95,7 @@ const setWineTimeSizeAboutUs = (screenSize: ScreenSize) => {
   }
 };
 
-const setEveryHourSizeAboutUs = (screenSize: ScreenSize) => {
+const setBottomTextAboutUs = (screenSize: ScreenSize) => {
   switch (screenSize) {
     case 'mobile':
       return everyHourRedMob;
@@ -100,11 +108,39 @@ const setEveryHourSizeAboutUs = (screenSize: ScreenSize) => {
   }
 };
 
+const setTopTextStore = (screenSize: ScreenSize) => {
+  switch (screenSize) {
+    case 'mobile':
+      return aPlaceMob;
+    case 'tablet':
+      return aPlaceTab;
+    case 'desktop':
+      return aPlaceDesk;
+    default:
+      return aPlaceMob;
+  }
+};
+
+const setBottomTextStore = (screenSize: ScreenSize) => {
+  switch (screenSize) {
+    case 'mobile':
+      return forGoodWineMob;
+    case 'tablet':
+      return forGoodWineTab;
+    case 'desktop':
+      return forGoodWineDesk;
+    default:
+      return forGoodWineMob;
+  }
+};
+
 export default {
-  setAnimationTopMain,
-  setAnimationBottomMain,
-  setAnimationTopWineTime,
-  setAnimationBottomWineTime,
-  setWineTimeSizeAboutUs,
-  setEveryHourSizeAboutUs,
+  setTopTextMain,
+  setBottomTextMain,
+  setTopTextWineTime,
+  setBottomTextWineTime,
+  setTopTextAboutUs,
+  setBottomTextAboutUs,
+  setTopTextStore,
+  setBottomTextStore,
 };

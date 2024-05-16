@@ -18,7 +18,7 @@ const getAllWines = async (
 };
 
 const allWines = () => {
-  return client.getQueryData<IAllWinesData>([QueryKeys.wines])?.products || [];
+  return client.getQueryData<IAllWinesData>([QueryKeys.wines]);
 };
 
 const getWineById = async (productId: string) => {

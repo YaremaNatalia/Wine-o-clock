@@ -9,7 +9,7 @@ import Container from '@/components/Container';
 
 const AboutUsHero: FC = () => {
   const screenSize = useWindowResize();
-  const WineTimeSvg = setAnimationLetterSize.setWineTimeSizeAboutUs(
+  const WineTimeSvg = setAnimationLetterSize.setTopTextAboutUs(
     screenSize.isMobileScreen
       ? 'mobile'
       : screenSize.isTabletScreen
@@ -17,7 +17,7 @@ const AboutUsHero: FC = () => {
       : 'desktop'
   );
 
-  const EveryHourSvg = setAnimationLetterSize.setEveryHourSizeAboutUs(
+  const EveryHourSvg = setAnimationLetterSize.setBottomTextAboutUs(
     screenSize.isMobileScreen
       ? 'mobile'
       : screenSize.isTabletScreen

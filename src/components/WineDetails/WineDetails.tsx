@@ -25,10 +25,10 @@ const WineDetails: FC<IProps> = ({ wine }) => {
   const [isDescriptionActive, setIsDescriptionActive] = useState(false);
   const [isReviewsActive, setIsReviewsActive] = useState(false);
 
-  const allWines = operations.allWines();
+  const data = operations.allWines();
 
-  const bestsellers = allWines
-    ?.filter((wine) => wine.isBestSeller)
+  const bestsellers = data?.products
+    .filter((wine) => wine.isBestSeller)
     .sort((a, b) => b.bottlesSoldCounter - a.bottlesSoldCounter);
 
   const handleGeneralInfoClick = () => {

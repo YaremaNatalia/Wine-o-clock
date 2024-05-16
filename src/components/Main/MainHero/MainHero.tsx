@@ -13,7 +13,7 @@ import { PagePaths } from '@/constants';
 
 const MainHero: FC = () => {
   const screenSize = useWindowResize();
-  const TopHeroText = setAnimationLetterSize.setAnimationTopMain(
+  const TopHeroText = setAnimationLetterSize.setTopTextMain(
     screenSize.isMobileScreen
       ? 'mobile'
       : screenSize.isTabletScreen
@@ -21,7 +21,7 @@ const MainHero: FC = () => {
       : 'desktop'
   );
 
-  const BottomHeroText = setAnimationLetterSize.setAnimationBottomMain(
+  const BottomHeroText = setAnimationLetterSize.setBottomTextMain(
     screenSize.isMobileScreen
       ? 'mobile'
       : screenSize.isTabletScreen
