@@ -88,3 +88,9 @@ export const SelectPerPageWrapper = styled.div`
     display: none;
   }
 `;
+
+export const ContentWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+`;

@@ -8,16 +8,18 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { PiSliders } from 'react-icons/pi';
 import {
   ContentStyled,
+  ContentWrapper,
   FilterWrapper,
   NavigationWrapper,
   SelectPerPageWrapper,
   ToShameWrapper,
-} from './StoreContent.styled';
+} from './CatalogContent.styled';
 import { useQuery } from '@tanstack/react-query';
 import Loader from '@/components/Loader';
 import NotFoundPage from '@/pages/NotFoundPage';
+import Filter from '../Filter';
 
-const StoreContent: FC = () => {
+const CatalogContent: FC = () => {
   const [page, setPage] = useState(1);
   const [wines, setWines] = useState<IWine[]>([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -67,17 +69,20 @@ const StoreContent: FC = () => {
           <IoIosArrowDown size={18} />
         </SelectPerPageWrapper>
       </NavigationWrapper>
-      {wines.length > 0 && <WineList wines={wines} />}
-      {!isLoading && page < totalPages && (
-        <Button
-          title={'Show more'}
-          buttonDesign={ButtonDesign.burgundy}
-          onClick={handleShowMore}
-          disabled={isLoading}
-        />
-      )}
+      <ContentWrapper>
+        <Filter/>
+        {wines.length > 0 && <WineList wines={wines} />}
+        </ContentWrapper>
+        {!isLoading && page < totalPages && (
+          <Button
+            title={'Show more'}
+            buttonDesign={ButtonDesign.burgundy}
+            onClick={handleShowMore}
+            disabled={isLoading}
+          />
+        )}
     </ContentStyled>
   );
 };
 
-export default StoreContent;
+export default CatalogContent;

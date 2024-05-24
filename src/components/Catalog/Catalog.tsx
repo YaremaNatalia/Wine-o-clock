@@ -1,24 +1,25 @@
 import { FC } from 'react';
 import PageNavigation from '../PageNavigation';
 import { PagePaths } from '@/constants';
-import StoreHero from './StoreHero';
-import StoreContent from './StoreContent';
-import Container from '../Container';
 
-const Store: FC = () => {
+import Container from '../Container';
+import CatalogHero from './CatalogHero';
+import CatalogContent from './CatalogContent';
+
+const Catalog: FC = () => {
   return (
     <>
-      <StoreHero />
+      <CatalogHero />
       <PageNavigation
         firstTitle='Main page'
         firstLink={PagePaths.homePath}
         secondTitle='Store'
       />
       <Container>
-        <StoreContent />
+        <CatalogContent />
       </Container>
     </>
   );
 };
 
-export default Store;
+export default Catalog;

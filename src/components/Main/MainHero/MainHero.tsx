@@ -68,7 +68,7 @@ const MainHero: FC = () => {
           <source
             srcSet={`${hero.heroMob1xWebp} 1x, ${hero.heroMob2xWebp} 2x`}
             type='image/webp'
-            media='(min-width: 320px)'
+            media='(max-width: 768px)'
           />
           <source
             srcSet={`${hero.heroDesk1xJpg} 1x, ${hero.heroDesk2xJpg} 2x,`}
@@ -80,7 +80,7 @@ const MainHero: FC = () => {
           />
           <source
             srcSet={`${hero.heroMob1xJpg} 1x, ${hero.heroMob2xJpg} 2x,`}
-            media='(min-width: 320px)'
+            media='(max-width: 768px)'
           />
           <img src={`${hero.heroMob1xJpg}`} alt='Hero image' />
         </picture>

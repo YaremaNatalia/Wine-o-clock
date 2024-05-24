@@ -20,11 +20,11 @@ import everyHourRedDesk from '@/icons/every-hour-red-desk.svg?react';
 import everyHourRedTab from '@/icons/every-hour-red-tab.svg?react';
 import everyHourRedMob from '@/icons/every-hour-red-mob.svg?react';
 
-import aPlaceDesk from '@/icons/a-place-tab.svg?react';
+import aPlaceDesk from '@/icons/a-place-desk.svg?react';
 import aPlaceTab from '@/icons/a-place-tab.svg?react';
 import aPlaceMob from '@/icons/a-place-mob.svg?react';
 
-import forGoodWineDesk from '@/icons/for-good-wine-tab.svg?react';
+import forGoodWineDesk from '@/icons/for-good-wine-desk.svg?react';
 import forGoodWineTab from '@/icons/for-good-wine-tab.svg?react';
 import forGoodWineMob from '@/icons/for-good-wine-mob.svg?react';
 
@@ -108,7 +108,7 @@ const setBottomTextAboutUs = (screenSize: ScreenSize) => {
   }
 };
 
-const setTopTextStore = (screenSize: ScreenSize) => {
+const setTopTextCatalog = (screenSize: ScreenSize) => {
   switch (screenSize) {
     case 'mobile':
       return aPlaceMob;
@@ -121,7 +121,7 @@ const setTopTextStore = (screenSize: ScreenSize) => {
   }
 };
 
-const setBottomTextStore = (screenSize: ScreenSize) => {
+const setBottomTextCatalog = (screenSize: ScreenSize) => {
   switch (screenSize) {
     case 'mobile':
       return forGoodWineMob;
@@ -141,6 +141,6 @@ export default {
   setBottomTextWineTime,
   setTopTextAboutUs,
   setBottomTextAboutUs,
-  setTopTextStore,
-  setBottomTextStore,
+  setTopTextCatalog,
+  setBottomTextCatalog,
 };

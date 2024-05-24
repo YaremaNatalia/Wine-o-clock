@@ -1,16 +1,16 @@
 import { FC } from 'react';
 
 import { setAnimationLetterSize, useWindowResize } from '@/utils';
-import { storeHero } from '@/images/storePage';
+import { catalogHero } from '@/images/catalogPage';
 import {
   Bg,
   HeroPictureWrapper,
   HeroStyled,
 } from '@/components/WineTime/WineTimeHero/WineTimeHero.styled';
 
-const StoreHero: FC = () => {
+const CatalogHero: FC = () => {
   const screenSize = useWindowResize();
-  const TopHeroText = setAnimationLetterSize.setTopTextStore(
+  const TopHeroText = setAnimationLetterSize.setTopTextCatalog(
     screenSize.isMobileScreen
       ? 'mobile'
       : screenSize.isTabletScreen
@@ -18,7 +18,7 @@ const StoreHero: FC = () => {
       : 'desktop'
   );
 
-  const BottomHeroText = setAnimationLetterSize.setBottomTextStore(
+  const BottomHeroText = setAnimationLetterSize.setBottomTextCatalog(
     screenSize.isMobileScreen
       ? 'mobile'
       : screenSize.isTabletScreen
@@ -31,33 +31,33 @@ const StoreHero: FC = () => {
       <HeroPictureWrapper>
         <picture>
           <source
-            srcSet={`${storeHero.storeDesk1xWebp} 1x, ${storeHero.storeDesk2xWebp} 2x`}
+            srcSet={`${catalogHero.catalogDesk1xWebp} 1x, ${catalogHero.catalogDesk2xWebp} 2x`}
             type='image/webp'
             media='(min-width: 1440px)'
           />
           <source
-            srcSet={`${storeHero.storeTab1xWebp} 1x, ${storeHero.storeTab2xWebp} 2x`}
+            srcSet={`${catalogHero.catalogTab1xWebp} 1x, ${catalogHero.catalogTab2xWebp} 2x`}
             type='image/webp'
             media='(min-width: 768px)'
           />
           <source
-            srcSet={`${storeHero.storeMob1xWebp} 1x, ${storeHero.storeMob2xWebp} 2x`}
+            srcSet={`${catalogHero.catalogMob1xWebp} 1x, ${catalogHero.catalogMob2xWebp} 2x`}
             type='image/webp'
-            media='(min-width: 320px)'
+            media='(max-width: 768px)'
           />
           <source
-            srcSet={`${storeHero.storeDesk1xJpg} 1x, ${storeHero.storeDesk2xJpg} 2x,`}
+            srcSet={`${catalogHero.catalogDesk1xJpg} 1x, ${catalogHero.catalogDesk2xJpg} 2x,`}
             media='(min-width: 1440px)'
           />
           <source
-            srcSet={`${storeHero.storeTab1xJpg} 1x, ${storeHero.storeTab2xJpg} 2x,`}
+            srcSet={`${catalogHero.catalogTab1xJpg} 1x, ${catalogHero.catalogTab2xJpg} 2x,`}
             media='(min-width: 768px)'
           />
           <source
-            srcSet={`${storeHero.storeMob1xJpg} 1x, ${storeHero.storeMob2xJpg} 2x,`}
-            media='(min-width: 320px)'
+            srcSet={`${catalogHero.catalogMob1xJpg} 1x, ${catalogHero.catalogMob2xJpg} 2x,`}
+            media='(max-width: 768px)'
           />
-          <Bg src={`${storeHero.storeMob1xJpg}`} alt='Store image' />
+          <Bg src={`${catalogHero.catalogMob1xJpg}`} alt='Catalog image' />
         </picture>
         <TopHeroText title='a place' className='topText' />
         <BottomHeroText title='for good wine' className='bottomText' />
@@ -66,4 +66,4 @@ const StoreHero: FC = () => {
   );
 };
 
-export default StoreHero;
+export default CatalogHero;

@@ -43,7 +43,7 @@ const WineTimeHero: FC = () => {
           <source
             srcSet={`${wineTimeHero.wineMob1xWebp} 1x, ${wineTimeHero.wineMob2xWebp} 2x`}
             type='image/webp'
-            media='(min-width: 320px)'
+            media='(max-width: 768px)'
           />
           <source
             srcSet={`${wineTimeHero.wineDesk1xJpg} 1x, ${wineTimeHero.wineDesk2xJpg} 2x,`}
@@ -55,12 +55,9 @@ const WineTimeHero: FC = () => {
           />
           <source
             srcSet={`${wineTimeHero.wineMob1xJpg} 1x, ${wineTimeHero.wineMob2xJpg} 2x,`}
-            media='(min-width: 320px)'
+            media='(max-width: 768px)'
           />
-          <Bg
-            src={`${wineTimeHero.wineMob1xJpg}`}
-            alt='Wine time image'
-          />
+          <Bg src={`${wineTimeHero.wineMob1xJpg}`} alt='Wine time image' />
         </picture>
         <TopHeroText title='wine time' className='topText' />
         <BottomHeroText title='every hour' className='bottomText' />

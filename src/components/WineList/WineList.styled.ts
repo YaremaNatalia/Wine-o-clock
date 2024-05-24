@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 export const WineListStyled = styled.ul`
   display: grid;
+  width: 100%;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   grid-column-gap: ${({ theme }) => theme.spacing(1)};
   grid-row-gap: ${({ theme }) => theme.spacing(5)};

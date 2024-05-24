@@ -53,7 +53,7 @@ const AboutUsHero: FC = () => {
             <source
               srcSet={`${aboutUsHeroWineTime.heroWTMob1xWebp} 1x, ${aboutUsHeroWineTime.heroWTMob2xWebp} 2x`}
               type='image/webp'
-              media='(min-width: 320px)'
+              media='(max-width: 768px)'
             />
             <source
               srcSet={`${aboutUsHeroWineTime.heroWTDesk1xJpg} 1x, ${aboutUsHeroWineTime.heroWTDesk2xJpg} 2x,`}
@@ -65,7 +65,7 @@ const AboutUsHero: FC = () => {
             />
             <source
               srcSet={`${aboutUsHeroWineTime.heroWTMob1xJpg} 1x, ${aboutUsHeroWineTime.heroWTMob2xJpg} 2x,`}
-              media='(min-width: 320px)'
+              media='(max-width: 768px)'
             />
             <img
               src={`${aboutUsHeroWineTime.heroWTMob1xJpg}`}
@@ -94,7 +94,7 @@ const AboutUsHero: FC = () => {
             <source
               srcSet={`${aboutUsHeroEveryHour.heroEHMob1xWebp} 1x, ${aboutUsHeroEveryHour.heroEHMob2xWebp} 2x`}
               type='image/webp'
-              media='(min-width: 320px)'
+              media='(max-width: 768px)'
             />
             <source
               srcSet={`${aboutUsHeroEveryHour.heroEHDesk1xJpg} 1x, ${aboutUsHeroEveryHour.heroEHDesk2xJpg} 2x,`}
@@ -106,7 +106,7 @@ const AboutUsHero: FC = () => {
             />
             <source
               srcSet={`${aboutUsHeroEveryHour.heroEHMob1xJpg} 1x, ${aboutUsHeroEveryHour.heroEHMob2xJpg} 2x,`}
-              media='(min-width: 320px)'
+              media='(max-width: 768px)'
             />
             <img
               src={`${aboutUsHeroEveryHour.heroEHMob1xJpg}`}
