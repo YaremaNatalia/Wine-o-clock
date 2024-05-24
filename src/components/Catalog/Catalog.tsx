@@ -6,6 +6,7 @@ import Container from '../Container';
 import CatalogHero from './CatalogHero';
 import CatalogContent from './CatalogContent';
 
+
 const Catalog: FC = () => {
   return (
     <>
@@ -16,7 +17,7 @@ const Catalog: FC = () => {
         secondTitle='Store'
       />
       <Container>
-        <CatalogContent />
+        <CatalogContent   />
       </Container>
     </>
   );

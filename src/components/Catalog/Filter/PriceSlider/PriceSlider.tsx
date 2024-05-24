@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import ReactSlider from 'react-slider';
+import ReactSlider, { ReactSliderProps } from 'react-slider';
 import { SliderWrapper, StyledTrack } from './PriceSlider.styled';
 
 const PriceSlider: FC = () => {
@@ -9,9 +9,11 @@ const PriceSlider: FC = () => {
   const handleChange = (newValues: [number, number]) => {
     setValues(newValues);
   };
-  const Track: FC<any> = (props: any, state: any) => (
-    <StyledTrack {...props} index={state.index} />
-  );
+
+  const Track: ReactSliderProps<[number, number]>['renderTrack'] = (
+    props,
+    state
+  ) => <StyledTrack {...props} index={state.index} />;
 
   return (
     <SliderWrapper>

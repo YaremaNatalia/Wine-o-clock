@@ -30,7 +30,7 @@ const Main: FC = () => {
   };
 
   const { data, isError, isLoading } = useQuery<IAllWinesData>({
-    queryFn: () => operations.getAllWines(),
+    queryFn: () => operations.getAllWines(1,0),
     queryKey: [QueryKeys.wines],
     refetchOnMount: true,
   });

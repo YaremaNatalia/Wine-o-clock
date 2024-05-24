@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC,  useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '@/components/Input';
 import { AriaLabels, ButtonTypes, FormTypes, InputTypes } from '@/constants';
@@ -11,6 +11,7 @@ import HeaderSearchDropdown from '@/components/Header/HeaderSearchDropdown';
 import { keysToExclude } from '@/utils';
 import { operations } from '@/tanStackQuery';
 
+
 const HeaderSearchInput: FC = () => {
   const { register, reset } = useForm<FormData>({
     defaultValues: {
@@ -20,6 +21,8 @@ const HeaderSearchInput: FC = () => {
 
   const [searchResults, setSearchResults] = useState<IWine[]>([]);
   const [isButtonActive, setIsButtonActive] = useState(false);
+
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value.toLowerCase();
@@ -56,7 +59,7 @@ const HeaderSearchInput: FC = () => {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
-      console.log('click');
+  
       e.currentTarget.blur();
       reset();
       setIsButtonActive(false);
@@ -67,7 +70,7 @@ const HeaderSearchInput: FC = () => {
       setSearchResults([]);
     }
   };
-
+  
   return (
     <Form>
       <Input
