@@ -6,6 +6,7 @@ export const WineDetailsLink = styled(Link)`
   text-decoration: none;
   transition: ${({ theme }) => theme.transitionDurationAndFunc};
   color: ${({ theme }) => theme.colors.primaryBlack};
+  border-radius: 10px;
 
   &:hover,
   &:focus {
@@ -23,7 +24,6 @@ export const WineCardStyled = styled.li`
   margin-left: auto;
   margin-right: auto;
   padding: ${({ theme }) => `${theme.spacing(4)} ${theme.spacing(3)}`};
-  border-radius: 10px;
 
   @media screen and (min-width: 1440px) {
     gap: ${({ theme }) => theme.spacing(2.5)};

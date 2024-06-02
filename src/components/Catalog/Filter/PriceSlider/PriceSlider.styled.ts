@@ -20,7 +20,7 @@ export const SliderWrapper = styled.div`
   .inputWrapper {
     width: 100%;
     display: flex;
-    gap: ${({ theme }) => theme.spacing(2)};
+    gap: ${({ theme }) => theme.spacing(1.5)};
   }
 
   .slider {

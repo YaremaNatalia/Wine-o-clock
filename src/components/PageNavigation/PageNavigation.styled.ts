@@ -13,6 +13,10 @@ export const PageNavigationWrapper = styled.div`
 
   p {
     color: ${({ theme }) => theme.colors.secondaryGrey};
+    &:hover,
+    &:focus {
+      color: ${({ theme }) => theme.colors.primaryBurgundy};
+    }
   }
 
   .currentPageTitle {
@@ -25,6 +29,7 @@ export const PageNavigationWrapper = styled.div`
       height: 18px;
     }
   }
+
   @media screen and (min-width: 768px) {
     padding: ${({ theme }) => theme.spacing(8)} 0;
     font-size: 14px;

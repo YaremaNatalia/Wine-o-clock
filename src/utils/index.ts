@@ -14,3 +14,5 @@ export { default as usePagination } from './usePagination';
 export { default as useWindowResize } from './useWindowResize';
 export { default as setAnimationLetterSize } from './setAnimationLetterSize';
 export { default as setButtonHeight } from './setButtonHeight';
+export { default as setFilterOptions } from './filterOptions';
+export { default as toggle } from './toggle';

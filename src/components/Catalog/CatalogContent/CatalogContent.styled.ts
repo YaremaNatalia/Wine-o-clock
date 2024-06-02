@@ -36,16 +36,21 @@ export const NavigationWrapper = styled.div`
   align-items: center;
   margin-bottom: ${({ theme }) => theme.spacing(2)};
 
-  @media screen and (min-width: 768px) {
-    margin-bottom: ${({ theme }) => theme.spacing(7)};
-  }
-
   @media screen and (min-width: 1440px) {
     margin-bottom: ${({ theme }) => theme.spacing(12.5)};
   }
 
   p {
     font-weight: ${({ theme }) => theme.fontWeight.medium};
+  }
+
+  svg {
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      color: ${({ theme }) => theme.colors.primaryBurgundy};
+    }
   }
 
   .filterProducts {
@@ -55,15 +60,6 @@ export const NavigationWrapper = styled.div`
     @media screen and (max-width: 1439px) {
       display: none;
     }
-  }
-`;
-export const ToShameWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  font-size: 16px;
-
-  @media screen and (max-width: 1439px) {
-    display: none;
   }
 `;
 
@@ -79,9 +75,15 @@ export const FilterWrapper = styled.div`
   }
 `;
 
+export const ToShameWrapper = styled.div`
+  font-size: 16px;
+
+  @media screen and (max-width: 1439px) {
+    display: none;
+  }
+`;
+
 export const SelectPerPageWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
   font-size: 14px;
 
   @media screen and (max-width: 767px) {
@@ -92,5 +94,46 @@ export const SelectPerPageWrapper = styled.div`
 export const ContentWrapper = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
+
+  & > div:first-of-type {
+    @media screen and (max-width: 1439px) {
+      display: none;
+    }
+  }
+
+  .filtersWinesWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .chosenFiltersContainer {
+    display: flex;
+    margin-bottom: ${({ theme }) => theme.spacing(8)};
+    gap: ${({ theme }) => theme.spacing(3)};
+  }
+
+  button {
+    padding: ${({ theme }) => theme.spacing(1.5)};
+    border: none;
+    border-radius: 39px;
+    display: flex;
+    align-items: center;
+    gap: ${({ theme }) => theme.spacing(1.5)};
+    font-size: 12px;
+    color: ${({ theme }) => theme.colors.primaryBlack};
+
+    &:hover,
+    &:focus {
+      svg {
+        color: ${({ theme }) => theme.colors.primaryBurgundy};
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      padding: ${({ theme }) => theme.spacing(2.5)};
+      gap: ${({ theme }) => theme.spacing(2.5)};
+      font-size: 14px;
+    }
+  }
 `;

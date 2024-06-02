@@ -12,9 +12,6 @@ export const Backdrop = styled.div`
   background-color: rgba(18, 20, 23, 0.5);
   z-index: 1000;
   overflow: hidden;
-  padding-top: ${({ theme }) => theme.spacing(20)};
-  padding-bottom: ${({ theme }) => theme.spacing(20)};
-
 `;
 
 export const Container = styled.div`

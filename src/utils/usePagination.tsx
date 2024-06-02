@@ -1,26 +1,23 @@
 import { IPagination } from '@/types/types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const usePagination = <T,>(
-  totalItems: T[],
-  itemsPerPage: number
+  totalItems: T[] | undefined,
+  itemsPerPage: number,
 ): IPagination<T> => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
-  if (!totalItems) {
-    return {
-      currentPage: 1,
-      currentItems: [],
-      totalPages: 0,
-      toNextPage: () => {},
-      toPrevPage: () => {},
-    };
-  }
+  useEffect(() => {
+    if (totalItems) {
+      setTotalPages(Math.ceil(totalItems.length / itemsPerPage));
+    }
+  }, [totalItems, itemsPerPage]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = totalItems.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(totalItems.length / itemsPerPage);
+  const currentItems =
+    totalItems?.slice(indexOfFirstItem, indexOfLastItem) ?? [];
 
   const toNextPage = () => {
     if (currentPage < totalPages) {

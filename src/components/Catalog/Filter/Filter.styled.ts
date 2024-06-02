@@ -3,14 +3,24 @@ import styled from '@emotion/styled';
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  width: 325px;
+  width: 100%;
   gap: ${({ theme }) => theme.spacing(6)};
   justify-content: start;
   align-items: flex-start;
+
+  & > div:nth-of-type(1) {
+    @media screen and (min-width: 1440px) {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    width: 325px;
+  }
 `;
 
 export const FilterItem = styled.div`
-  width: 208px;
+  width: 100%;
 
   .filterTitle {
     font-weight: ${({ theme }) => theme.fontWeight.semiBold};
@@ -18,8 +28,22 @@ export const FilterItem = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    & > svg {
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        color: ${({ theme }) => theme.colors.primaryBurgundy};
+      }
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    width: 208px;
   }
 `;
+
 export const FiltersList = styled.ul`
   display: flex;
   flex-direction: column;
@@ -34,7 +58,7 @@ export const FiltersList = styled.ul`
     gap: ${({ theme }) => theme.spacing(4)};
   }
 
-  input[type='radio'] {
+  input[type='checkbox'] {
     width: 20px;
     height: 20px;
     appearance: none;
@@ -46,7 +70,7 @@ export const FiltersList = styled.ul`
     overflow: hidden;
   }
 
-  input[type='radio']::before {
+  input[type='checkbox']::before {
     content: '';
     display: block;
     width: 12px;
@@ -61,9 +85,7 @@ export const FiltersList = styled.ul`
       ${({ theme }) => theme.transitionDurationAndFunc};
   }
 
-  input[type='radio']:checked::before {
+  input[type='checkbox']:checked::before {
     background-color: ${({ theme }) => theme.colors.primaryBurgundy};
   }
 `;
-
-

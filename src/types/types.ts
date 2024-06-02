@@ -139,6 +139,11 @@ export interface IPagination<T> {
   toPrevPage: () => void;
 }
 
+export interface IOption {
+  value: string;
+  label: string;
+}
+
 export type ScreenSize = 'mobile' | 'tablet' | 'desktop';
 
 export interface AxiosError {
