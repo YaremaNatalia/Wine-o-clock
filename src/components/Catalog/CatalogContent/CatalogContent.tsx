@@ -14,70 +14,48 @@ import {
   SelectPerPageWrapper,
   ToShameWrapper,
 } from './CatalogContent.styled';
-import NotFoundPage from '@/pages/NotFoundPage';
 import Filter from '../Filter';
-import { setFilterOptions, usePagination } from '@/utils';
+import { filterWines, setFilterOptions, usePagination } from '@/utils';
 import FilterDropdown from '../Filter/FilterDropdown';
 import ModalFilters from '../ModalFilters';
+import ToShame from '../Filter/ToShame';
 
 const CatalogContent: FC = () => {
-  const [page, setPage] = useState(1);
-  const [wines, setWines] = useState<IWine[]>([]);
-
-  const [limit, setLimit] = useState(4);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [dropdownShameValue, setDropdownShameValue] = useState<string>('');
-  const [dropdownPageValue, setDropdownPageValue] = useState<string>('');
-  const [filtersValue, setFiltersValue] = useState<string[]>([]);
-
   const data = operations.allWines();
+  const [wines, setWines] = useState<IWine[]>(data?.products || []);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [toShameValue, setToShameValue] = useState<string>('By name');
+  const [perPageValue, setPerPageValue] = useState<string>('6');
+  const [filtersValue, setFiltersValue] = useState<string[]>([]);
+  const [displayedWines, setDisplayedWines] = useState<IWine[]>([]);
+
   const { currentPage, currentItems, toNextPage, totalPages } = usePagination(
-    data?.products ?? [],
-    limit
+    wines,
+    parseInt(perPageValue, 10),
+    toShameValue
   );
 
   useEffect(() => {
-    if (wines) {
-      if (wines.length === 0) {
-        setWines(currentItems);
-      } else if (page !== currentPage) {
-        setWines((prevWines) => [...prevWines, ...currentItems]);
-        setPage(currentPage);
-      }
-    }
-  }, [wines, page, currentItems, currentPage]);
-
-  // if (!data) return <Loader />;
-  if (!data) {
-    return <NotFoundPage />;
-  }
+    setDisplayedWines(currentItems);
+  }, [currentItems]);
 
   const handleShowMore = async (e: BtnClickEvent) => {
     toNextPage();
+    setDisplayedWines((prevDisplayedWines) => [
+      ...prevDisplayedWines,
+      ...currentItems,
+    ]);
+
     e.currentTarget.blur();
   };
 
   const handleToShameChange = (value: string) => {
-    setDropdownShameValue(value);
-    if (!wines) return;
-    const sortedWines = [...wines];
-    if (value === 'By name') {
-      sortedWines.sort((a, b) => a.title.localeCompare(b.title));
-    } else if (value === 'From cheap') {
-      sortedWines.sort((a, b) => a.price - b.price);
-    } else if (value === 'From expensive') {
-      sortedWines.sort((a, b) => b.price - a.price);
-    }
-    setWines(sortedWines);
+    setToShameValue(value);
   };
 
   const handlePerPageChange = (value: string) => {
-    setDropdownPageValue(value);
-    const numbValue = parseInt(value, 10);
-    if (numbValue) {
-      setLimit(numbValue);
-      setPage(1);
-    }
+    setPerPageValue(value);
+    setDisplayedWines([]);
   };
 
   const handleCloseModal = () => {
@@ -87,21 +65,32 @@ const CatalogContent: FC = () => {
     setModalIsOpen(true);
   };
 
-  const handleChoseFilter = (value: string) => {
-    setFiltersValue((prev) => {
-      const newFilters = new Set(prev);
-      newFilters.add(value);
-      return Array.from(newFilters);
-    });
+  const handleSelectFilterValue = (value: string) => {
+    setFiltersValue((prev) => [...prev, value]);
+    if (data?.products) {
+      const newFilters = [...filtersValue, value];
+      const filteredWines = filterWines.filterWines(data.products, newFilters);
+      setWines(filteredWines);
+    }
   };
 
-  const handleRemoveFilter = () => {
-    console.log('click Remove filter');
+  const handleRemoveFilterValue = (value: string) => {
+    const newFilters = filtersValue.filter((filter) => filter !== value);
+    setFiltersValue(newFilters);
+    if (data?.products) {
+      const filteredWines = filterWines.filterWines(data.products, newFilters);
+      setWines(filteredWines);
+    }
   };
 
-  const handleClearAllFilters = () => {
-    console.log('click Remove all filters');
+  const handleRemoveAllFiltersValues = () => {
+    setFiltersValue([]);
+    setToShameValue('By name');
+    if (data) {
+      setWines(data.products);
+    }
   };
+
   return (
     <>
       <ContentStyled>
@@ -112,11 +101,9 @@ const CatalogContent: FC = () => {
           </FilterWrapper>
           <p className='filterProducts'>Filter products</p>
           <ToShameWrapper>
-            <FilterDropdown
-              options={setFilterOptions.toShameOptions}
-              onChange={handleToShameChange}
-              title='To shame'
-              value={dropdownShameValue}
+            <ToShame
+              setToShameValue={handleToShameChange}
+              toShameValue={toShameValue}
             />
           </ToShameWrapper>
           <SelectPerPageWrapper>
@@ -124,27 +111,24 @@ const CatalogContent: FC = () => {
               options={setFilterOptions.productPerPageOptions}
               onChange={handlePerPageChange}
               title='Number of products on the page'
-              value={dropdownPageValue}
+              value={perPageValue}
             />
           </SelectPerPageWrapper>
         </NavigationWrapper>
         <ContentWrapper>
           <div>
             <Filter
-              wines={wines}
-              onFilter={setWines}
-              onChoseFilter={handleChoseFilter}
-              onRemoveFilter={handleRemoveFilter}
-              onClearAllFilters={handleClearAllFilters}
+              onSelectFilterValue={handleSelectFilterValue}
+              filtersValue={filtersValue}
             />
           </div>
           <div className='filtersWinesWrapper'>
             <div className='chosenFiltersContainer'>
-              {Array.isArray(filtersValue) &&
+              {filtersValue &&
                 filtersValue.map((v, index) => (
                   <button
                     key={index}
-                    onClick={handleRemoveFilter}
+                    onClick={() => handleRemoveFilterValue(v)}
                     className='chosenFilterBtn'
                   >
                     {v}
@@ -152,26 +136,36 @@ const CatalogContent: FC = () => {
                   </button>
                 ))}
               {filtersValue.length > 0 && (
-                <button onClick={handleClearAllFilters}>
+                <button onClick={handleRemoveAllFiltersValues}>
                   Reset all filters
                   <RxCross2 size={11} />
                 </button>
               )}
             </div>
-            {wines.length > 0 && <WineList wines={wines} />}
+            {displayedWines.length > 0 ? (
+              <WineList wines={displayedWines} />
+            ) : (
+              <p className='noWineFound'>Oops, no wine found...</p>
+            )}
           </div>
         </ContentWrapper>
-        {wines && page < totalPages && (
+        {currentItems.length > 0 && currentPage !== totalPages && (
           <Button
             title='Show more'
             buttonDesign={ButtonDesign.burgundy}
             onClick={handleShowMore}
-            // disabled={isLoading}
           />
         )}
       </ContentStyled>
       {modalIsOpen && (
-        <ModalFilters onModalClose={handleCloseModal} title='Filter products' />
+        <ModalFilters
+          onModalClose={handleCloseModal}
+          title='Filter products'
+          onSelectFilterValue={handleSelectFilterValue}
+          toShameValue={toShameValue}
+          setToShameValue={handleToShameChange}
+          filtersValue={filtersValue}
+        />
       )}
     </>
   );

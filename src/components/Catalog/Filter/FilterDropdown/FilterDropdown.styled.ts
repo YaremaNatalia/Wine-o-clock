@@ -10,10 +10,9 @@ export const DropdownNavigation = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width: 284px;
 
-  @media screen and (min-width: 768px) {
-    min-width: 300px;
-  }
+
 
   & > svg {
     cursor: pointer;

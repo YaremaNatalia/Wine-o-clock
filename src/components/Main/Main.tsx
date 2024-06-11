@@ -2,14 +2,9 @@ import { FC, useEffect, useState } from 'react';
 import MainHero from '@/components/Main/MainHero';
 import MainQualities from '@/components/Main/MainQualities';
 import MainWineTime from '@/components/Main/MainWineTime';
-import ModalWin from '@/components/ModalWin';
 import MainAgeModal from '@/components/Main/MainAgeModal';
-import Loader from '@/components/Loader';
-import { QueryKeys, operations } from '@/tanStackQuery';
-import NotFoundPage from '@/pages/NotFoundPage';
+import { operations } from '@/tanStackQuery';
 import WineListSection from '@/components/WineListSection';
-import { useQuery } from '@tanstack/react-query';
-import { IAllWinesData } from '@/types/types';
 
 const Main: FC = () => {
   const { useSiteVisited } = operations;
@@ -29,16 +24,7 @@ const Main: FC = () => {
     setVisited();
   };
 
-  const { data, isError, isLoading } = useQuery<IAllWinesData>({
-    queryFn: () => operations.getAllWines(1,0),
-    queryKey: [QueryKeys.wines],
-    refetchOnMount: true,
-  });
-
-  if (isLoading) return <Loader />;
-  if (isError) {
-    return <NotFoundPage />;
-  }
+  const data = operations.allWines();
 
   const sales = data?.products.filter((wine) => wine.isSale);
   const newWines = data?.products.filter((wine) => wine.isNewCollection);
@@ -73,11 +59,7 @@ const Main: FC = () => {
           componentTitle='MainPage'
         />
       )}
-      {ageModalIsOpen && (
-        <ModalWin>
-          <MainAgeModal onModalClose={handleCloseAgeModal} />
-        </ModalWin>
-      )}
+      {ageModalIsOpen && <MainAgeModal onModalClose={handleCloseAgeModal} />}
     </>
   );
 };

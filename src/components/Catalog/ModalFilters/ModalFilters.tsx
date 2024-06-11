@@ -9,7 +9,14 @@ import { IProps } from './ModalFilters.types';
 
 const modalRoot = document.querySelector('#modal-root');
 
-const ModalFilters: FC<IProps> = ({ onModalClose, title }) => {
+const ModalFilters: FC<IProps> = ({
+  onModalClose,
+  title,
+  filtersValue,
+  onSelectFilterValue,
+  toShameValue,
+  setToShameValue,
+}) => {
   useEffect(() => {
     const closeModalEsc = (e: KeyboardEvent) => {
       if (e.code === 'Escape') {
@@ -43,7 +50,12 @@ const ModalFilters: FC<IProps> = ({ onModalClose, title }) => {
             <RxCross1 size={20} />
           </button>
         </div>
-        <Filter />
+        <Filter
+          filtersValue={filtersValue}
+          onSelectFilterValue={onSelectFilterValue}
+          setToShameValue={setToShameValue}
+          toShameValue={toShameValue}
+        />
       </ModalStyled>
       ,
     </Overlay>,

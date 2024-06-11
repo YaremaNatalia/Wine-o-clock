@@ -1,6 +1,6 @@
-import { IWine } from "@/types/types";
-
 export interface IFilter {
-  wines: IWine[];
-  onFilter: (wines: IWine[]) => void;
+  onSelectFilterValue: (value: string) => void;
+  toShameValue?: string;
+  setToShameValue?: (value: string) => void;
+  filtersValue?: string[];
 }

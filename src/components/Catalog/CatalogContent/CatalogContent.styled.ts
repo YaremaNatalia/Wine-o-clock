@@ -84,7 +84,7 @@ export const ToShameWrapper = styled.div`
 `;
 
 export const SelectPerPageWrapper = styled.div`
-  font-size: 14px;
+  font-size: 13px;
 
   @media screen and (max-width: 767px) {
     display: none;
@@ -105,10 +105,22 @@ export const ContentWrapper = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+
+    .noWineFound {
+      height: 100%;
+      margin: 0 auto;
+      font-size: 18px;
+      font-weight: ${({ theme }) => theme.fontWeight.bold};
+      color: ${({ theme }) => theme.colors.primaryBurgundy};
+      padding: ${({ theme }) => theme.spacing(15)} 0;
+    }
   }
 
   .chosenFiltersContainer {
     display: flex;
+    flex-wrap: wrap;
+    justify-self: start;
+    align-self: start;
     margin-bottom: ${({ theme }) => theme.spacing(8)};
     gap: ${({ theme }) => theme.spacing(3)};
   }

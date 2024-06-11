@@ -14,6 +14,8 @@ const collections = ['New Collections', 'Sales', "Bestsellers"];
 const color = ['Red', 'White', 'Pink'];
 const sweetness = ['Dry', 'Medium dry', 'Medium', "Sweet"];
 
+
+
 export default {
   toShameOptions,
   productPerPageOptions,

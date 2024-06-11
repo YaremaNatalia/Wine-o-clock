@@ -55,7 +55,7 @@ const FilterDropdown: FC<IProps> = ({ options, value, title, onChange }) => {
       </DropdownNavigation>
       {showList && (
         <List>
-          {options.map((option) => (
+          {options?.map((option) => (
             <Option
               key={option.label}
               onClick={() => {

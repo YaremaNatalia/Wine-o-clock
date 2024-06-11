@@ -7,7 +7,7 @@ export const Overlay = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   background-color: rgba(18, 20, 23, 0.5);
   z-index: 1000;
@@ -21,10 +21,22 @@ export const ModalStyled = styled.div`
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding: 24px 16px 24px 16px;
-
   display: flex;
   flex-direction: column;
   background: #ffffff;
+
+  animation: slideFromLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  @keyframes slideFromLeft {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
 
   .titleWrapper {
     width: 100%;

@@ -1,4 +1,4 @@
-import React, { FC,  useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '@/components/Input';
 import { AriaLabels, ButtonTypes, FormTypes, InputTypes } from '@/constants';
@@ -8,7 +8,7 @@ import IconButton from '@/components/IconButton';
 import { IoSearch } from 'react-icons/io5';
 import { IWine } from '@/types/types';
 import HeaderSearchDropdown from '@/components/Header/HeaderSearchDropdown';
-import { keysToExclude } from '@/utils';
+import { keysToFilter } from '@/utils';
 import { operations } from '@/tanStackQuery';
 
 
@@ -22,7 +22,7 @@ const HeaderSearchInput: FC = () => {
   const [searchResults, setSearchResults] = useState<IWine[]>([]);
   const [isButtonActive, setIsButtonActive] = useState(false);
 
-
+   const data = operations.allWines();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value.toLowerCase();
@@ -30,14 +30,12 @@ const HeaderSearchInput: FC = () => {
     if (query.length >= 2) {
       setIsButtonActive(true);
 
-      const data = operations.allWines();
-
       const result = data?.products.filter((wine: IWine) => {
         if (query === 'sale') {
           return wine.isSale === true;
         } else {
           return Object.keys(wine)
-            .filter((key) => !keysToExclude.includes(key))
+            .filter((key) => !keysToFilter.keysToExclude.includes(key))
             .some((key: string) => {
               const value = wine[key];
               if (typeof value === 'string') {
@@ -59,7 +57,6 @@ const HeaderSearchInput: FC = () => {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
-  
       e.currentTarget.blur();
       reset();
       setIsButtonActive(false);
@@ -70,7 +67,7 @@ const HeaderSearchInput: FC = () => {
       setSearchResults([]);
     }
   };
-  
+
   return (
     <Form>
       <Input

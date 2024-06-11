@@ -1,20 +1,19 @@
 import { FC, useEffect, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { FiPlus } from 'react-icons/fi';
 import { FiMinus } from 'react-icons/fi';
 import { FilterItem, FiltersList, Form } from './Filter.styled';
 import PriceSlider from './PriceSlider';
 import { operations } from '@/tanStackQuery';
-import FilterDropdown from './FilterDropdown';
 import { setFilterOptions, toggle } from '@/utils';
 import { IFilter } from './Filter.types';
+import ToShame from './ToShame';
 
 const Filter: FC<IFilter> = ({
-  wines,
-  onFilter,
-  onChoseFilter,
-  onRemoveFilter,
-  onClearAllFilters,
+  onSelectFilterValue,
+  toShameValue,
+  setToShameValue,
+  filtersValue,
 }) => {
   const [showCollectionsList, setShowCollectionsList] =
     useState<boolean>(false);
@@ -24,36 +23,12 @@ const Filter: FC<IFilter> = ({
   const [showRegionsList, setShowRegionsList] = useState<boolean>(false);
   const [countries, setCountries] = useState<string[]>([]);
   const [regions, setRegions] = useState<string[]>([]);
-  const [dropdownValue, setDropdownValue] = useState<string>('');
 
   const data = operations.allWines();
-  const { register, handleSubmit, setValue, watch } = useForm();
+  const { register, setValue, watch, reset } = useForm();
 
   const selectedCountries = (watch('country') || []) as string[];
   const selectedRegions = watch('region') || ([] as string[]);
-
-  const onSubmitForm: SubmitHandler = () => {
-    setShowCollectionsList(false);
-    setShowColorsList(false);
-    setShowSweetnessList(false);
-    setShowCountriesList(false);
-    setShowRegionsList(false);
-  };
-
-  const handleToShameChange = (value: string) => {
-    setDropdownValue(value);
-    if (!wines) return;
-    const sortedWines = [...wines];
-    if (value === 'By name') {
-      sortedWines.sort((a, b) => a.title.localeCompare(b.title));
-    } else if (value === 'From cheap') {
-      sortedWines.sort((a, b) => a.price - b.price);
-    } else if (value === 'From expensive') {
-      sortedWines.sort((a, b) => b.price - a.price);
-    }
-
-    onFilter(sortedWines);
-  };
 
   useEffect(() => {
     if (data?.products) {
@@ -62,10 +37,10 @@ const Filter: FC<IFilter> = ({
       ].sort();
       setCountries(countriesList);
     }
-  }, [data?.products]);
+  }, [data]);
 
   useEffect(() => {
-    if (selectedCountries.length > 0) {
+    if (selectedCountries.length > 0 && data) {
       const selectedRegions = [
         ...new Set(
           data?.products
@@ -74,21 +49,21 @@ const Filter: FC<IFilter> = ({
         ),
       ].sort();
       setRegions(selectedRegions);
-    } else if (data?.products) {
-      const regionsList = [
-        ...new Set(data.products.map((product) => product.region)),
-      ].sort();
-      // setRegions(regionsList);
+      // } else if (selectedCountries.length === 0) {
+      //   const regionsList = [
+      //     ...new Set(data?.products.map((product) => product.region)),
+      //   ].sort();
+      //   setRegions(regionsList);
     }
-  }, [data?.products, selectedCountries]);
+  }, [selectedCountries, data]);
 
   const changeCountry = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    const selectedCountries = watch('country') || [];
     const updatedCountries = selectedCountries.includes(value)
       ? selectedCountries.filter((country: string) => country !== value)
       : [...selectedCountries, value];
     setValue('country', updatedCountries);
+    onSelectFilterValue(value);
   };
 
   const changeRegion = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,6 +73,7 @@ const Filter: FC<IFilter> = ({
       ? selectedRegions.filter((region: string) => region !== value)
       : [...selectedRegions, value];
     setValue('region', updatedRegions);
+    onSelectFilterValue(value);
   };
 
   const handleCheckboxChange = (
@@ -112,17 +88,22 @@ const Filter: FC<IFilter> = ({
       : selectedValues.filter((item: string) => item !== value);
 
     setValue(filterType, updatedValues);
-    onChoseFilter(value);
+    onSelectFilterValue(value);
   };
 
+  useEffect(() => {
+    if (filtersValue?.length === 0) {
+      reset();
+    }
+  }, [reset, filtersValue]);
+
   return (
-    <Form onSubmit={handleSubmit(onSubmitForm)}>
+    // <Form onSubmit={handleSubmit(onSubmitForm)}>
+    <Form>
       <FilterItem>
-        <FilterDropdown
-          options={setFilterOptions.toShameOptions}
-          value={dropdownValue}
-          title={'To shame'}
-          onChange={handleToShameChange}
+        <ToShame
+          setToShameValue={setToShameValue}
+          toShameValue={toShameValue}
         />
       </FilterItem>
       <FilterItem>

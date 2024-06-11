@@ -1,14 +1,30 @@
 import styled from '@emotion/styled';
 
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(18, 20, 23, 0.5);
+  z-index: 1000;
+`;
+
 export const MainAgeModalStyled = styled.div`
-  margin: 0 auto;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80vw;
+  max-width: 80vw;
   height: 350px;
   padding: ${({ theme }) => theme.spacing(6)};
+  border-radius: 8px;
+  background: ${({ theme }) => theme.colors.primaryWhite};
+  -webkit-overflow-scrolling: touch;
 
   @media screen and (min-width: 768px) {
     width: 620px;

@@ -1,23 +1,30 @@
-import { IPagination } from '@/types/types';
-import { useEffect, useState } from 'react';
+import { IPagination, IWine } from '@/types/types';
+import { useState, useEffect } from 'react';
+import filterWines from './filterWines';
 
-const usePagination = <T,>(
-  totalItems: T[] | undefined,
+const usePagination = (
+  items: IWine[],
   itemsPerPage: number,
-): IPagination<T> => {
+  toShameValue: string
+): IPagination => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [shamedWines, setShamedWines] = useState<IWine[]>([]);
 
   useEffect(() => {
-    if (totalItems) {
-      setTotalPages(Math.ceil(totalItems.length / itemsPerPage));
-    }
-  }, [totalItems, itemsPerPage]);
+    const sortedWines = filterWines.sortToShameWines(items, toShameValue);
+    setShamedWines(sortedWines);
+    setCurrentPage(1); 
+  }, [items, toShameValue]);
+
+    useEffect(() => {
+      setCurrentPage(1); 
+    }, [itemsPerPage]);
+
+  const totalPages = Math.ceil(shamedWines.length / itemsPerPage);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems =
-    totalItems?.slice(indexOfFirstItem, indexOfLastItem) ?? [];
+  const currentItems = shamedWines.slice(indexOfFirstItem, indexOfLastItem);
 
   const toNextPage = () => {
     if (currentPage < totalPages) {

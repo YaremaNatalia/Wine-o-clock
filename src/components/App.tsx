@@ -12,7 +12,7 @@ import PublicRoute from '@/components/Routs/PublicRoute';
 import Loader from '@/components/Loader';
 import { QueryKeys, operations } from '@/tanStackQuery';
 import { useQuery } from '@tanstack/react-query';
-import { IUser } from '@/types/types';
+import { IAllWinesData, IUser } from '@/types/types';
 import WineDetailsPage from '@/pages/WineDetailsPage';
 import AboutUsPage from '@/pages/AboutUsPage';
 import CatalogPage from '@/pages/CatalogPage';
@@ -26,16 +26,28 @@ const App = () => {
     queryFn: () => operations.refreshUser(token),
   });
 
+  const { isError, isLoading } = useQuery<IAllWinesData>({
+    queryFn: () => operations.getAllWines(1, 0),
+    queryKey: [QueryKeys.wines],
+    refetchOnMount: true,
+  });
+
   return isFetching ? (
     <Loader />
   ) : (
     <Routes>
       <Route path={PagePaths.homePath} element={<SharedLayout />}>
-        <Route path={PagePaths.storePath} element={<CatalogPage/>} />
-        <Route index element={<MainPage />} />
+        <Route
+          path={PagePaths.storePath}
+          element={<CatalogPage isLoading={isLoading} isError={isError} />}
+        />
+        <Route
+          index
+          element={<MainPage isLoading={isLoading} isError={isError} />}
+        />
         <Route path={PagePaths.wineTimePath} element={<WineTimePage />} />
         <Route path={PagePaths.wineDetailsPath} element={<WineDetailsPage />} />
-        <Route path={PagePaths.aboutUsPath} element={<AboutUsPage/>} />
+        <Route path={PagePaths.aboutUsPath} element={<AboutUsPage />} />
         <Route
           path={PagePaths.personalDataPath}
           element={<PrivateRoute element={<div>personalDataPath</div>} />}

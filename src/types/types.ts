@@ -131,9 +131,9 @@ export interface INewUser {
 
 export type ConfOfReg = Pick<INewUser, 'password'>;
 
-export interface IPagination<T> {
+export interface IPagination {
   currentPage: number;
-  currentItems: T[];
+  currentItems: IWine[];
   totalPages: number;
   toNextPage: () => void;
   toPrevPage: () => void;
@@ -156,4 +156,9 @@ export interface IUser {
   lastName: string;
   deliveryAddress: string;
   favorites: IWine[];
+}
+
+export interface IPage {
+  isLoading: boolean;
+  isError: boolean;
 }
