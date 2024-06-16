@@ -1,16 +1,19 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import ReactSlider, { ReactSliderProps } from 'react-slider';
 import { SliderWrapper, StyledTrack } from './PriceSlider.styled';
-import { IProps } from './PriceSlider.typer';
+import { IProps } from './PriceSlider.type';
 
-const PriceSlider: FC<IProps> = ({ register }) => {
-  const [values, setValues] = useState<[number, number]>([0, 3000]);
-
+const PriceSlider: FC<IProps> = ({
+  register,
+  reset,
+  priceValues,
+  setPriceValues,
+}) => {
   const minPriceRef = useRef<HTMLInputElement>(null);
   const maxPriceRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (newValues: [number, number]) => {
-    setValues(newValues);
+    setPriceValues(newValues);
   };
 
   useEffect(() => {
@@ -21,6 +24,12 @@ const PriceSlider: FC<IProps> = ({ register }) => {
       register('maxPrice');
     }
   }, [register]);
+
+  useEffect(() => {
+    if (priceValues[0] === 0 && priceValues[1] === 3000) {
+      reset();
+    }
+  }, [reset, priceValues]);
 
   const Track: ReactSliderProps<[number, number]>['renderTrack'] = (
     props,
@@ -35,8 +44,8 @@ const PriceSlider: FC<IProps> = ({ register }) => {
           <input
             type='number'
             id='minPrice'
-            value={values[0]}
-            onChange={(e) => handleChange([+e.target.value, values[1]])}
+            value={priceValues[0]}
+            onChange={(e) => handleChange([+e.target.value, priceValues[1]])}
             ref={minPriceRef}
           />
         </div>
@@ -45,15 +54,15 @@ const PriceSlider: FC<IProps> = ({ register }) => {
           <input
             type='number'
             id='maxPrice'
-            value={values[1]}
-            onChange={(e) => handleChange([values[0], +e.target.value])}
+            value={priceValues[1]}
+            onChange={(e) => handleChange([priceValues[0], +e.target.value])}
             ref={maxPriceRef}
           />
         </div>
       </div>
       <ReactSlider
         className='slider'
-        value={values}
+        value={priceValues}
         onChange={handleChange}
         min={0}
         max={3000}

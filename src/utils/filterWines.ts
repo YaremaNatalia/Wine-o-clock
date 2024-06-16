@@ -1,37 +1,80 @@
 import { IWine } from '@/types/types';
 
-const filterWines = (wines: IWine[], filters: string[]) => {
+const filterCatalogWines = (wines: IWine[], filters: string[]) => {
+  const collectionsFilters = filters.filter((filter) =>
+    ['Sales', 'Bestsellers', 'New Collections'].includes(filter)
+  );
+  const colorFilters = filters.filter((filter) =>
+    ['Red', 'White', 'Pink'].includes(filter)
+  );
+  const sugarConsistencyFilters = filters.filter((filter) =>
+    ['Dry', 'Medium dry', 'Medium', 'Sweet'].includes(filter)
+  );
+  const countryFilters = filters.filter((filter) =>
+    wines.some((wine) => wine.country === filter)
+  );
+  const regionFilters = filters.filter((filter) =>
+    wines.some((wine) => wine.region === filter)
+  );
+
   const filteredWines = wines.filter((wine) => {
-    return filters.every((filter) => {
-      switch (filter) {
-        case 'Sales':
-          return wine.isSale;
-        case 'Bestsellers':
-          return wine.isBestSeller;
-        case 'New Collections':
-          return wine.isNewCollection;
-        case 'Red':
-        case 'White':
-        case 'Pink':
-          return wine.wineColor.trim().toLowerCase() === filter.toLowerCase();
-        case 'Dry':
-        case 'Medium dry':
-        case 'Medium':
-        case 'Sweet':
-          return (
-            wine.sugarConsistency.trim().toLowerCase() === filter.toLowerCase()
-          );
-        default:
-          return wine.country === filter || wine.region === filter;
-      }
-    });
+    const selectedCollectionsFilter =
+      collectionsFilters.length === 0 ||
+      collectionsFilters.some((filter) => {
+        switch (filter) {
+          case 'Sales':
+            return wine.isSale;
+          case 'Bestsellers':
+            return wine.isBestSeller;
+          case 'New Collections':
+            return wine.isNewCollection;
+          default:
+            return true;
+        }
+      });
+
+    const selectedColorFilter =
+      colorFilters.length === 0 ||
+      colorFilters.some(
+        (filter) => wine.wineColor.trim().toLowerCase() === filter.toLowerCase()
+      );
+
+    const selectedSugarConsistencyFilter =
+      sugarConsistencyFilters.length === 0 ||
+      sugarConsistencyFilters.some(
+        (filter) =>
+          wine.sugarConsistency.trim().toLowerCase() === filter.toLowerCase()
+      );
+
+    const selectedCountryFilter =
+      countryFilters.length === 0 || countryFilters.includes(wine.country);
+
+    const selectedRegionFilter =
+      regionFilters.length === 0 || regionFilters.includes(wine.region);
+
+    return (
+      selectedCollectionsFilter &&
+      selectedColorFilter &&
+      selectedSugarConsistencyFilter &&
+      selectedCountryFilter &&
+      selectedRegionFilter
+    );
   });
 
-  if (filters.includes('Bestsellers')) {
-    filteredWines.sort((a, b) => b.bottlesSoldCounter - a.bottlesSoldCounter);
-  }
-
   return filteredWines;
+};
+
+const filterMainWines = (wines: IWine[], filter: string): IWine[] => {
+  switch (filter) {
+    case 'sales':
+      return wines.filter((wine) => wine.isSale);
+    case 'newCollection':
+      return wines.filter((wine) => wine.isNewCollection);
+    case 'bestsellers':
+      return wines.filter((wine) => wine.isBestSeller);
+    default:
+      return wines;
+  }
 };
 
 const sortToShameWines = (wines: IWine[], filter: string): IWine[] => {
@@ -46,6 +89,15 @@ const sortToShameWines = (wines: IWine[], filter: string): IWine[] => {
   return sortedWines;
 };
 
+const filterPrice = (wines: IWine[], priceValues:[number, number]): IWine[] => {
+  return wines.filter(
+    (wine) => wine.price >= priceValues[0] && wine.price <= priceValues[1]
+  );
+};
 
-
-export default { filterWines, sortToShameWines };
+export default {
+  filterCatalogWines,
+  filterMainWines,
+  sortToShameWines,
+  filterPrice,
+};

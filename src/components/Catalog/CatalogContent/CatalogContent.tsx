@@ -15,62 +15,71 @@ import {
   ToShameWrapper,
 } from './CatalogContent.styled';
 import Filter from '../Filter';
-import { filterWines, setFilterOptions, usePagination } from '@/utils';
+import { filterWines, setFilterOptions } from '@/utils';
 import FilterDropdown from '../Filter/FilterDropdown';
 import ModalFilters from '../ModalFilters';
 import ToShame from '../Filter/ToShame';
 
 const CatalogContent: FC = () => {
   const data = operations.allWines();
-  const [wines, setWines] = useState<IWine[]>(data?.products || []);
+  const [wines, setWines] = useState<IWine[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [toShameValue, setToShameValue] = useState<string>('By name');
   const [perPageValue, setPerPageValue] = useState<string>('6');
   const [filtersValue, setFiltersValue] = useState<string[]>([]);
   const [displayedWines, setDisplayedWines] = useState<IWine[]>([]);
-
-  const { currentPage, currentItems, toNextPage, totalPages } = usePagination(
-    wines,
-    parseInt(perPageValue, 10),
-    toShameValue
-  );
+  const [currentPage, setCurrentPage] = useState(1);
+  const [priceValues, setPriceValues] = useState<[number, number]>([0, 3000]);
 
   useEffect(() => {
-    setDisplayedWines(currentItems);
-  }, [currentItems]);
+    if (data?.products) {
+      setWines(data.products);
+    }
+  }, [data]);
 
-  const handleShowMore = async (e: BtnClickEvent) => {
-    toNextPage();
-    setDisplayedWines((prevDisplayedWines) => [
-      ...prevDisplayedWines,
-      ...currentItems,
-    ]);
+  useEffect(() => {
+    let filteredWines = filterWines.sortToShameWines(wines, toShameValue);
+    filteredWines = filterWines.filterPrice(filteredWines, priceValues);
+    const paginatedWines = filteredWines.slice(
+      0,
+      parseInt(perPageValue, 10) * currentPage
+    );
+    setDisplayedWines(paginatedWines);
+  }, [wines, toShameValue, perPageValue, currentPage, priceValues]);
 
+  const handleShowMore = (e: BtnClickEvent) => {
+    setCurrentPage((prevPage) => prevPage + 1);
     e.currentTarget.blur();
   };
 
   const handleToShameChange = (value: string) => {
     setToShameValue(value);
+    setCurrentPage(1);
   };
 
   const handlePerPageChange = (value: string) => {
     setPerPageValue(value);
-    setDisplayedWines([]);
+    setCurrentPage(1);
   };
 
   const handleCloseModal = () => {
     setModalIsOpen(false);
   };
+
   const handleOpenModal = () => {
     setModalIsOpen(true);
   };
 
   const handleSelectFilterValue = (value: string) => {
-    setFiltersValue((prev) => [...prev, value]);
+    const newFilters = [...filtersValue, value];
+    setFiltersValue(newFilters);
     if (data?.products) {
-      const newFilters = [...filtersValue, value];
-      const filteredWines = filterWines.filterWines(data.products, newFilters);
+      const filteredWines = filterWines.filterCatalogWines(
+        data.products,
+        newFilters
+      );
       setWines(filteredWines);
+      setCurrentPage(1);
     }
   };
 
@@ -78,18 +87,26 @@ const CatalogContent: FC = () => {
     const newFilters = filtersValue.filter((filter) => filter !== value);
     setFiltersValue(newFilters);
     if (data?.products) {
-      const filteredWines = filterWines.filterWines(data.products, newFilters);
+      const filteredWines = filterWines.filterCatalogWines(
+        data.products,
+        newFilters
+      );
       setWines(filteredWines);
+      setCurrentPage(1);
     }
   };
 
   const handleRemoveAllFiltersValues = () => {
     setFiltersValue([]);
+    setPriceValues([0, 3000]);
     setToShameValue('By name');
     if (data) {
       setWines(data.products);
     }
+    setCurrentPage(1);
   };
+
+  const totalPages = Math.ceil(wines.length / parseInt(perPageValue, 10));
 
   return (
     <>
@@ -119,7 +136,10 @@ const CatalogContent: FC = () => {
           <div>
             <Filter
               onSelectFilterValue={handleSelectFilterValue}
+              removeSelectFilterValue={handleRemoveFilterValue}
               filtersValue={filtersValue}
+              priceValues={priceValues}
+              setPriceValues={setPriceValues}
             />
           </div>
           <div className='filtersWinesWrapper'>
@@ -149,7 +169,7 @@ const CatalogContent: FC = () => {
             )}
           </div>
         </ContentWrapper>
-        {currentItems.length > 0 && currentPage !== totalPages && (
+        {currentPage < totalPages && (
           <Button
             title='Show more'
             buttonDesign={ButtonDesign.burgundy}
@@ -162,9 +182,12 @@ const CatalogContent: FC = () => {
           onModalClose={handleCloseModal}
           title='Filter products'
           onSelectFilterValue={handleSelectFilterValue}
+          removeSelectFilterValue={handleRemoveFilterValue}
           toShameValue={toShameValue}
           setToShameValue={handleToShameChange}
           filtersValue={filtersValue}
+          priceValues={priceValues}
+          setPriceValues={setPriceValues}
         />
       )}
     </>

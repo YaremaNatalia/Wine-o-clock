@@ -11,9 +11,12 @@ import ToShame from './ToShame';
 
 const Filter: FC<IFilter> = ({
   onSelectFilterValue,
+  removeSelectFilterValue,
   toShameValue,
   setToShameValue,
   filtersValue,
+  priceValues,
+  setPriceValues,
 }) => {
   const [showCollectionsList, setShowCollectionsList] =
     useState<boolean>(false);
@@ -26,9 +29,7 @@ const Filter: FC<IFilter> = ({
 
   const data = operations.allWines();
   const { register, setValue, watch, reset } = useForm();
-
-  const selectedCountries = (watch('country') || []) as string[];
-  const selectedRegions = watch('region') || ([] as string[]);
+  const selectedCountries = watch('country') || [];
 
   useEffect(() => {
     if (data?.products) {
@@ -40,7 +41,7 @@ const Filter: FC<IFilter> = ({
   }, [data]);
 
   useEffect(() => {
-    if (selectedCountries.length > 0 && data) {
+    if (selectedCountries.length > 0) {
       const selectedRegions = [
         ...new Set(
           data?.products
@@ -49,32 +50,13 @@ const Filter: FC<IFilter> = ({
         ),
       ].sort();
       setRegions(selectedRegions);
-      // } else if (selectedCountries.length === 0) {
-      //   const regionsList = [
-      //     ...new Set(data?.products.map((product) => product.region)),
-      //   ].sort();
-      //   setRegions(regionsList);
+    } else {
+      const regionsList = [
+        ...new Set(data?.products.map((product) => product.region)),
+      ].sort();
+      setRegions(regionsList);
     }
-  }, [selectedCountries, data]);
-
-  const changeCountry = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    const updatedCountries = selectedCountries.includes(value)
-      ? selectedCountries.filter((country: string) => country !== value)
-      : [...selectedCountries, value];
-    setValue('country', updatedCountries);
-    onSelectFilterValue(value);
-  };
-
-  const changeRegion = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    const selectedRegions = watch('region') || [];
-    const updatedRegions = selectedRegions.includes(value)
-      ? selectedRegions.filter((region: string) => region !== value)
-      : [...selectedRegions, value];
-    setValue('region', updatedRegions);
-    onSelectFilterValue(value);
-  };
+  }, [data, selectedCountries]);
 
   const handleCheckboxChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -89,6 +71,9 @@ const Filter: FC<IFilter> = ({
 
     setValue(filterType, updatedValues);
     onSelectFilterValue(value);
+    if (!isChecked) {
+      removeSelectFilterValue(value);
+    }
   };
 
   useEffect(() => {
@@ -98,7 +83,6 @@ const Filter: FC<IFilter> = ({
   }, [reset, filtersValue]);
 
   return (
-    // <Form onSubmit={handleSubmit(onSubmitForm)}>
     <Form>
       <FilterItem>
         <ToShame
@@ -129,7 +113,12 @@ const Filter: FC<IFilter> = ({
       </FilterItem>
       <FilterItem title='Price'>
         <div className='filterTitle'>Price</div>
-        <PriceSlider register={register} />
+        <PriceSlider
+          register={register}
+          reset={reset}
+          priceValues={priceValues}
+          setPriceValues={setPriceValues}
+        />
       </FilterItem>
       <FilterItem title='Color'>
         <div className='filterTitle' onClick={toggle(setShowColorsList)}>
@@ -185,8 +174,7 @@ const Filter: FC<IFilter> = ({
                   {...register('country')}
                   type='checkbox'
                   value={country}
-                  checked={selectedCountries.includes(country)}
-                  onChange={changeCountry}
+                  onChange={(e) => handleCheckboxChange(e, 'country')}
                 />
                 {country}
               </label>
@@ -207,8 +195,7 @@ const Filter: FC<IFilter> = ({
                   {...register('region')}
                   type='checkbox'
                   value={region}
-                  checked={selectedRegions.includes(region)}
-                  onChange={changeRegion}
+                  onChange={(e) => handleCheckboxChange(e, 'region')}
                 />
                 {region}
               </label>

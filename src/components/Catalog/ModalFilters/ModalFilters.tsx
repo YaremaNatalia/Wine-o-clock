@@ -14,8 +14,11 @@ const ModalFilters: FC<IProps> = ({
   title,
   filtersValue,
   onSelectFilterValue,
+  removeSelectFilterValue,
   toShameValue,
   setToShameValue,
+  priceValues,
+  setPriceValues,
 }) => {
   useEffect(() => {
     const closeModalEsc = (e: KeyboardEvent) => {
@@ -53,8 +56,11 @@ const ModalFilters: FC<IProps> = ({
         <Filter
           filtersValue={filtersValue}
           onSelectFilterValue={onSelectFilterValue}
+          removeSelectFilterValue={removeSelectFilterValue}
           setToShameValue={setToShameValue}
           toShameValue={toShameValue}
+          priceValues={priceValues}
+          setPriceValues={setPriceValues}
         />
       </ModalStyled>
       ,
