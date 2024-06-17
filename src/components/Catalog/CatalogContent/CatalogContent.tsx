@@ -38,14 +38,27 @@ const CatalogContent: FC = () => {
   }, [data]);
 
   useEffect(() => {
-    let filteredWines = filterWines.sortToShameWines(wines, toShameValue);
-    filteredWines = filterWines.filterPrice(filteredWines, priceValues);
-    const paginatedWines = filteredWines.slice(
+    const shamedWines = filterWines.sortToShameWines(wines, toShameValue);
+    const priceFilteredWines = filterWines.filterPrice(
+      shamedWines,
+      priceValues
+    );
+    const paginatedWines = priceFilteredWines.slice(
       0,
       parseInt(perPageValue, 10) * currentPage
     );
     setDisplayedWines(paginatedWines);
   }, [wines, toShameValue, perPageValue, currentPage, priceValues]);
+
+  useEffect(() => {
+    if (data?.products) {
+      const filteredWines = filterWines.filterCatalogWines(
+        data.products,
+        filtersValue
+      );
+      setWines(filteredWines);
+    }
+  }, [data?.products, filtersValue]);
 
   const handleShowMore = (e: BtnClickEvent) => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -73,27 +86,13 @@ const CatalogContent: FC = () => {
   const handleSelectFilterValue = (value: string) => {
     const newFilters = [...filtersValue, value];
     setFiltersValue(newFilters);
-    if (data?.products) {
-      const filteredWines = filterWines.filterCatalogWines(
-        data.products,
-        newFilters
-      );
-      setWines(filteredWines);
-      setCurrentPage(1);
-    }
+    setCurrentPage(1);
   };
 
   const handleRemoveFilterValue = (value: string) => {
     const newFilters = filtersValue.filter((filter) => filter !== value);
     setFiltersValue(newFilters);
-    if (data?.products) {
-      const filteredWines = filterWines.filterCatalogWines(
-        data.products,
-        newFilters
-      );
-      setWines(filteredWines);
-      setCurrentPage(1);
-    }
+    setCurrentPage(1);
   };
 
   const handleRemoveAllFiltersValues = () => {
@@ -155,6 +154,12 @@ const CatalogContent: FC = () => {
                     <RxCross2 size={11} />
                   </button>
                 ))}
+              {(priceValues[0] > 0 || priceValues[1] < 3000) && (
+                <button onClick={() => setPriceValues([0, 3000])}>
+                  {priceValues[0]} - {priceValues[1]} ₴
+                  <RxCross2 size={11} />
+                </button>
+              )}
               {filtersValue.length > 0 && (
                 <button onClick={handleRemoveAllFiltersValues}>
                   Reset all filters
@@ -169,7 +174,7 @@ const CatalogContent: FC = () => {
             )}
           </div>
         </ContentWrapper>
-        {currentPage < totalPages && (
+        {displayedWines.length > 0 && currentPage < totalPages && (
           <Button
             title='Show more'
             buttonDesign={ButtonDesign.burgundy}
