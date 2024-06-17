@@ -136,6 +136,8 @@ const CatalogContent: FC = () => {
             <Filter
               onSelectFilterValue={handleSelectFilterValue}
               removeSelectFilterValue={handleRemoveFilterValue}
+              toShameValue={toShameValue}
+              setToShameValue={handleToShameChange}
               filtersValue={filtersValue}
               priceValues={priceValues}
               setPriceValues={setPriceValues}
