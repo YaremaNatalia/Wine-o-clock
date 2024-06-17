@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { StyledTrackProps } from './PriceSlider.type';
 
+
 export const SliderWrapper = styled.div`
   padding-top: ${({ theme }) => theme.spacing(6)};
   width: 100%;
@@ -48,13 +49,15 @@ export const SliderWrapper = styled.div`
 export const StyledTrack = styled.div<StyledTrackProps>`
   top: 0;
   bottom: 0;
-  background: ${({ index }) => {
+  background: ${({ index, theme }) => {
     if (index === 2) {
-      return ({ theme }) => theme.colors.decorativeLightGrey;
+      return theme.colors.decorativeLightGrey;
     } else if (index === 1) {
-      return ({ theme }) => theme.colors.primaryBurgundy;
+      return theme.colors.primaryBurgundy;
     } else {
-      return ({ theme }) => theme.colors.decorativeLightGrey;
+      return theme.colors.decorativeLightGrey;
     }
   }};
 `;
+
+

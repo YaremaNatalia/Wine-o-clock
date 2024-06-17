@@ -6,4 +6,10 @@ export interface IProps {
 }
 export interface StyledTrackProps {
   index: number;
+  theme?: {
+    colors: {
+      decorativeLightGrey: string;
+      primaryBurgundy: string;
+    };
+  };
 }
