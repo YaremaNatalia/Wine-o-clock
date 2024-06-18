@@ -29,6 +29,7 @@ const Filter: FC<IFilter> = ({
 
   const data = operations.allWines();
   const { register, setValue, reset, getValues } = useForm();
+  const selectedCountries = getValues('country') || [];
 
   useEffect(() => {
     if (data?.products) {
@@ -40,7 +41,6 @@ const Filter: FC<IFilter> = ({
   }, [data]);
 
   useEffect(() => {
-    const selectedCountries = getValues('country') || [];
     if (selectedCountries.length > 0) {
       const selectedRegions = [
         ...new Set(
@@ -56,7 +56,7 @@ const Filter: FC<IFilter> = ({
       ].sort();
       setRegions(fullRegionsList);
     }
-  }, [data, getValues]);
+  }, [data, selectedCountries]);
 
   const handleCheckboxChange = (
     e: React.ChangeEvent<HTMLInputElement>,
