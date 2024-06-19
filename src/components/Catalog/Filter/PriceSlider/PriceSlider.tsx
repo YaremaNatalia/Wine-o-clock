@@ -32,9 +32,16 @@ const PriceSlider: FC<IProps> = ({
   }, [reset, priceValues]);
 
   const Track: ReactSliderProps<[number, number]>['renderTrack'] = (
-    props,
+    { key, style, className },
     state
-  ) => <StyledTrack {...props} index={state.index} />;
+  ) => (
+    <StyledTrack
+      key={key}
+      style={style}
+      className={className}
+      index={state.index}
+    />
+  );
 
   return (
     <SliderWrapper>
