@@ -51,9 +51,9 @@ export const StyledTrack = styled.div<StyledTrackProps>`
   bottom: 0;
   background: ${({ index, theme }) => {
     if (index === 2) {
-      return theme.colors.decorativeLightGrey;
+      return theme?.colors.decorativeLightGrey;
     } else if (index === 1) {
-      return theme.colors.primaryBurgundy;
+      return theme?.colors.primaryBurgundy;
     } else {
       return theme.colors.decorativeLightGrey;
     }
