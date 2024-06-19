@@ -70,14 +70,16 @@ const WineInfo: FC<IProps> = ({
         onCounterChange={setCounterValue}
       />
       <p className='winePrice'>{price} ₴</p>
-      <Button
-        svg={<BasketPlus />}
-        buttonForm={ButtonForms.other}
-        title='Add to cart'
-        price={`${totalPrice} ₴`}
-        type={ButtonTypes.button}
-        onClick={handleBtnClick}
-      ></Button>
+      {quantity > 0 && (
+        <Button
+          svg={<BasketPlus />}
+          buttonForm={ButtonForms.other}
+          title='Add to cart'
+          price={`${totalPrice} ₴`}
+          type={ButtonTypes.button}
+          onClick={handleBtnClick}
+        ></Button>
+      )}
     </WineInfoStyled>
   );
 };

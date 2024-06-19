@@ -15,17 +15,19 @@ import {
   ToShameWrapper,
 } from './CatalogContent.styled';
 import Filter from '../Filter';
-import { filterWines, setFilterOptions } from '@/utils';
+import { filterWines, setFilterOptions, useWindowResize } from '@/utils';
 import FilterDropdown from '../Filter/FilterDropdown';
 import ModalFilters from '../ModalFilters';
 import ToShame from '../Filter/ToShame';
 
 const CatalogContent: FC = () => {
   const data = operations.allWines();
+  const screenSize = useWindowResize();
+  const defaultPerPageValue = screenSize.isTabletScreen ? '12' : '6';
   const [wines, setWines] = useState<IWine[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [toShameValue, setToShameValue] = useState<string>('By name');
-  const [perPageValue, setPerPageValue] = useState<string>('6');
+  const [perPageValue, setPerPageValue] = useState<string>(defaultPerPageValue);
   const [filtersValue, setFiltersValue] = useState<string[]>([]);
   const [displayedWines, setDisplayedWines] = useState<IWine[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -107,6 +109,10 @@ const CatalogContent: FC = () => {
 
   const totalPages = Math.ceil(wines.length / parseInt(perPageValue, 10));
 
+  const perPageOptions = screenSize.isTabletScreen
+    ? setFilterOptions.productPerPageOptionsTablet
+    : setFilterOptions.productPerPageOptions;
+
   return (
     <>
       <ContentStyled>
@@ -124,7 +130,7 @@ const CatalogContent: FC = () => {
           </ToShameWrapper>
           <SelectPerPageWrapper>
             <FilterDropdown
-              options={setFilterOptions.productPerPageOptions}
+              options={perPageOptions}
               onChange={handlePerPageChange}
               title='Number of products on the page'
               value={perPageValue}
