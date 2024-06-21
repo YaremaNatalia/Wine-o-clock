@@ -109,7 +109,6 @@ const CatalogContent: FC = () => {
 
   const totalPages = Math.ceil(wines.length / parseInt(perPageValue, 10));
 
-
   const perPageOptions = screenSize.isTabletScreen
     ? setFilterOptions.productPerPageOptionsTablet
     : setFilterOptions.productPerPageOptions;

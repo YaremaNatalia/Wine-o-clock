@@ -19,6 +19,7 @@ const ModalFilters: FC<IProps> = ({
   setToShameValue,
   priceValues,
   setPriceValues,
+  setCurrentPage,
 }) => {
   useEffect(() => {
     const closeModalEsc = (e: KeyboardEvent) => {
@@ -61,6 +62,7 @@ const ModalFilters: FC<IProps> = ({
           toShameValue={toShameValue}
           priceValues={priceValues}
           setPriceValues={setPriceValues}
+          setCurrentPage={setCurrentPage}
         />
       </ModalStyled>
       ,
