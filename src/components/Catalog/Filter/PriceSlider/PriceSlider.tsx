@@ -8,12 +8,14 @@ const PriceSlider: FC<IProps> = ({
   reset,
   priceValues,
   setPriceValues,
+  setCurrentPage,
 }) => {
   const minPriceRef = useRef<HTMLInputElement>(null);
   const maxPriceRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (newValues: [number, number]) => {
     setPriceValues(newValues);
+    setCurrentPage(1);
   };
 
   useEffect(() => {

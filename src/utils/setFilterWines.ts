@@ -67,14 +67,20 @@ const filterCatalogWines = (wines: IWine[], filters: string[]) => {
 const filterMainWines = (wines: IWine[], filter: string): IWine[] => {
   switch (filter) {
     case 'sales':
-      return wines.filter((wine) => wine.isSale);
+      return sortByAvailability(wines.filter((wine) => wine.isSale));
     case 'newCollection':
-      return wines.filter((wine) => wine.isNewCollection);
+      return sortByAvailability(wines.filter((wine) => wine.isNewCollection));
     case 'bestsellers':
-      return wines.filter((wine) => wine.isBestSeller);
+      return sortByAvailability(wines.filter((wine) => wine.isBestSeller));
     default:
-      return wines;
+      return sortByAvailability(wines);
   }
+};
+
+const sortByAvailability = (wines: IWine[]): IWine[] => {
+  const availableWines = wines.filter((wine) => wine.quantity > 0);
+  const unavailableWines = wines.filter((wine) => wine.quantity === 0);
+  return [...availableWines, ...unavailableWines];
 };
 
 const sortToShameWines = (wines: IWine[], filter: string): IWine[] => {
@@ -86,13 +92,31 @@ const sortToShameWines = (wines: IWine[], filter: string): IWine[] => {
   } else if (filter === 'From expensive') {
     sortedWines.sort((a, b) => b.price - a.price);
   }
-  return sortedWines;
+  
+  return sortByAvailability(sortedWines);
+
 };
 
-const filterPrice = (wines: IWine[], priceValues:[number, number]): IWine[] => {
+const filterPrice = (
+  wines: IWine[],
+  priceValues: [number, number]
+): IWine[] => {
   return wines.filter(
     (wine) => wine.price >= priceValues[0] && wine.price <= priceValues[1]
   );
+};
+
+const setValueList = (wines: IWine[] | undefined, filter: string): string[] => {
+  switch (filter) {
+    case 'countries':
+      return wines
+        ? [...new Set(wines.map((wine) => wine.country))].sort()
+        : [];
+    case 'regions':
+      return wines ? [...new Set(wines.map((wine) => wine.region))].sort() : [];
+    default:
+      return [];
+  }
 };
 
 export default {
@@ -100,4 +124,5 @@ export default {
   filterMainWines,
   sortToShameWines,
   filterPrice,
+  setValueList,
 };

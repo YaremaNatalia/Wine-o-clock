@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { setAnimationLetterSize, useWindowResize } from '@/utils';
+import { setAnimationLetterSize, setWindowResize,  } from '@/utils';
 import { catalogHero } from '@/images/catalogPage';
 import {
   Bg,
@@ -9,7 +9,7 @@ import {
 } from '@/components/WineTime/WineTimeHero/WineTimeHero.styled';
 
 const CatalogHero: FC = () => {
-  const screenSize = useWindowResize();
+  const screenSize = setWindowResize();
   const TopHeroText = setAnimationLetterSize.setTopTextCatalog(
     screenSize.isMobileScreen
       ? 'mobile'

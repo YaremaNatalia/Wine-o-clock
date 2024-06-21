@@ -1,6 +1,6 @@
-const toggle =
+const setToggle =
   (setter: React.Dispatch<React.SetStateAction<boolean>>) => () => {
     setter((prev) => !prev);
   };
 
-  export default toggle;
+  export default setToggle;

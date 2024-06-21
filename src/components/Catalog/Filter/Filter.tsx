@@ -5,8 +5,8 @@ import { FiMinus } from 'react-icons/fi';
 import { FilterItem, FiltersList, Form } from './Filter.styled';
 import PriceSlider from './PriceSlider';
 import { operations } from '@/tanStackQuery';
-import { setFilterOptions, toggle } from '@/utils';
-import { IFilter } from './Filter.types';
+import { setFilterOptions, setFilterWines, setToggle,  } from '@/utils';
+import { IFilter, IFormValues } from './Filter.types';
 import ToShame from './ToShame';
 
 const Filter: FC<IFilter> = ({
@@ -17,6 +17,7 @@ const Filter: FC<IFilter> = ({
   filtersValue,
   priceValues,
   setPriceValues,
+  setCurrentPage,
 }) => {
   const [showCollectionsList, setShowCollectionsList] =
     useState<boolean>(false);
@@ -24,23 +25,18 @@ const Filter: FC<IFilter> = ({
   const [showSweetnessList, setShowSweetnessList] = useState<boolean>(false);
   const [showCountriesList, setShowCountriesList] = useState<boolean>(false);
   const [showRegionsList, setShowRegionsList] = useState<boolean>(false);
-  const [countries, setCountries] = useState<string[]>([]);
   const [regions, setRegions] = useState<string[]>([]);
 
   const data = operations.allWines();
-  const { register, setValue, reset, watch } = useForm();
-
-  useEffect(() => {
-    if (data?.products) {
-      const countriesList = [
-        ...new Set(data?.products.map((product) => product.country)),
-      ].sort();
-      setCountries(countriesList);
-    }
-  }, [data]);
+  const countriesList = setFilterWines.setValueList(
+    data?.products,
+    'countries'
+  );
+  const { register, setValue, reset, watch } = useForm<IFormValues>();
 
   useEffect(() => {
     const selectedCountries = watch('country') || [];
+    const regionsList = setFilterWines.setValueList(data?.products, 'regions');
     if (selectedCountries.length > 0) {
       const selectedRegions = [
         ...new Set(
@@ -51,23 +47,23 @@ const Filter: FC<IFilter> = ({
       ].sort();
       setRegions(selectedRegions);
     } else {
-      const fullRegionsList = [
-        ...new Set(data?.products.map((product) => product.region)),
-      ].sort();
-      setRegions(fullRegionsList);
+      setRegions(regionsList);
     }
   }, [data, watch('country')]);
 
   const handleCheckboxChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    filterType: string
+    filterType: keyof IFormValues
   ) => {
     const value = e.target.value;
     const isChecked = e.target.checked;
-    const selectedValues = watch(filterType) || [];
+    const currentValues = watch(filterType);
+    const selectedValues: string[] = Array.isArray(currentValues)
+      ? currentValues
+      : [];
     const updatedValues = isChecked
       ? [...selectedValues, value]
-      : selectedValues.filter((item: string) => item !== value);
+      : selectedValues.filter((item) => item !== value);
 
     setValue(filterType, updatedValues);
     onSelectFilterValue(value);
@@ -91,7 +87,10 @@ const Filter: FC<IFilter> = ({
         />
       </FilterItem>
       <FilterItem>
-        <div className='filterTitle' onClick={toggle(setShowCollectionsList)}>
+        <div
+          className='filterTitle'
+          onClick={setToggle(setShowCollectionsList)}
+        >
           Collections
           {showCollectionsList ? <FiMinus size={20} /> : <FiPlus size={20} />}
         </div>
@@ -118,10 +117,11 @@ const Filter: FC<IFilter> = ({
           reset={reset}
           priceValues={priceValues}
           setPriceValues={setPriceValues}
+          setCurrentPage={setCurrentPage}
         />
       </FilterItem>
       <FilterItem title='Color'>
-        <div className='filterTitle' onClick={toggle(setShowColorsList)}>
+        <div className='filterTitle' onClick={setToggle(setShowColorsList)}>
           Color {showColorsList ? <FiMinus size={20} /> : <FiPlus size={20} />}
         </div>
         {showColorsList && (
@@ -141,7 +141,7 @@ const Filter: FC<IFilter> = ({
         )}
       </FilterItem>
       <FilterItem>
-        <div className='filterTitle' onClick={toggle(setShowSweetnessList)}>
+        <div className='filterTitle' onClick={setToggle(setShowSweetnessList)}>
           Sweetness
           {showSweetnessList ? <FiMinus size={20} /> : <FiPlus size={20} />}
         </div>
@@ -162,13 +162,13 @@ const Filter: FC<IFilter> = ({
         )}
       </FilterItem>
       <FilterItem>
-        <div className='filterTitle' onClick={toggle(setShowCountriesList)}>
+        <div className='filterTitle' onClick={setToggle(setShowCountriesList)}>
           Country
           {showCountriesList ? <FiMinus size={20} /> : <FiPlus size={20} />}
         </div>
         {showCountriesList && data && (
           <FiltersList>
-            {countries.map((country) => (
+            {countriesList.map((country) => (
               <label key={country}>
                 <input
                   {...register('country')}
@@ -183,7 +183,7 @@ const Filter: FC<IFilter> = ({
         )}
       </FilterItem>
       <FilterItem>
-        <div className='filterTitle' onClick={toggle(setShowRegionsList)}>
+        <div className='filterTitle' onClick={setToggle(setShowRegionsList)}>
           Region
           {showRegionsList ? <FiMinus size={20} /> : <FiPlus size={20} />}
         </div>

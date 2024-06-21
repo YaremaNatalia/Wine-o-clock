@@ -1,15 +1,14 @@
 import { FC } from 'react';
-
 import { wineTimeHero } from '@/images/wineTimePage';
 import {
   Bg,
   HeroPictureWrapper,
   HeroStyled,
 } from './WineTimeHero.styled';
-import { setAnimationLetterSize, useWindowResize } from '@/utils';
+import { setAnimationLetterSize, setWindowResize } from '@/utils';
 
 const WineTimeHero: FC = () => {
-  const screenSize = useWindowResize();
+  const screenSize = setWindowResize();
   const TopHeroText = setAnimationLetterSize.setTopTextWineTime(
     screenSize.isMobileScreen
       ? 'mobile'

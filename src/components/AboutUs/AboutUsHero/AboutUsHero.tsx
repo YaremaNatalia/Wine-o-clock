@@ -4,11 +4,11 @@ import {
   aboutUsHeroWineTime,
 } from '@/images/aboutUsPage';
 import { AboutUsHeroStyled, HeroPictureWrapper } from './AboutUsHero.styled';
-import { setAnimationLetterSize, useWindowResize } from '@/utils';
+import { setAnimationLetterSize, setWindowResize,  } from '@/utils';
 import Container from '@/components/Container';
 
 const AboutUsHero: FC = () => {
-  const screenSize = useWindowResize();
+  const screenSize = setWindowResize();
   const WineTimeSvg = setAnimationLetterSize.setTopTextAboutUs(
     screenSize.isMobileScreen
       ? 'mobile'

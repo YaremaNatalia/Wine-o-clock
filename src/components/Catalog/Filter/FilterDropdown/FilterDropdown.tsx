@@ -7,8 +7,9 @@ import {
 } from './FilterDropdown.styled';
 import { IoIosArrowDown } from 'react-icons/io';
 import { IoIosArrowUp } from 'react-icons/io';
-import { toggle } from '@/utils';
+
 import { IProps } from './FilterDropdown.types';
+import { setToggle } from '@/utils';
 
 const FilterDropdown: FC<IProps> = ({ options, value, title, onChange }) => {
   const [showList, setShowList] = useState<boolean>(false);
@@ -46,7 +47,7 @@ const FilterDropdown: FC<IProps> = ({ options, value, title, onChange }) => {
 
   return (
     <DropdownFilter ref={dropdownRef}>
-      <DropdownNavigation onClick={toggle(setShowList)}>
+      <DropdownNavigation onClick={setToggle(setShowList)}>
         {title}
         <div className='valueWrapper'>
           <span className='selectedValue'>{value}</span>

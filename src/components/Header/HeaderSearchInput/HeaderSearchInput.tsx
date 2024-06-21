@@ -8,8 +8,9 @@ import IconButton from '@/components/IconButton';
 import { IoSearch } from 'react-icons/io5';
 import { IWine } from '@/types/types';
 import HeaderSearchDropdown from '@/components/Header/HeaderSearchDropdown';
-import { keysToFilter } from '@/utils';
+
 import { operations } from '@/tanStackQuery';
+import { setSearchKeys } from '@/utils';
 
 
 const HeaderSearchInput: FC = () => {
@@ -35,7 +36,7 @@ const HeaderSearchInput: FC = () => {
           return wine.isSale === true;
         } else {
           return Object.keys(wine)
-            .filter((key) => !keysToFilter.keysToExclude.includes(key))
+            .filter((key) => !setSearchKeys.keysToExclude.includes(key))
             .some((key: string) => {
               const value = wine[key];
               if (typeof value === 'string') {

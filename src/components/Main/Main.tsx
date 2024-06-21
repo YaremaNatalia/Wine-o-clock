@@ -5,7 +5,8 @@ import MainWineTime from '@/components/Main/MainWineTime';
 import MainAgeModal from '@/components/Main/MainAgeModal';
 import { operations } from '@/tanStackQuery';
 import WineListSection from '@/components/WineListSection';
-import { filterWines } from '@/utils';
+import { setFilterWines } from '@/utils';
+
 
 const Main: FC = () => {
   const { useSiteVisited } = operations;
@@ -27,12 +28,12 @@ const Main: FC = () => {
 
   const data = operations.allWines();
 
-  const sales = filterWines.filterMainWines(data?.products ?? [], 'sales');
-  const newWines = filterWines.filterMainWines(
+  const sales = setFilterWines.filterMainWines(data?.products ?? [], 'sales');
+  const newWines = setFilterWines.filterMainWines(
     data?.products ?? [],
     'newCollection'
   );
-  const bestsellers = filterWines.filterMainWines(
+  const bestsellers = setFilterWines.filterMainWines(
     data?.products ?? [],
     'bestsellers'
   );

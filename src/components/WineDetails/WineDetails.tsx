@@ -19,6 +19,7 @@ import WineListSection from '../WineListSection';
 import StarRating from './StarRating';
 import Container from '../Container';
 import { PagePaths } from '@/constants';
+import { setFilterWines } from '@/utils';
 
 const WineDetails: FC<IProps> = ({ wine }) => {
   const [isGeneralInfoActive, setIsGeneralInfoActive] = useState(true);
@@ -27,9 +28,10 @@ const WineDetails: FC<IProps> = ({ wine }) => {
 
   const data = operations.allWines();
 
-  const bestsellers = data?.products
-    .filter((wine) => wine.isBestSeller)
-    .sort((a, b) => b.bottlesSoldCounter - a.bottlesSoldCounter);
+  const bestsellers = setFilterWines.filterMainWines(
+    data?.products ?? [],
+    'bestsellers'
+  );
 
   const handleGeneralInfoClick = () => {
     setIsGeneralInfoActive(true);

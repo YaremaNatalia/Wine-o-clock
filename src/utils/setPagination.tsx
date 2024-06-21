@@ -1,12 +1,7 @@
 import { IPagination, IWine } from '@/types/types';
 import { useState, useEffect } from 'react';
 
-
-const usePagination = (
-  items: IWine[],
-  itemsPerPage: number,
-
-): IPagination => {
+const setPagination = (items: IWine[], itemsPerPage: number): IPagination => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -40,4 +35,4 @@ const usePagination = (
   };
 };
 
-export default usePagination;
+export default setPagination;

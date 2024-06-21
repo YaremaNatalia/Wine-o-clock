@@ -5,7 +5,6 @@ import { operations } from '@/tanStackQuery';
 import { BtnClickEvent, IWine } from '@/types/types';
 import { FC, useEffect, useState } from 'react';
 import { PiSliders } from 'react-icons/pi';
-import { RxCross2 } from 'react-icons/rx';
 import {
   ContentStyled,
   ContentWrapper,
@@ -15,14 +14,15 @@ import {
   ToShameWrapper,
 } from './CatalogContent.styled';
 import Filter from '../Filter';
-import { filterWines, setFilterOptions, useWindowResize } from '@/utils';
+import { setFilterOptions, setFilterWines, setWindowResize } from '@/utils';
 import FilterDropdown from '../Filter/FilterDropdown';
 import ModalFilters from '../ModalFilters';
 import ToShame from '../Filter/ToShame';
+import CheckedFilters from './CheckedFilters';
 
 const CatalogContent: FC = () => {
   const data = operations.allWines();
-  const screenSize = useWindowResize();
+  const screenSize = setWindowResize();
   const defaultPerPageValue = screenSize.isTabletScreen ? '12' : '6';
   const [wines, setWines] = useState<IWine[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -40,8 +40,8 @@ const CatalogContent: FC = () => {
   }, [data]);
 
   useEffect(() => {
-    const shamedWines = filterWines.sortToShameWines(wines, toShameValue);
-    const priceFilteredWines = filterWines.filterPrice(
+    const shamedWines = setFilterWines.sortToShameWines(wines, toShameValue);
+    const priceFilteredWines = setFilterWines.filterPrice(
       shamedWines,
       priceValues
     );
@@ -54,7 +54,7 @@ const CatalogContent: FC = () => {
 
   useEffect(() => {
     if (data?.products) {
-      const filteredWines = filterWines.filterCatalogWines(
+      const filteredWines = setFilterWines.filterCatalogWines(
         data.products,
         filtersValue
       );
@@ -109,6 +109,7 @@ const CatalogContent: FC = () => {
 
   const totalPages = Math.ceil(wines.length / parseInt(perPageValue, 10));
 
+
   const perPageOptions = screenSize.isTabletScreen
     ? setFilterOptions.productPerPageOptionsTablet
     : setFilterOptions.productPerPageOptions;
@@ -147,34 +148,17 @@ const CatalogContent: FC = () => {
               filtersValue={filtersValue}
               priceValues={priceValues}
               setPriceValues={setPriceValues}
+              setCurrentPage={setCurrentPage}
             />
           </div>
           <div className='filtersWinesWrapper'>
-            <div className='chosenFiltersContainer'>
-              {filtersValue &&
-                filtersValue.map((v, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleRemoveFilterValue(v)}
-                    className='chosenFilterBtn'
-                  >
-                    {v}
-                    <RxCross2 size={11} />
-                  </button>
-                ))}
-              {(priceValues[0] > 0 || priceValues[1] < 3000) && (
-                <button onClick={() => setPriceValues([0, 3000])}>
-                  {priceValues[0]} - {priceValues[1]} ₴
-                  <RxCross2 size={11} />
-                </button>
-              )}
-              {filtersValue.length > 0 && (
-                <button onClick={handleRemoveAllFiltersValues}>
-                  Reset all filters
-                  <RxCross2 size={11} />
-                </button>
-              )}
-            </div>
+            <CheckedFilters
+              filtersValue={filtersValue}
+              priceValues={priceValues}
+              setPriceValues={setPriceValues}
+              handleRemoveFilterValue={handleRemoveFilterValue}
+              handleRemoveAllFiltersValues={handleRemoveAllFiltersValues}
+            />
             {displayedWines.length > 0 ? (
               <WineList wines={displayedWines} />
             ) : (
@@ -201,6 +185,7 @@ const CatalogContent: FC = () => {
           filtersValue={filtersValue}
           priceValues={priceValues}
           setPriceValues={setPriceValues}
+          setCurrentPage={setCurrentPage}
         />
       )}
     </>

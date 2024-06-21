@@ -8,11 +8,11 @@ import {
   HeroTitle,
   MainHeroStyled,
 } from './MainHero.styled';
-import { setAnimationLetterSize, useWindowResize } from '@/utils';
+import { setAnimationLetterSize, setWindowResize,  } from '@/utils';
 import { PagePaths } from '@/constants';
 
 const MainHero: FC = () => {
-  const screenSize = useWindowResize();
+  const screenSize = setWindowResize();
   const TopHeroText = setAnimationLetterSize.setTopTextMain(
     screenSize.isMobileScreen
       ? 'mobile'

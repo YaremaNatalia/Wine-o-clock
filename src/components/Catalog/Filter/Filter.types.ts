@@ -6,4 +6,15 @@ export interface IFilter {
   filtersValue?: string[];
   priceValues: [number, number];
   setPriceValues: (value: [number, number]) => void;
+  setCurrentPage: (value: number) => void;
+}
+
+export interface IFormValues {
+  collections?: string[];
+  color?: string[];
+  sweetness?: string[];
+  country?: string[];
+  region?: string[];
+  minPrice?: number;
+  maxPrice?: number;
 }
