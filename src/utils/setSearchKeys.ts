@@ -21,4 +21,4 @@ const keysToExclude = [
   'foodPairing',
 ];
 
-export default keysToExclude;
+export default { keysToExclude };

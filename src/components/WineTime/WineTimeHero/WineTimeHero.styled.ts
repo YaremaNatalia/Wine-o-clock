@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const WineTimeHeroStyled = styled.div`
+export const HeroStyled = styled.div`
   background-color: ${({ theme }) => theme.colors.primaryWhite};
   color: ${({ theme }) => theme.colors.primaryWhite};
   display: flex;
@@ -18,7 +18,7 @@ export const WineTimeHeroStyled = styled.div`
   }
 `;
 
-export const WineTimeHeroPictureWrapper = styled.div`
+export const HeroPictureWrapper = styled.div`
   position: relative;
 
   svg {
@@ -35,8 +35,8 @@ export const WineTimeHeroPictureWrapper = styled.div`
     }
 
     @media screen and (min-width: 1440px) {
-      /* top: ${({ theme }) => theme.spacing(18)};
-      left: ${({ theme }) => theme.spacing(27)}; */
+      top: ${({ theme }) => theme.spacing(18)};
+      left: ${({ theme }) => theme.spacing(21)};
     }
 
     animation: slideFromLeft 3s ease forwards;
@@ -62,8 +62,8 @@ export const WineTimeHeroPictureWrapper = styled.div`
     }
 
     @media screen and (min-width: 1440px) {
-      /* bottom: ${({ theme }) => theme.spacing(34)};
-      right: ${({ theme }) => theme.spacing(130)}; */
+      bottom: ${({ theme }) => theme.spacing(34)};
+      left: ${({ theme }) => theme.spacing(93)};
     }
 
     animation: slideFromRight 3s ease forwards;
@@ -80,4 +80,4 @@ export const WineTimeHeroPictureWrapper = styled.div`
   }
 `;
 
-export const WineTimeBg = styled.img``;
+export const Bg = styled.img``;

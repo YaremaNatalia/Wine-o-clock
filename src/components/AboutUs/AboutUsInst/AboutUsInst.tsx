@@ -39,7 +39,7 @@ const AboutUsInst: FC = () => {
                 <source
                   srcSet={`${aboutUsClock.clockMob1xWebp} 1x, ${aboutUsClock.clockMob2xWebp} 2x`}
                   type='image/webp'
-                  media='(min-width: 320px)'
+                  media='(max-width: 768px)'
                 />
                 <source
                   srcSet={`${aboutUsClock.clockDesk1xJpg} 1x, ${aboutUsClock.clockDesk2xJpg} 2x,`}
@@ -51,7 +51,7 @@ const AboutUsInst: FC = () => {
                 />
                 <source
                   srcSet={`${aboutUsClock.clockMob1xJpg} 1x, ${aboutUsClock.clockMob2xJpg} 2x,`}
-                  media='(min-width: 320px)'
+                  media='(max-width: 768px)'
                 />
                 <img src={`${aboutUsClock.clockMob1xJpg}`} alt='Clock' />
               </picture>
@@ -71,7 +71,7 @@ const AboutUsInst: FC = () => {
                 <source
                   srcSet={`${aboutUsWines.winesMob1xWebp} 1x, ${aboutUsWines.winesMob2xWebp} 2x`}
                   type='image/webp'
-                  media='(min-width: 320px)'
+                  media='(max-width: 768px)'
                 />
                 <source
                   srcSet={`${aboutUsWines.winesDesk1xJpg} 1x, ${aboutUsWines.winesDesk2xJpg} 2x,`}
@@ -83,7 +83,7 @@ const AboutUsInst: FC = () => {
                 />
                 <source
                   srcSet={`${aboutUsWines.winesMob1xJpg} 1x, ${aboutUsWines.winesMob2xJpg} 2x,`}
-                  media='(min-width: 320px)'
+                  media='(max-width: 768px)'
                 />
                 <img src={`${aboutUsWines.winesMob1xJpg}`} alt='Wines' />
               </picture>

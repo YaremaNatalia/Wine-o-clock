@@ -19,17 +19,19 @@ import WineListSection from '../WineListSection';
 import StarRating from './StarRating';
 import Container from '../Container';
 import { PagePaths } from '@/constants';
+import { setFilterWines } from '@/utils';
 
 const WineDetails: FC<IProps> = ({ wine }) => {
   const [isGeneralInfoActive, setIsGeneralInfoActive] = useState(true);
   const [isDescriptionActive, setIsDescriptionActive] = useState(false);
   const [isReviewsActive, setIsReviewsActive] = useState(false);
 
-  const allWines = operations.allWines();
+  const data = operations.allWines();
 
-  const bestsellers = allWines
-    ?.filter((wine) => wine.isBestSeller)
-    .sort((a, b) => b.bottlesSoldCounter - a.bottlesSoldCounter);
+  const bestsellers = setFilterWines.filterMainWines(
+    data?.products ?? [],
+    'bestsellers'
+  );
 
   const handleGeneralInfoClick = () => {
     setIsGeneralInfoActive(true);

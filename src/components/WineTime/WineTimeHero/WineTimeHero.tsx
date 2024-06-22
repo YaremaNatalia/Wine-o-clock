@@ -1,16 +1,15 @@
 import { FC } from 'react';
-
 import { wineTimeHero } from '@/images/wineTimePage';
 import {
-  WineTimeBg,
-  WineTimeHeroPictureWrapper,
-  WineTimeHeroStyled,
+  Bg,
+  HeroPictureWrapper,
+  HeroStyled,
 } from './WineTimeHero.styled';
-import { setAnimationLetterSize, useWindowResize } from '@/utils';
+import { setAnimationLetterSize, setWindowResize } from '@/utils';
 
 const WineTimeHero: FC = () => {
-  const screenSize = useWindowResize();
-  const TopHeroText = setAnimationLetterSize.setAnimationTopWineTime(
+  const screenSize = setWindowResize();
+  const TopHeroText = setAnimationLetterSize.setTopTextWineTime(
     screenSize.isMobileScreen
       ? 'mobile'
       : screenSize.isTabletScreen
@@ -18,7 +17,7 @@ const WineTimeHero: FC = () => {
       : 'desktop'
   );
 
-  const BottomHeroText = setAnimationLetterSize.setAnimationBottomWineTime(
+  const BottomHeroText = setAnimationLetterSize.setBottomTextWineTime(
     screenSize.isMobileScreen
       ? 'mobile'
       : screenSize.isTabletScreen
@@ -27,8 +26,8 @@ const WineTimeHero: FC = () => {
   );
 
   return (
-    <WineTimeHeroStyled>
-      <WineTimeHeroPictureWrapper>
+    <HeroStyled>
+      <HeroPictureWrapper>
         <picture>
           <source
             srcSet={`${wineTimeHero.wineDesk1xWebp} 1x, ${wineTimeHero.wineDesk2xWebp} 2x`}
@@ -43,7 +42,7 @@ const WineTimeHero: FC = () => {
           <source
             srcSet={`${wineTimeHero.wineMob1xWebp} 1x, ${wineTimeHero.wineMob2xWebp} 2x`}
             type='image/webp'
-            media='(min-width: 320px)'
+            media='(max-width: 768px)'
           />
           <source
             srcSet={`${wineTimeHero.wineDesk1xJpg} 1x, ${wineTimeHero.wineDesk2xJpg} 2x,`}
@@ -55,17 +54,14 @@ const WineTimeHero: FC = () => {
           />
           <source
             srcSet={`${wineTimeHero.wineMob1xJpg} 1x, ${wineTimeHero.wineMob2xJpg} 2x,`}
-            media='(min-width: 320px)'
+            media='(max-width: 768px)'
           />
-          <WineTimeBg
-            src={`${wineTimeHero.wineMob1xJpg}`}
-            alt='Wine time image'
-          />
+          <Bg src={`${wineTimeHero.wineMob1xJpg}`} alt='Wine time image' />
         </picture>
         <TopHeroText title='wine time' className='topText' />
         <BottomHeroText title='every hour' className='bottomText' />
-      </WineTimeHeroPictureWrapper>
-    </WineTimeHeroStyled>
+      </HeroPictureWrapper>
+    </HeroStyled>
   );
 };
 

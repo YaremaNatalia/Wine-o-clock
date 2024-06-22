@@ -4,7 +4,7 @@ import { QueryKeys, client } from './';
 
 const getAllWines = async (
   page: number = 1,
-  limit: number = 8,
+  limit: number | null,
   title: string = ''
 ) => {
   try {
@@ -18,7 +18,7 @@ const getAllWines = async (
 };
 
 const allWines = () => {
-  return client.getQueryData<IAllWinesData>([QueryKeys.wines])?.products || [];
+  return client.getQueryData<IAllWinesData>([QueryKeys.wines]);
 };
 
 const getWineById = async (productId: string) => {

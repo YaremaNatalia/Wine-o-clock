@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { theme } from '@/constants';
 
-const useWindowResize = () => {
+const setWindowResize = () => {
   const [screenSize, setScreenSize] = useState({
     isDesktopScreen:
       typeof window !== 'undefined' &&
@@ -32,4 +32,4 @@ const useWindowResize = () => {
   return screenSize;
 };
 
-export default useWindowResize;
+export default setWindowResize;

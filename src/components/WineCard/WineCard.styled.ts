@@ -6,6 +6,7 @@ export const WineDetailsLink = styled(Link)`
   text-decoration: none;
   transition: ${({ theme }) => theme.transitionDurationAndFunc};
   color: ${({ theme }) => theme.colors.primaryBlack};
+  border-radius: 10px;
 
   &:hover,
   &:focus {
@@ -15,6 +16,7 @@ export const WineDetailsLink = styled(Link)`
 `;
 
 export const WineCardStyled = styled.li`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -23,7 +25,33 @@ export const WineCardStyled = styled.li`
   margin-left: auto;
   margin-right: auto;
   padding: ${({ theme }) => `${theme.spacing(4)} ${theme.spacing(3)}`};
-  border-radius: 10px;
+
+  .outOfStockOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: rgba(18, 20, 23, 0.2);
+    border-radius: 10px;
+    z-index: 1;
+
+    svg {
+      margin-top: 30%;
+      width: 150px;
+      height: 150px;
+      z-index: 2;
+      fill: ${({ theme }) => theme.colors.primaryBurgundy};
+
+      @media screen and (min-width: 1440px) {
+        width: 250px;
+        height: 250px;
+      }
+    }
+  }
 
   @media screen and (min-width: 1440px) {
     gap: ${({ theme }) => theme.spacing(2.5)};

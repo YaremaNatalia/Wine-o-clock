@@ -29,7 +29,7 @@ const MainQualities: FC = () => {
           <source
             srcSet={`${qualities.qualitiesMob1xWebp} 1x, ${qualities.qualitiesMob2xWebp} 2x`}
             type='image/webp'
-            media='(min-width: 320px)'
+            media='(max-width: 768px)'
           />
           <source
             srcSet={`${qualities.qualitiesDesk1xJpg} 1x, ${qualities.qualitiesDesk2xJpg} 2x,`}
@@ -41,7 +41,7 @@ const MainQualities: FC = () => {
           />
           <source
             srcSet={`${qualities.qualitiesMob1xJpg} 1x, ${qualities.qualitiesMob2xJpg} 2x,`}
-            media='(min-width: 320px)'
+            media='(max-width: 768px)'
           />
           <img src={`${qualities.qualitiesMob1xJpg}`} alt='Hero image' />
         </picture>

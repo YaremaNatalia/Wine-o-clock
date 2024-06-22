@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { FormData, IProps } from './MainAgeModal.types';
@@ -12,7 +12,11 @@ import {
   MainAgeModalStyled,
   ModalTextWrapper,
   NumbStyled,
+  Overlay,
 } from './MainAgeModal.styled';
+import { createPortal } from 'react-dom';
+
+const modalRoot = document.querySelector('#modal-root');
 
 const MainAgeModal: FC<IProps> = ({ onModalClose }) => {
   const {
@@ -22,6 +26,14 @@ const MainAgeModal: FC<IProps> = ({ onModalClose }) => {
     formState: { isValid },
   } = useForm<FormData>();
 
+ useEffect(() => {
+   document.body.style.overflow = 'hidden';
+
+   return () => {
+     document.body.style.overflow = 'auto';
+   };
+ }, []);
+  
   const move = (
     event: React.KeyboardEvent<HTMLInputElement>,
     toInpId: string
@@ -68,77 +80,81 @@ const MainAgeModal: FC<IProps> = ({ onModalClose }) => {
     }
   };
 
-  return (
-    <MainAgeModalStyled>
-      <NumbStyled>18+</NumbStyled>
-      <ModalTextWrapper>
-        <p>
-          We do not sell alcoholic beverages to minors! <br /> Confirm that you
-          are of legal age to purchase alcoholic beverages
-        </p>
-        <p>Enter the year of your birth</p>
-      </ModalTextWrapper>
-      <FormStyled onSubmit={handleSubmit(onSubmit)}>
-        <InputContainer>
-          <Input
-            id='inp1'
-            type='text'
-            inputMode='numeric'
-            placeholder='0'
-            {...register('year1', {
-              required: true,
-              pattern: /^[0-9]*$/,
-            })}
-            maxLength={1}
-            onKeyUp={(e) => move(e, 'inp2')}
+
+  return createPortal(
+    <Overlay>
+      <MainAgeModalStyled>
+        <NumbStyled>18+</NumbStyled>
+        <ModalTextWrapper>
+          <p>
+            We do not sell alcoholic beverages to minors! <br /> Confirm that you
+            are of legal age to purchase alcoholic beverages
+          </p>
+          <p>Enter the year of your birth</p>
+        </ModalTextWrapper>
+        <FormStyled onSubmit={handleSubmit(onSubmit)}>
+          <InputContainer>
+            <Input
+              id='inp1'
+              type='text'
+              inputMode='numeric'
+              placeholder='0'
+              {...register('year1', {
+                required: true,
+                pattern: /^[0-9]*$/,
+              })}
+              maxLength={1}
+              onKeyUp={(e) => move(e, 'inp2')}
+            />
+            <Input
+              id='inp2'
+              type='text'
+              inputMode='numeric'
+              placeholder='0'
+              {...register('year2', {
+                required: true,
+                pattern: /^[0-9]*$/,
+              })}
+              maxLength={1}
+              onKeyUp={(e) => move(e, 'inp3')}
+            />
+            <Input
+              id='inp3'
+              type='text'
+              inputMode='numeric'
+              placeholder='0'
+              {...register('year3', {
+                required: true,
+                pattern: /^[0-9]*$/,
+              })}
+              maxLength={1}
+              onKeyUp={(e) => move(e, 'inp4')}
+            />
+            <Input
+              id='inp4'
+              type='text'
+              inputMode='numeric'
+              placeholder='0'
+              {...register('year4', {
+                required: true,
+                pattern: /^[0-9]*$/,
+              })}
+              maxLength={1}
+              onKeyUp={(e) => move(e, '')}
+            />
+          </InputContainer>
+          <Button
+            title='Confirm'
+            type={ButtonTypes.submit}
+            onClick={(e) => {
+              e.currentTarget.blur();
+            }}
+            disabled={!isValid}
           />
-          <Input
-            id='inp2'
-            type='text'
-            inputMode='numeric'
-            placeholder='0'
-            {...register('year2', {
-              required: true,
-              pattern: /^[0-9]*$/,
-            })}
-            maxLength={1}
-            onKeyUp={(e) => move(e, 'inp3')}
-          />
-          <Input
-            id='inp3'
-            type='text'
-            inputMode='numeric'
-            placeholder='0'
-            {...register('year3', {
-              required: true,
-              pattern: /^[0-9]*$/,
-            })}
-            maxLength={1}
-            onKeyUp={(e) => move(e, 'inp4')}
-          />
-          <Input
-            id='inp4'
-            type='text'
-            inputMode='numeric'
-            placeholder='0'
-            {...register('year4', {
-              required: true,
-              pattern: /^[0-9]*$/,
-            })}
-            maxLength={1}
-            onKeyUp={(e) => move(e, '')}
-          />
-        </InputContainer>
-        <Button
-          title='Confirm'
-          type={ButtonTypes.submit}
-          onClick={(e) => {
-            e.currentTarget.blur();
-          }}
-          disabled={!isValid}
-        />
-      </FormStyled>
-    </MainAgeModalStyled>
+        </FormStyled>
+      </MainAgeModalStyled>,
+    </Overlay>,
+    modalRoot!
   );
 };
 

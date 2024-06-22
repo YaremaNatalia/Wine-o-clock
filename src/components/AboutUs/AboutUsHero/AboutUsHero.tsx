@@ -4,12 +4,12 @@ import {
   aboutUsHeroWineTime,
 } from '@/images/aboutUsPage';
 import { AboutUsHeroStyled, HeroPictureWrapper } from './AboutUsHero.styled';
-import { setAnimationLetterSize, useWindowResize } from '@/utils';
+import { setAnimationLetterSize, setWindowResize,  } from '@/utils';
 import Container from '@/components/Container';
 
 const AboutUsHero: FC = () => {
-  const screenSize = useWindowResize();
-  const WineTimeSvg = setAnimationLetterSize.setWineTimeSizeAboutUs(
+  const screenSize = setWindowResize();
+  const WineTimeSvg = setAnimationLetterSize.setTopTextAboutUs(
     screenSize.isMobileScreen
       ? 'mobile'
       : screenSize.isTabletScreen
@@ -17,7 +17,7 @@ const AboutUsHero: FC = () => {
       : 'desktop'
   );
 
-  const EveryHourSvg = setAnimationLetterSize.setEveryHourSizeAboutUs(
+  const EveryHourSvg = setAnimationLetterSize.setBottomTextAboutUs(
     screenSize.isMobileScreen
       ? 'mobile'
       : screenSize.isTabletScreen
@@ -53,7 +53,7 @@ const AboutUsHero: FC = () => {
             <source
               srcSet={`${aboutUsHeroWineTime.heroWTMob1xWebp} 1x, ${aboutUsHeroWineTime.heroWTMob2xWebp} 2x`}
               type='image/webp'
-              media='(min-width: 320px)'
+              media='(max-width: 768px)'
             />
             <source
               srcSet={`${aboutUsHeroWineTime.heroWTDesk1xJpg} 1x, ${aboutUsHeroWineTime.heroWTDesk2xJpg} 2x,`}
@@ -65,7 +65,7 @@ const AboutUsHero: FC = () => {
             />
             <source
               srcSet={`${aboutUsHeroWineTime.heroWTMob1xJpg} 1x, ${aboutUsHeroWineTime.heroWTMob2xJpg} 2x,`}
-              media='(min-width: 320px)'
+              media='(max-width: 768px)'
             />
             <img
               src={`${aboutUsHeroWineTime.heroWTMob1xJpg}`}
@@ -94,7 +94,7 @@ const AboutUsHero: FC = () => {
             <source
               srcSet={`${aboutUsHeroEveryHour.heroEHMob1xWebp} 1x, ${aboutUsHeroEveryHour.heroEHMob2xWebp} 2x`}
               type='image/webp'
-              media='(min-width: 320px)'
+              media='(max-width: 768px)'
             />
             <source
               srcSet={`${aboutUsHeroEveryHour.heroEHDesk1xJpg} 1x, ${aboutUsHeroEveryHour.heroEHDesk2xJpg} 2x,`}
@@ -106,7 +106,7 @@ const AboutUsHero: FC = () => {
             />
             <source
               srcSet={`${aboutUsHeroEveryHour.heroEHMob1xJpg} 1x, ${aboutUsHeroEveryHour.heroEHMob2xJpg} 2x,`}
-              media='(min-width: 320px)'
+              media='(max-width: 768px)'
             />
             <img
               src={`${aboutUsHeroEveryHour.heroEHMob1xJpg}`}

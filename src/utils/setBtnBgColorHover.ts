@@ -3,7 +3,7 @@ import { ButtonDesign, theme } from '@/constants';
 const setBtnBgColorHover = (buttonDesign: ButtonDesign | undefined): string => {
   switch (buttonDesign) {
     case ButtonDesign.burgundy:
-      return 'transparent';
+      return theme.colors.primaryBurgundy;
 
     case ButtonDesign.white:
       return 'transparent';

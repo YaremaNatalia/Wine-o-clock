@@ -8,8 +8,10 @@ import {
   WinePrice,
 } from './HeaderSearchDropdown.styled';
 import { IProps } from './HeaderSearchDropdown.type';
+import { useLocation } from 'react-router-dom';
 
 const HeaderSearchDropdown: FC<IProps> = ({ wines, resetForm, setWines }) => {
+  const location = useLocation();
   const dropdownRef = useRef<HTMLUListElement>(null);
 
   const handleClick = () => {
@@ -38,7 +40,11 @@ const HeaderSearchDropdown: FC<IProps> = ({ wines, resetForm, setWines }) => {
     <SearchDropdownStyled ref={dropdownRef}>
       {wines.map(({ _id, title, price, imageUrl }) => (
         <li key={_id}>
-          <StyledNavLink to='/store' onClick={handleClick}>
+          <StyledNavLink
+            state={{ from: location }}
+            to={`/store/${_id}`}
+            onClick={handleClick}
+          >
             <WinePhoto src={imageUrl} alt={title} />
             <WineDetails>
               <WineName>{title}</WineName>

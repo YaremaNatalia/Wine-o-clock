@@ -5,6 +5,7 @@ import { WineCardStyled, WineDetailsLink } from './WineCard.styled';
 import IconButton from '@/components/IconButton';
 import { AriaLabels, ButtonTypes } from '@/constants';
 import BasketPlus from '@/icons/basketPlus.svg?react';
+import OutOfStock from '@/icons/out-of-stock.svg?react';
 import { BtnClickEvent } from '@/types/types';
 import { useLocation } from 'react-router-dom';
 
@@ -18,6 +19,7 @@ const WineCard: FC<IProps> = ({ wine }) => {
     imageUrl,
     adminDiscountPercentage,
     isNewCollection,
+    quantity,
   } = wine;
 
   const handleClick = (e: BtnClickEvent) => {
@@ -45,16 +47,23 @@ const WineCard: FC<IProps> = ({ wine }) => {
           <p className='wineCountry'>{country}</p>
           <div className='priceWrapper'>
             <p className='winePrice'>{price} ₴</p>
-            <IconButton
-              btnSize={40}
-              ariaLabel={AriaLabels.basket}
-              type={ButtonTypes.button}
-              onClick={handleClick}
-            >
-              <BasketPlus />
-            </IconButton>
+            {quantity > 0 && (
+              <IconButton
+                btnSize={40}
+                ariaLabel={AriaLabels.basket}
+                type={ButtonTypes.button}
+                onClick={handleClick}
+              >
+                <BasketPlus />
+              </IconButton>
+            )}
           </div>
         </div>
+        {quantity === 0 && (
+          <div className='outOfStockOverlay'>
+            <OutOfStock title='Out of stock' />
+          </div>
+        )}
       </WineCardStyled>
     </WineDetailsLink>
   );
