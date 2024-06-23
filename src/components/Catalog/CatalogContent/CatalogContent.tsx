@@ -35,32 +35,26 @@ const CatalogContent: FC = () => {
 
   useEffect(() => {
     if (data?.products) {
-      setWines(data.products);
+      let filteredWines = setFilterWines.filterCatalogWines(
+        data.products,
+        filtersValue
+      );
+      filteredWines = setFilterWines.sortToShameWines(
+        filteredWines,
+        toShameValue
+      );
+      filteredWines = setFilterWines.filterPrice(filteredWines, priceValues);
+      setWines(filteredWines);
     }
-  }, [data]);
+  }, [data?.products, filtersValue, toShameValue, priceValues]);
 
   useEffect(() => {
-    const shamedWines = setFilterWines.sortToShameWines(wines, toShameValue);
-    const priceFilteredWines = setFilterWines.filterPrice(
-      shamedWines,
-      priceValues
-    );
-    const paginatedWines = priceFilteredWines.slice(
+    const paginatedWines = wines.slice(
       0,
       parseInt(perPageValue, 10) * currentPage
     );
     setDisplayedWines(paginatedWines);
-  }, [wines, toShameValue, perPageValue, currentPage, priceValues]);
-
-  useEffect(() => {
-    if (data?.products) {
-      const filteredWines = setFilterWines.filterCatalogWines(
-        data.products,
-        filtersValue
-      );
-      setWines(filteredWines);
-    }
-  }, [data?.products, filtersValue]);
+  }, [wines, perPageValue, currentPage]);
 
   const handleShowMore = (e: BtnClickEvent) => {
     setCurrentPage((prevPage) => prevPage + 1);

@@ -1,6 +1,10 @@
 import { IWine } from '@/types/types';
 
 const filterCatalogWines = (wines: IWine[], filters: string[]) => {
+    if (filters.length === 0) {
+      return wines;
+  }
+  
   const collectionsFilters = filters.filter((filter) =>
     ['Sales', 'Bestsellers', 'New Collections'].includes(filter)
   );
