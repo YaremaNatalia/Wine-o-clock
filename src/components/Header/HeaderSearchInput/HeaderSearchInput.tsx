@@ -11,7 +11,7 @@ import HeaderSearchDropdown from '@/components/Header/HeaderSearchDropdown';
 
 import { operations } from '@/tanStackQuery';
 import { setSearchKeys } from '@/utils';
-
+import { useNavigate } from 'react-router-dom';
 
 const HeaderSearchInput: FC = () => {
   const { register, reset } = useForm<FormData>({
@@ -20,19 +20,23 @@ const HeaderSearchInput: FC = () => {
     },
   });
 
+  // const searchQuery = watch('search').toLowerCase();
+
   const [searchResults, setSearchResults] = useState<IWine[]>([]);
   const [isButtonActive, setIsButtonActive] = useState(false);
+  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
 
-   const data = operations.allWines();
+  const data = operations.allWines();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value.toLowerCase();
-
-    if (query.length >= 2) {
+    const searchQuery = e.target.value.toLowerCase();
+    setQuery(searchQuery);
+    if (searchQuery.length >= 2) {
       setIsButtonActive(true);
 
       const result = data?.products.filter((wine: IWine) => {
-        if (query === 'sale') {
+        if (searchQuery === 'sale') {
           return wine.isSale === true;
         } else {
           return Object.keys(wine)
@@ -40,9 +44,9 @@ const HeaderSearchInput: FC = () => {
             .some((key: string) => {
               const value = wine[key];
               if (typeof value === 'string') {
-                return value.toLowerCase().includes(query);
+                return value.toLowerCase().includes(searchQuery);
               } else if (typeof value === 'number') {
-                return value.toString().toLowerCase() === query;
+                return value.toString().toLowerCase() === searchQuery;
               }
               return false;
             });
@@ -57,15 +61,12 @@ const HeaderSearchInput: FC = () => {
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    try {
-      e.currentTarget.blur();
-      reset();
-      setIsButtonActive(false);
-    } catch (error) {
-      console.error('Error:', error);
-      reset();
-      setIsButtonActive(false);
-      setSearchResults([]);
+    e.currentTarget.blur();
+    reset();
+    setIsButtonActive(false);
+    setSearchResults([]);
+    if (query.length >= 3) {
+      navigate(`/searchResult/${query}`);
     }
   };
 

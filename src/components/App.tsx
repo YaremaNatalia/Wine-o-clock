@@ -16,6 +16,7 @@ import { IAllWinesData, IUser } from '@/types/types';
 import WineDetailsPage from '@/pages/WineDetailsPage';
 import AboutUsPage from '@/pages/AboutUsPage';
 import CatalogPage from '@/pages/CatalogPage';
+import SearchResultPage from '@/pages/SearchResultPage';
 
 const App = () => {
   const { data: token } = useQuery<string>({
@@ -44,6 +45,10 @@ const App = () => {
         <Route
           index
           element={<MainPage isLoading={isLoading} isError={isError} />}
+        />
+        <Route
+          path={PagePaths.searchResultPath}
+          element={<SearchResultPage isLoading={isLoading} isError={isError} />}
         />
         <Route path={PagePaths.wineTimePath} element={<WineTimePage />} />
         <Route path={PagePaths.wineDetailsPath} element={<WineDetailsPage />} />

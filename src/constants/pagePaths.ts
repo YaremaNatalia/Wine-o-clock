@@ -11,6 +11,7 @@ const enum PagePaths {
   logInPath = '/login',
   confOfRegPath = 'confirmation-of-registration',
   wineTimePath = 'wine-time',
+  searchResultPath = '/searchResult/:query'
 }
 
 export default PagePaths;
