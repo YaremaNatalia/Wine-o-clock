@@ -35,7 +35,6 @@ export const WineCardStyled = styled.li`
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    background-color: rgba(18, 20, 23, 0.2);
     border-radius: 10px;
     z-index: 1;
 
