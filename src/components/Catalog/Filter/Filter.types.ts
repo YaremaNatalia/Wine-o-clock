@@ -1,3 +1,5 @@
+import { IWine } from "@/types/types";
+
 export interface IFilter {
   onSelectFilterValue: (value: string) => void;
   removeSelectFilterValue: (value: string) => void;
@@ -7,6 +9,8 @@ export interface IFilter {
   priceValues: [number, number];
   setPriceValues: (value: [number, number]) => void;
   setCurrentPage: (value: number) => void;
+  searchedWines?: IWine[];
+
 }
 
 export interface IFormValues {
