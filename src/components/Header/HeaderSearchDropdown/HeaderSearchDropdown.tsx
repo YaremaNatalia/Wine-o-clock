@@ -20,19 +20,31 @@ const HeaderSearchDropdown: FC<IProps> = ({ wines, resetForm, setWines }) => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
+    const handleClose = (e: MouseEvent | KeyboardEvent) => {
+      if (e instanceof MouseEvent) {
+        if (
+          dropdownRef.current &&
+          !dropdownRef.current.contains(e.target as Node)
+        ) {
+          resetForm();
+          setWines([]);
+          document.body.style.overflow = 'auto';
+        }
+      } else if (e instanceof KeyboardEvent && e.key === 'Escape') {
         resetForm();
         setWines([]);
+        document.body.style.overflow = 'auto';
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handleClose);
+    document.addEventListener('keydown', handleClose);
+    document.body.style.overflow = 'hidden';
+
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('mousedown', handleClose);
+      document.removeEventListener('keydown', handleClose);
+      document.body.style.overflow = 'auto';
     };
   }, [resetForm, setWines]);
 

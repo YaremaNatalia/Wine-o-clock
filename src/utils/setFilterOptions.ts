@@ -19,6 +19,32 @@ const collections = ['New Collections', 'Sales', "Bestsellers"];
 const color = ['Red', 'White', 'Pink'];
 const sweetness = ['Dry', 'Medium dry', 'Medium', "Sweet"];
 
+const searchKeysToExclude = [
+  '_id',
+  'description',
+  'quantity',
+  'bottleCapacity',
+  'alcohol',
+  'evaluation',
+  'comments',
+  'bottlesSoldCounter',
+  'isWineTimePromotion',
+  'imageUrl',
+  "adminDiscountPercentage",
+];
+
+  const fuseSearchOptions = {
+    includeScore: true,
+    keys: [
+      'title',
+      'wineColor',
+      'sugarConsistency',
+      'country',
+      'region',
+      'price',
+    ],
+    threshold: 0.3,
+  };
 
 
 export default {
@@ -27,5 +53,7 @@ export default {
   productPerPageOptionsTablet,
   collections,
   color,
-  sweetness
+  sweetness,
+  searchKeysToExclude,
+  fuseSearchOptions,
 };

@@ -8,10 +8,10 @@ import IconButton from '@/components/IconButton';
 import { IoSearch } from 'react-icons/io5';
 import { IWine } from '@/types/types';
 import HeaderSearchDropdown from '@/components/Header/HeaderSearchDropdown';
-
+import Fuse from 'fuse.js';
 import { operations } from '@/tanStackQuery';
-import { setSearchKeys } from '@/utils';
-
+import { setFilterOptions } from '@/utils';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderSearchInput: FC = () => {
   const { register, reset } = useForm<FormData>({
@@ -20,36 +20,24 @@ const HeaderSearchInput: FC = () => {
     },
   });
 
+  // const searchQuery = watch('search').toLowerCase();
+
   const [searchResults, setSearchResults] = useState<IWine[]>([]);
   const [isButtonActive, setIsButtonActive] = useState(false);
-
-   const data = operations.allWines();
+  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
+  const data = operations.allWines();
+  const fuse = data
+    ? new Fuse(data.products, setFilterOptions.fuseSearchOptions)
+    : null;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value.toLowerCase();
-
-    if (query.length >= 2) {
+    const searchQuery = e.target.value.toLowerCase();
+    setQuery(searchQuery);
+    if (searchQuery.length >= 2 && fuse) {
       setIsButtonActive(true);
-
-      const result = data?.products.filter((wine: IWine) => {
-        if (query === 'sale') {
-          return wine.isSale === true;
-        } else {
-          return Object.keys(wine)
-            .filter((key) => !setSearchKeys.keysToExclude.includes(key))
-            .some((key: string) => {
-              const value = wine[key];
-              if (typeof value === 'string') {
-                return value.toLowerCase().includes(query);
-              } else if (typeof value === 'number') {
-                return value.toString().toLowerCase() === query;
-              }
-              return false;
-            });
-        }
-      });
-
-      setSearchResults(result || []);
+      const result = fuse.search(searchQuery).map(({ item }) => item);
+      setSearchResults(result);
     } else {
       setIsButtonActive(false);
       setSearchResults([]);
@@ -57,15 +45,12 @@ const HeaderSearchInput: FC = () => {
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    try {
-      e.currentTarget.blur();
-      reset();
-      setIsButtonActive(false);
-    } catch (error) {
-      console.error('Error:', error);
-      reset();
-      setIsButtonActive(false);
-      setSearchResults([]);
+    e.currentTarget.blur();
+    reset();
+    setIsButtonActive(false);
+    setSearchResults([]);
+    if (query.length >= 2) {
+      navigate(`/searchResult/${query}`);
     }
   };
 

@@ -19,11 +19,13 @@ import FilterDropdown from '../Filter/FilterDropdown';
 import ModalFilters from '../ModalFilters';
 import ToShame from '../Filter/ToShame';
 import CheckedFilters from './CheckedFilters';
+import { IProps } from './CatalogContent.types';
 
-const CatalogContent: FC = () => {
+const CatalogContent: FC<IProps> = ({ searchedWines }) => {
   const data = operations.allWines();
   const screenSize = setWindowResize();
   const defaultPerPageValue = screenSize.isTabletScreen ? '12' : '6';
+
   const [wines, setWines] = useState<IWine[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [toShameValue, setToShameValue] = useState<string>('By name');
@@ -33,10 +35,12 @@ const CatalogContent: FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [priceValues, setPriceValues] = useState<[number, number]>([0, 3000]);
 
+  const products = searchedWines || data?.products;
+
   useEffect(() => {
-    if (data?.products) {
+    if (products) {
       let filteredWines = setFilterWines.filterCatalogWines(
-        data.products,
+        products,
         filtersValue
       );
       filteredWines = setFilterWines.sortToShameWines(
@@ -46,7 +50,7 @@ const CatalogContent: FC = () => {
       filteredWines = setFilterWines.filterPrice(filteredWines, priceValues);
       setWines(filteredWines);
     }
-  }, [data?.products, filtersValue, toShameValue, priceValues]);
+  }, [products, filtersValue, toShameValue, priceValues]);
 
   useEffect(() => {
     const paginatedWines = wines.slice(
@@ -95,8 +99,8 @@ const CatalogContent: FC = () => {
     setFiltersValue([]);
     setPriceValues([0, 3000]);
     setToShameValue('By name');
-    if (data) {
-      setWines(data.products);
+    if (products) {
+      setWines(products);
     }
     setCurrentPage(1);
   };
@@ -142,6 +146,7 @@ const CatalogContent: FC = () => {
               priceValues={priceValues}
               setPriceValues={setPriceValues}
               setCurrentPage={setCurrentPage}
+              searchedWines={searchedWines}
             />
           </div>
           <div className='filtersWinesWrapper'>
@@ -155,7 +160,7 @@ const CatalogContent: FC = () => {
             {displayedWines.length > 0 ? (
               <WineList wines={displayedWines} />
             ) : (
-              <p className='noWineFound'>Oops, no wine found...</p>
+              <p className='noWineFound'>Oops, no wine found... </p>
             )}
           </div>
         </ContentWrapper>
@@ -179,6 +184,7 @@ const CatalogContent: FC = () => {
           priceValues={priceValues}
           setPriceValues={setPriceValues}
           setCurrentPage={setCurrentPage}
+          searchedWines={searchedWines}
         />
       )}
     </>

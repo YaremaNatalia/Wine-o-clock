@@ -5,7 +5,7 @@ import { FiMinus } from 'react-icons/fi';
 import { FilterItem, FiltersList, Form } from './Filter.styled';
 import PriceSlider from './PriceSlider';
 import { operations } from '@/tanStackQuery';
-import { setFilterOptions, setFilterWines, setToggle,  } from '@/utils';
+import { setFilterOptions, setFilterWines, setToggle } from '@/utils';
 import { IFilter, IFormValues } from './Filter.types';
 import ToShame from './ToShame';
 
@@ -18,6 +18,7 @@ const Filter: FC<IFilter> = ({
   priceValues,
   setPriceValues,
   setCurrentPage,
+  searchedWines,
 }) => {
   const [showCollectionsList, setShowCollectionsList] =
     useState<boolean>(false);
@@ -25,22 +26,53 @@ const Filter: FC<IFilter> = ({
   const [showSweetnessList, setShowSweetnessList] = useState<boolean>(false);
   const [showCountriesList, setShowCountriesList] = useState<boolean>(false);
   const [showRegionsList, setShowRegionsList] = useState<boolean>(false);
+  const [countries, setCountries] = useState<string[]>([]);
   const [regions, setRegions] = useState<string[]>([]);
 
   const data = operations.allWines();
-  const countriesList = setFilterWines.setValueList(
-    data?.products,
-    'countries'
-  );
   const { register, setValue, reset, watch } = useForm<IFormValues>();
 
   useEffect(() => {
+    if (data?.products) {
+      const fullCountriesList = setFilterWines.setValueList(
+        data.products,
+        'countries'
+      );
+      const searchedCountriesList = setFilterWines.setValueList(
+        searchedWines,
+        'countries'
+      );
+      const selectedCountriesList =
+        searchedCountriesList.length > 0
+          ? searchedCountriesList
+          : fullCountriesList;
+      setCountries(selectedCountriesList);
+    }
+  }, [data, searchedWines]);
+
+  useEffect(() => {
     const selectedCountries = watch('country') || [];
-    const regionsList = setFilterWines.setValueList(data?.products, 'regions');
-    if (selectedCountries.length > 0) {
+
+    const fullRegionsList = setFilterWines.setValueList(
+      data?.products,
+      'regions'
+    );
+    const searchedRegionsList = setFilterWines.setValueList(
+      searchedWines,
+      'regions'
+    );
+    const regionsList =
+      searchedRegionsList && searchedRegionsList.length > 0
+        ? searchedRegionsList
+        : fullRegionsList;
+
+    const toFilterData =
+      searchedRegionsList.length > 0 ? searchedWines : data?.products;
+
+    if (selectedCountries.length > 0 && toFilterData) {
       const selectedRegions = [
         ...new Set(
-          data?.products
+          toFilterData
             .filter((product) => selectedCountries.includes(product.country))
             .map((product) => product.region)
         ),
@@ -49,7 +81,9 @@ const Filter: FC<IFilter> = ({
     } else {
       setRegions(regionsList);
     }
-  }, [data, watch('country')]);
+  }, [data, searchedWines, watch('country')]);
+
+  
 
   const handleCheckboxChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -166,9 +200,9 @@ const Filter: FC<IFilter> = ({
           Country
           {showCountriesList ? <FiMinus size={20} /> : <FiPlus size={20} />}
         </div>
-        {showCountriesList && data && (
+        {showCountriesList && countries && (
           <FiltersList>
-            {countriesList.map((country) => (
+            {countries.map((country) => (
               <label key={country}>
                 <input
                   {...register('country')}
@@ -187,7 +221,7 @@ const Filter: FC<IFilter> = ({
           Region
           {showRegionsList ? <FiMinus size={20} /> : <FiPlus size={20} />}
         </div>
-        {showRegionsList && data && (
+        {showRegionsList && regions && (
           <FiltersList>
             {regions.map((region) => (
               <label key={region}>
