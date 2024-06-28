@@ -122,7 +122,7 @@ const CatalogContent: FC<IProps> = ({ searchedWines }) => {
           <p className='filterProducts'>Filter products</p>
           <ToShameWrapper>
             <ToShame
-              setToShameValue={handleToShameChange}
+              handleToShameChange={handleToShameChange}
               toShameValue={toShameValue}
             />
           </ToShameWrapper>
@@ -141,7 +141,7 @@ const CatalogContent: FC<IProps> = ({ searchedWines }) => {
               onSelectFilterValue={handleSelectFilterValue}
               removeSelectFilterValue={handleRemoveFilterValue}
               toShameValue={toShameValue}
-              setToShameValue={handleToShameChange}
+              handleToShameChange={handleToShameChange}
               filtersValue={filtersValue}
               priceValues={priceValues}
               setPriceValues={setPriceValues}
@@ -179,7 +179,7 @@ const CatalogContent: FC<IProps> = ({ searchedWines }) => {
           onSelectFilterValue={handleSelectFilterValue}
           removeSelectFilterValue={handleRemoveFilterValue}
           toShameValue={toShameValue}
-          setToShameValue={handleToShameChange}
+          handleToShameChange={handleToShameChange}
           filtersValue={filtersValue}
           priceValues={priceValues}
           setPriceValues={setPriceValues}

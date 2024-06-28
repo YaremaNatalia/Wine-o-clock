@@ -39,7 +39,7 @@ const WineInfo: FC<IProps> = ({
   const totalPrice = (counterValue * price).toFixed(2);
 
   return (
-    <WineInfoStyled>
+    <WineInfoStyled quantity={quantity}>
       <div className='nameWrapper'>
         <p className='wineName'>{title}</p>
         <StarRating data={rating} />
@@ -67,7 +67,7 @@ const WineInfo: FC<IProps> = ({
       <Counter
         quantity={quantity}
         counterValue={counterValue}
-        onCounterChange={setCounterValue}
+        setCounterValue={setCounterValue}
       />
       <p className='winePrice'>{price} ₴</p>
       {quantity > 0 && (

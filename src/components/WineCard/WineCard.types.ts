@@ -5,3 +5,6 @@ export interface IProps {
 }
 
 
+export interface WineCardStyledProps {
+  quantity: number;
+}

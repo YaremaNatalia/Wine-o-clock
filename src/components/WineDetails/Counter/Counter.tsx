@@ -4,16 +4,16 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { IProps } from './Counter.types';
 import { CounterStyled } from './Counter.styled';
 
-const Counter: FC<IProps> = ({ quantity, counterValue, onCounterChange }) => {
+const Counter: FC<IProps> = ({ quantity, counterValue, setCounterValue }) => {
   const onDecrBtnClick = () => {
     if (counterValue > 1) {
-      onCounterChange(counterValue - 1);
+      setCounterValue(counterValue - 1);
     }
   };
 
   const onIncrBtnClick = () => {
     if (counterValue < quantity) {
-      onCounterChange(counterValue + 1);
+      setCounterValue(counterValue + 1);
     }
   };
 

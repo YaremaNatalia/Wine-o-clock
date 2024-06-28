@@ -1,16 +1,16 @@
-import { IWine } from "@/types/types";
+import { IWine } from '@/types/types';
+import { Dispatch, SetStateAction } from 'react';
 
 export interface IFilter {
   onSelectFilterValue: (value: string) => void;
   removeSelectFilterValue: (value: string) => void;
   toShameValue?: string;
-  setToShameValue: (value: string) => void;
+  handleToShameChange: (value: string) => void;
   filtersValue?: string[];
   priceValues: [number, number];
-  setPriceValues: (value: [number, number]) => void;
-  setCurrentPage: (value: number) => void;
+  setPriceValues: Dispatch<SetStateAction<[number, number]>>;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
   searchedWines?: IWine[];
-
 }
 
 export interface IFormValues {
