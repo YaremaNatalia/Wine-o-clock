@@ -29,7 +29,7 @@ const WineCard: FC<IProps> = ({ wine }) => {
 
   return (
     <WineDetailsLink state={{ from: location }} to={`/store/${_id}`}>
-      <WineCardStyled>
+      <WineCardStyled quantity={quantity}>
         <div className='imgWrapper'>
           <img className='wineImg' src={imageUrl} alt='Wine image' />
           <div className='iconsWrapper'>

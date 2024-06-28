@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '@/components/Input';
 import { AriaLabels, ButtonTypes, FormTypes, InputTypes } from '@/constants';
@@ -14,44 +14,46 @@ import { setFilterOptions } from '@/utils';
 import { useNavigate } from 'react-router-dom';
 
 const HeaderSearchInput: FC = () => {
-  const { register, reset } = useForm<FormData>({
+  const { register, reset, watch } = useForm<FormData>({
     defaultValues: {
       search: '',
     },
   });
 
-  // const searchQuery = watch('search').toLowerCase();
+  const searchQuery = watch('search').toLowerCase();
+  const navigate = useNavigate();
+  const data = operations.allWines();
 
   const [searchResults, setSearchResults] = useState<IWine[]>([]);
   const [isButtonActive, setIsButtonActive] = useState(false);
   const [query, setQuery] = useState('');
-  const navigate = useNavigate();
-  const data = operations.allWines();
-  const fuse = data
-    ? new Fuse(data.products, setFilterOptions.fuseSearchOptions)
-    : null;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const searchQuery = e.target.value.toLowerCase();
-    setQuery(searchQuery);
+  useEffect(() => {
+    const availableWines =
+      data?.products.filter((wine) => wine.quantity > 0) || [];
+    const fuse = availableWines
+      ? new Fuse(availableWines, setFilterOptions.fuseSearchOptions)
+      : null;
     if (searchQuery.length >= 2 && fuse) {
       setIsButtonActive(true);
       const result = fuse.search(searchQuery).map(({ item }) => item);
       setSearchResults(result);
+      setQuery(searchQuery);
     } else {
       setIsButtonActive(false);
       setSearchResults([]);
     }
-  };
+  }, [searchQuery, data]);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (query.length >= 2) {
+      navigate(`/searchResult/${query}`);
+    }
     e.currentTarget.blur();
     reset();
     setIsButtonActive(false);
     setSearchResults([]);
-    if (query.length >= 2) {
-      navigate(`/searchResult/${query}`);
-    }
+    setQuery('');
   };
 
   return (
@@ -64,7 +66,6 @@ const HeaderSearchInput: FC = () => {
           required: true,
         }}
         type={InputTypes.text}
-        onChange={handleChange}
       />
       <IconButton
         btnSize={32}
