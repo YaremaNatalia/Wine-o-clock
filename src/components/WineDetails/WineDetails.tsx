@@ -20,6 +20,7 @@ import StarRating from './StarRating';
 import Container from '../Container';
 import { PagePaths } from '@/constants';
 import { setFilterWines } from '@/utils';
+import OutOfStock from '@/icons/out-of-stock.svg?react';
 
 const WineDetails: FC<IProps> = ({ wine }) => {
   const [isGeneralInfoActive, setIsGeneralInfoActive] = useState(true);
@@ -100,6 +101,11 @@ const WineDetails: FC<IProps> = ({ wine }) => {
                 <IoMdHeartEmpty />
               </div>
             </div>
+            {quantity === 0 && (
+              <div className='outOfStockOverlay'>
+                <OutOfStock title='Out of stock' />
+              </div>
+            )}
           </WineCardWrapper>
 
           <InfoWrapper>

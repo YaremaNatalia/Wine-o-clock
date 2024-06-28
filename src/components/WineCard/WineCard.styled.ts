@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import { WineCardStyledProps } from './WineCard.types';
 
 export const WineDetailsLink = styled(Link)`
   cursor: pointer;
@@ -15,7 +16,7 @@ export const WineDetailsLink = styled(Link)`
   }
 `;
 
-export const WineCardStyled = styled.li`
+export const WineCardStyled = styled.li<WineCardStyledProps>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -39,15 +40,16 @@ export const WineCardStyled = styled.li`
     z-index: 1;
 
     svg {
-      margin-top: 30%;
-      width: 150px;
-      height: 150px;
+      margin-top: 45%;
+      width: 100px;
+      height: 100px;
       z-index: 2;
       fill: ${({ theme }) => theme.colors.primaryBurgundy};
 
       @media screen and (min-width: 1440px) {
-        width: 250px;
-        height: 250px;
+        margin-top: 35%;
+        width: 200px;
+        height: 200px;
       }
     }
   }
@@ -145,10 +147,15 @@ export const WineCardStyled = styled.li`
   }
 
   .priceWrapper {
+    height: 40px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    @media screen and (min-width: 1440px) {
+      height: 70px;
+    }
 
     button {
       @media screen and (min-width: 1440px) {
@@ -171,6 +178,12 @@ export const WineCardStyled = styled.li`
   .winePrice {
     font-size: 18px;
     font-weight: ${({ theme }) => theme.fontWeight.bold};
+
+    ${({ theme, quantity }) =>
+      quantity === 0 &&
+      `
+      color: ${theme.colors.secondaryGrey};
+    `}
 
     @media screen and (min-width: 1440px) {
       font-size: 28px;

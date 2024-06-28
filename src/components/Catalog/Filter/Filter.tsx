@@ -13,7 +13,7 @@ const Filter: FC<IFilter> = ({
   onSelectFilterValue,
   removeSelectFilterValue,
   toShameValue,
-  setToShameValue,
+  handleToShameChange,
   filtersValue,
   priceValues,
   setPriceValues,
@@ -83,8 +83,6 @@ const Filter: FC<IFilter> = ({
     }
   }, [data, searchedWines, watch('country')]);
 
-  
-
   const handleCheckboxChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     filterType: keyof IFormValues
@@ -116,7 +114,7 @@ const Filter: FC<IFilter> = ({
     <Form>
       <FilterItem>
         <ToShame
-          setToShameValue={setToShameValue}
+          handleToShameChange={handleToShameChange}
           toShameValue={toShameValue}
         />
       </FilterItem>

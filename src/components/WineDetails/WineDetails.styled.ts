@@ -19,6 +19,7 @@ export const WineWrapper = styled.div`
 `;
 
 export const WineCardWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -26,6 +27,39 @@ export const WineCardWrapper = styled.div`
   gap: ${({ theme }) => theme.spacing(4)};
   margin-left: auto;
   margin-right: auto;
+
+  .outOfStockOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    border-radius: 10px;
+    z-index: 1;
+
+    svg {
+      margin-top: 50%;
+      width: 200px;
+      height: 200px;
+      z-index: 2;
+      fill: ${({ theme }) => theme.colors.primaryBurgundy};
+
+      @media screen and (min-width: 768px) {
+        margin-top: 59%;
+        width: 150px;
+        height: 150px;
+      }
+
+      @media screen and (min-width: 1440px) {
+        margin-top: 47%;
+        width: 300px;
+        height: 300px;
+      }
+    }
+  }
 
   @media screen and (min-width: 768px) {
     width: 246px;

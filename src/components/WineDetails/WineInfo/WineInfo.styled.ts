@@ -1,6 +1,7 @@
+import { WineCardStyledProps } from '@/components/WineCard/WineCard.types';
 import styled from '@emotion/styled';
 
-export const WineInfoStyled = styled.div`
+export const WineInfoStyled = styled.div<WineCardStyledProps>`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing(4)};
@@ -33,6 +34,12 @@ export const WineInfoStyled = styled.div`
     font-size: 18px;
     font-weight: ${({ theme }) => theme.fontWeight.bold};
 
+    ${({ theme, quantity }) =>
+      quantity === 0 &&
+      `
+      color: ${theme.colors.secondaryGrey};
+    `}
+
     @media screen and (min-width: 1440px) {
       font-size: 28px;
     }
@@ -54,6 +61,7 @@ export const WineInfoStyled = styled.div`
     }
   }
 `;
+
 export const WineInfoList = styled.ul`
   display: flex;
   flex-direction: column;

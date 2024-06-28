@@ -1,4 +1,4 @@
 export interface IProps {
   toShameValue?: string;
-  setToShameValue: (value: string) => void;
+  handleToShameChange: (value: string) => void;
 }

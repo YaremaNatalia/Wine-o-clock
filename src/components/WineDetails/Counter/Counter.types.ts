@@ -1,5 +1,7 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface IProps {
   quantity: number;
   counterValue: number;
-  onCounterChange: (newValue: number) => void;
+  setCounterValue: Dispatch<SetStateAction<number>>;
 }

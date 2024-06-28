@@ -4,9 +4,10 @@ import {
   StyledNavLink,
   WineDetails,
   WineName,
-  WinePhoto,
+  WinePhotoWrapper,
   WinePrice,
 } from './HeaderSearchDropdown.styled';
+import OutOfStock from '@/icons/out-of-stock.svg?react';
 import { IProps } from './HeaderSearchDropdown.type';
 import { useLocation } from 'react-router-dom';
 
@@ -50,17 +51,24 @@ const HeaderSearchDropdown: FC<IProps> = ({ wines, resetForm, setWines }) => {
 
   return (
     <SearchDropdownStyled ref={dropdownRef}>
-      {wines.map(({ _id, title, price, imageUrl }) => (
+      {wines.map(({ _id, title, price, imageUrl, quantity }) => (
         <li key={_id}>
           <StyledNavLink
             state={{ from: location }}
             to={`/store/${_id}`}
             onClick={handleClick}
           >
-            <WinePhoto src={imageUrl} alt={title} />
+            <WinePhotoWrapper>
+              <img className='winePhoto' src={imageUrl} alt={title} />
+              {quantity === 0 && (
+                <div className='outOfStockOverlay'>
+                  <OutOfStock title='Out of stock' />
+                </div>
+              )}
+            </WinePhotoWrapper>
             <WineDetails>
               <WineName>{title}</WineName>
-              <WinePrice>${price}</WinePrice>
+              <WinePrice quantity={quantity}>${price}</WinePrice>
             </WineDetails>
           </StyledNavLink>
         </li>
