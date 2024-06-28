@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import { IoIosArrowForward } from 'react-icons/io';
-import { IoIosArrowBack } from 'react-icons/io';
+import { FiPlus } from 'react-icons/fi';
+import { FiMinus } from 'react-icons/fi';
 import { IProps } from './Counter.types';
 import { CounterStyled } from './Counter.styled';
 
-const Counter: FC<IProps> = ({ quantity, counterValue, setCounterValue }) => {
+const Counter: FC<IProps> = ({ basket, quantity, counterValue, setCounterValue }) => {
   const onDecrBtnClick = () => {
     if (counterValue > 1) {
       setCounterValue(counterValue - 1);
@@ -18,13 +18,13 @@ const Counter: FC<IProps> = ({ quantity, counterValue, setCounterValue }) => {
   };
 
   return (
-    <CounterStyled>
+    <CounterStyled basket={basket}>
       <button
         type='button'
         onClick={onDecrBtnClick}
         disabled={counterValue === 1}
       >
-        <IoIosArrowBack size={20} />
+        <FiMinus size={basket ? 19 : 20} />
       </button>
       <span className='counterValue'>{counterValue}</span>
       <button
@@ -32,7 +32,7 @@ const Counter: FC<IProps> = ({ quantity, counterValue, setCounterValue }) => {
         onClick={onIncrBtnClick}
         disabled={counterValue === quantity || quantity === 0}
       >
-        <IoIosArrowForward size={20} />
+        <FiPlus size={20} />
       </button>
     </CounterStyled>
   );

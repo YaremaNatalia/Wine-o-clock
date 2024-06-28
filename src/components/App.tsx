@@ -76,7 +76,8 @@ const App = () => {
         />
         <Route
           path={PagePaths.basketPath}
-          element={<PrivateRoute element={<BasketPage />} />}
+          // element={<PrivateRoute element={<BasketPage />} />}
+          element={<PublicRoute element={<BasketPage />} />}
         />
         <Route path={PagePaths.logInPath} element={<LoginPage />} />
         <Route path={PagePaths.signUpPath} element={<SignUpPage />} />

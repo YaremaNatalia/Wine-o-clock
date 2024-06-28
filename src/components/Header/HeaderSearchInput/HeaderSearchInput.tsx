@@ -1,7 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '@/components/Input';
-import { AriaLabels, ButtonTypes, FormTypes, InputTypes, PagePaths } from '@/constants';
+import {
+  AriaLabels,
+  ButtonTypes,
+  FormTypes,
+  InputTypes,
+  PagePaths,
+} from '@/constants';
 import { FormData } from './HeaderSearchInput.types';
 import { Form } from './HeaderSearchInput.styled';
 import IconButton from '@/components/IconButton';
@@ -47,7 +53,7 @@ const HeaderSearchInput: FC = () => {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (query.length >= 2) {
-      navigate(`/searchResult/${query}`);
+      navigate(`${PagePaths.searchResultPath.replace(':query', query)}`);
     }
     e.currentTarget.blur();
     reset();

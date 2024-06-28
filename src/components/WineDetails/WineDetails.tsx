@@ -84,7 +84,9 @@ const WineDetails: FC<IProps> = ({ wine }) => {
         <WineWrapper>
           <WineCardWrapper>
             <div className='nameWrapper'>
-              <p className='wineName'>{title}</p>
+              <p className='wineName'>
+               {wineColor} {sugarConsistency}  wine "{title}" {bottleCapacity} L
+              </p>
               <StarRating data={evaluation} />
             </div>
             <div className='imgWrapper'>
@@ -143,6 +145,7 @@ const WineDetails: FC<IProps> = ({ wine }) => {
                   title={title}
                   rating={evaluation}
                   quantity={quantity}
+                  
                 />
               )}
               {isDescriptionActive && (

@@ -123,11 +123,13 @@ export const WineCardStyled = styled.li<WineCardStyledProps>`
   }
 
   .wineName {
-    height: 30px;
+    height: 33px;
     font-size: 14px;
     font-weight: ${({ theme }) => theme.fontWeight.semiBold};
     margin-bottom: ${({ theme }) => theme.spacing(2)};
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     @media screen and (min-width: 1440px) {
       height: 52px;

@@ -1,46 +1,78 @@
 import styled from '@emotion/styled';
 
-export const CounterStyled = styled.div`
+export const CounterStyled = styled.div<{ basket?: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing(10)};
+  gap: ${({ theme, basket }) =>
+    basket ? theme.spacing(4) : theme.spacing(10)};
+  border: ${({ theme, basket }) =>
+    basket ? `1px solid ${theme.colors.decorativeLightGrey}` : 'none'};
+  border-radius: 12px;
+  padding: ${({ theme, basket }) =>
+    basket ? theme.spacing(0.56) : theme.spacing(0)};
+
+  @media screen and (min-width: 768px) {
+    padding: ${({ theme, basket }) =>
+      basket ? theme.spacing(1) : theme.spacing(0)};
+  }
 
   @media screen and (min-width: 1440px) {
-    gap: ${({ theme }) => theme.spacing(22)};
+    padding: ${({ theme, basket }) =>
+      basket ? theme.spacing(1) : theme.spacing(0)};
+    gap: ${({ theme, basket }) =>
+      basket ? theme.spacing(4) : theme.spacing(22)};
   }
 
   .counterValue {
-    font-size: 18px;
+    font-size: ${({ basket }) => (basket ? '12px' : '18px')};
+
+    @media screen and (min-width: 768px) {
+      font-size: ${({ basket }) => (basket ? '14px' : '18px')};
+    }
 
     @media screen and (min-width: 1440px) {
-      font-size: 20px;
+      font-size: ${({ basket }) => (basket ? '14px' : '20px')};
     }
   }
 
   & button {
-    width: ${({ theme }) => theme.spacing(8)};
-    height: ${({ theme }) => theme.spacing(8)};
-    background-color: transparent;
+    width: ${({ theme, basket }) =>
+      basket ? theme.spacing(6) : theme.spacing(8)};
+    height: ${({ theme, basket }) =>
+      basket ? theme.spacing(6) : theme.spacing(8)};
+    background-color: ${({ theme, basket }) =>
+      basket ? theme.colors.primaryBurgundy : 'transparent'};
     border-radius: 50%;
     border: 1px solid ${({ theme }) => theme.colors.decorativeLightGrey};
-    padding: ${({ theme }) => theme.spacing(1.5)};
-    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
     cursor: pointer;
 
     @media screen and (min-width: 1440px) {
-      width: ${({ theme }) => theme.spacing(10)};
-      height: ${({ theme }) => theme.spacing(10)};
-      padding: ${({ theme }) => theme.spacing(2.5)};
+      width: ${({ theme, basket }) =>
+        basket ? theme.spacing(6) : theme.spacing(10)};
+      height: ${({ theme, basket }) =>
+        basket ? theme.spacing(6) : theme.spacing(10)};
     }
 
     svg {
-      color: ${({ theme }) => theme.colors.primaryBlack};
+      color: ${({ theme, basket }) =>
+        basket ? theme.colors.primaryWhite : theme.colors.primaryBlack};
     }
-  }
 
-  button:disabled svg {
-    color: ${({ theme }) => theme.colors.decorativeLightGrey};
-    cursor: default;
+    &:disabled {
+      background-color: transparent;
+      cursor: default;
+
+      svg {
+        color: ${({ theme, basket }) =>
+          basket
+            ? theme.colors.primaryBlack
+            : theme.colors.decorativeLightGrey};
+      }
+    }
   }
 `;

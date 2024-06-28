@@ -22,6 +22,7 @@ const WineInfo: FC<IProps> = ({
   rating,
   price,
   quantity,
+  
 }) => {
   const [counterValue, setCounterValue] = useState<number>(1);
 
@@ -41,7 +42,9 @@ const WineInfo: FC<IProps> = ({
   return (
     <WineInfoStyled quantity={quantity}>
       <div className='nameWrapper'>
-        <p className='wineName'>{title}</p>
+        <p className='wineName'>
+          {color} {sweetness} wine "{title}" {volume} L
+        </p>
         <StarRating data={rating} />
       </div>
       <WineInfoList>

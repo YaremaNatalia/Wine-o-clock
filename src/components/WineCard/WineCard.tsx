@@ -18,6 +18,9 @@ const WineCard: FC<IProps> = ({ wine }) => {
     adminDiscountPercentage,
     isNewCollection,
     quantity,
+    wineColor,
+    sugarConsistency,
+    bottleCapacity,
   } = wine;
 
   const handleClick = (e: BtnClickEvent) => {
@@ -30,7 +33,7 @@ const WineCard: FC<IProps> = ({ wine }) => {
     <WineDetailsLink
       to={`${PagePaths.wineDetailsPath.replace(':wineId', _id)}`}
     >
-      <WineCardStyled>
+      <WineCardStyled quantity={quantity}>
         <div className='imgWrapper'>
           <img className='wineImg' src={imageUrl} alt='Wine image' />
           <div className='iconsWrapper'>
@@ -44,7 +47,10 @@ const WineCard: FC<IProps> = ({ wine }) => {
           </div>
         </div>
         <div className='wineCardInfo'>
-          <p className='wineName'>{title}</p>
+          <p className='wineName'>
+            {title} <br />
+            {wineColor} {sugarConsistency} {bottleCapacity} L
+          </p>
           <p className='wineCountry'>{country}</p>
           <div className='priceWrapper'>
             <p className='winePrice'>{price} ₴</p>
