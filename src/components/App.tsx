@@ -17,6 +17,7 @@ import WineDetailsPage from '@/pages/WineDetailsPage';
 import AboutUsPage from '@/pages/AboutUsPage';
 import CatalogPage from '@/pages/CatalogPage';
 import SearchResultPage from '@/pages/SearchResultPage';
+import BasketPage from '@/pages/BasketPage';
 
 const App = () => {
   const { data: token } = useQuery<string>({
@@ -75,7 +76,7 @@ const App = () => {
         />
         <Route
           path={PagePaths.basketPath}
-          element={<PrivateRoute element={<div>basketPath</div>} />}
+          element={<PrivateRoute element={<BasketPage />} />}
         />
         <Route path={PagePaths.logInPath} element={<LoginPage />} />
         <Route path={PagePaths.signUpPath} element={<SignUpPage />} />

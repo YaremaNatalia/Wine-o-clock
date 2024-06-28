@@ -3,14 +3,12 @@ import { IProps } from './WineCard.types';
 import { IoMdHeartEmpty } from 'react-icons/io';
 import { WineCardStyled, WineDetailsLink } from './WineCard.styled';
 import IconButton from '@/components/IconButton';
-import { AriaLabels, ButtonTypes } from '@/constants';
+import { AriaLabels, ButtonTypes, PagePaths } from '@/constants';
 import BasketPlus from '@/icons/basketPlus.svg?react';
 import OutOfStock from '@/icons/out-of-stock.svg?react';
 import { BtnClickEvent } from '@/types/types';
-import { useLocation } from 'react-router-dom';
 
 const WineCard: FC<IProps> = ({ wine }) => {
-  const location = useLocation();
   const {
     _id,
     title,
@@ -28,7 +26,10 @@ const WineCard: FC<IProps> = ({ wine }) => {
   };
 
   return (
-    <WineDetailsLink state={{ from: location }} to={`/store/${_id}`}>
+    // <WineDetailsLink to={`/store/${_id}`}>
+    <WineDetailsLink
+      to={`${PagePaths.wineDetailsPath.replace(':wineId', _id)}`}
+    >
       <WineCardStyled>
         <div className='imgWrapper'>
           <img className='wineImg' src={imageUrl} alt='Wine image' />
