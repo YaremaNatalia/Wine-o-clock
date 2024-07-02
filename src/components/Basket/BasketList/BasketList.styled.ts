@@ -15,6 +15,7 @@ export const ProductsWrapper = styled.div`
 
   @media screen and (min-width: 1440px) {
     padding: ${({ theme }) => `${theme.spacing(7.5)} ${theme.spacing(5)}`};
+    flex: 1;
   }
 
   h2 {

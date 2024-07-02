@@ -11,6 +11,7 @@ const enum Messages {
   lastNameErr = 'Last name must contain only letter symbols from the UNICODE table and be at least two letters long',
   phoneNumberReqErr = 'Phone number is required',
   phoneNumberErr = 'Phone number must contain 12 digits',
+  deliveryTypeErr = 'Please select a delivery method',
 }
 
 export default Messages;

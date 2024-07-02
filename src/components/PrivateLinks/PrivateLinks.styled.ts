@@ -2,8 +2,8 @@ import { PagePaths } from '@/constants';
 import styled from '@emotion/styled';
 import { IStyledProps } from './PrivateLinks.types';
 
-export const LinksList = styled.ul`
-  display: none;
+export const LinksList = styled.ul<{ basket?: boolean }>`
+  display: ${({ basket }) => (basket ? 'flex' : 'none')};
 
   @media screen and (min-width: 768px) {
     display: flex;
@@ -18,7 +18,9 @@ export const ListItem = styled.li<IStyledProps>`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${({ theme }) => theme.colors.primaryBlack};
+    color: ${({ theme, basket }) =>
+      basket ? theme.colors.secondaryGrey : theme.colors.primaryBlack};
+
     font-family: ${({ theme }) => theme.fontFamily.primaryFontFamily};
     font-size: 16px;
     font-weight: ${({ theme }) => theme.fontWeight.medium};
@@ -30,13 +32,17 @@ export const ListItem = styled.li<IStyledProps>`
     }
 
     @media screen and (max-width: 767px) {
-      gap: 10px;
-      padding: ${({ theme }) => theme.spacing(8)};
+      gap: ${({ theme, basket }) =>
+        basket ? theme.spacing(1) : theme.spacing(10)};
+      padding: ${({ theme, basket }) =>
+        basket ? theme.spacing(0) : theme.spacing(8)};
       width: 100%;
     }
 
     @media screen and (min-width: 768px) {
-      flex-direction: column;
+      flex-direction: ${({ basket }) => (basket ? 'row' : 'column')};
+      gap: ${({ theme, basket }) =>
+        basket ? theme.spacing(1) : theme.spacing(0)};
     }
   }
 `;

@@ -2,8 +2,10 @@ import { FC } from 'react';
 import PageNavigation from '../PageNavigation';
 import { PagePaths } from '@/constants';
 import Container from '../Container';
-import BasketProducts from './BasketList';
-import { BasketContentWrapper } from './Basket.styled';
+import BasketList from './BasketList';
+
+import BasketContacts from './BasketContacts';
+import { BasketStyled } from './Basket.styled';
 
 const Basket: FC = () => {
   return (
@@ -14,10 +16,13 @@ const Basket: FC = () => {
         secondTitle='Placing an order'
       />
       <Container>
-        <BasketContentWrapper>
+        <BasketStyled>
           <h1>Placing an order</h1>
-          <BasketProducts />
-        </BasketContentWrapper>
+          <div className='contentWrapper'>
+            <BasketList />
+            <BasketContacts/>
+          </div>
+        </BasketStyled>
       </Container>
     </>
   );

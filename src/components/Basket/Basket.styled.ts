@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const BasketContentWrapper = styled.div`
+export const BasketStyled = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing(4)};
@@ -25,6 +25,13 @@ export const BasketContentWrapper = styled.div`
       font-size: 32px;
 
       margin-bottom: ${({ theme }) => theme.spacing(12.5)};
+    }
+  }
+
+  .contentWrapper {
+    @media screen and (min-width: 1440px) {
+      display: flex;
+      flex-direction: row;
     }
   }
 `;

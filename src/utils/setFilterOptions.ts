@@ -15,9 +15,9 @@ const productPerPageOptionsTablet = [
   { value: '24', label: '24' },
 ];
 
-const collections = ['New Collections', 'Sales', "Bestsellers"];
-const color = ['Red', 'White', 'Pink'];
-const sweetness = ['Dry', 'Medium dry', 'Medium', "Sweet"];
+const collections = ['New Collections', 'Sales', 'Bestsellers'];
+const color = ['Red', 'White', 'Rosé'];
+const sweetness = ['Dry', 'Medium dry', 'Medium', 'Sweet'];
 
 const searchKeysToExclude = [
   '_id',
@@ -30,22 +30,21 @@ const searchKeysToExclude = [
   'bottlesSoldCounter',
   'isWineTimePromotion',
   'imageUrl',
-  "adminDiscountPercentage",
+  'adminDiscountPercentage',
 ];
 
-  const fuseSearchOptions = {
-    includeScore: true,
-    keys: [
-      'title',
-      'wineColor',
-      'sugarConsistency',
-      'country',
-      'region',
-      'price',
-    ],
-    threshold: 0.3,
-  };
-
+const fuseSearchOptions = {
+  includeScore: true,
+  keys: [
+    'title',
+    'wineColor',
+    'sugarConsistency',
+    'country',
+    'region',
+    'price',
+  ],
+  threshold: 0.3,
+};
 
 export default {
   toShameOptions,

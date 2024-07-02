@@ -116,4 +116,5 @@ export const AltElem = styled.label<IStyledCheckboxProps>`
       checked ? theme.colors.primaryWhite : 'transparent'};
     transition: color ${({ theme }) => theme.transitionDurationAndFunc};
   }
+
 `;
