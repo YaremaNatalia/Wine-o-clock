@@ -113,6 +113,7 @@ export const ContentWrapper = styled.div`
       font-weight: ${({ theme }) => theme.fontWeight.bold};
       color: ${({ theme }) => theme.colors.primaryBurgundy};
       padding: ${({ theme }) => theme.spacing(15)} 0;
+      text-align: center;
     }
   }
 `;

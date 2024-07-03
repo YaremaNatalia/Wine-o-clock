@@ -1,10 +1,10 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { IProps } from './Product.types';
 import { ProductStyled } from './Product.styled';
 import { RxCross1 } from 'react-icons/rx';
 import Counter from '@/components/WineDetails/Counter';
 
-const Product: FC<IProps> = ({ wine }) => {
+const Product: FC<IProps> = ({ wine, calculateProductPrice }) => {
   const {
     title,
     price,
@@ -21,8 +21,16 @@ const Product: FC<IProps> = ({ wine }) => {
     console.log('deleted');
   };
 
+  const winePrice = quantity > 0 ? price : 0;
+
+  useEffect(() => {
+    if (counterValue > 0 && winePrice) {
+      calculateProductPrice(counterValue * winePrice);
+    }
+  }, [winePrice, counterValue, calculateProductPrice]);
+
   return (
-    <ProductStyled>
+    <ProductStyled quantity={quantity}>
       <img className='wineImg' src={imageUrl} alt='Wine image' />
       <div className='infoWrapper'>
         <div className='nameWrapper'>
@@ -40,7 +48,8 @@ const Product: FC<IProps> = ({ wine }) => {
             counterValue={counterValue}
             setCounterValue={setCounterValue}
           />
-          <p className='winePrice'>{price} ₴</p>
+          {quantity == 0 && <p className='soldOut'>Sold out</p>}
+          <p className='winePrice'>{winePrice} ₴</p>
         </div>
       </div>
     </ProductStyled>

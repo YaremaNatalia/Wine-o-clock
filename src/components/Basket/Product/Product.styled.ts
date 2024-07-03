@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import { ProductStyledProps } from './Product.types';
 
-export const ProductStyled = styled.div`
+export const ProductStyled = styled.div<ProductStyledProps>`
   display: flex;
   gap: ${({ theme }) => theme.spacing(1)};
   padding: ${({ theme }) => theme.spacing(5)} 0;
@@ -47,6 +48,12 @@ export const ProductStyled = styled.div`
       font-size: 12px;
       font-weight: ${({ theme }) => theme.fontWeight.semiBold};
 
+      ${({ theme, quantity }) =>
+        quantity === 0 &&
+        `
+      color: ${theme.colors.secondaryGrey};
+    `}
+
       @media screen and (min-width: 768px) {
         font-size: 16px;
       }
@@ -82,10 +89,23 @@ export const ProductStyled = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    .winePrice {
+    .soldOut {
       font-size: 14px;
       font-weight: ${({ theme }) => theme.fontWeight.bold};
       color: ${({ theme }) => theme.colors.primaryBurgundy};
+
+      @media screen and (min-width: 768px) {
+        font-size: 18px;
+      }
+    }
+
+    .winePrice {
+      font-size: 14px;
+      font-weight: ${({ theme }) => theme.fontWeight.bold};
+      color: ${(props) =>
+        props.quantity === 0
+          ? props.theme.colors.secondaryGrey
+          : props.theme.colors.primaryBurgundy};
 
       @media screen and (min-width: 768px) {
         font-size: 20px;

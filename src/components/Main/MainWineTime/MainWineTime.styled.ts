@@ -106,13 +106,20 @@ export const MainWineTimeDescription = styled.div`
   }
 
   & > a {
+    display: flex;
+    justify-content: center;
     width: 100%;
+
+    @media screen and (min-width: 1440px) {
+      justify-content: start;
+    }
 
     & > button {
       @media screen and (min-width: 768px) {
         width: 158px;
       }
       @media screen and (min-width: 1440px) {
+        justify-content: start;
         width: 275px;
       }
     }

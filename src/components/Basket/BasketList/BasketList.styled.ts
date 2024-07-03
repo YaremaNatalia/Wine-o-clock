@@ -7,6 +7,7 @@ export const ProductsWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.fillGreyColor};
   padding: ${({ theme }) => `${theme.spacing(6)} ${theme.spacing(3)}`};
   border-radius: 6px;
+  height: 100%;
 
   @media screen and (min-width: 768px) {
     padding: ${({ theme }) => `${theme.spacing(6)} ${theme.spacing(4)}`};
@@ -30,8 +31,24 @@ export const ProductsWrapper = styled.div`
       font-size: 20px;
     }
   }
+`;
 
-  .additionalPayments {
+export const ProductListStyled = styled.ul`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+export const PaymentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing(4)};
+
+  @media screen and (min-width: 768px) {
+    gap: ${({ theme }) => theme.spacing(8)};
+  }
+
+  & > ul {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -61,10 +78,4 @@ export const ProductsWrapper = styled.div`
       font-size: 24px;
     }
   }
-`;
-
-export const ProductListStyled = styled.ul`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
 `;
