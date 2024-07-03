@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ButtonDesign, PagePaths } from '@/constants';
+import { ButtonDesign, PagePaths, theme } from '@/constants';
 import Button from '@/components/Button';
 import { mainWineTime } from '@/images/mainPage';
 import {
@@ -19,29 +19,29 @@ const MainWineTime: FC = () => (
         <source
           srcSet={`${mainWineTime.wineTab1xWebp} 1x, ${mainWineTime.wineTab2xWebp} 2x`}
           type='image/webp'
-          media='(min-width: 1440px)'
+          media={`(min-width: ${theme.breakpoints.desktop}px)`}
         />
         <source
           srcSet={`${mainWineTime.wineTab1xWebp} 1x, ${mainWineTime.wineTab2xWebp} 2x`}
           type='image/webp'
-          media='(min-width: 768px)'
+          media={`(min-width: ${theme.breakpoints.tablet}px)`}
         />
         <source
           srcSet={`${mainWineTime.wineMob1xWebp} 1x, ${mainWineTime.wineMob2xWebp} 2x`}
           type='image/webp'
-          media='(max-width: 768px)'
+          media={`(max-width: ${theme.breakpoints.tablet}px)`}
         />
         <source
           srcSet={`${mainWineTime.wineTab1xJpg} 1x, ${mainWineTime.wineTab2xJpg} 2x,`}
-          media='(min-width: 1440px)'
+          media={`(min-width: ${theme.breakpoints.desktop}px)`}
         />
         <source
           srcSet={`${mainWineTime.wineTab1xJpg} 1x, ${mainWineTime.wineTab2xJpg} 2x,`}
-          media='(min-width: 768px)'
+          media={`(min-width: ${theme.breakpoints.tablet}px)`}
         />
         <source
           srcSet={`${mainWineTime.wineMob1xJpg} 1x, ${mainWineTime.wineMob2xJpg} 2x,`}
-          media='(max-width: 768px)'
+          media={`(max-width: ${theme.breakpoints.tablet}px)`}
         />
         <MainWineTimeBg
           src={`${mainWineTime.wineMob1xJpg}`}

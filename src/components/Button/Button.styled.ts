@@ -52,7 +52,7 @@ export const ChildrenWrapper = styled.div`
   gap: ${({ theme }) => theme.spacing(4)};
 
   svg {
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       width: 42px;
       height: 42px;
     }
@@ -64,7 +64,7 @@ export const PriceWrapper = styled.div`
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   margin-left: auto;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     display: none;
   }
 `;

@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const WineReviewsStyled = styled.ul`
@@ -14,7 +15,7 @@ export const WineReviewsStyled = styled.ul`
   max-height: 400px;
   overflow-y: auto;
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     font-size: 20px;
   }
 `;
@@ -34,7 +35,7 @@ export const Name = styled.div`
   gap: ${({ theme }) => theme.spacing(1)};
   margin-bottom: ${({ theme }) => theme.spacing(2)};
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     font-size: 18px;
   }
 `;

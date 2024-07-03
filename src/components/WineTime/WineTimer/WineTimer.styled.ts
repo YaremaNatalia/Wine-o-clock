@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const WineTimerWrapper = styled.div`
@@ -15,18 +16,18 @@ export const WineTimerWrapper = styled.div`
     justify-content: space-around;
     gap: ${({ theme }) => theme.spacing(4)};
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       flex-direction: row;
       gap: 0;
     }
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     padding-top: ${({ theme }) => theme.spacing(4)};
     padding-bottom: ${({ theme }) => theme.spacing(4)};
   }
-  @media screen and (min-width: 1440px) {
-    font-size: 24px;
+  
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     padding-top: ${({ theme }) => theme.spacing(5)};
     padding-bottom: ${({ theme }) => theme.spacing(5)};
   }

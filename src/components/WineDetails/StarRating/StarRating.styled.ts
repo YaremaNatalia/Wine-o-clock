@@ -1,11 +1,12 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const StarRatingStyled = styled.div`
   display: flex;
   align-items: flex-end;
   font-size: 20px;
-
-  @media screen and (min-width: 1440px) {
+  
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     font-size: 28px;
   }
 `;

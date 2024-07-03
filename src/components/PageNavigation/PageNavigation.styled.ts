@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const PageNavigationWrapper = styled.div`
@@ -24,20 +25,20 @@ export const PageNavigationWrapper = styled.div`
   }
 
   svg {
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       width: 18px;
       height: 18px;
     }
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     padding: ${({ theme }) => theme.spacing(8)} 0;
     font-size: 14px;
     padding: ${({ theme }) => theme.spacing(8)} 0;
     gap: ${({ theme }) => theme.spacing(2.5)};
   }
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     padding: ${({ theme }) => theme.spacing(12.5)} 0;
   }
 `;

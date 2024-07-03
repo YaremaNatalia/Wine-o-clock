@@ -10,6 +10,7 @@ import {
   QualitiesPictureWrapper,
   QualitiesTitle,
 } from './MainQualities.styled';
+import { theme } from '@/constants';
 
 const MainQualities: FC = () => {
   return (
@@ -19,29 +20,29 @@ const MainQualities: FC = () => {
           <source
             srcSet={`${qualities.qualitiesDesk1xWebp} 1x, ${qualities.qualitiesDesk2xWebp} 2x`}
             type='image/webp'
-            media='(min-width: 1440px)'
+            media={`(min-width: ${theme.breakpoints.desktop}px)`}
           />
           <source
             srcSet={`${qualities.qualitiesTab1xWebp} 1x, ${qualities.qualitiesTab2xWebp} 2x`}
             type='image/webp'
-            media='(min-width: 768px)'
+            media={`(min-width: ${theme.breakpoints.tablet}px)`}
           />
           <source
             srcSet={`${qualities.qualitiesMob1xWebp} 1x, ${qualities.qualitiesMob2xWebp} 2x`}
             type='image/webp'
-            media='(max-width: 768px)'
+            media={`(max-width: ${theme.breakpoints.tablet}px)`}
           />
           <source
             srcSet={`${qualities.qualitiesDesk1xJpg} 1x, ${qualities.qualitiesDesk2xJpg} 2x,`}
-            media='(min-width: 1440px)'
+            media={`(min-width: ${theme.breakpoints.desktop}px)`}
           />
           <source
             srcSet={`${qualities.qualitiesTab1xJpg} 1x, ${qualities.qualitiesTab2xJpg} 2x,`}
-            media='(min-width: 768px)'
+            media={`(min-width: ${theme.breakpoints.tablet}px)`}
           />
           <source
             srcSet={`${qualities.qualitiesMob1xJpg} 1x, ${qualities.qualitiesMob2xJpg} 2x,`}
-            media='(max-width: 768px)'
+            media={`(max-width: ${theme.breakpoints.tablet}px)`}
           />
           <img src={`${qualities.qualitiesMob1xJpg}`} alt='Hero image' />
         </picture>

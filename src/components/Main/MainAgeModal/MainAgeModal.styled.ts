@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const Overlay = styled.div`
@@ -26,7 +27,7 @@ export const MainAgeModalStyled = styled.div`
   background: ${({ theme }) => theme.colors.primaryWhite};
   -webkit-overflow-scrolling: touch;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     width: 620px;
     height: 430px;
     padding: ${({ theme }) => theme.spacing(10)};
@@ -37,7 +38,7 @@ export const NumbStyled = styled.p`
   font-size: 40px;
   color: ${({ theme }) => theme.colors.primaryBurgundy};
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     font-size: 70px;
   }
 `;
@@ -52,7 +53,7 @@ export const ModalTextWrapper = styled.div`
   font-size: 14px;
   font-weight: ${({ theme }) => theme.fontWeight.regular};
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     font-size: 16px;
   }
 `;
@@ -63,7 +64,7 @@ export const FormStyled = styled.form`
   align-items: center;
 
   button {
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       width: 275px;
     }
   }
@@ -75,7 +76,7 @@ export const InputContainer = styled.div`
   gap: ${({ theme }) => theme.spacing(2)};
   padding: ${({ theme }) => theme.spacing(5)} 0;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     gap: ${({ theme }) => theme.spacing(3)};
     padding: ${({ theme }) => theme.spacing(7)} 0;
   }
@@ -90,7 +91,7 @@ export const Input = styled.input`
   font-size: 35px;
   color: ${({ theme }) => theme.colors.modalInputColor};
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     width: 65px;
     height: 81px;
     font-size: 46px;

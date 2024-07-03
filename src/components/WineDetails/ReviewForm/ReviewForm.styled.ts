@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const Form = styled.form`
@@ -5,7 +6,7 @@ export const Form = styled.form`
   flex-direction: column;
   margin-bottom: ${({ theme }) => theme.spacing(2)};
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     font-size: 18px;
   }
 
@@ -20,7 +21,7 @@ export const Form = styled.form`
     border: none;
     min-height: 88px;
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       margin-bottom: ${({ theme }) => theme.spacing(4)};
     }
   }
@@ -29,7 +30,7 @@ export const Form = styled.form`
     margin: 0 auto;
     width: 255px;
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       font-size: 20px;
       width: 275px;
     }

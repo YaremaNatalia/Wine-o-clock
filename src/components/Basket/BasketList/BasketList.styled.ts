@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const ProductsWrapper = styled.div`
@@ -9,12 +10,12 @@ export const ProductsWrapper = styled.div`
   border-radius: 6px;
   height: 100%;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     padding: ${({ theme }) => `${theme.spacing(6)} ${theme.spacing(4)}`};
     gap: ${({ theme }) => theme.spacing(6)};
   }
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     padding: ${({ theme }) => `${theme.spacing(7.5)} ${theme.spacing(5)}`};
     flex: 1;
   }
@@ -23,11 +24,11 @@ export const ProductsWrapper = styled.div`
     font-size: 14px;
     font-weight: ${({ theme }) => theme.fontWeight.medium};
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       font-size: 16px;
     }
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       font-size: 20px;
     }
   }
@@ -44,7 +45,7 @@ export const PaymentsWrapper = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing(4)};
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     gap: ${({ theme }) => theme.spacing(8)};
   }
 
@@ -55,7 +56,7 @@ export const PaymentsWrapper = styled.div`
     gap: ${({ theme }) => theme.spacing(2)};
     font-size: 12px;
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       gap: ${({ theme }) => theme.spacing(2.5)};
       font-size: 16px;
     }
@@ -74,7 +75,7 @@ export const PaymentsWrapper = styled.div`
     font-size: 18px;
     font-weight: ${({ theme }) => theme.fontWeight.semiBold};
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       font-size: 24px;
     }
   }

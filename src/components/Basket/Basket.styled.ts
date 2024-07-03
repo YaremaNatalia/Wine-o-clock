@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const BasketStyled = styled.div`
@@ -5,7 +6,7 @@ export const BasketStyled = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing(4)};
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     gap: ${({ theme }) => theme.spacing(6)};
   }
 
@@ -17,11 +18,11 @@ export const BasketStyled = styled.div`
     font-size: 18px;
     font-weight: ${({ theme }) => theme.fontWeight.bold};
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       font-size: 20px;
     }
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       font-size: 32px;
 
       margin-bottom: ${({ theme }) => theme.spacing(12.5)};
@@ -29,7 +30,7 @@ export const BasketStyled = styled.div`
   }
 
   .contentWrapper {
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       display: flex;
       flex-direction: row;
     }

@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const WineDetailsStyled = styled.div`
@@ -8,12 +9,12 @@ export const WineWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     flex-direction: row;
     gap: ${({ theme }) => theme.spacing(5)};
   }
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     gap: ${({ theme }) => theme.spacing(32)};
   }
 `;
@@ -47,13 +48,13 @@ export const WineCardWrapper = styled.div`
       z-index: 2;
       fill: ${({ theme }) => theme.colors.primaryBurgundy};
 
-      @media screen and (min-width: 768px) {
+      @media screen and (min-width: ${theme.breakpoints.tablet}px) {
         margin-top: 59%;
         width: 150px;
         height: 150px;
       }
 
-      @media screen and (min-width: 1440px) {
+      @media screen and (min-width: ${theme.breakpoints.desktop}px) {
         margin-top: 47%;
         width: 300px;
         height: 300px;
@@ -61,18 +62,18 @@ export const WineCardWrapper = styled.div`
     }
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     width: 246px;
   }
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     width: 522px;
     gap: ${({ theme }) => theme.spacing(5)};
     padding: ${({ theme }) => theme.spacing(4)};
   }
 
   .nameWrapper {
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       display: none;
     }
   }
@@ -86,12 +87,12 @@ export const WineCardWrapper = styled.div`
     position: relative;
     margin-bottom: ${({ theme }) => theme.spacing(8)};
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       margin-bottom: 0;
       padding: 40px 0;
     }
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       padding: 30px 0;
     }
   }
@@ -112,7 +113,7 @@ export const WineCardWrapper = styled.div`
       font-weight: ${({ theme }) => theme.fontWeight.medium};
       width: 70px;
 
-      @media screen and (min-width: 768px) {
+      @media screen and (min-width: ${theme.breakpoints.tablet}px) {
         width: 80px;
         font-size: 16px;
         padding: 4px 14px;
@@ -124,7 +125,7 @@ export const WineCardWrapper = styled.div`
       height: 24px;
       color: ${({ theme }) => theme.colors.primaryBurgundy};
 
-      @media screen and (min-width: 768px) {
+      @media screen and (min-width: ${theme.breakpoints.tablet}px) {
         width: 32px;
         height: 32px;
       }
@@ -143,11 +144,11 @@ export const WineCardWrapper = styled.div`
     width: auto;
     height: 338px;
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       height: 310px;
     }
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       height: 620px;
     }
   }
@@ -162,11 +163,11 @@ export const WineCardWrapper = styled.div`
 `;
 
 export const InfoWrapper = styled.div`
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     width: 422px;
   }
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     width: 630px;
   }
 `;
@@ -177,7 +178,7 @@ export const WineDetailsLinks = styled.div`
   position: relative;
   margin-bottom: ${({ theme }) => theme.spacing(4)};
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     margin-bottom: ${({ theme }) => theme.spacing(8)};
   }
 
@@ -190,7 +191,7 @@ export const WineDetailsLinks = styled.div`
     height: 2px;
     background-color: ${({ theme }) => theme.colors.decorativeLightGrey};
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       bottom: -10px;
     }
   }
@@ -199,11 +200,11 @@ export const WineDetailsLinks = styled.div`
     font-size: 14px;
     font-weight: ${({ theme }) => theme.fontWeight.semiBold};
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       font-size: 16px;
     }
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       font-size: 18px;
     }
 
@@ -219,7 +220,7 @@ export const WineDetailsLinks = styled.div`
         height: 5px;
         background-color: ${({ theme }) => theme.colors.primaryBurgundy};
 
-        @media screen and (min-width: 1440px) {
+        @media screen and (min-width: ${theme.breakpoints.desktop}px) {
           bottom: -9px;
         }
       }
@@ -234,7 +235,7 @@ export const WineDetailsLinks = styled.div`
       height: 5px;
       background-color: ${({ theme }) => theme.colors.primaryBurgundy};
 
-      @media screen and (min-width: 1440px) {
+      @media screen and (min-width: ${theme.breakpoints.desktop}px) {
         bottom: -9px;
       }
     }

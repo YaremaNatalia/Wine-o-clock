@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const SearchResultStyled = styled.div`
@@ -12,9 +13,9 @@ export const NoWineFound = styled.h1`
   font-size: 16px;
   font-weight: ${({ theme }) => theme.fontWeight.semiBold};
   color: ${({ theme }) => theme.colors.primaryBlack};
- padding: ${({ theme }) => theme.spacing(10)} 0;
+  padding: ${({ theme }) => theme.spacing(10)} 0;
 
-  @media screen and (min-width: 1140px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     font-size: 18px;
   }
 
@@ -35,11 +36,11 @@ export const SearchResultTitle = styled.div`
   font-size: 16px;
   font-weight: ${({ theme }) => theme.fontWeight.medium};
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     margin-bottom: ${({ theme }) => theme.spacing(8)};
   }
 
-  @media screen and (min-width: 1140px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     font-size: 18px;
     margin-bottom: ${({ theme }) => theme.spacing(12.5)};
   }
@@ -53,7 +54,7 @@ export const SearchResultTitle = styled.div`
     font-size: 20px;
     font-weight: ${({ theme }) => theme.fontWeight.bold};
 
-    @media screen and (min-width: 1140px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       font-size: 22px;
     }
   }

@@ -1,11 +1,8 @@
 import { FC } from 'react';
 import { wineTimeHero } from '@/images/wineTimePage';
-import {
-  Bg,
-  HeroPictureWrapper,
-  HeroStyled,
-} from './WineTimeHero.styled';
+import { Bg, HeroPictureWrapper, HeroStyled } from './WineTimeHero.styled';
 import { setAnimationLetterSize, setWindowResize } from '@/utils';
+import { theme } from '@/constants';
 
 const WineTimeHero: FC = () => {
   const screenSize = setWindowResize();
@@ -32,29 +29,29 @@ const WineTimeHero: FC = () => {
           <source
             srcSet={`${wineTimeHero.wineDesk1xWebp} 1x, ${wineTimeHero.wineDesk2xWebp} 2x`}
             type='image/webp'
-            media='(min-width: 1440px)'
+            media={`(min-width: ${theme.breakpoints.desktop}px)`}
           />
           <source
             srcSet={`${wineTimeHero.wineTab1xWebp} 1x, ${wineTimeHero.wineTab2xWebp} 2x`}
             type='image/webp'
-            media='(min-width: 768px)'
+            media={`(min-width: ${theme.breakpoints.tablet}px)`}
           />
           <source
             srcSet={`${wineTimeHero.wineMob1xWebp} 1x, ${wineTimeHero.wineMob2xWebp} 2x`}
             type='image/webp'
-            media='(max-width: 768px)'
+            media={`(max-width: ${theme.breakpoints.tablet}px)`}
           />
           <source
             srcSet={`${wineTimeHero.wineDesk1xJpg} 1x, ${wineTimeHero.wineDesk2xJpg} 2x,`}
-            media='(min-width: 1440px)'
+            media={`(min-width: ${theme.breakpoints.desktop}px)`}
           />
           <source
             srcSet={`${wineTimeHero.wineTab1xJpg} 1x, ${wineTimeHero.wineTab2xJpg} 2x,`}
-            media='(min-width: 768px)'
+            media={`(min-width: ${theme.breakpoints.tablet}px)`}
           />
           <source
             srcSet={`${wineTimeHero.wineMob1xJpg} 1x, ${wineTimeHero.wineMob2xJpg} 2x,`}
-            media='(max-width: 768px)'
+            media={`(max-width: ${theme.breakpoints.tablet}px)`}
           />
           <Bg src={`${wineTimeHero.wineMob1xJpg}`} alt='Wine time image' />
         </picture>

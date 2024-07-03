@@ -9,11 +9,11 @@ export const ContactsWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.decorativeLightGrey};
   border-radius: 6px;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     gap: ${({ theme }) => theme.spacing(12.5)};
   }
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     flex: 1;
     padding: ${({ theme }) => `${theme.spacing(7.5)} ${theme.spacing(5)}`};
   }
@@ -28,7 +28,7 @@ export const ContactsWrapper = styled.div`
       font-size: 16px;
       font-weight: ${({ theme }) => theme.fontWeight.medium};
 
-      @media screen and (min-width: 768px) {
+      @media screen and (min-width: ${theme.breakpoints.tablet}px) {
         font-size: 20px;
       }
     }
@@ -39,13 +39,13 @@ export const ContactsWrapper = styled.div`
     gap: ${({ theme }) => theme.spacing(4)};
     margin-bottom: ${({ theme }) => theme.spacing(8)};
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       gap: ${({ theme }) => theme.spacing(7.5)};
       margin-bottom: ${({ theme }) => theme.spacing(12.5)};
     }
 
     .nameWrapper {
-      @media screen and (min-width: 768px) {
+      @media screen and (min-width: ${theme.breakpoints.tablet}px) {
         display: flex;
         flex-direction: row;
         gap: ${({ theme }) => theme.spacing(4)};
@@ -59,7 +59,7 @@ export const ContactsWrapper = styled.div`
     gap: ${({ theme }) => theme.spacing(5)};
     margin-bottom: ${({ theme }) => theme.spacing(8)};
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       margin-bottom: ${({ theme }) => theme.spacing(12.5)};
     }
   }
@@ -92,7 +92,7 @@ export const DeliveryContainer = styled.div`
     gap: ${({ theme }) => theme.spacing(5)};
     margin-bottom: ${({ theme }) => theme.spacing(8)};
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       margin-bottom: ${({ theme }) => theme.spacing(12.5)};
     }
 

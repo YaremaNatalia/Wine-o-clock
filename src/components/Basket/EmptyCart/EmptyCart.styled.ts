@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const EmptyCartStyled = styled.div`
@@ -7,7 +8,7 @@ export const EmptyCartStyled = styled.div`
   align-items: center;
   padding-bottom: ${({ theme }) => theme.spacing(10)};
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     padding-bottom: ${({ theme }) => theme.spacing(12.5)};
   }
 
@@ -34,7 +35,7 @@ export const EmptyCartStyled = styled.div`
     width: 100%;
 
     button {
-      @media screen and (min-width: 768px) {
+      @media screen and (min-width: ${theme.breakpoints.tablet}px) {
         width: 275px;
       }
     }

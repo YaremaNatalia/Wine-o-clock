@@ -1,10 +1,11 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const Form = styled.form`
   position: relative;
   width: 100%;
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     width: 363px;
   }
 
@@ -17,7 +18,7 @@ export const Form = styled.form`
     top: 0;
     right: 0;
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       height: 45px;
       width: 45px;
 

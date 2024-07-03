@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const CounterStyled = styled.div<{ basket?: boolean }>`
@@ -12,12 +13,12 @@ export const CounterStyled = styled.div<{ basket?: boolean }>`
   padding: ${({ theme, basket }) =>
     basket ? theme.spacing(0.56) : theme.spacing(0)};
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     padding: ${({ theme, basket }) =>
       basket ? theme.spacing(1) : theme.spacing(0)};
   }
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     padding: ${({ theme, basket }) =>
       basket ? theme.spacing(1) : theme.spacing(0)};
     gap: ${({ theme, basket }) =>
@@ -27,11 +28,11 @@ export const CounterStyled = styled.div<{ basket?: boolean }>`
   .counterValue {
     font-size: ${({ basket }) => (basket ? '12px' : '18px')};
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       font-size: ${({ basket }) => (basket ? '14px' : '18px')};
     }
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       font-size: ${({ basket }) => (basket ? '14px' : '20px')};
     }
   }
@@ -51,7 +52,7 @@ export const CounterStyled = styled.div<{ basket?: boolean }>`
     padding: 0;
     cursor: pointer;
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       width: ${({ theme, basket }) =>
         basket ? theme.spacing(6) : theme.spacing(10)};
       height: ${({ theme, basket }) =>

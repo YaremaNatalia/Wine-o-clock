@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const ContentStyled = styled.div`
@@ -5,11 +6,11 @@ export const ContentStyled = styled.div`
   flex-direction: column;
   padding-bottom: ${({ theme }) => theme.spacing(6)};
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     padding-bottom: ${({ theme }) => theme.spacing(9)};
   }
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     padding-bottom: ${({ theme }) => theme.spacing(12.5)};
   }
 
@@ -18,12 +19,12 @@ export const ContentStyled = styled.div`
     align-self: center;
     margin-top: ${({ theme }) => theme.spacing(6)};
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       width: 275px;
       margin-top: ${({ theme }) => theme.spacing(9)} 0;
     }
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       margin-top: ${({ theme }) => theme.spacing(12.5)} 0;
     }
   }
@@ -36,7 +37,7 @@ export const NavigationWrapper = styled.div`
   align-items: center;
   margin-bottom: ${({ theme }) => theme.spacing(2)};
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     margin-bottom: ${({ theme }) => theme.spacing(12.5)};
   }
 
@@ -57,7 +58,7 @@ export const NavigationWrapper = styled.div`
     font-weight: ${({ theme }) => theme.fontWeight.bold};
     font-size: 16px;
 
-    @media screen and (max-width: 1439px) {
+    @media screen and (max-width: ${theme.breakpoints.desktop-1}px) {
       display: none;
     }
   }
@@ -70,7 +71,7 @@ export const FilterWrapper = styled.div`
   font-size: 16px;
   align-items: center;
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     display: none;
   }
 `;
@@ -78,7 +79,7 @@ export const FilterWrapper = styled.div`
 export const ToShameWrapper = styled.div`
   font-size: 16px;
 
-  @media screen and (max-width: 1439px) {
+  @media screen and (max-width: ${theme.breakpoints.desktop - 1}px) {
     display: none;
   }
 `;
@@ -86,7 +87,7 @@ export const ToShameWrapper = styled.div`
 export const SelectPerPageWrapper = styled.div`
   font-size: 13px;
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: ${theme.breakpoints.tablet - 1}px) {
     display: none;
   }
 `;
@@ -96,7 +97,7 @@ export const ContentWrapper = styled.div`
   display: flex;
 
   & > div:first-of-type {
-    @media screen and (max-width: 1439px) {
+    @media screen and (max-width: ${theme.breakpoints.desktop - 1}px) {
       display: none;
     }
   }

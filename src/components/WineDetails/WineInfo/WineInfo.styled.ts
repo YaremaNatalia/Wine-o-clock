@@ -1,4 +1,5 @@
 import { WineCardStyledProps } from '@/components/WineCard/WineCard.types';
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const WineInfoStyled = styled.div<WineCardStyledProps>`
@@ -6,14 +7,14 @@ export const WineInfoStyled = styled.div<WineCardStyledProps>`
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing(4)};
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     gap: ${({ theme }) => theme.spacing(8)};
   }
 
   .nameWrapper {
     display: none;
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       display: block;
     }
   }
@@ -24,7 +25,7 @@ export const WineInfoStyled = styled.div<WineCardStyledProps>`
     text-align: start;
     overflow: hidden;
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       font-size: 24px;
       font-weight: ${({ theme }) => theme.fontWeight.bold};
     }
@@ -40,7 +41,7 @@ export const WineInfoStyled = styled.div<WineCardStyledProps>`
       color: ${theme.colors.secondaryGrey};
     `}
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       font-size: 28px;
     }
   }
@@ -49,12 +50,12 @@ export const WineInfoStyled = styled.div<WineCardStyledProps>`
     width: 100%;
     border-radius: 0;
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       width: 192px;
       border-radius: 47px;
     }
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       width: 275px;
       height: 60px;
       font-size: 20px;
@@ -72,7 +73,7 @@ export const WineInfoList = styled.ul`
     font-weight: ${({ theme }) => theme.fontWeight.regular};
     text-transform: capitalize;
   }
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     font-size: 20px;
   }
 `;

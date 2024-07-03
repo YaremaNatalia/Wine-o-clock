@@ -6,6 +6,7 @@ import {
 import { AboutUsHeroStyled, HeroPictureWrapper } from './AboutUsHero.styled';
 import { setAnimationLetterSize, setWindowResize,  } from '@/utils';
 import Container from '@/components/Container';
+import { theme } from '@/constants';
 
 const AboutUsHero: FC = () => {
   const screenSize = setWindowResize();
@@ -43,29 +44,29 @@ const AboutUsHero: FC = () => {
             <source
               srcSet={`${aboutUsHeroWineTime.heroWTDesk1xWebp} 1x, ${aboutUsHeroWineTime.heroWTDesk2xWebp} 2x`}
               type='image/webp'
-              media='(min-width: 1440px)'
+              media={`(min-width: ${theme.breakpoints.desktop}px)`}
             />
             <source
               srcSet={`${aboutUsHeroWineTime.heroWTTab1xWebp} 1x, ${aboutUsHeroWineTime.heroWTTab2xWebp} 2x`}
               type='image/webp'
-              media='(min-width: 768px)'
+              media={`(min-width: ${theme.breakpoints.tablet}px)`}
             />
             <source
               srcSet={`${aboutUsHeroWineTime.heroWTMob1xWebp} 1x, ${aboutUsHeroWineTime.heroWTMob2xWebp} 2x`}
               type='image/webp'
-              media='(max-width: 768px)'
+              media={`(max-width: ${theme.breakpoints.tablet}px)`}
             />
             <source
               srcSet={`${aboutUsHeroWineTime.heroWTDesk1xJpg} 1x, ${aboutUsHeroWineTime.heroWTDesk2xJpg} 2x,`}
-              media='(min-width: 1440px)'
+              media={`(min-width: ${theme.breakpoints.desktop}px)`}
             />
             <source
               srcSet={`${aboutUsHeroWineTime.heroWTTab1xJpg} 1x, ${aboutUsHeroWineTime.heroWTTab2xJpg} 2x,`}
-              media='(min-width: 768px)'
+              media={`(min-width: ${theme.breakpoints.tablet}px)`}
             />
             <source
               srcSet={`${aboutUsHeroWineTime.heroWTMob1xJpg} 1x, ${aboutUsHeroWineTime.heroWTMob2xJpg} 2x,`}
-              media='(max-width: 768px)'
+              media={`(max-width: ${theme.breakpoints.tablet}px)`}
             />
             <img
               src={`${aboutUsHeroWineTime.heroWTMob1xJpg}`}

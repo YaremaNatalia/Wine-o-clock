@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { StyledTrackProps } from './PriceSlider.type';
 
-
 export const SliderWrapper = styled.div`
   padding-top: ${({ theme }) => theme.spacing(6)};
   width: 100%;
@@ -20,6 +19,7 @@ export const SliderWrapper = styled.div`
   .inputWrapper {
     width: 100%;
     display: flex;
+    align-items: center;
     gap: ${({ theme }) => theme.spacing(1.5)};
   }
 
@@ -59,5 +59,3 @@ export const StyledTrack = styled.div<StyledTrackProps>`
     }
   }};
 `;
-
-
