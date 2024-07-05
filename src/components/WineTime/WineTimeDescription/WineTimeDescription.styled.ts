@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const WineTimeDescriptionStyled = styled.div`
@@ -9,7 +10,7 @@ export const WineTimeDescriptionStyled = styled.div`
   font-size: 14px;
   margin-bottom: ${({ theme }) => theme.spacing(6)};
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     margin-bottom: ${({ theme }) => theme.spacing(27)};
     font-size: 18px;
   }
@@ -25,7 +26,7 @@ export const WineTimeDescriptionStyled = styled.div`
     margin-bottom: ${({ theme }) => theme.spacing(6)};
     text-align: center;
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       width: 400px;
       margin-bottom: ${({ theme }) => theme.spacing(10)};
     }
@@ -38,7 +39,7 @@ export const DescriptionTitle = styled.h2`
   text-align: center;
   margin-bottom: ${({ theme }) => theme.spacing(4)};
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     font-size: 32px;
     margin-bottom: ${({ theme }) => theme.spacing(9)};
   }
@@ -50,7 +51,7 @@ export const WineTimeList = styled.ul`
   gap: ${({ theme }) => theme.spacing(5)};
   text-align: center;
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     grid-template-columns: repeat(auto-fill, minmax(307px, 1fr));
     gap: ${({ theme }) => theme.spacing(3)};
   }
@@ -62,7 +63,7 @@ export const WineTimeList = styled.ul`
     justify-content: start;
     gap: ${({ theme }) => theme.spacing(2)};
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       gap: 0;
     }
   }
@@ -70,13 +71,13 @@ export const WineTimeList = styled.ul`
   h3 {
     font-weight: ${({ theme }) => theme.fontWeight.semiBold};
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       font-size: 20px;
     }
   }
 
   svg {
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       width: 80px;
       height: 80px;
       margin-bottom: ${({ theme }) => theme.spacing(5)};

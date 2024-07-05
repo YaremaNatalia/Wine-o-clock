@@ -3,14 +3,12 @@ import { IProps } from './WineCard.types';
 import { IoMdHeartEmpty } from 'react-icons/io';
 import { WineCardStyled, WineDetailsLink } from './WineCard.styled';
 import IconButton from '@/components/IconButton';
-import { AriaLabels, ButtonTypes } from '@/constants';
+import { AriaLabels, ButtonTypes, PagePaths } from '@/constants';
 import BasketPlus from '@/icons/basketPlus.svg?react';
 import OutOfStock from '@/icons/out-of-stock.svg?react';
 import { BtnClickEvent } from '@/types/types';
-import { useLocation } from 'react-router-dom';
 
 const WineCard: FC<IProps> = ({ wine }) => {
-  const location = useLocation();
   const {
     _id,
     title,
@@ -20,6 +18,9 @@ const WineCard: FC<IProps> = ({ wine }) => {
     adminDiscountPercentage,
     isNewCollection,
     quantity,
+    wineColor,
+    sugarConsistency,
+    bottleCapacity,
   } = wine;
 
   const handleClick = (e: BtnClickEvent) => {
@@ -28,7 +29,10 @@ const WineCard: FC<IProps> = ({ wine }) => {
   };
 
   return (
-    <WineDetailsLink state={{ from: location }} to={`/store/${_id}`}>
+    // <WineDetailsLink to={`/store/${_id}`}>
+    <WineDetailsLink
+      to={`${PagePaths.wineDetailsPath.replace(':wineId', _id)}`}
+    >
       <WineCardStyled quantity={quantity}>
         <div className='imgWrapper'>
           <img className='wineImg' src={imageUrl} alt='Wine image' />
@@ -43,7 +47,10 @@ const WineCard: FC<IProps> = ({ wine }) => {
           </div>
         </div>
         <div className='wineCardInfo'>
-          <p className='wineName'>{title}</p>
+          <p className='wineName'>
+            {title} <br />
+            {wineColor} {sugarConsistency} {bottleCapacity} L
+          </p>
           <p className='wineCountry'>{country}</p>
           <div className='priceWrapper'>
             <p className='winePrice'>{price} ₴</p>

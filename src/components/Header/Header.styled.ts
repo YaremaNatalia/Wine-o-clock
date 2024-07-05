@@ -1,4 +1,4 @@
-import { ClassNames } from '@/constants';
+import { ClassNames, theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const StyledHeader = styled.header`
@@ -16,7 +16,7 @@ export const StyledHeader = styled.header`
     flex-direction: column;
     gap: ${({ theme }) => theme.spacing(4)};
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       gap: ${({ theme }) => theme.spacing(2)};
     }
   }
@@ -41,12 +41,12 @@ export const StyledHeader = styled.header`
           transform: scale(1.1);
         }
 
-        @media screen and (min-width: 768px) {
+        @media screen and (min-width: ${theme.breakpoints.tablet}px) {
           width: 122px;
           height: 45px;
         }
 
-        @media screen and (min-width: 1440px) {
+        @media screen and (min-width: ${theme.breakpoints.desktop}px) {
           width: 163px;
           height: 60.49px;
         }
@@ -71,27 +71,27 @@ export const StyledHeader = styled.header`
         height: 20px;
         color: ${({ theme }) => theme.colors.primaryWhite};
 
-        @media screen and (min-width: 768px) {
+        @media screen and (min-width: ${theme.breakpoints.tablet}px) {
           width: 24px;
           height: 24px;
         }
       }
 
-      @media screen and (min-width: 768px) {
+      @media screen and (min-width: ${theme.breakpoints.tablet}px) {
         padding: 10px;
       }
 
-      @media screen and (min-width: 1440px) {
+      @media screen and (min-width: ${theme.breakpoints.desktop}px) {
         padding: 18px;
       }
     }
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       flex-wrap: nowrap;
     }
   }
 
-  @media screen and (max-width: 1439px) {
+  @media screen and (max-width: ${theme.breakpoints.desktop - 1}px) {
     padding-top: ${({ theme }) => theme.spacing(4)};
     padding-bottom: ${({ theme }) => theme.spacing(4)};
   }

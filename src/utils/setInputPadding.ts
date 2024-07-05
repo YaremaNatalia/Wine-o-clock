@@ -11,6 +11,7 @@ const setInputPadding = ({
   const isRegisterForm = formType === FormTypes.register;
   const isAuthForm = formType === FormTypes.auth;
   const isSubscribeForm = formType === FormTypes.subscribe;
+  const isConfirmOrderForm = formType === FormTypes.confirmOrder;
 
   if (
     (isSearchForm && isDesktopBreakpoint) ||
@@ -30,7 +31,7 @@ const setInputPadding = ({
     return '0 16px 0 16px';
   }
 
-  if (isRegisterForm || isAuthForm) {
+  if (isRegisterForm || isAuthForm || isConfirmOrderForm) {
     return '0 19px 0 19px';
   }
 

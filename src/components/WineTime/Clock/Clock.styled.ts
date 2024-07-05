@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const ClockStyled = styled.div`
@@ -6,7 +7,7 @@ export const ClockStyled = styled.div`
   font-weight: ${({ theme }) => theme.fontWeight.regular};
   color: ${({ theme }) => theme.colors.primaryWhite};
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     width: 280px;
     font-size: 64px;
     font-weight: ${({ theme }) => theme.fontWeight.bold};

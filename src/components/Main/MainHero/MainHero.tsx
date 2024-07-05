@@ -9,7 +9,7 @@ import {
   MainHeroStyled,
 } from './MainHero.styled';
 import { setAnimationLetterSize, setWindowResize,  } from '@/utils';
-import { PagePaths } from '@/constants';
+import { PagePaths, theme } from '@/constants';
 
 const MainHero: FC = () => {
   const screenSize = setWindowResize();
@@ -58,29 +58,29 @@ const MainHero: FC = () => {
           <source
             srcSet={`${hero.heroDesk1xWebp} 1x, ${hero.heroDesk2xWebp} 2x`}
             type='image/webp'
-            media='(min-width: 1440px)'
+            media={`(min-width: ${theme.breakpoints.desktop}px)`}
           />
           <source
             srcSet={`${hero.heroTab1xWebp} 1x, ${hero.heroTab2xWebp} 2x`}
             type='image/webp'
-            media='(min-width: 768px)'
+            media={`(min-width: ${theme.breakpoints.tablet}px)`}
           />
           <source
             srcSet={`${hero.heroMob1xWebp} 1x, ${hero.heroMob2xWebp} 2x`}
             type='image/webp'
-            media='(max-width: 768px)'
+            media={`(max-width: ${theme.breakpoints.tablet}px)`}
           />
           <source
             srcSet={`${hero.heroDesk1xJpg} 1x, ${hero.heroDesk2xJpg} 2x,`}
-            media='(min-width: 1440px)'
+            media={`(min-width: ${theme.breakpoints.desktop}px)`}
           />
           <source
             srcSet={`${hero.heroTab1xJpg} 1x, ${hero.heroTab2xJpg} 2x,`}
-            media='(min-width: 768px)'
+            media={`(min-width: ${theme.breakpoints.tablet}px)`}
           />
           <source
             srcSet={`${hero.heroMob1xJpg} 1x, ${hero.heroMob2xJpg} 2x,`}
-            media='(max-width: 768px)'
+            media={`(max-width: ${theme.breakpoints.tablet}px)`}
           />
           <img src={`${hero.heroMob1xJpg}`} alt='Hero image' />
         </picture>

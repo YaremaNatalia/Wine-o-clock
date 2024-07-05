@@ -33,7 +33,7 @@ const Input: FC<IProps> = forwardRef<HTMLInputElement, IProps>(
       />
     );
 
-    if (type === InputTypes.checkbox) {
+    if (type === InputTypes.checkbox ) {
       return (
         <InputContainer>
           <AltElem checked={checked}>

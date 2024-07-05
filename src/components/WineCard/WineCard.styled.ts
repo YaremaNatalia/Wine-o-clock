@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { WineCardStyledProps } from './WineCard.types';
+import { theme } from '@/constants';
 
 export const WineDetailsLink = styled(Link)`
   cursor: pointer;
@@ -46,7 +47,7 @@ export const WineCardStyled = styled.li<WineCardStyledProps>`
       z-index: 2;
       fill: ${({ theme }) => theme.colors.primaryBurgundy};
 
-      @media screen and (min-width: 1440px) {
+      @media screen and (min-width: ${theme.breakpoints.desktop}px) {
         margin-top: 35%;
         width: 200px;
         height: 200px;
@@ -54,7 +55,7 @@ export const WineCardStyled = styled.li<WineCardStyledProps>`
     }
   }
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     gap: ${({ theme }) => theme.spacing(2.5)};
     padding: ${({ theme }) => `${theme.spacing(4)} ${theme.spacing(5)}`};
   }
@@ -77,7 +78,7 @@ export const WineCardStyled = styled.li<WineCardStyledProps>`
       font-size: 8px;
       font-weight: ${({ theme }) => theme.fontWeight.medium};
 
-      @media screen and (min-width: 1440px) {
+      @media screen and (min-width: ${theme.breakpoints.desktop}px) {
         font-size: 14px;
         padding: 4px 19px;
       }
@@ -94,7 +95,7 @@ export const WineCardStyled = styled.li<WineCardStyledProps>`
     gap: ${({ theme }) => theme.spacing(1.25)};
     width: 41px;
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       width: 70px;
     }
   }
@@ -104,7 +105,7 @@ export const WineCardStyled = styled.li<WineCardStyledProps>`
     width: auto;
     height: 194px;
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       height: 346px;
     }
   }
@@ -123,13 +124,15 @@ export const WineCardStyled = styled.li<WineCardStyledProps>`
   }
 
   .wineName {
-    height: 30px;
+    height: 33px;
     font-size: 14px;
     font-weight: ${({ theme }) => theme.fontWeight.semiBold};
     margin-bottom: ${({ theme }) => theme.spacing(2)};
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       height: 52px;
       font-size: 16px;
       margin-bottom: 0;
@@ -141,7 +144,7 @@ export const WineCardStyled = styled.li<WineCardStyledProps>`
     font-weight: ${({ theme }) => theme.fontWeight.medium};
     margin-bottom: ${({ theme }) => theme.spacing(1)};
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       margin-bottom: 0;
     }
   }
@@ -153,12 +156,12 @@ export const WineCardStyled = styled.li<WineCardStyledProps>`
     justify-content: space-between;
     align-items: center;
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       height: 70px;
     }
 
     button {
-      @media screen and (min-width: 1440px) {
+      @media screen and (min-width: ${theme.breakpoints.desktop}px) {
         height: 70px;
         width: 70px;
       }
@@ -167,7 +170,7 @@ export const WineCardStyled = styled.li<WineCardStyledProps>`
         height: 32px;
         width: 32px;
 
-        @media screen and (min-width: 1440px) {
+        @media screen and (min-width: ${theme.breakpoints.desktop}px) {
           height: 42px;
           width: 42px;
         }
@@ -185,7 +188,7 @@ export const WineCardStyled = styled.li<WineCardStyledProps>`
       color: ${theme.colors.secondaryGrey};
     `}
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       font-size: 28px;
     }
   }

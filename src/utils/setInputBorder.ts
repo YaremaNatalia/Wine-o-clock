@@ -8,6 +8,9 @@ const setInputBorder = (formType: FormTypes): string => {
     case FormTypes.auth:
       return `${theme.border.primaryBorder} ${theme.colors.decorativeColor}`;
 
+    case FormTypes.confirmOrder:
+      return `${theme.border.primaryBorder} ${theme.colors.decorativeLightGrey}`;
+    
     default:
       return 'none';
   }

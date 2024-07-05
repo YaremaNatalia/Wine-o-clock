@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const FooterNewsWrapper = styled.div`
@@ -5,7 +6,7 @@ export const FooterNewsWrapper = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing(7)};
 
-  @media screen and (min-width: 768px) and (max-width: 1439.98px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) and (max-width: ${theme.breakpoints.desktop - 0.2}px) {
     margin: ${({ theme }) => theme.spacing(8)} 0;
     width: 100%;
 
@@ -19,14 +20,14 @@ export const NewsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     align-items: flex-start;
   }
 
   .newsTitle {
     width: 196px;
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       width: auto;
     }
   }
@@ -37,7 +38,7 @@ export const NetworksWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     align-items: flex-start;
   }
 `;

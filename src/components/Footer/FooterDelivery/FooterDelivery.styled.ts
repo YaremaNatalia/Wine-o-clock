@@ -1,7 +1,8 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const FooterDeliveryWrapper = styled.div`
-  @media screen and (min-width: 768px) and (max-width: 1439.98px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) and (max-width: ${theme.breakpoints.desktop-0.2}px) {
     display: flex;
     flex-direction: row;
     gap: ${({ theme }) => theme.spacing(13)};
@@ -27,12 +28,12 @@ export const PaymentLogoWrapper = styled.ul`
     color: #1434cb;
   }
 
-  @media screen and (min-width: 768px) and (max-width: 1439.98px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) and (max-width: ${theme.breakpoints.desktop - 0.2}px) {
     flex-direction: column;
     gap: 0;
   }
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     flex-wrap: wrap;
     gap: 0;
     width: 135px;

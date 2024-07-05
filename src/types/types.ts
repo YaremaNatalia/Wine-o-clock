@@ -122,11 +122,15 @@ export interface IComment {
 
 export interface INewUser {
   email: string;
-  password: string;
-  confirmationThePassword: string;
+  password?: string;
+  confirmationThePassword?: string;
   phoneNumber: string;
   firstName: string;
   lastName: string;
+  deliveryType?: string;
+  notCall?: boolean;
+  personalDataConsent?: boolean;
+  agree?: boolean;
 }
 
 export type ConfOfReg = Pick<INewUser, 'password'>;

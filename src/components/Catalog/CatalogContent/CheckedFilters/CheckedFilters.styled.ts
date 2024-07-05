@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const CheckedFiltersContainer = styled.div`
@@ -25,7 +26,7 @@ export const CheckedFiltersContainer = styled.div`
       }
     }
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       padding: ${({ theme }) => theme.spacing(2.5)};
       gap: ${({ theme }) => theme.spacing(2.5)};
       font-size: 14px;

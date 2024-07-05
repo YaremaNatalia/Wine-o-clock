@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const MainWineTimeStyled = styled.div`
@@ -8,12 +9,12 @@ export const MainWineTimeStyled = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     flex-direction: row;
     gap: ${({ theme }) => theme.spacing(5)};
   }
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     gap: ${({ theme }) => theme.spacing(28)};
   }
 `;
@@ -27,14 +28,14 @@ export const WineTimePictureWrapper = styled.div`
     font-size: 40px;
     font-weight: ${({ theme }) => theme.fontWeight.bold};
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       font-size: 83px;
     }
   }
 `;
 
 export const MainWineTimeBg = styled.img`
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     width: 720px;
     height: 598px;
   }
@@ -56,7 +57,7 @@ export const EveryHourText = styled.h2`
   right: ${({ theme }) => theme.spacing(10)};
   bottom: ${({ theme }) => theme.spacing(32)};
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     bottom: ${({ theme }) => theme.spacing(45)};
     right: ${({ theme }) => theme.spacing(20)};
   }
@@ -71,13 +72,13 @@ export const MainWineTimeDescription = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     width: 373px;
     padding-right: ${({ theme }) => theme.spacing(10)};
     padding-left: 0;
   }
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     width: 606px;
     align-items: start;
     gap: ${({ theme }) => theme.spacing(7)};
@@ -89,7 +90,7 @@ export const MainWineTimeDescription = styled.div`
     font-size: 24px;
     font-weight: ${({ theme }) => theme.fontWeight.bold};
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       font-size: 32px;
     }
   }
@@ -106,13 +107,20 @@ export const MainWineTimeDescription = styled.div`
   }
 
   & > a {
+    display: flex;
+    justify-content: center;
     width: 100%;
 
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
+      justify-content: start;
+    }
+
     & > button {
-      @media screen and (min-width: 768px) {
+      @media screen and (min-width: ${theme.breakpoints.tablet}px) {
         width: 158px;
       }
-      @media screen and (min-width: 1440px) {
+      @media screen and (min-width: ${theme.breakpoints.desktop}px) {
+        justify-content: start;
         width: 275px;
       }
     }

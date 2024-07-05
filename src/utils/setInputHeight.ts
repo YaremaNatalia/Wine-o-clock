@@ -8,7 +8,18 @@ const setInputHeight = ({
   const isTabletBreakpoint = breakpoint === theme.breakpoints.tablet;
   const isDesktopBreakpoint = breakpoint === theme.breakpoints.desktop;
   const isSearchForm = formType === FormTypes.search;
+  const isConfirmOrderForm = formType === FormTypes.confirmOrder;
 
+  if (
+    (isConfirmOrderForm && isDesktopBreakpoint) ||
+    (isConfirmOrderForm && isTabletBreakpoint)
+  ) {
+    return 50;
+  }
+
+  if (isConfirmOrderForm) {
+    return 55;
+  }
   if (
     (isSearchForm && isDesktopBreakpoint) ||
     (isSearchForm && isTabletBreakpoint)

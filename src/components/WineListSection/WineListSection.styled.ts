@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const WineListSectionStyled = styled.div`
@@ -5,11 +6,11 @@ export const WineListSectionStyled = styled.div`
     font-size: 18px;
     font-weight: ${({ theme }) => theme.fontWeight.bold};
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       font-size: 20px;
     }
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       font-size: 32px;
     }
   }
@@ -21,11 +22,11 @@ export const WineListSectionStyled = styled.div`
     align-items: center;
     margin-bottom: ${({ theme }) => theme.spacing(6)};
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       margin-bottom: ${({ theme }) => theme.spacing(8)};
     }
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       margin-bottom: ${({ theme }) => theme.spacing(12.5)};
     }
   }
@@ -35,7 +36,7 @@ export const WineListSectionStyled = styled.div`
     flex-direction: row;
     gap: ${({ theme }) => theme.spacing(4)};
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       gap: ${({ theme }) => theme.spacing(5)};
     }
 
@@ -49,7 +50,7 @@ export const WineListSectionStyled = styled.div`
       margin: 0;
       cursor: pointer;
 
-      @media screen and (min-width: 768px) {
+      @media screen and (min-width: ${theme.breakpoints.tablet}px) {
         width: ${({ theme }) => theme.spacing(10)};
         height: ${({ theme }) => theme.spacing(10)};
         padding: ${({ theme }) => theme.spacing(2.5)};
@@ -72,12 +73,12 @@ export const WineListSectionStyled = styled.div`
     grid-column-gap: ${({ theme }) => theme.spacing(1)};
     grid-row-gap: ${({ theme }) => theme.spacing(5)};
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
       grid-column-gap: ${({ theme }) => theme.spacing(3)};
       grid-row-gap: ${({ theme }) => theme.spacing(8)};
     }
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       grid-template-columns: repeat(auto-fill, minmax(305px, 1fr));
       grid-row-gap: ${({ theme }) => theme.spacing(12.5)};
     }

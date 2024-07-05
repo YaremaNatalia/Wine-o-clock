@@ -56,6 +56,7 @@ export const ModalStyled = styled.div`
       justify-content: center;
       align-items: center;
       padding: 0;
+      color: #141414;
 
       &:hover,
       &:focus {

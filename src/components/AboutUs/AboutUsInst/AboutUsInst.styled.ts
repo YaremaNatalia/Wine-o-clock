@@ -1,3 +1,4 @@
+import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
 export const AboutUsInstStyled = styled.div`
@@ -6,7 +7,7 @@ export const AboutUsInstStyled = styled.div`
   gap: ${({ theme }) => theme.spacing(6)};
   align-items: center;
 
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     gap: ${({ theme }) => theme.spacing(7.5)};
   }
 
@@ -24,11 +25,11 @@ export const AboutUsInstStyled = styled.div`
       color: ${({ theme }) => theme.colors.primaryBurgundy};
     }
 
-    @media screen and (min-width: 768px) and (max-width: 1439px) {
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) and (max-width: ${theme.breakpoints.desktop - 1}px) {
       font-size: 20px;
     }
 
-    @media screen and (min-width: 1440px) {
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
       margin-bottom: ${({ theme }) => theme.spacing(5)};
     }
   }
@@ -42,12 +43,12 @@ export const PictureList = styled.ul`
 
   .thirdPicture,
   .fourthPicture {
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: ${theme.breakpoints.tablet - 1}px) {
       display: none;
     }
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${theme.breakpoints.tablet}px) {
     grid-template-columns: repeat(4, 1fr);
   }
 `;

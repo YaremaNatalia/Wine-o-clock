@@ -10,6 +10,7 @@ const setInputWidth = ({
   const isSearchForm = formType === FormTypes.search;
   const isAuthForm = formType === FormTypes.auth;
 
+
   if (isSearchForm && isDesktopBreakpoint) {
     return '363px';
   }
