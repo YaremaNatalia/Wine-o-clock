@@ -9,6 +9,8 @@ const PriceSlider: FC<IProps> = ({
   priceValues,
   setPriceValues,
   setCurrentPage,
+  minPrice,
+  maxPrice,
 }) => {
   const minPriceRef = useRef<HTMLInputElement>(null);
   const maxPriceRef = useRef<HTMLInputElement>(null);
@@ -28,10 +30,10 @@ const PriceSlider: FC<IProps> = ({
   }, [register]);
 
   useEffect(() => {
-    if (priceValues[0] === 0 && priceValues[1] === 3000) {
+    if (priceValues[0] === minPrice && priceValues[1] === maxPrice) {
       reset();
     }
-  }, [reset, priceValues]);
+  }, [reset, priceValues, minPrice, maxPrice]);
 
   const Track: ReactSliderProps<[number, number]>['renderTrack'] = (
     { key, style, className },
@@ -73,8 +75,8 @@ const PriceSlider: FC<IProps> = ({
         className='slider'
         value={priceValues}
         onChange={handleChange}
-        min={0}
-        max={3000}
+        min={minPrice}
+        max={maxPrice}
         renderTrack={Track}
       />
     </SliderWrapper>

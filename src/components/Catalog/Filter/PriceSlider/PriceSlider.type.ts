@@ -10,6 +10,8 @@ export interface IProps {
   priceValues: [number, number];
   setPriceValues: Dispatch<SetStateAction<[number, number]>>;
   setCurrentPage: Dispatch<SetStateAction<number>>;
+  minPrice: number;
+  maxPrice: number;
 }
 
 export interface StyledTrackProps {

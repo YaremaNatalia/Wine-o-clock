@@ -26,6 +26,8 @@ const CatalogContent: FC<IProps> = ({ searchedWines }) => {
   const screenSize = setWindowResize();
   const defaultPerPageValue = screenSize.isTabletScreen ? '12' : '6';
 
+  const products = searchedWines || data?.products;
+
   const [wines, setWines] = useState<IWine[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [toShameValue, setToShameValue] = useState<string>('By name');
@@ -33,9 +35,9 @@ const CatalogContent: FC<IProps> = ({ searchedWines }) => {
   const [filtersValue, setFiltersValue] = useState<string[]>([]);
   const [displayedWines, setDisplayedWines] = useState<IWine[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [priceValues, setPriceValues] = useState<[number, number]>([0, 3000]);
-
-  const products = searchedWines || data?.products;
+  const [priceValues, setPriceValues] = useState<[number, number]>([0, 1000]);
+  const [minPrice, setMinPrice] = useState<number>(0);
+  const [maxPrice, setMaxPrice] = useState<number>(1000);
 
   useEffect(() => {
     if (products) {
@@ -59,6 +61,23 @@ const CatalogContent: FC<IProps> = ({ searchedWines }) => {
     );
     setDisplayedWines(paginatedWines);
   }, [wines, perPageValue, currentPage]);
+
+  useEffect(() => {
+    if (products && products?.length > 0) {
+      const newMinPrice = Math.floor(
+        Math.min(...products.map((product) => product.price))
+      );
+      const newMaxPrice = Math.ceil(
+        Math.max(...products.map((product) => product.price))
+      );
+      setMinPrice(newMinPrice);
+      setMaxPrice(newMaxPrice);
+    }
+  }, [products]);
+
+  useEffect(() => {
+    setPriceValues([minPrice, maxPrice]);
+  }, [minPrice, maxPrice]);
 
   const handleShowMore = (e: BtnClickEvent) => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -97,7 +116,7 @@ const CatalogContent: FC<IProps> = ({ searchedWines }) => {
 
   const handleRemoveAllFiltersValues = () => {
     setFiltersValue([]);
-    setPriceValues([0, 3000]);
+    setPriceValues([minPrice, maxPrice]);
     setToShameValue('By name');
     if (products) {
       setWines(products);
@@ -147,6 +166,8 @@ const CatalogContent: FC<IProps> = ({ searchedWines }) => {
               setPriceValues={setPriceValues}
               setCurrentPage={setCurrentPage}
               searchedWines={searchedWines}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
             />
           </div>
           <div className='filtersWinesWrapper'>
@@ -156,6 +177,8 @@ const CatalogContent: FC<IProps> = ({ searchedWines }) => {
               setPriceValues={setPriceValues}
               handleRemoveFilterValue={handleRemoveFilterValue}
               handleRemoveAllFiltersValues={handleRemoveAllFiltersValues}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
             />
             {displayedWines.length > 0 ? (
               <WineList wines={displayedWines} />
@@ -185,6 +208,8 @@ const CatalogContent: FC<IProps> = ({ searchedWines }) => {
           setPriceValues={setPriceValues}
           setCurrentPage={setCurrentPage}
           searchedWines={searchedWines}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
         />
       )}
     </>

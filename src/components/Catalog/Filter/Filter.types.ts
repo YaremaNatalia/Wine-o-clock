@@ -11,6 +11,8 @@ export interface IFilter {
   setPriceValues: Dispatch<SetStateAction<[number, number]>>;
   setCurrentPage: Dispatch<SetStateAction<number>>;
   searchedWines?: IWine[];
+  minPrice: number;
+  maxPrice: number;
 }
 
 export interface IFormValues {

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from 'react';
 
 export interface IProps {
   filtersValue: string[];
@@ -6,4 +6,6 @@ export interface IProps {
   handleRemoveAllFiltersValues: () => void;
   priceValues: [number, number];
   setPriceValues: Dispatch<SetStateAction<[number, number]>>;
+  minPrice: number;
+  maxPrice: number;
 }
