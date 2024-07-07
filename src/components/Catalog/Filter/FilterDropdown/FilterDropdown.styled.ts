@@ -12,8 +12,6 @@ export const DropdownNavigation = styled.div`
   align-items: center;
   width: 284px;
 
-
-
   & > svg {
     cursor: pointer;
 
@@ -26,6 +24,15 @@ export const DropdownNavigation = styled.div`
     display: flex;
     flex-direction: row;
     gap: ${({ theme }) => theme.spacing(3)};
+
+    & > svg {
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        color: ${({ theme }) => theme.colors.primaryBurgundy};
+      }
+    }
   }
 
   .selectedValue {

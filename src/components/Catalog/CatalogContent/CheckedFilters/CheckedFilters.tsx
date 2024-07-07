@@ -9,6 +9,8 @@ const CheckedFilters: FC<IProps> = ({
   handleRemoveAllFiltersValues,
   priceValues,
   setPriceValues,
+  minPrice,
+  maxPrice,
 }) => {
   return (
     <CheckedFiltersContainer>
@@ -19,8 +21,8 @@ const CheckedFilters: FC<IProps> = ({
             <RxCross2 size={11} />
           </button>
         ))}
-      {(priceValues[0] > 0 || priceValues[1] < 3000) && (
-        <button onClick={() => setPriceValues([0, 3000])}>
+      {(priceValues[0] !== minPrice || priceValues[1] !== maxPrice) && (
+        <button onClick={() => setPriceValues([minPrice, maxPrice])}>
           {priceValues[0]} - {priceValues[1]} ₴
           <RxCross2 size={11} />
         </button>

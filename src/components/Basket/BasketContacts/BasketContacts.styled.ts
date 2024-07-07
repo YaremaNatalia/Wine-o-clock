@@ -45,10 +45,12 @@ export const ContactsWrapper = styled.div`
     }
 
     .nameWrapper {
+      display: flex;
+      flex-direction: column;
+      gap: ${({ theme }) => theme.spacing(4)};
       @media screen and (min-width: ${theme.breakpoints.tablet}px) {
-        display: flex;
         flex-direction: row;
-        gap: ${({ theme }) => theme.spacing(4)};
+        gap: ${({ theme }) => theme.spacing(5)};
       }
     }
   }

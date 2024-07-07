@@ -19,6 +19,8 @@ const Filter: FC<IFilter> = ({
   setPriceValues,
   setCurrentPage,
   searchedWines,
+  minPrice,
+  maxPrice,
 }) => {
   const [showCollectionsList, setShowCollectionsList] =
     useState<boolean>(false);
@@ -150,6 +152,8 @@ const Filter: FC<IFilter> = ({
           priceValues={priceValues}
           setPriceValues={setPriceValues}
           setCurrentPage={setCurrentPage}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
         />
       </FilterItem>
       <FilterItem title='Color'>

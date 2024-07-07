@@ -40,7 +40,14 @@ const BasketContacts: FC = () => {
     register,
     formState: { errors, isSubmitting },
     handleSubmit,
-  } = useForm<INewUser>();
+    reset,
+  } = useForm<INewUser>({
+    defaultValues: {
+      agree: false,
+      notCall: false,
+      personalDataConsent: false,
+    },
+  });
 
   const checkboxDescription = (
     <PrivacyPolicy>
@@ -50,6 +57,7 @@ const BasketContacts: FC = () => {
   );
 
   useEffect(() => {
+    toast.dismiss();
     errors.email && toast.error(Messages.emailReqErr);
     errors.firstName &&
       toast.error(
@@ -81,7 +89,16 @@ const BasketContacts: FC = () => {
 
   const handleFormSubmit: SubmitHandler<INewUser> = (data) => {
     console.log(data);
+    setCheckboxStates({
+      agree: false,
+      notCall: false,
+      personalDataConsent: false,
+    });
+    reset();
   };
+
+  const isFormValid =
+    checkboxStates.agree && checkboxStates.personalDataConsent;
 
   return (
     <ContactsWrapper>
@@ -195,9 +212,7 @@ const BasketContacts: FC = () => {
           <Button
             buttonForm={ButtonForms.button}
             title='Confirm the order'
-            disabled={
-              !checkboxStates.agree || !checkboxStates.personalDataConsent
-            }
+            disabled={!isFormValid}
             type={ButtonTypes.submit}
           />
         </PrivacyPolicyContainer>
