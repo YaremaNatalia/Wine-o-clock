@@ -1,7 +1,7 @@
 import { BtnClickEvent } from '@/types/types';
 import { makeBlur } from '@/utils';
 import { useEffect, useState } from 'react';
-import { StyledHeader } from './Header.styled';
+import { StyledBasketLink, StyledHeader } from './Header.styled';
 import Container from '@/components/Container';
 import { PiBasketBold } from 'react-icons/pi';
 import {
@@ -19,12 +19,15 @@ import PrivateLinks from '@/components/PrivateLinks';
 import MobileMenu from '@/components/MobileMenu';
 import MobileMenuBtn from '@/components/MobileMenu/MobileMenuBtn';
 import HeaderSearchInput from './HeaderSearchInput';
+import { useBasketContext } from '@/Context/ContextHooks';
 
 const Header = () => {
+  const { basketWines } = useBasketContext();
   const [isDesktopScreen, setIsDesktopScreen] = useState<boolean>(
     window.innerWidth > theme.breakpoints.desktop
   );
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
+  const [hasWines, setHasWines] = useState<boolean>(basketWines.length > 0);
 
   useEffect(() => {
     const handleResize = () => {
@@ -41,6 +44,10 @@ const Header = () => {
   useEffect(() => {
     document.body.style.overflowY = showMobileMenu ? 'hidden' : 'auto';
   }, [showMobileMenu]);
+
+  useEffect(() => {
+    setHasWines(basketWines.length > 0);
+  }, [basketWines]);
 
   const onMobileMenuBtnClick = (e: BtnClickEvent) => {
     setShowMobileMenu((prevState) => !prevState);
@@ -69,13 +76,14 @@ const Header = () => {
           <NavLinks navLinks={navLinks} />
           {isDesktopScreen && <HeaderSearchInput />}
           <PrivateLinks navLinks={privateLinks} />
-          <Link
+          <StyledBasketLink
             to={PagePaths.basketPath}
             aria-label={AriaLabels.basket}
             className={ClassNames.basket}
+            data-has-wines={hasWines ? 'true' : undefined}
           >
             <PiBasketBold />
-          </Link>
+          </StyledBasketLink>
           {showMobileMenu && (
             <MobileMenu
               onNavLinkClick={onNavLinkClick}

@@ -18,6 +18,7 @@ import AboutUsPage from '@/pages/AboutUsPage';
 import CatalogPage from '@/pages/CatalogPage';
 import SearchResultPage from '@/pages/SearchResultPage';
 import BasketPage from '@/pages/BasketPage';
+import FavoritesPage from '@/pages/FavoritesPage';
 
 const App = () => {
   const { data: token } = useQuery<string>({
@@ -60,7 +61,8 @@ const App = () => {
         />
         <Route
           path={PagePaths.favoritesPath}
-          element={<PrivateRoute element={<div>favoritesPath</div>} />}
+          // element={<PrivateRoute element={<FavoritesPage/>} />}
+          element={<PublicRoute element={<FavoritesPage/>} />}
         />
         <Route
           path={PagePaths.logInPath}

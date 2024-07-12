@@ -25,8 +25,9 @@ import { PrivacyPolicy } from '@/components/SignUpForm/SignUpForm.styled';
 import { Link } from 'react-router-dom';
 import regExp from '@/constants/regExp';
 import Messages from '@/constants/messages';
+import { IBasketContacts } from './BasketContacts.types';
 
-const BasketContacts: FC = () => {
+const BasketContacts: FC<IBasketContacts> = ({ onOrderConfirm }) => {
   const [checkboxStates, setCheckboxStates] = useState<{
     [key: string]: boolean;
   }>({
@@ -51,7 +52,7 @@ const BasketContacts: FC = () => {
 
   const checkboxDescription = (
     <PrivacyPolicy>
-      By confirming the order, I agree to the terms of the{' '}
+      * By confirming the order, I agree to the terms of the{' '}
       <Link to={PagePaths.homePath}> user agreement</Link>{' '}
     </PrivacyPolicy>
   );
@@ -89,6 +90,8 @@ const BasketContacts: FC = () => {
 
   const handleFormSubmit: SubmitHandler<INewUser> = (data) => {
     console.log(data);
+    const orderNumber = Math.random().toString(36).substring(10).toUpperCase();
+    onOrderConfirm(orderNumber);
     setCheckboxStates({
       agree: false,
       notCall: false,
@@ -160,7 +163,7 @@ const BasketContacts: FC = () => {
             altElem={<FaCheck size={IconSizes.checkbox} />}
             checked={checkboxStates.personalDataConsent}
             onChange={() => handleCheckboxChange('personalDataConsent')}
-            description='Consent to the processing of personal data'
+            description='* Consent to the processing of personal data'
           />
           <Input
             settings={{

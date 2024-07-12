@@ -10,13 +10,18 @@ import { client } from './tanStackQuery';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { persister } from './tanStackQuery/client';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
+import { BasketProvider, FavoritesProvider } from './Context';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <PersistQueryClientProvider client={client} persistOptions={{ persister }}>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
-          <App />
+          <BasketProvider>
+            <FavoritesProvider>
+              <App />
+            </FavoritesProvider>
+          </BasketProvider>
           <GlobalStyles />
           <Toaster position='top-center' reverseOrder={false} />
         </ThemeProvider>

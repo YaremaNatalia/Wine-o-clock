@@ -1,5 +1,3 @@
-
-
 import Basket from '@/components/Basket';
 import { FC } from 'react';
 

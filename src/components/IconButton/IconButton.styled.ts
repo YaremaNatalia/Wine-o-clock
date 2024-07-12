@@ -29,5 +29,7 @@ export const Button = styled.button<IStyledProps>`
 
   &:is(:hover:not(:disabled), :focus:not(:disabled)) {
     background-color: ${({ theme }) => theme.colors.primaryAccentColor};
+    transform: scale(1.1);
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.25);
   }
 `;

@@ -1,13 +1,15 @@
 export interface IProps {
-  id: string;
-  color: string;
-  sweetness: string;
+  _id: string;
+  wineColor: string;
+  sugarConsistency: string;
   country: string;
   region: string;
-  volume: number;
+  bottleCapacity: number;
   alcohol: number;
   price: number;
   title: string;
-  rating: number;
+  evaluation: number;
   quantity: number;
 }
+
+ 

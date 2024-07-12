@@ -1,12 +1,18 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { IProps } from './WineCard.types';
 import { IoMdHeartEmpty } from 'react-icons/io';
+import { IoMdHeart } from 'react-icons/io';
 import { WineCardStyled, WineDetailsLink } from './WineCard.styled';
 import IconButton from '@/components/IconButton';
 import { AriaLabels, ButtonTypes, PagePaths } from '@/constants';
 import BasketPlus from '@/icons/basketPlus.svg?react';
 import OutOfStock from '@/icons/out-of-stock.svg?react';
 import { BtnClickEvent } from '@/types/types';
+import CustomToast from '../CustomToast';
+import toast from 'react-hot-toast';
+import { setLocalStorage } from '@/utils';
+import { useBasketContext, useFavoritesContext } from '@/Context/ContextHooks';
+import { operations } from '@/tanStackQuery';
 
 const WineCard: FC<IProps> = ({ wine }) => {
   const {
@@ -22,18 +28,59 @@ const WineCard: FC<IProps> = ({ wine }) => {
     sugarConsistency,
     bottleCapacity,
   } = wine;
+  const allWines = operations.allWines()?.products;
+  const { setBasketWines } = useBasketContext();
+  const { favoritesWines, setFavoritesWines } = useFavoritesContext();
+  const [isInFavorites, setIsInFavorites] = useState<boolean>(false);
 
-  const handleClick = (e: BtnClickEvent) => {
-    console.log('click');
+  const handleBasketClick = (e: BtnClickEvent) => {
+    e.stopPropagation();
+    const result = setLocalStorage.addToBasket(_id, quantity);
+    if (result) {
+      toast.success(
+        <CustomToast message={`Wine ${title} added to your cart!`} />
+      );
+    } else {
+      toast.error(<CustomToast message='Sorry, not enough wine in stock' />);
+    }
+    if (allWines) {
+      const basket = setLocalStorage.getBasket(allWines);
+      setBasketWines(basket);
+    }
     e.currentTarget.blur();
   };
 
+  const handleFavoriteClick = (e: BtnClickEvent) => {
+    e.stopPropagation();
+
+    const isAdded = setLocalStorage.toggleFavorites(_id);
+    if (isAdded) {
+      toast.success(
+        <CustomToast message={`Wine ${title} added to your favorites!`} />
+      );
+    } else {
+      toast.success(
+        <CustomToast message={`Wine ${title} removed from your favorites!`} />
+      );
+    }
+    if (allWines) {
+      const favorites = setLocalStorage.getFavorites(allWines);
+      setFavoritesWines(favorites);
+    }
+    setIsInFavorites(isAdded);
+    e.currentTarget.blur();
+  };
+
+  useEffect(() => {
+    setIsInFavorites(favoritesWines.some((wine) => wine._id === _id));
+  }, [favoritesWines, _id]);
+
   return (
-    // <WineDetailsLink to={`/store/${_id}`}>
-    <WineDetailsLink
-      to={`${PagePaths.wineDetailsPath.replace(':wineId', _id)}`}
-    >
-      <WineCardStyled quantity={quantity}>
+    <WineCardStyled quantity={quantity}>
+      <WineDetailsLink
+        to={`${PagePaths.wineDetailsPath.replace(':wineId', _id)}`}
+        className='detailsLink'
+      >
         <div className='imgWrapper'>
           <img className='wineImg' src={imageUrl} alt='Wine image' />
           <div className='iconsWrapper'>
@@ -43,7 +90,6 @@ const WineCard: FC<IProps> = ({ wine }) => {
                 <p className='wineDiscountLabel'>-{adminDiscountPercentage}%</p>
               )}
             </div>
-            <IoMdHeartEmpty />
           </div>
         </div>
         <div className='wineCardInfo'>
@@ -52,27 +98,41 @@ const WineCard: FC<IProps> = ({ wine }) => {
             {wineColor} {sugarConsistency} {bottleCapacity} L
           </p>
           <p className='wineCountry'>{country}</p>
-          <div className='priceWrapper'>
-            <p className='winePrice'>{price} ₴</p>
-            {quantity > 0 && (
-              <IconButton
-                btnSize={40}
-                ariaLabel={AriaLabels.basket}
-                type={ButtonTypes.button}
-                onClick={handleClick}
-              >
-                <BasketPlus />
-              </IconButton>
-            )}
-          </div>
+          <p className='winePrice'>{price} ₴</p>
         </div>
-        {quantity === 0 && (
-          <div className='outOfStockOverlay'>
-            <OutOfStock title='Out of stock' />
-          </div>
-        )}
-      </WineCardStyled>
-    </WineDetailsLink>
+      </WineDetailsLink>
+      {quantity > 0 && (
+        <div className='basketBtnWrapper'>
+          <IconButton
+            btnSize={40}
+            ariaLabel={AriaLabels.basket}
+            type={ButtonTypes.button}
+            onClick={handleBasketClick}
+          >
+            <BasketPlus />
+          </IconButton>
+        </div>
+      )}
+      {quantity === 0 && (
+        <div className='outOfStockOverlay'>
+          <OutOfStock title='Out of stock' />
+        </div>
+      )}
+      <div className='favoritesBtnWrapper'>
+        <IconButton
+          btnSize={27}
+          ariaLabel={AriaLabels.favorites}
+          type={ButtonTypes.button}
+          onClick={handleFavoriteClick}
+        >
+          {isInFavorites ? (
+            <IoMdHeart size={24} />
+          ) : (
+            <IoMdHeartEmpty size={24} />
+          )}
+        </IconButton>
+      </div>
+    </WineCardStyled>
   );
 };
 
