@@ -22,7 +22,7 @@ import CheckedFilters from './CheckedFilters';
 import { IProps } from './CatalogContent.types';
 
 const CatalogContent: FC<IProps> = ({ searchedWines }) => {
-  const data = operations.allWines();
+  const data = operations.getAllWinesCache();
   const screenSize = setWindowResize();
   const defaultPerPageValue = screenSize.isTabletScreen ? '12' : '6';
 

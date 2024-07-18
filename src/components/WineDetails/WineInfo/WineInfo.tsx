@@ -7,42 +7,27 @@ import { ButtonForms, ButtonTypes } from '@/constants';
 import BasketPlus from '@/icons/basketPlus.svg?react';
 import { BtnClickEvent } from '@/types/types';
 import Counter from '../Counter';
-import toast from 'react-hot-toast';
-import CustomToast from '@/components/CustomToast';
-import { setLocalStorage } from '@/utils';
-import { operations } from '@/tanStackQuery';
-import { useBasketContext } from '@/Context/ContextHooks';
 
-const WineInfo: FC<IProps> = ({
-  _id,
-  wineColor,
-  sugarConsistency,
-  country,
-  region,
-  bottleCapacity,
-  alcohol,
-  price,
-  title,
-  evaluation,
-  quantity,
-}) => {
+import useAddToBasket from '@/hooks/useAddToBasket';
+
+const WineInfo: FC<IProps> = ({ wine }) => {
+  const {
+    wineColor,
+    sugarConsistency,
+    country,
+    region,
+    bottleCapacity,
+    alcohol,
+    price,
+    title,
+    evaluation = 0,
+    quantity,
+  } = wine ?? {};
   const [counterValue, setCounterValue] = useState<number>(1);
-  const allWines = operations.allWines()?.products;
-  const { setBasketWines } = useBasketContext();
+  const { mutateAddBasket, isPending } = useAddToBasket();
 
   const handleBtnClick = (e: BtnClickEvent) => {
-    const result = setLocalStorage.addToBasket(_id, quantity, counterValue);
-    if (result) {
-      toast.success(
-        <CustomToast message={`Wine ${title} added to your cart!`} />
-      );
-    } else {
-      toast.error(<CustomToast message='Sorry, not enough wine in stock' />);
-    }
-    if (allWines) {
-      const basket = setLocalStorage.getBasket(allWines);
-      setBasketWines(basket);
-    }
+    mutateAddBasket({ wine, numbToOrder: counterValue });
     setCounterValue(1);
     e.currentTarget.blur();
   };
@@ -78,20 +63,20 @@ const WineInfo: FC<IProps> = ({
         </li>
       </WineInfoList>
       <Counter
-        quantity={quantity}
+        wine={wine}
         counterValue={counterValue}
         setCounterValue={setCounterValue}
-        _id={_id}
       />
       <p className='winePrice'>{price} ₴</p>
       {quantity > 0 && (
         <Button
           svg={<BasketPlus />}
           buttonForm={ButtonForms.other}
-          title='Add to cart'
+          title={isPending ? 'Loading...' : 'Add to cart'}
           price={`${totalPrice} ₴`}
           type={ButtonTypes.button}
           onClick={handleBtnClick}
+          disabled={isPending}
         ></Button>
       )}
     </WineInfoStyled>

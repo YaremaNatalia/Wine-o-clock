@@ -1,29 +1,31 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import PageNavigation from '../PageNavigation';
 import { PagePaths } from '@/constants';
 import Container from '../Container';
 import BasketList from './BasketList';
-
 import BasketContacts from './BasketContacts';
 import { BasketStyled } from './Basket.styled';
-import { operations } from '@/tanStackQuery';
 import OrderConfirmedMessage from './OrderConfirmedMessage';
-import { setLocalStorage } from '@/utils';
 import EmptyPage from '../EmptyPage';
-import { useBasketContext } from '@/Context/ContextHooks';
+import { IProps } from './Basket.types';
 
-const Basket: FC = () => {
-  const allWines = operations.allWines()?.products;
-
+const Basket: FC<IProps> = ({ wines }) => {
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
-  const { basketWines, setBasketWines } = useBasketContext();
+  // const [basket, setBasket] = useState<IWine[]>([]);
 
-  useEffect(() => {
-    if (allWines) {
-      const winesWithNumberToOrder = setLocalStorage.getBasket(allWines);
-      setBasketWines(winesWithNumberToOrder);
-    }
-  }, [allWines, setBasketWines]);
+  // useEffect(() => {
+  //   const allWines = operations.allWines()?.products || [];
+  //   const localStorageBasketWines =
+  //     setLocalStorage.getLocalStorageBasket(allWines) || [];
+
+  //   if (wines.length > 0) {
+  //     setBasket(wines);
+  //   } else if (localStorageBasketWines.length > 0) {
+  //     setBasket(localStorageBasketWines);
+  //   } else {
+  //     setBasket([]);
+  //   }
+  // }, [setBasket, wines]);
 
   const handleOrderConfirm = (orderNumber: string) => {
     setOrderNumber(orderNumber);
@@ -40,12 +42,12 @@ const Basket: FC = () => {
           <OrderConfirmedMessage orderNumber={orderNumber} />
         ) : (
           <>
-            {basketWines && basketWines.length > 0 ? (
+            {wines && wines.length > 0 ? (
               <BasketStyled>
                 <h1>Placing an order</h1>
                 <div className='contentWrapper'>
                   <BasketList
-                    wines={basketWines}
+                    wines={wines}
                     onOrderConfirm={handleOrderConfirm}
                   />
                   <BasketContacts onOrderConfirm={handleOrderConfirm} />

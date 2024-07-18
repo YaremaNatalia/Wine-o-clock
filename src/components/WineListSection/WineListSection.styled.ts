@@ -41,6 +41,9 @@ export const WineListSectionStyled = styled.div`
     }
 
     button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: ${({ theme }) => theme.spacing(8)};
       height: ${({ theme }) => theme.spacing(8)};
       background-color: transparent;

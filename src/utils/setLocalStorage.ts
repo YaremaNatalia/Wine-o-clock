@@ -1,6 +1,6 @@
 import { IWine } from '@/types/types';
 
-const addToBasket = (
+const addToLocalStorageBasket = (
   _id: string,
   quantity: number,
   counterValue?: number
@@ -36,7 +36,7 @@ const addToBasket = (
   }
 };
 
-const removeFromBasket = (_id: string) => {
+const removeFromLocalStorageBasket = (_id: string) => {
   const basket = JSON.parse(localStorage.getItem('basket') || '{}');
   if (basket[_id]) {
     delete basket[_id];
@@ -44,15 +44,7 @@ const removeFromBasket = (_id: string) => {
   }
 };
 
-const changeBasket = (_id: string, numberToOrder: number) => {
-  const basket = JSON.parse(localStorage.getItem('basket') || '{}');
-  if (basket[_id]) {
-    basket[_id].numberToOrder = numberToOrder;
-    localStorage.setItem('basket', JSON.stringify(basket));
-  }
-};
-
-const getBasket = (wines: IWine[]) => {
+const getLocalStorageBasket = (wines: IWine[]) => {
   const basket = JSON.parse(localStorage.getItem('basket') || '{}');
   if (basket && wines) {
     return wines
@@ -65,7 +57,7 @@ const getBasket = (wines: IWine[]) => {
   return [];
 };
 
-const toggleFavorites = (_id: string): boolean => {
+const toggleLocalStorageFavorites = (_id: string): boolean => {
   let favoriteWines: string[] = JSON.parse(
     localStorage.getItem('favoriteWines') || '[]'
   );
@@ -81,7 +73,7 @@ const toggleFavorites = (_id: string): boolean => {
   }
 };
 
-const getFavorites = (wines: IWine[]): IWine[] => {
+const getLocalStorageFavorites = (wines: IWine[]): IWine[] => {
   const favoriteWines: string[] = JSON.parse(
     localStorage.getItem('favoriteWines') || '[]'
   );
@@ -92,10 +84,9 @@ const getFavorites = (wines: IWine[]): IWine[] => {
 };
 
 export default {
-  removeFromBasket,
-  addToBasket,
-  changeBasket,
-  getBasket,
-  toggleFavorites,
-  getFavorites,
+  removeFromLocalStorageBasket,
+  addToLocalStorageBasket,
+  getLocalStorageBasket,
+  toggleLocalStorageFavorites,
+  getLocalStorageFavorites,
 };

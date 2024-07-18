@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 import Button from '@/components/Button';
 import AlternativeAuthLinks from '@/components/AlternativeAuthLinks';
 import { useMutation } from '@tanstack/react-query';
-import { QueryKeys, client, operations } from '@/tanStackQuery';
+import { QueryKeys,  operations, queryClient } from '@/tanStackQuery';
 import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
 import { $instance } from '@/utils/backendURL';
@@ -45,7 +45,7 @@ const LoginForm: FC = () => {
   }, [isSubmitting, errors]);
 
   function onSuccessHTTPRequest(token: string): void {
-    client.setQueryData([QueryKeys.token], token);
+    queryClient.setQueryData([QueryKeys.token], token);
     $instance.defaults.headers.common.Authorization = `Bearer ${token}`;
   }
 

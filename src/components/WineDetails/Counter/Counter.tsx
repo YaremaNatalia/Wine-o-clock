@@ -3,20 +3,30 @@ import { FiPlus } from 'react-icons/fi';
 import { FiMinus } from 'react-icons/fi';
 import { IProps } from './Counter.types';
 import { CounterStyled } from './Counter.styled';
-import { setLocalStorage } from '@/utils';
+import useAddToBasket from '@/hooks/useAddToBasket';
 
-const Counter: FC<IProps> = ({ basket, quantity, counterValue, setCounterValue, _id }) => {
+const Counter: FC<IProps> = ({
+  basket,
+  wine,
+  counterValue,
+  setCounterValue,
+}) => {
+  const { quantity } = wine || {};
+  const { mutateAddBasket } = useAddToBasket();
+
   const onDecrBtnClick = () => {
     if (counterValue > 1) {
       setCounterValue(counterValue - 1);
-      setLocalStorage.changeBasket(_id, counterValue - 1);
+      const numbToOrder = counterValue - 1;
+      mutateAddBasket({ wine, numbToOrder });
     }
   };
 
   const onIncrBtnClick = () => {
     if (counterValue < quantity) {
       setCounterValue(counterValue + 1);
-      setLocalStorage.changeBasket(_id, counterValue + 1);
+      const numbToOrder = counterValue + 1;
+      mutateAddBasket({ wine, numbToOrder });
     }
   };
 

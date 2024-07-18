@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import PageNavigation from '../PageNavigation';
 import { PagePaths } from '@/constants';
 import Container from '../Container';
@@ -8,12 +8,11 @@ import { operations } from '@/tanStackQuery';
 import { setFilterWines, setLocalStorage } from '@/utils';
 import { FavoritesStyled } from './Favorites.styled';
 import EmptyPage from '../EmptyPage';
-import { useFavoritesContext } from '@/Context/ContextHooks';
-
+import { IWine } from '@/types/types';
 
 const Favorites: FC = () => {
-  const allWines = operations.allWines()?.products;
-  const { favoritesWines, setFavoritesWines } = useFavoritesContext();
+  const allWines = operations.allWines()?.products || [];
+  const [favorites, setFavorites] = useState<IWine[]>([]);
 
   const bestsellers = setFilterWines.filterMainWines(
     allWines ?? [],
@@ -21,23 +20,18 @@ const Favorites: FC = () => {
   );
 
   useEffect(() => {
-    if (allWines) {
-      const favoriteWines = setLocalStorage.getFavorites(allWines);
-      setFavoritesWines(favoriteWines);
-    }
-  }, [allWines, setFavoritesWines]);
+    const favoritesWines = operations.getFavorites();
+    const localStorageFavoritesWines =
+      setLocalStorage.getLocalStorageFavorites(allWines);
 
-  useEffect(() => {
-    if (allWines) {
-      const favoriteWines = setLocalStorage.getFavorites(allWines);
-      const updatedWines = favoriteWines.filter((favoriteWine) => {
-        return !favoritesWines.some((wine) => wine._id === favoriteWine._id);
-      });
-      if (updatedWines.length > 0) {
-        setFavoritesWines([...favoritesWines, ...updatedWines]);
-      }
+    if (favoritesWines) {
+      setFavorites(favoritesWines);
+    } else if (localStorageFavoritesWines) {
+      setFavorites(localStorageFavoritesWines);
+    } else {
+      setFavorites([]);
     }
-  }, [allWines, favoritesWines, setFavoritesWines]);
+  }, [allWines, setFavorites]);
 
   return (
     <FavoritesStyled>
@@ -47,8 +41,8 @@ const Favorites: FC = () => {
         secondTitle='Favorites'
       />
       <Container>
-        {favoritesWines.length > 0 ? (
-          <WineList wines={favoritesWines} />
+        {favorites.length > 0 ? (
+          <WineList wines={favorites} />
         ) : (
           <EmptyPage title='favorites' />
         )}

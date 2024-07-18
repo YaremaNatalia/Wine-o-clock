@@ -12,13 +12,14 @@ import PublicRoute from '@/components/Routs/PublicRoute';
 import Loader from '@/components/Loader';
 import { QueryKeys, operations } from '@/tanStackQuery';
 import { useQuery } from '@tanstack/react-query';
-import { IAllWinesData, IUser } from '@/types/types';
+import { IUser } from '@/types/types';
 import WineDetailsPage from '@/pages/WineDetailsPage';
 import AboutUsPage from '@/pages/AboutUsPage';
 import CatalogPage from '@/pages/CatalogPage';
 import SearchResultPage from '@/pages/SearchResultPage';
 import BasketPage from '@/pages/BasketPage';
 import FavoritesPage from '@/pages/FavoritesPage';
+import useGetAllWines from '@/hooks/useGetAllWines';
 
 const App = () => {
   const { data: token } = useQuery<string>({
@@ -29,11 +30,7 @@ const App = () => {
     queryFn: () => operations.refreshUser(token),
   });
 
-  const { isError, isLoading } = useQuery<IAllWinesData>({
-    queryFn: () => operations.getAllWines(1, 0),
-    queryKey: [QueryKeys.wines],
-    refetchOnMount: true,
-  });
+  const { isError, isLoading } = useGetAllWines();
 
   return isFetching ? (
     <Loader />
@@ -62,7 +59,7 @@ const App = () => {
         <Route
           path={PagePaths.favoritesPath}
           // element={<PrivateRoute element={<FavoritesPage/>} />}
-          element={<PublicRoute element={<FavoritesPage/>} />}
+          element={<PublicRoute element={<FavoritesPage />} />}
         />
         <Route
           path={PagePaths.logInPath}

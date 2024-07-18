@@ -6,7 +6,8 @@ const enum QueryKeys {
   isLoggedIn = 'isLoggedIn',
   user = 'user',
   isVisited = 'isVisited',
-  favorites='favorites'
+  favorites = 'favorites',
+  basket = 'basket',
 }
 
 export default QueryKeys;

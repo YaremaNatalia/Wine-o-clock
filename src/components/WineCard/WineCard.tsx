@@ -7,12 +7,13 @@ import IconButton from '@/components/IconButton';
 import { AriaLabels, ButtonTypes, PagePaths } from '@/constants';
 import BasketPlus from '@/icons/basketPlus.svg?react';
 import OutOfStock from '@/icons/out-of-stock.svg?react';
-import { BtnClickEvent } from '@/types/types';
+import { BtnClickEvent, IWine } from '@/types/types';
 import CustomToast from '../CustomToast';
 import toast from 'react-hot-toast';
 import { setLocalStorage } from '@/utils';
-import { useBasketContext, useFavoritesContext } from '@/Context/ContextHooks';
 import { operations } from '@/tanStackQuery';
+import Loader from '../Loader';
+import useAddToBasket from '@/hooks/useAddToBasket';
 
 const WineCard: FC<IProps> = ({ wine }) => {
   const {
@@ -28,32 +29,25 @@ const WineCard: FC<IProps> = ({ wine }) => {
     sugarConsistency,
     bottleCapacity,
   } = wine;
-  const allWines = operations.allWines()?.products;
-  const { setBasketWines } = useBasketContext();
-  const { favoritesWines, setFavoritesWines } = useFavoritesContext();
+
+  const { mutateAddBasket, isPending } = useAddToBasket();
+
+  const [favoritesWines, setFavoritesWines] = useState<IWine[]>([]);
   const [isInFavorites, setIsInFavorites] = useState<boolean>(false);
 
   const handleBasketClick = (e: BtnClickEvent) => {
     e.stopPropagation();
-    const result = setLocalStorage.addToBasket(_id, quantity);
-    if (result) {
-      toast.success(
-        <CustomToast message={`Wine ${title} added to your cart!`} />
-      );
-    } else {
-      toast.error(<CustomToast message='Sorry, not enough wine in stock' />);
-    }
-    if (allWines) {
-      const basket = setLocalStorage.getBasket(allWines);
-      setBasketWines(basket);
-    }
+    mutateAddBasket({ wine });
     e.currentTarget.blur();
   };
 
   const handleFavoriteClick = (e: BtnClickEvent) => {
     e.stopPropagation();
+    const isFavorite = operations.toggleToFavorites(wine);
+    const isLocalStorageFavorite =
+      setLocalStorage.toggleLocalStorageFavorites(_id);
+    const isAdded = isFavorite || isLocalStorageFavorite;
 
-    const isAdded = setLocalStorage.toggleFavorites(_id);
     if (isAdded) {
       toast.success(
         <CustomToast message={`Wine ${title} added to your favorites!`} />
@@ -63,13 +57,25 @@ const WineCard: FC<IProps> = ({ wine }) => {
         <CustomToast message={`Wine ${title} removed from your favorites!`} />
       );
     }
-    if (allWines) {
-      const favorites = setLocalStorage.getFavorites(allWines);
-      setFavoritesWines(favorites);
-    }
+
     setIsInFavorites(isAdded);
     e.currentTarget.blur();
   };
+
+  useEffect(() => {
+    const allWines = operations.getAllWinesCache()?.products || [];
+    const favoritesWines = operations.getFavorites() || [];
+    const localStorageFavoritesWines =
+      setLocalStorage.getLocalStorageFavorites(allWines) || [];
+
+    if (favoritesWines) {
+      setFavoritesWines(favoritesWines);
+    } else if (localStorageFavoritesWines) {
+      setFavoritesWines(localStorageFavoritesWines);
+    } else {
+      setFavoritesWines([]);
+    }
+  }, [setFavoritesWines]);
 
   useEffect(() => {
     setIsInFavorites(favoritesWines.some((wine) => wine._id === _id));
@@ -108,8 +114,9 @@ const WineCard: FC<IProps> = ({ wine }) => {
             ariaLabel={AriaLabels.basket}
             type={ButtonTypes.button}
             onClick={handleBasketClick}
+            disabled={isPending}
           >
-            <BasketPlus />
+            {isPending ? <Loader basket={true} /> : <BasketPlus />}
           </IconButton>
         </div>
       )}

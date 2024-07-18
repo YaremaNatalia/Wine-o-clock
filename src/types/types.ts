@@ -67,6 +67,7 @@ export interface IWine {
   bottlesSoldCounter: number;
   // addedDateTime: string;
   imageUrl: string;
+  numberToOrder?: number;
   [key: string]:
     | string
     | number
@@ -165,4 +166,9 @@ export interface IUser {
 export interface IPage {
   isLoading: boolean;
   isError: boolean;
+}
+
+export interface IAddBasketMutation {
+  wine: IWine;
+  numbToOrder?: number;
 }

@@ -22,19 +22,18 @@ import { AriaLabels, ButtonTypes, PagePaths } from '@/constants';
 import { setFilterWines, setLocalStorage } from '@/utils';
 import OutOfStock from '@/icons/out-of-stock.svg?react';
 import IconButton from '../IconButton';
-import { BtnClickEvent } from '@/types/types';
+import { BtnClickEvent, IWine } from '@/types/types';
 import toast from 'react-hot-toast';
 import CustomToast from '../CustomToast';
-import { useFavoritesContext } from '@/Context/ContextHooks';
 
 const WineDetails: FC<IProps> = ({ wine }) => {
   const [isGeneralInfoActive, setIsGeneralInfoActive] = useState(true);
   const [isDescriptionActive, setIsDescriptionActive] = useState(false);
   const [isReviewsActive, setIsReviewsActive] = useState(false);
   const [isInFavorites, setIsInFavorites] = useState<boolean>(false);
+  const [wines, setWines] = useState<IWine[]>([]);
 
-  const { favoritesWines, setFavoritesWines } = useFavoritesContext();
-  const allWines = operations.allWines()?.products;
+  const allWines = operations.getAllWinesCache()?.products || [];
 
   const bestsellers = setFilterWines.filterMainWines(
     allWines ?? [],
@@ -62,16 +61,12 @@ const WineDetails: FC<IProps> = ({ wine }) => {
   const {
     _id,
     title,
-    price,
     adminDiscountPercentage,
     description,
     bottleCapacity,
-    alcohol,
     isNewCollection,
     wineColor,
     sugarConsistency,
-    country,
-    region,
     evaluation = 0,
     comments,
     imageUrl,
@@ -81,7 +76,11 @@ const WineDetails: FC<IProps> = ({ wine }) => {
   const handleFavoriteClick = (e: BtnClickEvent) => {
     e.stopPropagation();
 
-    const isAdded = setLocalStorage.toggleFavorites(_id);
+    const isFavorite = operations.toggleToFavorites(wine);
+    const isLocalStorageFavorite =
+      setLocalStorage.toggleLocalStorageFavorites(_id);
+    const isAdded = isFavorite || isLocalStorageFavorite;
+
     if (isAdded) {
       toast.success(
         <CustomToast message={`Wine ${title} added to your favorites!`} />
@@ -91,17 +90,28 @@ const WineDetails: FC<IProps> = ({ wine }) => {
         <CustomToast message={`Wine ${title} removed from your favorites!`} />
       );
     }
-    if (allWines) {
-      const favorites = setLocalStorage.getFavorites(allWines);
-      setFavoritesWines(favorites);
-    }
+
     setIsInFavorites(isAdded);
     e.currentTarget.blur();
   };
 
   useEffect(() => {
-    setIsInFavorites(favoritesWines.some((wine) => wine._id === _id));
-  }, [favoritesWines, _id]);
+    const favoritesWines = operations.getFavorites() || [];
+    const localStorageFavoritesWines =
+      setLocalStorage.getLocalStorageFavorites(allWines) || [];
+
+    if (favoritesWines) {
+      setWines(favoritesWines);
+    } else if (localStorageFavoritesWines) {
+      setWines(localStorageFavoritesWines);
+    } else {
+      setWines([]);
+    }
+  }, [allWines, setWines]);
+
+  useEffect(() => {
+    setIsInFavorites(wines.some((wine) => wine._id === _id));
+  }, [wines, _id]);
 
   return (
     <WineDetailsStyled>
@@ -177,21 +187,7 @@ const WineDetails: FC<IProps> = ({ wine }) => {
               </a>
             </WineDetailsLinks>
             <DetailsWrapper>
-              {isGeneralInfoActive && (
-                <WineInfo
-                  _id={_id}
-                  wineColor={wineColor}
-                  sugarConsistency={sugarConsistency}
-                  country={country}
-                  region={region}
-                  bottleCapacity={bottleCapacity}
-                  alcohol={alcohol}
-                  price={price}
-                  title={title}
-                  evaluation={evaluation}
-                  quantity={quantity}
-                />
-              )}
+              {isGeneralInfoActive && <WineInfo wine={wine} />}
               {isDescriptionActive && (
                 <WineDescription description={description} />
               )}

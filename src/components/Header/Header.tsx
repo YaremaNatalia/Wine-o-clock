@@ -19,15 +19,15 @@ import PrivateLinks from '@/components/PrivateLinks';
 import MobileMenu from '@/components/MobileMenu';
 import MobileMenuBtn from '@/components/MobileMenu/MobileMenuBtn';
 import HeaderSearchInput from './HeaderSearchInput';
-import { useBasketContext } from '@/Context/ContextHooks';
+import useGetBasket from '@/hooks/useGetBasket';
 
 const Header = () => {
-  const { basketWines } = useBasketContext();
   const [isDesktopScreen, setIsDesktopScreen] = useState<boolean>(
     window.innerWidth > theme.breakpoints.desktop
   );
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
-  const [hasWines, setHasWines] = useState<boolean>(basketWines.length > 0);
+  const [hasWines, setHasWines] = useState<boolean>(false);
+  const { data } = useGetBasket();
 
   useEffect(() => {
     const handleResize = () => {
@@ -46,8 +46,8 @@ const Header = () => {
   }, [showMobileMenu]);
 
   useEffect(() => {
-    setHasWines(basketWines.length > 0);
-  }, [basketWines]);
+    if (data && data.length > 0) setHasWines(true);
+  }, [setHasWines, data]);
 
   const onMobileMenuBtnClick = (e: BtnClickEvent) => {
     setShowMobileMenu((prevState) => !prevState);

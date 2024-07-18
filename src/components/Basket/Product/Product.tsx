@@ -3,13 +3,9 @@ import { IProps } from './Product.types';
 import { ProductStyled } from './Product.styled';
 import { RxCross1 } from 'react-icons/rx';
 import Counter from '@/components/WineDetails/Counter';
-import { setLocalStorage } from '@/utils';
-import { useBasketContext } from '@/Context/ContextHooks';
+import useRemoveFromBasket from '@/hooks/useRemoveFromBasket';
 
-const Product: FC<IProps> = ({
-  wine,
-  calculateProductPrice,
-}) => {
+const Product: FC<IProps> = ({ wine, calculateProductPrice }) => {
   const {
     _id,
     title,
@@ -26,12 +22,10 @@ const Product: FC<IProps> = ({
     typeof numberToOrder === 'number' ? numberToOrder : 0;
   const [counterValue, setCounterValue] = useState<number>(initialCounterValue);
 
-const { basketWines, setBasketWines } = useBasketContext();
+  const { mutateRemove } = useRemoveFromBasket();
 
   const onDelete = (_id: string) => {
-    setLocalStorage.removeFromBasket(_id);
-    const updatedWines = basketWines.filter((wine) => wine._id !== _id);
-    setBasketWines(updatedWines);
+    mutateRemove(_id);
     setCounterValue(0);
     calculateProductPrice(_id, 0);
   };
@@ -58,10 +52,9 @@ const { basketWines, setBasketWines } = useBasketContext();
         <div className='priceWrapper'>
           <Counter
             basket={true}
-            quantity={quantity}
+            wine={wine}
             counterValue={counterValue}
             setCounterValue={setCounterValue}
-            _id={_id}
           />
           {quantity == 0 && <p className='soldOut'>Sold out</p>}
           <p className='winePrice'>{winePrice} ₴</p>

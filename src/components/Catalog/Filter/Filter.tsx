@@ -31,7 +31,7 @@ const Filter: FC<IFilter> = ({
   const [countries, setCountries] = useState<string[]>([]);
   const [regions, setRegions] = useState<string[]>([]);
 
-  const data = operations.allWines();
+  const data = operations.getAllWinesCache();
   const { register, setValue, reset, watch } = useForm<IFormValues>();
 
   useEffect(() => {
