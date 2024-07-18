@@ -47,6 +47,7 @@ export interface IWine {
   quantity: number;
   bottleCapacity: number;
   alcohol: number;
+  isFavorite?: boolean;
   isNewCollection: boolean;
   isBestSeller: boolean;
   isSale: boolean;
@@ -166,6 +167,7 @@ export interface IUser {
 export interface IPage {
   isLoading: boolean;
   isError: boolean;
+  isFetching?: boolean;
 }
 
 export interface IAddBasketMutation {

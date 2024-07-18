@@ -20,6 +20,8 @@ import SearchResultPage from '@/pages/SearchResultPage';
 import BasketPage from '@/pages/BasketPage';
 import FavoritesPage from '@/pages/FavoritesPage';
 import useGetAllWines from '@/hooks/useGetAllWines';
+import useGetBasket from '@/hooks/useGetBasket';
+import useGetFavorites from '@/hooks/useGetFavorites';
 
 const App = () => {
   const { data: token } = useQuery<string>({
@@ -31,6 +33,9 @@ const App = () => {
   });
 
   const { isError, isLoading } = useGetAllWines();
+  const { isBasketLoading, isBasketError, isBasketFetching } = useGetBasket();
+  const { isFavoritesLoading, isFavoritesError, isFavoritesFetching } =
+    useGetFavorites();
 
   return isFetching ? (
     <Loader />
@@ -59,7 +64,17 @@ const App = () => {
         <Route
           path={PagePaths.favoritesPath}
           // element={<PrivateRoute element={<FavoritesPage/>} />}
-          element={<PublicRoute element={<FavoritesPage />} />}
+          element={
+            <PublicRoute
+              element={
+                <FavoritesPage
+                  isLoading={isFavoritesLoading}
+                  isError={isFavoritesError}
+                  isFetching={isFavoritesFetching}
+                />
+              }
+            />
+          }
         />
         <Route
           path={PagePaths.logInPath}
@@ -76,7 +91,17 @@ const App = () => {
         <Route
           path={PagePaths.basketPath}
           // element={<PrivateRoute element={<BasketPage />} />}
-          element={<PublicRoute element={<BasketPage />} />}
+          element={
+            <PublicRoute
+              element={
+                <BasketPage
+                  isLoading={isBasketLoading}
+                  isError={isBasketError}
+                  isFetching={isBasketFetching}
+                />
+              }
+            />
+          }
         />
         <Route path={PagePaths.logInPath} element={<LoginPage />} />
         <Route path={PagePaths.signUpPath} element={<SignUpPage />} />

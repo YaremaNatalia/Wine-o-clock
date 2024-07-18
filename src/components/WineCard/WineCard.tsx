@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { IProps } from './WineCard.types';
 import { IoMdHeartEmpty } from 'react-icons/io';
 import { IoMdHeart } from 'react-icons/io';
@@ -7,13 +7,10 @@ import IconButton from '@/components/IconButton';
 import { AriaLabels, ButtonTypes, PagePaths } from '@/constants';
 import BasketPlus from '@/icons/basketPlus.svg?react';
 import OutOfStock from '@/icons/out-of-stock.svg?react';
-import { BtnClickEvent, IWine } from '@/types/types';
-import CustomToast from '../CustomToast';
-import toast from 'react-hot-toast';
-import { setLocalStorage } from '@/utils';
-import { operations } from '@/tanStackQuery';
+import { BtnClickEvent } from '@/types/types';
 import Loader from '../Loader';
 import useAddToBasket from '@/hooks/useAddToBasket';
+import useFavoritesMutation from '@/hooks/useFavoritesMutation';
 
 const WineCard: FC<IProps> = ({ wine }) => {
   const {
@@ -28,12 +25,13 @@ const WineCard: FC<IProps> = ({ wine }) => {
     wineColor,
     sugarConsistency,
     bottleCapacity,
+    isFavorite,
   } = wine;
 
   const { mutateAddBasket, isPending } = useAddToBasket();
+  const { toggleFavorite, isFavoritesPending } = useFavoritesMutation();
 
-  const [favoritesWines, setFavoritesWines] = useState<IWine[]>([]);
-  const [isInFavorites, setIsInFavorites] = useState<boolean>(false);
+  const [isInFavorites, setIsInFavorites] = useState<boolean>(false); //!Прибрати
 
   const handleBasketClick = (e: BtnClickEvent) => {
     e.stopPropagation();
@@ -43,43 +41,10 @@ const WineCard: FC<IProps> = ({ wine }) => {
 
   const handleFavoriteClick = (e: BtnClickEvent) => {
     e.stopPropagation();
-    const isFavorite = operations.toggleToFavorites(wine);
-    const isLocalStorageFavorite =
-      setLocalStorage.toggleLocalStorageFavorites(_id);
-    const isAdded = isFavorite || isLocalStorageFavorite;
-
-    if (isAdded) {
-      toast.success(
-        <CustomToast message={`Wine ${title} added to your favorites!`} />
-      );
-    } else {
-      toast.success(
-        <CustomToast message={`Wine ${title} removed from your favorites!`} />
-      );
-    }
-
-    setIsInFavorites(isAdded);
+    toggleFavorite(wine);
+    setIsInFavorites((prev) => !prev); //!Прибрати
     e.currentTarget.blur();
   };
-
-  useEffect(() => {
-    const allWines = operations.getAllWinesCache()?.products || [];
-    const favoritesWines = operations.getFavorites() || [];
-    const localStorageFavoritesWines =
-      setLocalStorage.getLocalStorageFavorites(allWines) || [];
-
-    if (favoritesWines) {
-      setFavoritesWines(favoritesWines);
-    } else if (localStorageFavoritesWines) {
-      setFavoritesWines(localStorageFavoritesWines);
-    } else {
-      setFavoritesWines([]);
-    }
-  }, [setFavoritesWines]);
-
-  useEffect(() => {
-    setIsInFavorites(favoritesWines.some((wine) => wine._id === _id));
-  }, [favoritesWines, _id]);
 
   return (
     <WineCardStyled quantity={quantity}>
@@ -131,8 +96,9 @@ const WineCard: FC<IProps> = ({ wine }) => {
           ariaLabel={AriaLabels.favorites}
           type={ButtonTypes.button}
           onClick={handleFavoriteClick}
+          disabled={isFavoritesPending}
         >
-          {isInFavorites ? (
+          {isFavorite || isInFavorites ? (
             <IoMdHeart size={24} />
           ) : (
             <IoMdHeartEmpty size={24} />

@@ -7,25 +7,11 @@ import BasketContacts from './BasketContacts';
 import { BasketStyled } from './Basket.styled';
 import OrderConfirmedMessage from './OrderConfirmedMessage';
 import EmptyPage from '../EmptyPage';
-import { IProps } from './Basket.types';
+import { operations } from '@/tanStackQuery';
 
-const Basket: FC<IProps> = ({ wines }) => {
+const Basket: FC = () => {
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
-  // const [basket, setBasket] = useState<IWine[]>([]);
-
-  // useEffect(() => {
-  //   const allWines = operations.allWines()?.products || [];
-  //   const localStorageBasketWines =
-  //     setLocalStorage.getLocalStorageBasket(allWines) || [];
-
-  //   if (wines.length > 0) {
-  //     setBasket(wines);
-  //   } else if (localStorageBasketWines.length > 0) {
-  //     setBasket(localStorageBasketWines);
-  //   } else {
-  //     setBasket([]);
-  //   }
-  // }, [setBasket, wines]);
+  const wines = operations.getBasketCache();
 
   const handleOrderConfirm = (orderNumber: string) => {
     setOrderNumber(orderNumber);

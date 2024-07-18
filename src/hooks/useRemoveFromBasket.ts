@@ -16,12 +16,8 @@ const useRemoveFromBasket = () => {
     if (isToken) {
       mutateRemove(id);
     } else {
-      try {
-        operations.removeFromBasketCache(id);
-        queryClient.invalidateQueries({ queryKey: [QueryKeys.basket] });
-      } catch (error) {
-        console.error('Error adding to cache:', error);
-      }
+      operations.removeFromBasketCache(id);
+      queryClient.invalidateQueries({ queryKey: [QueryKeys.basket] });
     }
   };
 

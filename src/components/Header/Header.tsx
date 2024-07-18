@@ -19,15 +19,18 @@ import PrivateLinks from '@/components/PrivateLinks';
 import MobileMenu from '@/components/MobileMenu';
 import MobileMenuBtn from '@/components/MobileMenu/MobileMenuBtn';
 import HeaderSearchInput from './HeaderSearchInput';
-import useGetBasket from '@/hooks/useGetBasket';
+import { operations } from '@/tanStackQuery';
 
 const Header = () => {
   const [isDesktopScreen, setIsDesktopScreen] = useState<boolean>(
     window.innerWidth > theme.breakpoints.desktop
   );
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
-  const [hasWines, setHasWines] = useState<boolean>(false);
-  const { data } = useGetBasket();
+  const [hasBasketWines, setHasBasketWines] = useState<boolean>(false);
+  // const [hasFavoritesWines, setHasFavoritesWines] = useState<boolean>(false);
+
+  const basketWines = operations.getBasketCache();
+  // const favoritesWines = operations.getFavoritesCache();
 
   useEffect(() => {
     const handleResize = () => {
@@ -46,8 +49,12 @@ const Header = () => {
   }, [showMobileMenu]);
 
   useEffect(() => {
-    if (data && data.length > 0) setHasWines(true);
-  }, [setHasWines, data]);
+    if (basketWines && basketWines.length > 0) setHasBasketWines(true);
+  }, [setHasBasketWines, basketWines]);
+
+  // useEffect(() => {
+  //   if (favoritesWines && favoritesWines.length > 0) setHasFavoritesWines(true);
+  // }, [setHasFavoritesWines, favoritesWines]);
 
   const onMobileMenuBtnClick = (e: BtnClickEvent) => {
     setShowMobileMenu((prevState) => !prevState);
@@ -80,7 +87,7 @@ const Header = () => {
             to={PagePaths.basketPath}
             aria-label={AriaLabels.basket}
             className={ClassNames.basket}
-            data-has-wines={hasWines ? 'true' : undefined}
+            data-has-wines={hasBasketWines ? 'true' : undefined}
           >
             <PiBasketBold />
           </StyledBasketLink>

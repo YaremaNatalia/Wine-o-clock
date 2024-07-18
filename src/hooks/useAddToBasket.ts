@@ -23,14 +23,11 @@ const useAddToBasket = () => {
     if (isToken) {
       mutateAddBasket({ wine, numbToOrder });
     } else {
-      try {
-        operations.addToBasketCache(wine);
-        toast.success(`Wine ${wine.title} added to your cart!`);
+      const result = operations.addToBasketCache(wine, numbToOrder);
+      if (result) {
         queryClient.invalidateQueries({ queryKey: [QueryKeys.basket] });
-      } catch (error) {
-        console.error('Error adding to cache:', error);
-        toast.error('Sorry, not enough wine in stock');
-      }
+        toast.success(`Wine ${wine.title} added to your cart!`);
+      } else toast.error('Sorry, not enough wine in stock');
     }
   };
 

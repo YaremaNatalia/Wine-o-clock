@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import PageNavigation from '../PageNavigation';
 import { IoMdHeartEmpty } from 'react-icons/io';
 import { IoMdHeart } from 'react-icons/io';
@@ -19,24 +19,22 @@ import WineListSection from '../WineListSection';
 import StarRating from './StarRating';
 import Container from '../Container';
 import { AriaLabels, ButtonTypes, PagePaths } from '@/constants';
-import { setFilterWines, setLocalStorage } from '@/utils';
+import { setFilterWines } from '@/utils';
 import OutOfStock from '@/icons/out-of-stock.svg?react';
 import IconButton from '../IconButton';
-import { BtnClickEvent, IWine } from '@/types/types';
-import toast from 'react-hot-toast';
-import CustomToast from '../CustomToast';
+import { BtnClickEvent } from '@/types/types';
+import useFavoritesMutation from '@/hooks/useFavoritesMutation';
 
 const WineDetails: FC<IProps> = ({ wine }) => {
   const [isGeneralInfoActive, setIsGeneralInfoActive] = useState(true);
   const [isDescriptionActive, setIsDescriptionActive] = useState(false);
   const [isReviewsActive, setIsReviewsActive] = useState(false);
-  const [isInFavorites, setIsInFavorites] = useState<boolean>(false);
-  const [wines, setWines] = useState<IWine[]>([]);
 
-  const allWines = operations.getAllWinesCache()?.products || [];
+  const data = operations.getAllWinesCache();
+  const { toggleFavorite, isFavoritesPending } = useFavoritesMutation();
 
   const bestsellers = setFilterWines.filterMainWines(
-    allWines ?? [],
+    data?.products ?? [],
     'bestsellers'
   );
 
@@ -59,7 +57,6 @@ const WineDetails: FC<IProps> = ({ wine }) => {
   };
 
   const {
-    _id,
     title,
     adminDiscountPercentage,
     description,
@@ -71,47 +68,14 @@ const WineDetails: FC<IProps> = ({ wine }) => {
     comments,
     imageUrl,
     quantity,
+    isFavorite,
   } = wine ?? {};
 
   const handleFavoriteClick = (e: BtnClickEvent) => {
     e.stopPropagation();
-
-    const isFavorite = operations.toggleToFavorites(wine);
-    const isLocalStorageFavorite =
-      setLocalStorage.toggleLocalStorageFavorites(_id);
-    const isAdded = isFavorite || isLocalStorageFavorite;
-
-    if (isAdded) {
-      toast.success(
-        <CustomToast message={`Wine ${title} added to your favorites!`} />
-      );
-    } else {
-      toast.success(
-        <CustomToast message={`Wine ${title} removed from your favorites!`} />
-      );
-    }
-
-    setIsInFavorites(isAdded);
+    toggleFavorite(wine);
     e.currentTarget.blur();
   };
-
-  useEffect(() => {
-    const favoritesWines = operations.getFavorites() || [];
-    const localStorageFavoritesWines =
-      setLocalStorage.getLocalStorageFavorites(allWines) || [];
-
-    if (favoritesWines) {
-      setWines(favoritesWines);
-    } else if (localStorageFavoritesWines) {
-      setWines(localStorageFavoritesWines);
-    } else {
-      setWines([]);
-    }
-  }, [allWines, setWines]);
-
-  useEffect(() => {
-    setIsInFavorites(wines.some((wine) => wine._id === _id));
-  }, [wines, _id]);
 
   return (
     <WineDetailsStyled>
@@ -155,8 +119,9 @@ const WineDetails: FC<IProps> = ({ wine }) => {
                 ariaLabel={AriaLabels.favorites}
                 type={ButtonTypes.button}
                 onClick={handleFavoriteClick}
+                disabled={isFavoritesPending}
               >
-                {isInFavorites ? (
+                {isFavorite ? (
                   <IoMdHeart size={24} />
                 ) : (
                   <IoMdHeartEmpty size={24} />

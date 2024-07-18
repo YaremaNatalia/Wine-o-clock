@@ -1,37 +1,21 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import PageNavigation from '../PageNavigation';
 import { PagePaths } from '@/constants';
 import Container from '../Container';
 import WineList from '../WineList';
 import WineListSection from '../WineListSection';
 import { operations } from '@/tanStackQuery';
-import { setFilterWines, setLocalStorage } from '@/utils';
+import { setFilterWines } from '@/utils';
 import { FavoritesStyled } from './Favorites.styled';
 import EmptyPage from '../EmptyPage';
-import { IWine } from '@/types/types';
 
 const Favorites: FC = () => {
-  const allWines = operations.allWines()?.products || [];
-  const [favorites, setFavorites] = useState<IWine[]>([]);
-
+  const data = operations.getAllWinesCache();
+  const wines = operations.getFavoritesCache();
   const bestsellers = setFilterWines.filterMainWines(
-    allWines ?? [],
+    data?.products ?? [],
     'bestsellers'
   );
-
-  useEffect(() => {
-    const favoritesWines = operations.getFavorites();
-    const localStorageFavoritesWines =
-      setLocalStorage.getLocalStorageFavorites(allWines);
-
-    if (favoritesWines) {
-      setFavorites(favoritesWines);
-    } else if (localStorageFavoritesWines) {
-      setFavorites(localStorageFavoritesWines);
-    } else {
-      setFavorites([]);
-    }
-  }, [allWines, setFavorites]);
 
   return (
     <FavoritesStyled>
@@ -41,8 +25,8 @@ const Favorites: FC = () => {
         secondTitle='Favorites'
       />
       <Container>
-        {favorites.length > 0 ? (
-          <WineList wines={favorites} />
+        {wines && wines.length > 0 ? (
+          <WineList wines={wines} />
         ) : (
           <EmptyPage title='favorites' />
         )}
