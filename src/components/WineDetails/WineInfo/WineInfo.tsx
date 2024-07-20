@@ -24,10 +24,10 @@ const WineInfo: FC<IProps> = ({ wine }) => {
     quantity,
   } = wine ?? {};
   const [counterValue, setCounterValue] = useState<number>(1);
-  const { mutateAddBasket, isPending } = useAddToBasket();
+  const { addToBasket, isPending } = useAddToBasket();
 
   const handleBtnClick = (e: BtnClickEvent) => {
-    mutateAddBasket({ wine, numbToOrder: counterValue });
+    addToBasket({ wine, numbToOrder: counterValue });
     setCounterValue(1);
     e.currentTarget.blur();
   };

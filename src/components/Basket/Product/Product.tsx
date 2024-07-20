@@ -22,10 +22,10 @@ const Product: FC<IProps> = ({ wine, calculateProductPrice }) => {
     typeof numberToOrder === 'number' ? numberToOrder : 0;
   const [counterValue, setCounterValue] = useState<number>(initialCounterValue);
 
-  const { mutateRemove } = useRemoveFromBasket();
+  const { removeFromBasket  } = useRemoveFromBasket();
 
   const onDelete = (_id: string) => {
-    mutateRemove(_id);
+    removeFromBasket(_id);
     setCounterValue(0);
     calculateProductPrice(_id, 0);
   };

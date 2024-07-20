@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import PageNavigation from '../PageNavigation';
 import { IoMdHeartEmpty } from 'react-icons/io';
 import { IoMdHeart } from 'react-icons/io';
@@ -29,8 +29,11 @@ const WineDetails: FC<IProps> = ({ wine }) => {
   const [isGeneralInfoActive, setIsGeneralInfoActive] = useState(true);
   const [isDescriptionActive, setIsDescriptionActive] = useState(false);
   const [isReviewsActive, setIsReviewsActive] = useState(false);
+  const [isInFavorites, setIsInFavorites] = useState<boolean>(false);
 
   const data = operations.getAllWinesCache();
+  const favorites = operations.getFavoritesCache();
+
   const { toggleFavorite, isFavoritesPending } = useFavoritesMutation();
 
   const bestsellers = setFilterWines.filterMainWines(
@@ -57,6 +60,7 @@ const WineDetails: FC<IProps> = ({ wine }) => {
   };
 
   const {
+    _id,
     title,
     adminDiscountPercentage,
     description,
@@ -68,7 +72,6 @@ const WineDetails: FC<IProps> = ({ wine }) => {
     comments,
     imageUrl,
     quantity,
-    isFavorite,
   } = wine ?? {};
 
   const handleFavoriteClick = (e: BtnClickEvent) => {
@@ -76,6 +79,10 @@ const WineDetails: FC<IProps> = ({ wine }) => {
     toggleFavorite(wine);
     e.currentTarget.blur();
   };
+
+  useEffect(() => {
+    if (favorites) setIsInFavorites(favorites.some((wine) => wine._id === _id));
+  }, [favorites, _id]);
 
   return (
     <WineDetailsStyled>
@@ -121,7 +128,7 @@ const WineDetails: FC<IProps> = ({ wine }) => {
                 onClick={handleFavoriteClick}
                 disabled={isFavoritesPending}
               >
-                {isFavorite ? (
+                {isInFavorites ? (
                   <IoMdHeart size={24} />
                 ) : (
                   <IoMdHeartEmpty size={24} />

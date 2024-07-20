@@ -5,7 +5,7 @@ const useRemoveFromBasket = () => {
   const isToken = false;
   // const isToken = client.getQueryData<string>([QueryKeys.token]);
 
-  const { mutate: mutateRemove } = useMutation({
+  const { mutate: removeFromBasket } = useMutation({
     mutationFn: (id: string) => operations.removeFromBasket(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QueryKeys.basket] });
@@ -14,14 +14,14 @@ const useRemoveFromBasket = () => {
 
   const customMutate = (id: string) => {
     if (isToken) {
-      mutateRemove(id);
+      removeFromBasket(id);
     } else {
       operations.removeFromBasketCache(id);
       queryClient.invalidateQueries({ queryKey: [QueryKeys.basket] });
     }
   };
 
-  return { mutateRemove: customMutate };
+  return { removeFromBasket: customMutate };
 };
 
 export default useRemoveFromBasket;

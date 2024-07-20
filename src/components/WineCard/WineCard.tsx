@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { IProps } from './WineCard.types';
 import { IoMdHeartEmpty } from 'react-icons/io';
 import { IoMdHeart } from 'react-icons/io';
@@ -11,6 +11,7 @@ import { BtnClickEvent } from '@/types/types';
 import Loader from '../Loader';
 import useAddToBasket from '@/hooks/useAddToBasket';
 import useFavoritesMutation from '@/hooks/useFavoritesMutation';
+import { operations } from '@/tanStackQuery';
 
 const WineCard: FC<IProps> = ({ wine }) => {
   const {
@@ -25,26 +26,30 @@ const WineCard: FC<IProps> = ({ wine }) => {
     wineColor,
     sugarConsistency,
     bottleCapacity,
-    isFavorite,
   } = wine;
 
-  const { mutateAddBasket, isPending } = useAddToBasket();
+  const { addToBasket, isPending } = useAddToBasket();
   const { toggleFavorite, isFavoritesPending } = useFavoritesMutation();
+  const favorites = operations.getFavoritesCache();
 
-  const [isInFavorites, setIsInFavorites] = useState<boolean>(false); //!Прибрати
+  const [isInFavorites, setIsInFavorites] = useState<boolean>(false);
 
   const handleBasketClick = (e: BtnClickEvent) => {
     e.stopPropagation();
-    mutateAddBasket({ wine });
+    addToBasket({ wine });
     e.currentTarget.blur();
   };
 
   const handleFavoriteClick = (e: BtnClickEvent) => {
     e.stopPropagation();
     toggleFavorite(wine);
-    setIsInFavorites((prev) => !prev); //!Прибрати
+
     e.currentTarget.blur();
   };
+
+  useEffect(() => {
+    if (favorites) setIsInFavorites(favorites.some((wine) => wine._id === _id));
+  }, [favorites, _id]);
 
   return (
     <WineCardStyled quantity={quantity}>
@@ -98,7 +103,7 @@ const WineCard: FC<IProps> = ({ wine }) => {
           onClick={handleFavoriteClick}
           disabled={isFavoritesPending}
         >
-          {isFavorite || isInFavorites ? (
+          {isInFavorites ? (
             <IoMdHeart size={24} />
           ) : (
             <IoMdHeartEmpty size={24} />

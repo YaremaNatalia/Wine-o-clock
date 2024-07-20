@@ -173,8 +173,7 @@ const addToFavorites = async (wine: IWine): Promise<void> => {
     const { data: favorites } = await $instance.get<IWine[]>('api/favorites');
     const isInFavorites = favorites.find((item) => item._id === wine._id);
     if (!isInFavorites) {
-      const updatedWine = { ...wine, isFavorite: true }; //!Прибрати
-      await $instance.post('api/favorites', updatedWine);
+      await $instance.post('api/favorites', wine);
     }
   } catch (error) {
     console.error('Error adding to favorites:', error);
@@ -186,8 +185,7 @@ const addToFavoritesCache = (wine: IWine): boolean => {
     queryClient.getQueryData<IWine[]>([QueryKeys.favorites]) || [];
   const isFavorite = favoriteWines.find((w) => w._id === wine._id);
   if (!isFavorite) {
-    const updatedWine = { ...wine, isFavorite: true }; //!Прибрати
-    const updatedFavorites = [...favoriteWines, updatedWine];
+    const updatedFavorites = [...favoriteWines, wine];
     queryClient.setQueryData([QueryKeys.favorites], updatedFavorites);
     return true;
   } else {
@@ -213,10 +211,7 @@ const removeFromFavoritesCache = (id: string): boolean => {
   const isFavorite = favoriteWines.some((w) => w._id === id);
   if (isFavorite) {
     const updatedFavorites = favoriteWines.filter((w) => w._id !== id);
-    const updatedFavoritesWithFlag = updatedFavorites.map((wine) =>
-      wine._id === id ? { ...wine, isFavorite: false } : wine
-    ); //!Прибрати
-    queryClient.setQueryData([QueryKeys.favorites], updatedFavoritesWithFlag);
+    queryClient.setQueryData([QueryKeys.favorites], updatedFavorites);
     return true;
   } else {
     return false;

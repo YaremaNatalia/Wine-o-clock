@@ -47,7 +47,6 @@ export interface IWine {
   quantity: number;
   bottleCapacity: number;
   alcohol: number;
-  isFavorite?: boolean;
   isNewCollection: boolean;
   isBestSeller: boolean;
   isSale: boolean;

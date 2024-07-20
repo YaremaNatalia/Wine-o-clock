@@ -7,7 +7,7 @@ const useAddToBasket = () => {
   const isToken = false;
   // const isToken = client.getQueryData<string>([QueryKeys.token]);
 
-  const { mutate: mutateAddBasket, isPending } = useMutation({
+  const { mutate: addToBasket, isPending } = useMutation({
     mutationFn: ({ wine, numbToOrder }: IAddBasketMutation) =>
       operations.addToBasket(wine, numbToOrder),
     onSuccess: (data, { wine }: IAddBasketMutation) => {
@@ -21,7 +21,7 @@ const useAddToBasket = () => {
 
   const customMutate = ({ wine, numbToOrder }: IAddBasketMutation) => {
     if (isToken) {
-      mutateAddBasket({ wine, numbToOrder });
+      addToBasket({ wine, numbToOrder });
     } else {
       const result = operations.addToBasketCache(wine, numbToOrder);
       if (result) {
@@ -31,7 +31,7 @@ const useAddToBasket = () => {
     }
   };
 
-  return { mutateAddBasket: customMutate, isPending };
+  return { addToBasket: customMutate, isPending };
 };
 
 export default useAddToBasket;
