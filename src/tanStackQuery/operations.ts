@@ -49,10 +49,10 @@ const getWineById = async (productId: string) => {
 // };
 
 const signUp = async (data: INewUser): Promise<void> =>
-  await $instance.post('v1/reg/registration', data);
+  await $instance.post('api/auth/signup', data);
 
 const login = async (data: ICredentials): Promise<string> => {
-  const response = await $instance.post('v1/auth/login', data);
+  const response = await $instance.post('/api/auth/signin', data);
   return response.data;
 };
 
@@ -64,7 +64,7 @@ const refreshUser = async (
   $instance.defaults.headers.common.Authorization = `Bearer ${token}`;
 
   try {
-    const response = await $instance.get('v1/user/get_user');
+    const response = await $instance.get('/api/auth/current');
     queryClient.setQueryData([QueryKeys.isLoggedIn], true);
     return response.data;
   } catch (error) {
@@ -168,69 +168,64 @@ const removeFromBasketCache = (id: string): boolean => {
   }
 };
 
-const addToFavorites = async (wine: IWine): Promise<void> => {
+const addToFavorites = async (productId: string): Promise<string[]> => {
   try {
-    const { data: favorites } = await $instance.get<IWine[]>('api/favorites');
-    const isInFavorites = favorites.find((item) => item._id === wine._id);
-    if (!isInFavorites) {
-      await $instance.post('api/favorites', wine);
-    }
+    const response = await $instance.post('/api/favorites', productId);
+    return response.data;
   } catch (error) {
     console.error('Error adding to favorites:', error);
+    return [];
   }
 };
 
-const addToFavoritesCache = (wine: IWine): boolean => {
-  const favoriteWines =
-    queryClient.getQueryData<IWine[]>([QueryKeys.favorites]) || [];
-  const isFavorite = favoriteWines.find((w) => w._id === wine._id);
-  if (!isFavorite) {
-    const updatedFavorites = [...favoriteWines, wine];
+const addToFavoritesCache = (productId: string): boolean => {
+  try {
+    const favorites =
+      queryClient.getQueryData<string[]>([QueryKeys.favorites]) || [];
+    const updatedFavorites = [...favorites, productId];
     queryClient.setQueryData([QueryKeys.favorites], updatedFavorites);
     return true;
-  } else {
+  } catch (error) {
+    console.error('Error updating favorites cache:', error);
     return false;
   }
 };
 
-const removeFromFavorites = async (id: string): Promise<void> => {
+const removeFromFavorites = async (productId: string): Promise<string[]> => {
   try {
-    const { data: favorites } = await $instance.get<IWine[]>('api/favorites');
-    const isInFavorites = favorites.find((item) => item._id === id);
-    if (isInFavorites) {
-      await $instance.delete(`api/favorites/${id}`);
-    }
+    const response = await $instance.delete(`api/favorites/${productId}`);
+    return response.data;
   } catch (error) {
     console.error('Error removing from favorites:', error);
+    return [];
   }
 };
 
-const removeFromFavoritesCache = (id: string): boolean => {
-  const favoriteWines =
-    queryClient.getQueryData<IWine[]>([QueryKeys.favorites]) || [];
-  const isFavorite = favoriteWines.some((w) => w._id === id);
-  if (isFavorite) {
-    const updatedFavorites = favoriteWines.filter((w) => w._id !== id);
+const removeFromFavoritesCache = (productId: string): boolean => {
+  try {
+    const favorites =
+      queryClient.getQueryData<string[]>([QueryKeys.favorites]) || [];
+    const updatedFavorites = favorites.filter((id) => id !== productId);
     queryClient.setQueryData([QueryKeys.favorites], updatedFavorites);
     return true;
-  } else {
+  } catch (error) {
+    console.error('Error updating favorites cache:', error);
     return false;
   }
 };
 
-const getFavorites = async (page: number = 1, limit: number | null) => {
+const getFavorites = async (): Promise<string[]> => {
   try {
-    const response = await $instance.get<IWine[]>(
-      `api/favorites?page=${page}&limit=${limit}`
-    );
+    const response = await $instance.get(`api/favorites`);
     return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
+    return [];
   }
 };
 
 const getFavoritesCache = () => {
-  return queryClient.getQueryData<IWine[]>([QueryKeys.favorites]);
+  return queryClient.getQueryData<string[]>([QueryKeys.favorites]);
 };
 
 const operations = {

@@ -6,7 +6,7 @@ const useGetFavorites = () => {
   // const isToken = client.getQueryData<string>([QueryKeys.token]);
 
   const { data: favoritesWines, isLoading: isFavoritesLoading, isError: isFavoritesError, isFetching: isFavoritesFetching } = useQuery({
-    queryFn: () => operations.getFavorites(1, 0),
+    queryFn: () => operations.getFavorites(),
     queryKey: [QueryKeys.favorites],
     enabled: isToken,
     initialData: () => operations.getFavoritesCache(),

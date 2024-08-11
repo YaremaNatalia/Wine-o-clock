@@ -12,6 +12,9 @@ import EmptyPage from '../EmptyPage';
 const Favorites: FC = () => {
   const data = operations.getAllWinesCache();
   const wines = operations.getFavoritesCache();
+  const favoriteWines = wines
+    ? data?.products.filter((wine) => wines.includes(wine._id))
+    : [];
   const bestsellers = setFilterWines.filterMainWines(
     data?.products ?? [],
     'bestsellers'
@@ -25,8 +28,8 @@ const Favorites: FC = () => {
         secondTitle='Favorites'
       />
       <Container>
-        {wines && wines.length > 0 ? (
-          <WineList wines={wines} />
+        {favoriteWines && favoriteWines.length > 0 ? (
+          <WineList wines={favoriteWines} />
         ) : (
           <EmptyPage title='favorites' />
         )}

@@ -6,7 +6,6 @@ import {
   IconSizes,
   InputTypes,
   PagePaths,
-  privateLinks,
 } from '@/constants';
 import { FC, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -26,6 +25,7 @@ import { Link } from 'react-router-dom';
 import regExp from '@/constants/regExp';
 import Messages from '@/constants/messages';
 import { IBasketContacts } from './BasketContacts.types';
+import { getPrivateLinks } from '@/utils';
 
 const BasketContacts: FC<IBasketContacts> = ({ onOrderConfirm }) => {
   const [checkboxStates, setCheckboxStates] = useState<{
@@ -35,7 +35,7 @@ const BasketContacts: FC<IBasketContacts> = ({ onOrderConfirm }) => {
     notCall: false,
     personalDataConsent: false,
   });
-
+  const privateLinks = getPrivateLinks();
   const logInPrivateLink = [privateLinks[1]];
   const {
     register,

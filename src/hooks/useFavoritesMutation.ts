@@ -7,7 +7,7 @@ const useFavoritesMutation = () => {
   const isToken = false; // const isToken = client.getQueryData<string>([QueryKeys.token]);
 
   const { mutate: addToFavorites, isPending: isPendingAdd } = useMutation({
-    mutationFn: (wine: IWine) => operations.addToFavorites(wine),
+    mutationFn: (wine: IWine) => operations.addToFavorites(wine._id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QueryKeys.favorites] });
     },
@@ -15,7 +15,7 @@ const useFavoritesMutation = () => {
 
   const { mutate: removeFromFavorites, isPending: isPendingRemove } =
     useMutation({
-      mutationFn: (id: string) => operations.removeFromFavorites(id),
+      mutationFn: (wine: IWine) => operations.removeFromFavorites(wine._id),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: [QueryKeys.favorites] });
       },
@@ -23,12 +23,12 @@ const useFavoritesMutation = () => {
 
   const toggleFavorite = (wine: IWine) => {
     const favoriteWines =
-      queryClient.getQueryData<IWine[]>([QueryKeys.favorites]) || [];
-    const isFavorite = favoriteWines.some((w) => w._id === wine._id);
+      queryClient.getQueryData<string[]>([QueryKeys.favorites]) || [];
+    const isFavorite = favoriteWines.includes(wine._id);
 
     if (isFavorite) {
       if (isToken) {
-        removeFromFavorites(wine._id, {
+        removeFromFavorites(wine, {
           onSuccess: () =>
             toast.success(`Wine ${wine.title} removed from your favorites!`),
           onError: () =>
@@ -54,7 +54,7 @@ const useFavoritesMutation = () => {
             toast.success(`Wine ${wine.title} added to your favorites!`),
         });
       } else {
-        const result = operations.addToFavoritesCache(wine);
+        const result = operations.addToFavoritesCache(wine._id);
         if (result) {
           queryClient.invalidateQueries({ queryKey: [QueryKeys.favorites] });
           toast.success(`Wine ${wine.title} added to your favorites!`);

@@ -81,7 +81,7 @@ const WineDetails: FC<IProps> = ({ wine }) => {
   };
 
   useEffect(() => {
-    if (favorites) setIsInFavorites(favorites.some((wine) => wine._id === _id));
+    if (favorites) setIsInFavorites(favorites.some((id) => id === _id));
   }, [favorites, _id]);
 
   return (

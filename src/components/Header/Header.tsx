@@ -1,5 +1,5 @@
 import { BtnClickEvent } from '@/types/types';
-import { makeBlur } from '@/utils';
+import { getPrivateLinks, makeBlur } from '@/utils';
 import { useEffect, useState } from 'react';
 import { StyledBasketLink, StyledHeader } from './Header.styled';
 import Container from '@/components/Container';
@@ -9,7 +9,6 @@ import {
   ClassNames,
   PagePaths,
   navLinks,
-  privateLinks,
   theme,
 } from '@/constants';
 import { Link } from 'react-router-dom';
@@ -27,10 +26,11 @@ const Header = () => {
   );
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
   const [hasBasketWines, setHasBasketWines] = useState<boolean>(false);
-  // const [hasFavoritesWines, setHasFavoritesWines] = useState<boolean>(false);
+  const [hasFavoritesWines, setHasFavoritesWines] = useState<boolean>(false);
 
   const basketWines = operations.getBasketCache();
-  // const favoritesWines = operations.getFavoritesCache();
+  const favoritesWines = operations.getFavoritesCache();
+  const privateLinks = getPrivateLinks(hasFavoritesWines);
 
   useEffect(() => {
     const handleResize = () => {
@@ -49,12 +49,20 @@ const Header = () => {
   }, [showMobileMenu]);
 
   useEffect(() => {
-    if (basketWines && basketWines.length > 0) setHasBasketWines(true);
+    if (basketWines && basketWines.length > 0) {
+      setHasBasketWines(true);
+    } else {
+      setHasBasketWines(false);
+    }
   }, [setHasBasketWines, basketWines]);
 
-  // useEffect(() => {
-  //   if (favoritesWines && favoritesWines.length > 0) setHasFavoritesWines(true);
-  // }, [setHasFavoritesWines, favoritesWines]);
+  useEffect(() => {
+    if (favoritesWines && favoritesWines.length > 0) {
+      setHasFavoritesWines(true);
+    } else {
+      setHasFavoritesWines(false);
+    }
+  }, [favoritesWines, setHasFavoritesWines]);
 
   const onMobileMenuBtnClick = (e: BtnClickEvent) => {
     setShowMobileMenu((prevState) => !prevState);
