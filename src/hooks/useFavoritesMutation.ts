@@ -22,8 +22,9 @@ const useFavoritesMutation = () => {
     });
 
   const toggleFavorite = (wine: IWine) => {
-    const favoriteWines =
-      queryClient.getQueryData<string[]>([QueryKeys.favorites]) || [];
+    // const favoriteWines =
+    //   queryClient.getQueryData<string[]>([QueryKeys.favorites]) || [];
+    const favoriteWines = operations.getFavoritesCache() || [];
     const isFavorite = favoriteWines.includes(wine._id);
 
     if (isFavorite) {

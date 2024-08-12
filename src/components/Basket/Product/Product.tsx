@@ -2,8 +2,9 @@ import { FC, useEffect, useState } from 'react';
 import { IProps } from './Product.types';
 import { ProductStyled } from './Product.styled';
 import { RxCross1 } from 'react-icons/rx';
-import Counter from '@/components/WineDetails/Counter';
 import useRemoveFromBasket from '@/hooks/useRemoveFromBasket';
+import Counter from '@/components/WineDetails/Counter';
+
 
 const Product: FC<IProps> = ({
   wine,
@@ -54,7 +55,6 @@ const Product: FC<IProps> = ({
         </div>
         <div className='priceWrapper'>
           <Counter
-            basket={true}
             wine={wine}
             counterValue={counterValue}
             setCounterValue={setCounterValue}
