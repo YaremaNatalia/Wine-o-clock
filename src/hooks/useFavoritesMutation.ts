@@ -1,10 +1,12 @@
 import { operations, queryClient, QueryKeys } from '@/tanStackQuery';
 import { IWine } from '@/types/types';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
 const useFavoritesMutation = () => {
-  const isToken = false; // const isToken = client.getQueryData<string>([QueryKeys.token]);
+  const { data: isLoggedIn } = useQuery<boolean>({
+    queryKey: [QueryKeys.isLoggedIn],
+  });
 
   const { mutate: addToFavorites, isPending: isPendingAdd } = useMutation({
     mutationFn: (wine: IWine) => operations.addToFavorites(wine._id),
@@ -28,7 +30,7 @@ const useFavoritesMutation = () => {
     const isFavorite = favoriteWines.includes(wine._id);
 
     if (isFavorite) {
-      if (isToken) {
+      if (isLoggedIn) {
         removeFromFavorites(wine, {
           onSuccess: () =>
             toast.success(`Wine ${wine.title} removed from your favorites!`),
@@ -49,7 +51,7 @@ const useFavoritesMutation = () => {
         }
       }
     } else {
-      if (isToken) {
+      if (isLoggedIn) {
         addToFavorites(wine, {
           onSuccess: () =>
             toast.success(`Wine ${wine.title} added to your favorites!`),

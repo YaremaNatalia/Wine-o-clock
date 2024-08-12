@@ -51,9 +51,14 @@ const getWineById = async (productId: string) => {
 const signUp = async (data: INewUser): Promise<void> =>
   await $instance.post('api/auth/signup', data);
 
+// const login = async (data: ICredentials): Promise<string> => {
+//   const response = await $instance.post('api/auth/signin', data);
+//   return response.data;
+// };
+
 const login = async (data: ICredentials): Promise<string> => {
   const response = await $instance.post('/api/auth/signin', data);
-  return response.data;
+  return response.data.token;
 };
 
 const refreshUser = async (
@@ -64,7 +69,7 @@ const refreshUser = async (
   $instance.defaults.headers.common.Authorization = `Bearer ${token}`;
 
   try {
-    const response = await $instance.get('/api/auth/current');
+    const response = await $instance.get('api/auth/current');
     queryClient.setQueryData([QueryKeys.isLoggedIn], true);
     return response.data;
   } catch (error) {
@@ -170,7 +175,9 @@ const removeFromBasketCache = (id: string): boolean => {
 
 const addToFavorites = async (productId: string): Promise<string[]> => {
   try {
-    const response = await $instance.post('/api/favorites', productId);
+    const response = await $instance.post('/api/favorites', {
+      productId: productId,
+    });
     return response.data;
   } catch (error) {
     console.error('Error adding to favorites:', error);

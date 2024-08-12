@@ -2,8 +2,9 @@ import { operations, QueryKeys } from '@/tanStackQuery';
 import { useQuery } from '@tanstack/react-query';
 
 const useGetFavorites = () => {
-  const isToken = false;
-  // const isToken = client.getQueryData<string>([QueryKeys.token]);
+  const { data: isLoggedIn } = useQuery<boolean>({
+    queryKey: [QueryKeys.isLoggedIn],
+  });
 
   const {
     data: favoritesWines,
@@ -13,7 +14,7 @@ const useGetFavorites = () => {
   } = useQuery({
     queryFn: () => operations.getFavorites(),
     queryKey: [QueryKeys.favorites],
-    enabled: isToken,
+    enabled: Boolean(isLoggedIn),
     initialData: () => operations.getFavoritesCache(),
   });
   return {

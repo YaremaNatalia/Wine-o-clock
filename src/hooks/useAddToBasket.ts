@@ -1,11 +1,12 @@
 import { operations, queryClient, QueryKeys } from '@/tanStackQuery';
 import { IAddBasketMutation } from '@/types/types';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
 const useAddToBasket = () => {
-  const isToken = false;
-  // const isToken = client.getQueryData<string>([QueryKeys.token]);
+  const { data: isLoggedIn } = useQuery<boolean>({
+    queryKey: [QueryKeys.isLoggedIn],
+  });
 
   const { mutate: addToBasket, isPending } = useMutation({
     mutationFn: ({ wine, numbToOrder }: IAddBasketMutation) =>
@@ -20,7 +21,7 @@ const useAddToBasket = () => {
   });
 
   const customMutate = ({ wine, numbToOrder }: IAddBasketMutation) => {
-    if (isToken) {
+    if (isLoggedIn) {
       addToBasket({ wine, numbToOrder });
     } else {
       const result = operations.addToBasketCache(wine, numbToOrder);

@@ -124,7 +124,7 @@ export interface IComment {
 export interface INewUser {
   email: string;
   password?: string;
-  confirmationThePassword?: string;
+  passwordRepeat?: string;
   phoneNumber: string;
   firstName: string;
   lastName: string;

@@ -63,7 +63,6 @@ const App = () => {
         />
         <Route
           path={PagePaths.favoritesPath}
-          // element={<PrivateRoute element={<FavoritesPage/>} />}
           element={
             <PublicRoute
               element={
@@ -90,7 +89,6 @@ const App = () => {
         />
         <Route
           path={PagePaths.basketPath}
-          // element={<PrivateRoute element={<BasketPage />} />}
           element={
             <PublicRoute
               element={
@@ -103,10 +101,6 @@ const App = () => {
             />
           }
         />
-        <Route path={PagePaths.logInPath} element={<LoginPage />} />
-        <Route path={PagePaths.signUpPath} element={<SignUpPage />} />
-        <Route path={PagePaths.confOfRegPath} element={<ConfOfRegPage />} />
-        <Route path={PagePaths.basketPath} element={<div>basketPath</div>} />
         <Route path='*' element={<NotFoundPage />} />
       </Route>
     </Routes>
