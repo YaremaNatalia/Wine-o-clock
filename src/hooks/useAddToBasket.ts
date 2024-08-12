@@ -10,9 +10,9 @@ const useAddToBasket = () => {
   const { mutate: addToBasket, isPending } = useMutation({
     mutationFn: ({ wine, numbToOrder }: IAddBasketMutation) =>
       operations.addToBasket(wine, numbToOrder),
-    onSuccess: (data, { wine }: IAddBasketMutation) => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: [QueryKeys.basket] });
-      toast.success(`Wine ${wine.title} added to your cart!`);
+      toast.success(`Wine ${variables.wine.title} added to your cart!`);
     },
     onError: () => {
       toast.error('Sorry, not enough wine in stock');

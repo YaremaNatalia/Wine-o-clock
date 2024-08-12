@@ -7,7 +7,7 @@ import {
 import Product from '../Product';
 import { IProps } from './BasketList.types';
 
-const BasketList: FC<IProps> = ({ wines, onOrderConfirm }) => {
+const BasketList: FC<IProps> = ({ wines }) => {
   const [productPrices, setProductPrices] = useState<{ [key: string]: number }>(
     {}
   );

@@ -5,7 +5,10 @@ import { RxCross1 } from 'react-icons/rx';
 import Counter from '@/components/WineDetails/Counter';
 import useRemoveFromBasket from '@/hooks/useRemoveFromBasket';
 
-const Product: FC<IProps> = ({ wine, calculateProductPrice }) => {
+const Product: FC<IProps> = ({
+  wine,
+  calculateProductPrice,
+}) => {
   const {
     _id,
     title,
@@ -22,7 +25,7 @@ const Product: FC<IProps> = ({ wine, calculateProductPrice }) => {
     typeof numberToOrder === 'number' ? numberToOrder : 0;
   const [counterValue, setCounterValue] = useState<number>(initialCounterValue);
 
-  const { removeFromBasket  } = useRemoveFromBasket();
+  const { removeFromBasket } = useRemoveFromBasket();
 
   const onDelete = (_id: string) => {
     removeFromBasket(_id);
