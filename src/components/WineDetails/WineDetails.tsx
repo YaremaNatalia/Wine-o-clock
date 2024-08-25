@@ -1,7 +1,7 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import PageNavigation from '../PageNavigation';
 import { IoMdHeartEmpty } from 'react-icons/io';
-
+import { IoMdHeart } from 'react-icons/io';
 import {
   DetailsWrapper,
   InfoWrapper,
@@ -18,16 +18,23 @@ import { operations } from '@/tanStackQuery';
 import WineListSection from '../WineListSection';
 import StarRating from './StarRating';
 import Container from '../Container';
-import { PagePaths } from '@/constants';
+import { AriaLabels, ButtonTypes, PagePaths } from '@/constants';
 import { setFilterWines } from '@/utils';
 import OutOfStock from '@/icons/out-of-stock.svg?react';
+import IconButton from '../IconButton';
+import { BtnClickEvent } from '@/types/types';
+import useFavoritesMutation from '@/hooks/useFavoritesMutation';
 
 const WineDetails: FC<IProps> = ({ wine }) => {
   const [isGeneralInfoActive, setIsGeneralInfoActive] = useState(true);
   const [isDescriptionActive, setIsDescriptionActive] = useState(false);
   const [isReviewsActive, setIsReviewsActive] = useState(false);
+  const [isInFavorites, setIsInFavorites] = useState<boolean>(false);
 
-  const data = operations.allWines();
+  const data = operations.getAllWinesCache();
+  const favorites = operations.getFavoritesCache();
+
+  const { toggleFavorite, isFavoritesPending } = useFavoritesMutation();
 
   const bestsellers = setFilterWines.filterMainWines(
     data?.products ?? [],
@@ -55,21 +62,27 @@ const WineDetails: FC<IProps> = ({ wine }) => {
   const {
     _id,
     title,
-    price,
     adminDiscountPercentage,
     description,
     bottleCapacity,
-    alcohol,
     isNewCollection,
     wineColor,
     sugarConsistency,
-    country,
-    region,
     evaluation = 0,
     comments,
     imageUrl,
     quantity,
   } = wine ?? {};
+
+  const handleFavoriteClick = (e: BtnClickEvent) => {
+    e.stopPropagation();
+    toggleFavorite(wine);
+    e.currentTarget.blur();
+  };
+
+  useEffect(() => {
+    if (favorites) setIsInFavorites(favorites.some((id) => id === _id));
+  }, [favorites, _id]);
 
   return (
     <WineDetailsStyled>
@@ -85,7 +98,7 @@ const WineDetails: FC<IProps> = ({ wine }) => {
           <WineCardWrapper>
             <div className='nameWrapper'>
               <p className='wineName'>
-               {wineColor} {sugarConsistency}  wine "{title}" {bottleCapacity} L
+                {wineColor} {sugarConsistency} wine "{title}" {bottleCapacity} L
               </p>
               <StarRating data={evaluation} />
             </div>
@@ -100,7 +113,6 @@ const WineDetails: FC<IProps> = ({ wine }) => {
                     </p>
                   )}
                 </div>
-                <IoMdHeartEmpty />
               </div>
             </div>
             {quantity === 0 && (
@@ -108,6 +120,21 @@ const WineDetails: FC<IProps> = ({ wine }) => {
                 <OutOfStock title='Out of stock' />
               </div>
             )}
+            <div className='favoritesBtnWrapper'>
+              <IconButton
+                btnSize={27}
+                ariaLabel={AriaLabels.favorites}
+                type={ButtonTypes.button}
+                onClick={handleFavoriteClick}
+                disabled={isFavoritesPending}
+              >
+                {isInFavorites ? (
+                  <IoMdHeart size={24} />
+                ) : (
+                  <IoMdHeartEmpty size={24} />
+                )}
+              </IconButton>
+            </div>
           </WineCardWrapper>
 
           <InfoWrapper>
@@ -132,22 +159,7 @@ const WineDetails: FC<IProps> = ({ wine }) => {
               </a>
             </WineDetailsLinks>
             <DetailsWrapper>
-              {isGeneralInfoActive && (
-                <WineInfo
-                  id={_id}
-                  color={wineColor}
-                  sweetness={sugarConsistency}
-                  country={country}
-                  region={region}
-                  volume={bottleCapacity}
-                  alcohol={alcohol}
-                  price={price}
-                  title={title}
-                  rating={evaluation}
-                  quantity={quantity}
-                  
-                />
-              )}
+              {isGeneralInfoActive && <WineInfo wine={wine} />}
               {isDescriptionActive && (
                 <WineDescription description={description} />
               )}

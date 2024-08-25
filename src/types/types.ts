@@ -67,6 +67,7 @@ export interface IWine {
   bottlesSoldCounter: number;
   // addedDateTime: string;
   imageUrl: string;
+  numberToOrder?: number;
   [key: string]:
     | string
     | number
@@ -123,7 +124,7 @@ export interface IComment {
 export interface INewUser {
   email: string;
   password?: string;
-  confirmationThePassword?: string;
+  passwordRepeat?: string;
   phoneNumber: string;
   firstName: string;
   lastName: string;
@@ -165,4 +166,10 @@ export interface IUser {
 export interface IPage {
   isLoading: boolean;
   isError: boolean;
+  isFetching?: boolean;
+}
+
+export interface IAddBasketMutation {
+  wine: IWine;
+  numbToOrder?: number;
 }

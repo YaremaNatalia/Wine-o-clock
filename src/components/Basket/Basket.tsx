@@ -1,21 +1,23 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import PageNavigation from '../PageNavigation';
 import { PagePaths } from '@/constants';
 import Container from '../Container';
 import BasketList from './BasketList';
-
 import BasketContacts from './BasketContacts';
 import { BasketStyled } from './Basket.styled';
+import OrderConfirmedMessage from './OrderConfirmedMessage';
+import EmptyPage from '../EmptyPage';
 import { operations } from '@/tanStackQuery';
-import EmptyCart from './EmptyCart';
 
 const Basket: FC = () => {
-  const data = operations.allWines();
-  // const redWines =
-  //   data?.products.filter((wine) => wine.wineColor === 'red') || [];
-  const sweetWines =
-    data?.products.filter((wine) => wine.sugarConsistency === 'Sweet') || [];
-  const wines = sweetWines;
+  const [orderNumber, setOrderNumber] = useState<string | null>(null);
+
+  const wines = operations.getBasketCache();
+  console.log(wines);
+  const handleOrderConfirm = (orderNumber: string) => {
+    setOrderNumber(orderNumber);
+    console.log(wines);
+  };
   return (
     <>
       <PageNavigation
@@ -24,16 +26,22 @@ const Basket: FC = () => {
         secondTitle='Placing an order'
       />
       <Container>
-        {wines && wines.length > 0 ? (
-          <BasketStyled>
-            <h1>Placing an order</h1>
-            <div className='contentWrapper'>
-              <BasketList wines={wines} />
-              <BasketContacts />
-            </div>
-          </BasketStyled>
+        {orderNumber ? (
+          <OrderConfirmedMessage orderNumber={orderNumber} />
         ) : (
-          <EmptyCart />
+          <>
+            {wines && wines.length > 0 ? (
+              <BasketStyled>
+                <h1>Placing an order</h1>
+                <div className='contentWrapper'>
+                  <BasketList wines={wines} />
+                  <BasketContacts onOrderConfirm={handleOrderConfirm} />
+                </div>
+              </BasketStyled>
+            ) : (
+              <EmptyPage title='basket' />
+            )}
+          </>
         )}
       </Container>
     </>

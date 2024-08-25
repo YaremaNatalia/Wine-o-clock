@@ -8,40 +8,41 @@ import Product from '../Product';
 import { IProps } from './BasketList.types';
 
 const BasketList: FC<IProps> = ({ wines }) => {
-  const [productPrices, setProductPrices] = useState<number[]>([]);
+  const [productPrices, setProductPrices] = useState<{ [key: string]: number }>(
+    {}
+  );
   const [deliveryPrice] = useState<number>(0);
   const [discount] = useState<number>(0);
 
-  const calculateProductPrice = (index: number, price: number) => {
+  const calculateProductPrice = (id: string, price: number) => {
     setProductPrices((prevPrices) => {
-      const newPrices = [...prevPrices];
-      if (newPrices[index] !== price) {
-        newPrices[index] = price;
-        return newPrices;
+      if (prevPrices[id] !== price) {
+        return {
+          ...prevPrices,
+          [id]: price,
+        };
       }
       return prevPrices;
     });
   };
 
   const listPrice = parseFloat(
-    productPrices
-      .filter((price) => typeof price === 'number')
+    Object.values(productPrices)
       .reduce((total, price) => total + price, 0)
       .toFixed(2)
   );
+
   const totalPrice = listPrice + deliveryPrice - discount;
 
   return (
     <ProductsWrapper>
       <h2>Products</h2>
       <ProductListStyled>
-        {wines?.map((wine, index) => (
+        {wines?.map((wine) => (
           <Product
             key={wine._id}
             wine={wine}
-            calculateProductPrice={(price) =>
-              calculateProductPrice(index, price)
-            }
+            calculateProductPrice={calculateProductPrice}
           />
         ))}
       </ProductListStyled>

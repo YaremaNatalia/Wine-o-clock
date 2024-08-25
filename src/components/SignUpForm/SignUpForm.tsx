@@ -74,7 +74,7 @@ const SignUpForm: FC = () => {
           ? Messages.passwordReqErr
           : Messages.passwordLengthErr
       );
-    errors.confirmationThePassword && toast.error(Messages.confThePassReqErr);
+    errors.passwordRepeat && toast.error(Messages.confThePassReqErr);
   }, [isSubmitting, errors]);
 
   function onSuccessHTTPRequest(): void {
@@ -154,7 +154,7 @@ const SignUpForm: FC = () => {
         />
         <Input
           settings={{
-            ...register('confirmationThePassword', { required: true }),
+            ...register('passwordRepeat', { required: true }),
           }}
           formType={FormTypes.auth}
           label='Confirmation the password'

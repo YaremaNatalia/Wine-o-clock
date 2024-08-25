@@ -160,6 +160,54 @@ export const WineCardWrapper = styled.div`
   .wineDiscountLabel {
     background-color: ${({ theme }) => theme.colors.secondaryOrange};
   }
+
+  .favoritesBtnWrapper {
+    z-index: 2;
+    position: absolute;
+    top: 75px;
+    right: 0;
+
+    @media screen and (min-width: ${theme.breakpoints.tablet}px) {
+      top: 0;
+    }
+    @media screen and (min-width: ${theme.breakpoints.desktop}px) {
+      top: 16px;
+      right: 16px;
+    }
+
+    button {
+      height: 30px;
+      width: 30px;
+      background-color: transparent;
+      z-index: 2;
+
+      &:hover,
+      &:focus {
+        transform: scale(1.1);
+        box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.25);
+        background-color: transparent;
+      }
+
+      @media screen and (min-width: ${theme.breakpoints.tablet}px) {
+        height: 38px;
+        width: 38px;
+      }
+
+      svg {
+        color: ${({ theme }) => theme.colors.primaryBurgundy};
+
+        @media screen and (min-width: ${theme.breakpoints.tablet}px) {
+          height: 32px;
+          width: 32px;
+        }
+
+        &:hover,
+        &:focus {
+          color: ${({ theme }) => theme.colors.primaryAccentColor};
+        }
+      }
+    }
+  }
 `;
 
 export const InfoWrapper = styled.div`

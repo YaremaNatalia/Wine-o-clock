@@ -4,7 +4,7 @@
 // };
 
 const regExp = {
-  phoneNumber: /^\d{12}$/,
+  phoneNumber: /^\+\d{7,}$/,
   name: /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
 };
 

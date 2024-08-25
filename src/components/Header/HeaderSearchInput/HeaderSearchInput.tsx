@@ -28,7 +28,7 @@ const HeaderSearchInput: FC = () => {
 
   const searchQuery = watch('search').toLowerCase();
   const navigate = useNavigate();
-  const data = operations.allWines();
+  const data = operations.getAllWinesCache();
 
   const [searchResults, setSearchResults] = useState<IWine[]>([]);
   const [isButtonActive, setIsButtonActive] = useState(false);

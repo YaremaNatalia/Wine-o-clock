@@ -1,7 +1,7 @@
 import { theme } from '@/constants';
 import styled from '@emotion/styled';
 
-export const EmptyCartStyled = styled.div`
+export const EmptyStyled = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -39,5 +39,9 @@ export const EmptyCartStyled = styled.div`
         width: 275px;
       }
     }
+  }
+
+  svg {
+    color: ${({ theme }) => theme.colors.primaryBurgundy};
   }
 `;

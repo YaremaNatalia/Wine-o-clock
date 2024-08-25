@@ -17,7 +17,7 @@ import {
 
 const SearchResult: FC<IProps> = ({ query }) => {
   const [wines, setWines] = useState<IWine[]>([]);
-  const data = operations.allWines();
+  const data = operations.getAllWinesCache();
 
   useEffect(() => {
     if (query) {

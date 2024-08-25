@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { Global, css } from '@emotion/react';
 import 'modern-normalize';
 import {
@@ -14,30 +14,6 @@ import {
 import { FontFamilyNames, theme } from '@/constants';
 
 const GlobalStyles: FC = () => {
-  const [headerHeight, setHeaderHeight] = useState(0);
-
-  useEffect(() => {
-    const header = document.querySelector('header');
-
-    const updateHeaderHeight = () => {
-      if (header) {
-        setHeaderHeight(header.offsetHeight);
-      }
-    };
-
-    updateHeaderHeight();
-
-    window.addEventListener('resize', updateHeaderHeight);
-
-    return () => {
-      window.removeEventListener('resize', updateHeaderHeight);
-    };
-  }, []);
-
-  useEffect(() => {
-    document.body.style.marginTop = `${headerHeight}px`;
-  }, [headerHeight]);
-
   return (
     <Global
       styles={css`
@@ -98,10 +74,15 @@ const GlobalStyles: FC = () => {
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
           overflow-y: scroll;
-          /* margin-top: 112px;
-        @media screen and (min-width: 768px) {
-          margin-top: 153px;
-        } */
+          margin-top: 112px;
+
+          @media screen and (min-width: ${theme.breakpoints.tablet}px) {
+            margin-top: 153px;
+          }
+
+          @media screen and (min-width: ${theme.breakpoints.desktop}px) {
+            margin-top: 120px;
+          }
         }
 
         code {

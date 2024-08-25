@@ -12,12 +12,16 @@ import PublicRoute from '@/components/Routs/PublicRoute';
 import Loader from '@/components/Loader';
 import { QueryKeys, operations } from '@/tanStackQuery';
 import { useQuery } from '@tanstack/react-query';
-import { IAllWinesData, IUser } from '@/types/types';
+import { IUser } from '@/types/types';
 import WineDetailsPage from '@/pages/WineDetailsPage';
 import AboutUsPage from '@/pages/AboutUsPage';
 import CatalogPage from '@/pages/CatalogPage';
 import SearchResultPage from '@/pages/SearchResultPage';
 import BasketPage from '@/pages/BasketPage';
+import FavoritesPage from '@/pages/FavoritesPage';
+import useGetAllWines from '@/hooks/useGetAllWines';
+import useGetBasket from '@/hooks/useGetBasket';
+import useGetFavorites from '@/hooks/useGetFavorites';
 
 const App = () => {
   const { data: token } = useQuery<string>({
@@ -28,11 +32,10 @@ const App = () => {
     queryFn: () => operations.refreshUser(token),
   });
 
-  const { isError, isLoading } = useQuery<IAllWinesData>({
-    queryFn: () => operations.getAllWines(1, 0),
-    queryKey: [QueryKeys.wines],
-    refetchOnMount: true,
-  });
+  const { isError, isLoading } = useGetAllWines();
+  const { isBasketLoading, isBasketError, isBasketFetching } = useGetBasket();
+  const { isFavoritesLoading, isFavoritesError, isFavoritesFetching } =
+    useGetFavorites();
 
   return isFetching ? (
     <Loader />
@@ -60,7 +63,17 @@ const App = () => {
         />
         <Route
           path={PagePaths.favoritesPath}
-          element={<PrivateRoute element={<div>favoritesPath</div>} />}
+          element={
+            <PublicRoute
+              element={
+                <FavoritesPage
+                  isLoading={isFavoritesLoading}
+                  isError={isFavoritesError}
+                  isFetching={isFavoritesFetching}
+                />
+              }
+            />
+          }
         />
         <Route
           path={PagePaths.logInPath}
@@ -76,13 +89,18 @@ const App = () => {
         />
         <Route
           path={PagePaths.basketPath}
-          // element={<PrivateRoute element={<BasketPage />} />}
-          element={<PublicRoute element={<BasketPage />} />}
+          element={
+            <PublicRoute
+              element={
+                <BasketPage
+                  isLoading={isBasketLoading}
+                  isError={isBasketError}
+                  isFetching={isBasketFetching}
+                />
+              }
+            />
+          }
         />
-        <Route path={PagePaths.logInPath} element={<LoginPage />} />
-        <Route path={PagePaths.signUpPath} element={<SignUpPage />} />
-        <Route path={PagePaths.confOfRegPath} element={<ConfOfRegPage />} />
-        <Route path={PagePaths.basketPath} element={<div>basketPath</div>} />
         <Route path='*' element={<NotFoundPage />} />
       </Route>
     </Routes>

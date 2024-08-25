@@ -4,7 +4,14 @@ import { FiMinus } from 'react-icons/fi';
 import { IProps } from './Counter.types';
 import { CounterStyled } from './Counter.styled';
 
-const Counter: FC<IProps> = ({ basket, quantity, counterValue, setCounterValue }) => {
+const Counter: FC<IProps> = ({
+  basket,
+  wine,
+  counterValue,
+  setCounterValue,
+}) => {
+  const { quantity } = wine || {};
+
   const onDecrBtnClick = () => {
     if (counterValue > 1) {
       setCounterValue(counterValue - 1);

@@ -7,33 +7,28 @@ import { ButtonForms, ButtonTypes } from '@/constants';
 import BasketPlus from '@/icons/basketPlus.svg?react';
 import { BtnClickEvent } from '@/types/types';
 import Counter from '../Counter';
-import toast from 'react-hot-toast';
-import CustomToast from '@/components/CustomToast';
 
-const WineInfo: FC<IProps> = ({
-  id,
-  color,
-  sweetness,
-  country,
-  region,
-  volume,
-  alcohol,
-  title,
-  rating,
-  price,
-  quantity,
-  
-}) => {
+import useAddToBasket from '@/hooks/useAddToBasket';
+
+const WineInfo: FC<IProps> = ({ wine }) => {
+  const {
+    wineColor,
+    sugarConsistency,
+    country,
+    region,
+    bottleCapacity,
+    alcohol,
+    price,
+    title,
+    evaluation = 0,
+    quantity,
+  } = wine ?? {};
   const [counterValue, setCounterValue] = useState<number>(1);
+  const { addToBasket, isPending } = useAddToBasket();
 
   const handleBtnClick = (e: BtnClickEvent) => {
-    if (counterValue <= quantity) {
-      console.log(id, counterValue);
-      toast.success(
-        <CustomToast message={`Wine ${title} added to your cart!`} />
-      );
-      setCounterValue(1);
-    }
+    addToBasket({ wine, numbToOrder: counterValue });
+    setCounterValue(1);
     e.currentTarget.blur();
   };
 
@@ -43,16 +38,16 @@ const WineInfo: FC<IProps> = ({
     <WineInfoStyled quantity={quantity}>
       <div className='nameWrapper'>
         <p className='wineName'>
-          {color} {sweetness} wine "{title}" {volume} L
+          {wineColor} {sugarConsistency} wine "{title}" {bottleCapacity} L
         </p>
-        <StarRating data={rating} />
+        <StarRating data={evaluation} />
       </div>
       <WineInfoList>
         <li>
-          Color: <span>{color}</span>
+          Color: <span>{wineColor}</span>
         </li>
         <li>
-          Sweetness: <span>{sweetness}</span>
+          Sweetness: <span>{sugarConsistency}</span>
         </li>
         <li>
           Country: <span>{country}</span>
@@ -61,14 +56,14 @@ const WineInfo: FC<IProps> = ({
           Region: <span>{region}</span>
         </li>
         <li>
-          Volume: <span>{volume}</span>
+          Volume: <span>{bottleCapacity}</span>
         </li>
         <li>
           Alcohol: <span> {alcohol}%</span>
         </li>
       </WineInfoList>
       <Counter
-        quantity={quantity}
+        wine={wine}
         counterValue={counterValue}
         setCounterValue={setCounterValue}
       />
@@ -77,10 +72,11 @@ const WineInfo: FC<IProps> = ({
         <Button
           svg={<BasketPlus />}
           buttonForm={ButtonForms.other}
-          title='Add to cart'
+          title={isPending ? 'Loading...' : 'Add to cart'}
           price={`${totalPrice} ₴`}
           type={ButtonTypes.button}
           onClick={handleBtnClick}
+          disabled={isPending}
         ></Button>
       )}
     </WineInfoStyled>

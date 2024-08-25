@@ -1,12 +1,17 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { IProps } from './WineCard.types';
 import { IoMdHeartEmpty } from 'react-icons/io';
+import { IoMdHeart } from 'react-icons/io';
 import { WineCardStyled, WineDetailsLink } from './WineCard.styled';
 import IconButton from '@/components/IconButton';
 import { AriaLabels, ButtonTypes, PagePaths } from '@/constants';
 import BasketPlus from '@/icons/basketPlus.svg?react';
 import OutOfStock from '@/icons/out-of-stock.svg?react';
 import { BtnClickEvent } from '@/types/types';
+import Loader from '../Loader';
+import useAddToBasket from '@/hooks/useAddToBasket';
+import useFavoritesMutation from '@/hooks/useFavoritesMutation';
+import { operations } from '@/tanStackQuery';
 
 const WineCard: FC<IProps> = ({ wine }) => {
   const {
@@ -23,17 +28,35 @@ const WineCard: FC<IProps> = ({ wine }) => {
     bottleCapacity,
   } = wine;
 
-  const handleClick = (e: BtnClickEvent) => {
-    console.log('click');
+  const { addToBasket, isPending } = useAddToBasket();
+  const { toggleFavorite, isFavoritesPending } = useFavoritesMutation();
+  const favorites = operations.getFavoritesCache();
+
+  const [isInFavorites, setIsInFavorites] = useState<boolean>(false);
+
+  const handleBasketClick = (e: BtnClickEvent) => {
+    e.stopPropagation();
+    addToBasket({ wine });
     e.currentTarget.blur();
   };
 
+  const handleFavoriteClick = (e: BtnClickEvent) => {
+    e.stopPropagation();
+    toggleFavorite(wine);
+
+    e.currentTarget.blur();
+  };
+
+  useEffect(() => {
+    if (favorites) setIsInFavorites(favorites.some((id) => id === _id));
+  }, [favorites, _id]);
+
   return (
-    // <WineDetailsLink to={`/store/${_id}`}>
-    <WineDetailsLink
-      to={`${PagePaths.wineDetailsPath.replace(':wineId', _id)}`}
-    >
-      <WineCardStyled quantity={quantity}>
+    <WineCardStyled quantity={quantity}>
+      <WineDetailsLink
+        to={`${PagePaths.wineDetailsPath.replace(':wineId', _id)}`}
+        className='detailsLink'
+      >
         <div className='imgWrapper'>
           <img className='wineImg' src={imageUrl} alt='Wine image' />
           <div className='iconsWrapper'>
@@ -43,7 +66,6 @@ const WineCard: FC<IProps> = ({ wine }) => {
                 <p className='wineDiscountLabel'>-{adminDiscountPercentage}%</p>
               )}
             </div>
-            <IoMdHeartEmpty />
           </div>
         </div>
         <div className='wineCardInfo'>
@@ -52,27 +74,43 @@ const WineCard: FC<IProps> = ({ wine }) => {
             {wineColor} {sugarConsistency} {bottleCapacity} L
           </p>
           <p className='wineCountry'>{country}</p>
-          <div className='priceWrapper'>
-            <p className='winePrice'>{price} ₴</p>
-            {quantity > 0 && (
-              <IconButton
-                btnSize={40}
-                ariaLabel={AriaLabels.basket}
-                type={ButtonTypes.button}
-                onClick={handleClick}
-              >
-                <BasketPlus />
-              </IconButton>
-            )}
-          </div>
+          <p className='winePrice'>{price} ₴</p>
         </div>
-        {quantity === 0 && (
-          <div className='outOfStockOverlay'>
-            <OutOfStock title='Out of stock' />
-          </div>
-        )}
-      </WineCardStyled>
-    </WineDetailsLink>
+      </WineDetailsLink>
+      {quantity > 0 && (
+        <div className='basketBtnWrapper'>
+          <IconButton
+            btnSize={40}
+            ariaLabel={AriaLabels.basket}
+            type={ButtonTypes.button}
+            onClick={handleBasketClick}
+            disabled={isPending}
+          >
+            {isPending ? <Loader basket={true} /> : <BasketPlus />}
+          </IconButton>
+        </div>
+      )}
+      {quantity === 0 && (
+        <div className='outOfStockOverlay'>
+          <OutOfStock title='Out of stock' />
+        </div>
+      )}
+      <div className='favoritesBtnWrapper'>
+        <IconButton
+          btnSize={27}
+          ariaLabel={AriaLabels.favorites}
+          type={ButtonTypes.button}
+          onClick={handleFavoriteClick}
+          disabled={isFavoritesPending}
+        >
+          {isInFavorites ? (
+            <IoMdHeart size={24} />
+          ) : (
+            <IoMdHeartEmpty size={24} />
+          )}
+        </IconButton>
+      </div>
+    </WineCardStyled>
   );
 };
 

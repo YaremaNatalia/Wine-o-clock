@@ -9,7 +9,7 @@ const filterCatalogWines = (wines: IWine[], filters: string[]) => {
     ['Sales', 'Bestsellers', 'New Collections'].includes(filter)
   );
   const colorFilters = filters.filter((filter) =>
-    ['Red', 'White', 'Pink'].includes(filter)
+    ['Red', 'White', 'Rosé'].includes(filter)
   );
   const sugarConsistencyFilters = filters.filter((filter) =>
     ['Dry', 'Medium dry', 'Medium', 'Sweet'].includes(filter)

@@ -2,10 +2,16 @@ import { FC, useEffect, useState } from 'react';
 import { IProps } from './Product.types';
 import { ProductStyled } from './Product.styled';
 import { RxCross1 } from 'react-icons/rx';
+import useRemoveFromBasket from '@/hooks/useRemoveFromBasket';
 import Counter from '@/components/WineDetails/Counter';
 
-const Product: FC<IProps> = ({ wine, calculateProductPrice }) => {
+
+const Product: FC<IProps> = ({
+  wine,
+  calculateProductPrice,
+}) => {
   const {
+    _id,
     title,
     price,
     imageUrl,
@@ -13,21 +19,27 @@ const Product: FC<IProps> = ({ wine, calculateProductPrice }) => {
     sugarConsistency,
     bottleCapacity,
     quantity,
+    numberToOrder,
   } = wine;
 
-  const [counterValue, setCounterValue] = useState<number>(1);
+  const initialCounterValue =
+    typeof numberToOrder === 'number' ? numberToOrder : 0;
+  const [counterValue, setCounterValue] = useState<number>(initialCounterValue);
 
-  const onDelete = () => {
-    console.log('deleted');
+  const { removeFromBasket } = useRemoveFromBasket();
+
+  const onDelete = (_id: string) => {
+    removeFromBasket(_id);
+    setCounterValue(0);
+    calculateProductPrice(_id, 0);
   };
 
   const winePrice = quantity > 0 ? price : 0;
 
   useEffect(() => {
-    if (counterValue > 0 && winePrice) {
-      calculateProductPrice(counterValue * winePrice);
-    }
-  }, [winePrice, counterValue, calculateProductPrice]);
+    if (counterValue > 0 && winePrice)
+      calculateProductPrice(_id, counterValue * winePrice);
+  }, [winePrice, counterValue, calculateProductPrice, _id]);
 
   return (
     <ProductStyled quantity={quantity}>
@@ -37,14 +49,13 @@ const Product: FC<IProps> = ({ wine, calculateProductPrice }) => {
           <p className='wineName'>
             {wineColor} {sugarConsistency} wine "{title}" {bottleCapacity} L
           </p>
-          <button onClick={onDelete}>
+          <button onClick={() => onDelete(_id)}>
             <RxCross1 size={20} />
           </button>
         </div>
         <div className='priceWrapper'>
           <Counter
-            basket={true}
-            quantity={quantity}
+            wine={wine}
             counterValue={counterValue}
             setCounterValue={setCounterValue}
           />

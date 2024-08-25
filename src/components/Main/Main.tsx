@@ -6,10 +6,11 @@ import MainAgeModal from '@/components/Main/MainAgeModal';
 import { operations } from '@/tanStackQuery';
 import WineListSection from '@/components/WineListSection';
 import { setFilterWines } from '@/utils';
+import useSiteVisited from '@/hooks/useSiteVisited';
 
 
 const Main: FC = () => {
-  const { useSiteVisited } = operations;
+
   const [ageModalIsOpen, setAgeModalIsOpen] = useState(false);
   const { isVisited, setVisited } = useSiteVisited();
 
@@ -26,7 +27,7 @@ const Main: FC = () => {
     setVisited();
   };
 
-  const data = operations.allWines();
+  const data = operations.getAllWinesCache();
 
   const sales = setFilterWines.filterMainWines(data?.products ?? [], 'sales');
   const newWines = setFilterWines.filterMainWines(

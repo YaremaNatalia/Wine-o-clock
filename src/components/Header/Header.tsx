@@ -1,7 +1,7 @@
 import { BtnClickEvent } from '@/types/types';
-import { makeBlur } from '@/utils';
+import { getPrivateLinks, makeBlur } from '@/utils';
 import { useEffect, useState } from 'react';
-import { StyledHeader } from './Header.styled';
+import { StyledBasketLink, StyledHeader } from './Header.styled';
 import Container from '@/components/Container';
 import { PiBasketBold } from 'react-icons/pi';
 import {
@@ -9,7 +9,6 @@ import {
   ClassNames,
   PagePaths,
   navLinks,
-  privateLinks,
   theme,
 } from '@/constants';
 import { Link } from 'react-router-dom';
@@ -19,12 +18,19 @@ import PrivateLinks from '@/components/PrivateLinks';
 import MobileMenu from '@/components/MobileMenu';
 import MobileMenuBtn from '@/components/MobileMenu/MobileMenuBtn';
 import HeaderSearchInput from './HeaderSearchInput';
+import { operations } from '@/tanStackQuery';
 
 const Header = () => {
   const [isDesktopScreen, setIsDesktopScreen] = useState<boolean>(
     window.innerWidth > theme.breakpoints.desktop
   );
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
+  const [hasBasketWines, setHasBasketWines] = useState<boolean>(false);
+  const [hasFavoritesWines, setHasFavoritesWines] = useState<boolean>(false);
+
+  const basketWines = operations.getBasketCache();
+  const favoritesWines = operations.getFavoritesCache();
+  const privateLinks = getPrivateLinks(hasFavoritesWines);
 
   useEffect(() => {
     const handleResize = () => {
@@ -41,6 +47,22 @@ const Header = () => {
   useEffect(() => {
     document.body.style.overflowY = showMobileMenu ? 'hidden' : 'auto';
   }, [showMobileMenu]);
+
+  useEffect(() => {
+    if (basketWines && basketWines.length > 0) {
+      setHasBasketWines(true);
+    } else {
+      setHasBasketWines(false);
+    }
+  }, [setHasBasketWines, basketWines]);
+
+  useEffect(() => {
+    if (favoritesWines && favoritesWines.length > 0) {
+      setHasFavoritesWines(true);
+    } else {
+      setHasFavoritesWines(false);
+    }
+  }, [favoritesWines, setHasFavoritesWines]);
 
   const onMobileMenuBtnClick = (e: BtnClickEvent) => {
     setShowMobileMenu((prevState) => !prevState);
@@ -69,13 +91,14 @@ const Header = () => {
           <NavLinks navLinks={navLinks} />
           {isDesktopScreen && <HeaderSearchInput />}
           <PrivateLinks navLinks={privateLinks} />
-          <Link
+          <StyledBasketLink
             to={PagePaths.basketPath}
             aria-label={AriaLabels.basket}
             className={ClassNames.basket}
+            data-has-wines={hasBasketWines ? 'true' : undefined}
           >
             <PiBasketBold />
-          </Link>
+          </StyledBasketLink>
           {showMobileMenu && (
             <MobileMenu
               onNavLinkClick={onNavLinkClick}
