@@ -8,12 +8,18 @@ import { BasketStyled } from './Basket.styled';
 import OrderConfirmedMessage from './OrderConfirmedMessage';
 import EmptyPage from '../EmptyPage';
 import { operations } from '@/tanStackQuery';
+import { setFilterWines } from '@/utils';
+import WineListSection from '../WineListSection';
 
 const Basket: FC = () => {
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
 
+  const data = operations.getAllWinesCache();
+  const bestsellers = setFilterWines.filterMainWines(
+    data?.products ?? [],
+    'bestsellers'
+  );
   const wines = operations.getBasketCache();
-  console.log(wines);
   const handleOrderConfirm = (orderNumber: string) => {
     setOrderNumber(orderNumber);
     console.log(wines);
@@ -44,6 +50,13 @@ const Basket: FC = () => {
           </>
         )}
       </Container>
+      {bestsellers && bestsellers.length > 0 && (
+        <WineListSection
+          wines={bestsellers}
+          sectionTitle='Bestsellers'
+          componentTitle='MainPage'
+        />
+      )}
     </>
   );
 };

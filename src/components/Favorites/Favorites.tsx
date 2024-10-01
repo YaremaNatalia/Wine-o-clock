@@ -21,27 +21,29 @@ const Favorites: FC = () => {
   );
 
   return (
-    <FavoritesStyled>
-      <PageNavigation
-        firstTitle='Main page'
-        firstLink={PagePaths.homePath}
-        secondTitle='Favorites'
-      />
-      <Container>
-        {favoriteWines && favoriteWines.length > 0 ? (
-          <WineList wines={favoriteWines} />
-        ) : (
-          <EmptyPage title='favorites' />
-        )}
-      </Container>
+    <>
+      <FavoritesStyled>
+        <PageNavigation
+          firstTitle='Main page'
+          firstLink={PagePaths.homePath}
+          secondTitle='Favorites'
+        />
+        <Container>
+          {favoriteWines && favoriteWines.length > 0 ? (
+            <WineList wines={favoriteWines} />
+          ) : (
+            <EmptyPage title='favorites' />
+          )}
+        </Container>
+      </FavoritesStyled>
       {bestsellers && bestsellers.length > 0 && (
         <WineListSection
           wines={bestsellers}
           sectionTitle='Bestsellers'
-          componentTitle='WineDetails'
+          componentTitle='MainPage'
         />
       )}
-    </FavoritesStyled>
+    </>
   );
 };
 
