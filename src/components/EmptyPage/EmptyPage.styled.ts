@@ -6,7 +6,6 @@ export const EmptyStyled = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: ${({ theme }) => theme.spacing(10)};
 
   @media screen and (min-width: ${theme.breakpoints.desktop}px) {
     padding-bottom: ${({ theme }) => theme.spacing(12.5)};
