@@ -1,4 +1,5 @@
 import {
+  CartItem,
   IAllWinesData,
   ICredentials,
   INewUser,
@@ -77,100 +78,121 @@ const refreshUser = async (
   }
 };
 
-const addToBasket = async (
-  wine: IWine,
-  counterValue?: number
-): Promise<void> => {
+const addToCart = async (
+  productId: string,
+  amount?: number
+): Promise<CartItem | null> => {
   try {
-    const { data: basket } = await $instance.get<IWine[]>('api/basket');
-    const isInBasket = basket.find((item) => item._id === wine._id);
-
-    if (isInBasket) {
-      isInBasket.numberToOrder = isInBasket.numberToOrder ?? 0;
-      const newNumberToOrder = counterValue
-        ? isInBasket.numberToOrder + counterValue
-        : isInBasket.numberToOrder + 1;
-
-      if (newNumberToOrder <= wine.quantity) {
-        isInBasket.numberToOrder = newNumberToOrder;
-      }
-    } else {
-      const numberToOrder = counterValue || 1;
-      if (numberToOrder <= wine.quantity) {
-        const wineToAdd = { ...wine, numberToOrder };
-        basket.push(wineToAdd);
-      }
-    }
-    await $instance.post('api/basket', basket);
+    const response = await $instance.post('/api/cart', {
+      productId: productId,
+      amount: amount,
+    });
+    return response.data;
   } catch (error) {
-    console.error('Error adding to basket:', error);
+    console.error('Error adding to cart:', error);
+    return null;
   }
 };
 
-const addToBasketCache = (wine: IWine, counterValue?: number): boolean => {
-  const basket = queryClient.getQueryData<IWine[]>([QueryKeys.basket]) || [];
-  const isInBasket = basket.find((item) => item._id === wine._id);
-
-  if (isInBasket) {
-    isInBasket.numberToOrder = isInBasket.numberToOrder ?? 0;
-    const newNumberToOrder = counterValue
-      ? isInBasket.numberToOrder + counterValue
-      : isInBasket.numberToOrder + 1;
-
-    if (newNumberToOrder <= wine.quantity) {
-      isInBasket.numberToOrder = newNumberToOrder;
-      queryClient.setQueryData([QueryKeys.basket], basket);
-      return true;
-    }
-  } else {
-    const numberToOrder = counterValue || 1;
-    if (numberToOrder <= wine.quantity) {
-      const wineToAdd = { ...wine, numberToOrder };
-      basket.push(wineToAdd);
-      queryClient.setQueryData([QueryKeys.basket], basket);
-      return true;
-    }
-  }
-  return false;
-};
-
-const getBasket = async (page: number = 1, limit: number | null) => {
+const addToCartCache = (productId: string, amount: number): boolean => {
   try {
-    const response = await $instance.get<IWine[]>(
-      `api/basket?page=${page}&limit=${limit}`
+    const cart = queryClient.getQueryData<CartItem[]>([QueryKeys.cart]) || [];
+    const isOnCart = cart.findIndex(
+      (item: CartItem) => item.productId === productId
     );
+
+    if (isOnCart !== -1) {
+      const updatedCart = cart.map((item, index) =>
+        index === isOnCart
+          ? { ...item, amount: (item.amount as number) + amount }
+          : item
+      );
+      queryClient.setQueryData([QueryKeys.cart], updatedCart);
+    } else {
+      const newCartItem: CartItem = {
+        productId,
+        amount,
+      };
+      const updatedCart = [...cart, newCartItem];
+      queryClient.setQueryData([QueryKeys.cart], updatedCart);
+    }
+    return true;
+  } catch (error) {
+    console.error('Error updating cart cache:', error);
+    return false;
+  }
+};
+
+const updateCart = async (
+  productId: string,
+  amount?: number | string
+): Promise<CartItem | null> => {
+  try {
+    const response = await $instance.patch(`/api/cart/amount/${productId}`, {
+      amount: amount,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating the cart:', error);
+    return null;
+  }
+};
+
+const updateCartCache = (
+  productId: string,
+  amount?: number | string
+): boolean => {
+  try {
+    const cart = queryClient.getQueryData<CartItem[]>([QueryKeys.cart]) || [];
+    const updatedCart = cart.map((item: CartItem) => {
+      if (item.productId === productId) {
+        return { ...item, amount: amount !== undefined ? amount : item.amount };
+      }
+      return item;
+    });
+    queryClient.setQueryData([QueryKeys.cart], updatedCart);
+
+    return true;
+  } catch (error) {
+    console.error('Error updating cart cache:', error);
+    return false;
+  }
+};
+
+const removeFromCart = async (productId: string): Promise<CartItem | null> => {
+  try {
+    const response = await $instance.delete(`api/cart/${productId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error removing from cart:', error);
+    return null;
+  }
+};
+
+const removeFromCartCache = (productId: string): boolean => {
+  try {
+    const cart = queryClient.getQueryData<CartItem[]>([QueryKeys.cart]) || [];
+    const updatedCart = cart.filter((item) => item.productId !== productId);
+    queryClient.setQueryData([QueryKeys.cart], updatedCart);
+    return true;
+  } catch (error) {
+    console.error('Error updating cart cache:', error);
+    return false;
+  }
+};
+
+const getCart = async (): Promise<CartItem[]> => {
+  try {
+    const response = await $instance.get(`api/cart`);
     return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
+    return [];
   }
 };
 
-const getBasketCache = () => {
-  return queryClient.getQueryData<IWine[]>([QueryKeys.basket]);
-};
-
-const removeFromBasket = async (id: string): Promise<void> => {
-  try {
-    const { data: basket } = await $instance.get<IWine[]>('api/basket');
-    const isInBasket = basket.find((item) => item._id === id);
-    if (isInBasket) {
-      await $instance.delete(`api/basket/delete/${id}`);
-    }
-  } catch (error) {
-    console.error('Error removing wine from basket:', error);
-  }
-};
-
-const removeFromBasketCache = (id: string): boolean => {
-  const basket = queryClient.getQueryData<IWine[]>([QueryKeys.basket]);
-  const isInBasket = basket?.find((item) => item._id === id);
-  if (isInBasket) {
-    const updatedBasket = basket?.filter((item) => item._id !== id);
-    queryClient.setQueryData([QueryKeys.basket], updatedBasket);
-    return true;
-  } else {
-    return false;
-  }
+const getCartCache = () => {
+  return queryClient.getQueryData<CartItem[]>([QueryKeys.cart]);
 };
 
 const addToFavorites = async (productId: string): Promise<string[]> => {
@@ -243,12 +265,14 @@ const operations = {
   refreshUser,
   login,
   signUp,
-  addToBasket,
-  addToBasketCache,
-  getBasket,
-  getBasketCache,
-  removeFromBasket,
-  removeFromBasketCache,
+  addToCart,
+  addToCartCache,
+  updateCart,
+  updateCartCache,
+  getCart,
+  getCartCache,
+  removeFromCart,
+  removeFromCartCache,
   addToFavorites,
   removeFromFavorites,
   addToFavoritesCache,

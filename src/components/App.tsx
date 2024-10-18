@@ -20,7 +20,7 @@ import SearchResultPage from '@/pages/SearchResultPage';
 import BasketPage from '@/pages/BasketPage';
 import FavoritesPage from '@/pages/FavoritesPage';
 import useGetAllWines from '@/hooks/useGetAllWines';
-import useGetBasket from '@/hooks/useGetBasket';
+import useGetBasket from '@/hooks/useGetCart';
 import useGetFavorites from '@/hooks/useGetFavorites';
 
 const App = () => {

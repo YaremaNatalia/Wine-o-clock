@@ -2,14 +2,18 @@ import { FC, useEffect, useState } from 'react';
 import { IProps } from './Product.types';
 import { ProductStyled } from './Product.styled';
 import { RxCross1 } from 'react-icons/rx';
-import useRemoveFromBasket from '@/hooks/useRemoveFromBasket';
 import Counter from '@/components/WineDetails/Counter';
+import { operations } from '@/tanStackQuery';
+import { IWine } from '@/types/types';
+import useCartMutation from '@/hooks/useCartMutation';
 
+const Product: FC<IProps> = ({ productId, amount, productPrice }) => {
+  const data = operations.getAllWinesCache();
+  const { mutateCart, isCartPending } = useCartMutation();
 
-const Product: FC<IProps> = ({
-  wine,
-  calculateProductPrice,
-}) => {
+  const wine =
+    data?.products.find((wine: IWine) => wine._id === productId) || null;
+
   const {
     _id,
     title,
@@ -19,27 +23,24 @@ const Product: FC<IProps> = ({
     sugarConsistency,
     bottleCapacity,
     quantity,
-    numberToOrder,
   } = wine;
 
-  const initialCounterValue =
-    typeof numberToOrder === 'number' ? numberToOrder : 0;
+  const initialCounterValue = typeof amount === 'number' ? amount : 0;
   const [counterValue, setCounterValue] = useState<number>(initialCounterValue);
 
-  const { removeFromBasket } = useRemoveFromBasket();
-
   const onDelete = (_id: string) => {
-    removeFromBasket(_id);
+    mutateCart({ wine, action: 'remove' });
     setCounterValue(0);
-    calculateProductPrice(_id, 0);
+    productPrice(_id, 0);
   };
 
-  const winePrice = quantity > 0 ? price : 0;
+  const winePrice = quantity > 0 ? (price * counterValue).toFixed(2) : 0;
 
   useEffect(() => {
-    if (counterValue > 0 && winePrice)
-      calculateProductPrice(_id, counterValue * winePrice);
-  }, [winePrice, counterValue, calculateProductPrice, _id]);
+    if (counterValue > 0 && winePrice) {
+      productPrice(_id, counterValue * winePrice);
+    }
+  }, [winePrice, counterValue, productPrice, _id]);
 
   return (
     <ProductStyled quantity={quantity}>
@@ -55,11 +56,12 @@ const Product: FC<IProps> = ({
         </div>
         <div className='priceWrapper'>
           <Counter
+            basket
             wine={wine}
             counterValue={counterValue}
             setCounterValue={setCounterValue}
           />
-          {quantity == 0 && <p className='soldOut'>Sold out</p>}
+          {quantity === 0 && <p className='soldOut'>Sold out</p>}
           <p className='winePrice'>{winePrice} ₴</p>
         </div>
       </div>

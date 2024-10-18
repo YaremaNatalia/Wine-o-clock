@@ -171,5 +171,11 @@ export interface IPage {
 
 export interface IAddBasketMutation {
   wine: IWine;
-  numbToOrder?: number;
+  amount?: number;
+}
+
+export interface CartItem {
+  id?: string;
+  productId: string;
+  amount: number;
 }

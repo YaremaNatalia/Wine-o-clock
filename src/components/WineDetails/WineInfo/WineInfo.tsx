@@ -1,17 +1,20 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { IProps } from './WineInfo.types';
 import { WineInfoList, WineInfoStyled } from './WineInfo.styled';
 import StarRating from '../StarRating';
 import Button from '../../Button';
 import { ButtonForms, ButtonTypes } from '@/constants';
 import BasketPlus from '@/icons/basketPlus.svg?react';
+import BasketPlusGreen from '@/icons/basketPlusGreen.svg?react';
 import { BtnClickEvent } from '@/types/types';
 import Counter from '../Counter';
-
-import useAddToBasket from '@/hooks/useAddToBasket';
+import useCartMutation from '@/hooks/useCartMutation';
+import { operations } from '@/tanStackQuery';
 
 const WineInfo: FC<IProps> = ({ wine }) => {
+  const { mutateCart, isCartPending } = useCartMutation();
   const {
+    _id,
     wineColor,
     sugarConsistency,
     country,
@@ -24,10 +27,19 @@ const WineInfo: FC<IProps> = ({ wine }) => {
     quantity,
   } = wine ?? {};
   const [counterValue, setCounterValue] = useState<number>(1);
-  const { addToBasket, isPending } = useAddToBasket();
+
+  const cart = operations.getCartCache();
+
+  const [isInCart, setIsInCart] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (cart) {
+      setIsInCart(cart.some((item) => item.productId === _id));
+    }
+  }, [cart, _id]);
 
   const handleBtnClick = (e: BtnClickEvent) => {
-    addToBasket({ wine, numbToOrder: counterValue });
+    mutateCart({ wine, amount: counterValue, action: 'add' });
     setCounterValue(1);
     e.currentTarget.blur();
   };
@@ -70,13 +82,13 @@ const WineInfo: FC<IProps> = ({ wine }) => {
       <p className='winePrice'>{price} ₴</p>
       {quantity > 0 && (
         <Button
-          svg={<BasketPlus />}
+          svg={isInCart ? <BasketPlusGreen /> : <BasketPlus />}
           buttonForm={ButtonForms.other}
-          title={isPending ? 'Loading...' : 'Add to cart'}
+          title={isCartPending ? 'Loading...' : 'Add to cart'}
           price={`${totalPrice} ₴`}
           type={ButtonTypes.button}
           onClick={handleBtnClick}
-          disabled={isPending}
+          disabled={isCartPending}
         ></Button>
       )}
     </WineInfoStyled>

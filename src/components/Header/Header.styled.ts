@@ -99,7 +99,7 @@ export const StyledBasketLink = styled(Link)`
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: green;
+    background-color: ${({ theme }) => theme.colors.secondaryGreen};
     opacity: 0;
     transition: opacity ${({ theme }) => theme.transitionDurationAndFunc};
 

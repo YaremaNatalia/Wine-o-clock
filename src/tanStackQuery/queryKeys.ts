@@ -7,7 +7,7 @@ const enum QueryKeys {
   user = 'user',
   isVisited = 'isVisited',
   favorites = 'favorites',
-  basket = 'basket',
+  cart = 'cart',
 }
 
 export default QueryKeys;
