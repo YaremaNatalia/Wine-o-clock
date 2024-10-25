@@ -1,6 +1,6 @@
 import { operations, queryClient, QueryKeys } from '@/tanStackQuery';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { CartItem, IAddBasketMutation } from '@/types/types';
+import { IAddBasketMutation } from '@/types/types';
 import toast from 'react-hot-toast';
 
 const useCartMutation = () => {
@@ -28,8 +28,8 @@ const useCartMutation = () => {
     amount,
     action,
   }: IAddBasketMutation & { action: 'add' | 'remove' | 'toggle' }) => {
-    const cart = queryClient.getQueryData<CartItem[]>([QueryKeys.cart]) || [];
-    const isOnCart = cart.find((item) => item.productId === wine._id);
+    const cartWines = operations.getCartCache() || [];
+    const isInCart = cartWines.find((item) => item.productId === wine._id);
 
     if (action === 'add') {
       if (isLoggedIn) {
@@ -48,7 +48,7 @@ const useCartMutation = () => {
       }
       toast.success(`Wine ${wine.title} removed from your cart!`);
     } else if (action === 'toggle') {
-      if (isOnCart) {
+      if (isInCart) {
         mutateCart({ wine, amount, action: 'remove' });
       } else {
         mutateCart({ wine, amount, action: 'add' });

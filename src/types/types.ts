@@ -44,7 +44,8 @@ export interface IWine {
   price: number;
   adminDiscountPercentage: number;
   description: string;
-  quantity: number;
+  quantity: number; 
+  amount?: number;
   bottleCapacity: number;
   alcohol: number;
   isNewCollection: boolean;

@@ -1,7 +1,7 @@
 export interface IProps {
   productId: string;
-  amount: number;
-  productPrice: (id: string, price: number) => void;
+  amount:number;
+  updatePrice: (id: string, price: number) => void;
 }
 
 export interface ProductStyledProps {

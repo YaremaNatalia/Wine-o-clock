@@ -39,10 +39,12 @@ const WineInfo: FC<IProps> = ({ wine }) => {
   }, [cart, _id]);
 
   const handleBtnClick = (e: BtnClickEvent) => {
-    mutateCart({ wine, amount: counterValue, action: 'add' });
+    mutateCart({ wine, amount: counterValue, action: 'toggle' });
+    setIsInCart((prevIsInCart) => !prevIsInCart);
     setCounterValue(1);
     e.currentTarget.blur();
   };
+
 
   const totalPrice = (counterValue * price).toFixed(2);
 
@@ -78,13 +80,16 @@ const WineInfo: FC<IProps> = ({ wine }) => {
         wine={wine}
         counterValue={counterValue}
         setCounterValue={setCounterValue}
+        isInCart={isInCart}
       />
       <p className='winePrice'>{price} ₴</p>
       {quantity > 0 && (
         <Button
           svg={isInCart ? <BasketPlusGreen /> : <BasketPlus />}
           buttonForm={ButtonForms.other}
-          title={isCartPending ? 'Loading...' : 'Add to cart'}
+          title={
+            isCartPending ? 'Loading...' : isInCart ? 'Remove' : 'Add to cart'
+          }
           price={`${totalPrice} ₴`}
           type={ButtonTypes.button}
           onClick={handleBtnClick}

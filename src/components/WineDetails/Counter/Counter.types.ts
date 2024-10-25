@@ -6,5 +6,6 @@ export interface IProps {
   wine: IWine;
   counterValue: number;
   setCounterValue: Dispatch<SetStateAction<number>>;
-
+  isCartPending?: boolean;
+  isInCart?: boolean;
 }

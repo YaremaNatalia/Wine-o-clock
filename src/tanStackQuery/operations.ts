@@ -125,7 +125,7 @@ const addToCartCache = (productId: string, amount: number): boolean => {
 
 const updateCart = async (
   productId: string,
-  amount?: number | string
+  amount: number
 ): Promise<CartItem | null> => {
   try {
     const response = await $instance.patch(`/api/cart/amount/${productId}`, {
@@ -138,15 +138,12 @@ const updateCart = async (
   }
 };
 
-const updateCartCache = (
-  productId: string,
-  amount?: number | string
-): boolean => {
+const updateCartCache = (productId: string, amount: number): boolean => {
   try {
     const cart = queryClient.getQueryData<CartItem[]>([QueryKeys.cart]) || [];
     const updatedCart = cart.map((item: CartItem) => {
       if (item.productId === productId) {
-        return { ...item, amount: amount !== undefined ? amount : item.amount };
+        return { ...item, amount };
       }
       return item;
     });
