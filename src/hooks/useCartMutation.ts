@@ -25,17 +25,18 @@ const useCartMutation = () => {
 
   const mutateCart = ({
     wine,
-    amount,
+    amount = 1,
     action,
   }: IAddBasketMutation & { action: 'add' | 'remove' | 'toggle' }) => {
-    const cartWines = operations.getCartCache() || [];
-    const isInCart = cartWines.find((item) => item.productId === wine._id);
+    const isInCart = operations
+      .getCartCache()
+      ?.some((item) => item.productId === wine._id);
 
     if (action === 'add') {
       if (isLoggedIn) {
         addToCart({ wine, amount });
       } else {
-        operations.addToCartCache(wine._id, amount ?? 1);
+        operations.addToCartCache(wine._id, amount);
         queryClient.invalidateQueries({ queryKey: [QueryKeys.cart] });
       }
       toast.success(`Wine ${wine.title} added to your cart!`);
@@ -49,10 +50,21 @@ const useCartMutation = () => {
       toast.success(`Wine ${wine.title} removed from your cart!`);
     } else if (action === 'toggle') {
       if (isInCart) {
-        mutateCart({ wine, amount, action: 'remove' });
+        if (isLoggedIn) {
+          removeFromCart(wine._id);
+        } else {
+          operations.removeFromCartCache(wine._id);
+        }
+        toast.success(`Wine ${wine.title} removed from your cart!`);
       } else {
-        mutateCart({ wine, amount, action: 'add' });
+        if (isLoggedIn) {
+          addToCart({ wine, amount });
+        } else {
+          operations.addToCartCache(wine._id, amount);
+        }
+        toast.success(`Wine ${wine.title} added to your cart!`);
       }
+      queryClient.invalidateQueries({ queryKey: [QueryKeys.cart] });
     }
   };
 

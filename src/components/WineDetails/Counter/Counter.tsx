@@ -4,7 +4,7 @@ import { FiMinus } from 'react-icons/fi';
 import { IProps } from './Counter.types';
 import { CounterStyled } from './Counter.styled';
 import Loader from '@/components/Loader';
-// import useCartUpdate from '@/hooks/useCartUpdate';
+import useCartUpdate from '@/hooks/useCartUpdate';
 
 const Counter: FC<IProps> = ({
   basket,
@@ -12,28 +12,29 @@ const Counter: FC<IProps> = ({
   counterValue,
   setCounterValue,
   isCartPending,
-  // isInCart,
 }) => {
   const { quantity } = wine || {};
-  // const { updateCart } = useCartUpdate(wine, counterValue);
-
-  // useEffect(() => {
-  //   if (isInCart) {
-  //     updateCart({ wine, amount: counterValue });
-  //   }
-  // }, [counterValue, isInCart, updateCart, wine]);
-
-  const onDecrBtnClick = () => {
-    if (counterValue > 1) {
-      setCounterValue(counterValue - 1);
+  const { updateCart } = useCartUpdate();
+  
+   const onDecrBtnClick = () => {
+     if (counterValue > 1) {
+       const newValue = counterValue - 1;
+       setCounterValue(newValue);
+    if (basket) {
+      updateCart(wine, newValue); 
     }
-  };
+     }
+   };
 
-  const onIncrBtnClick = () => {
-    if (counterValue < quantity) {
-      setCounterValue(counterValue + 1);
+   const onIncrBtnClick = () => {
+     if (counterValue < quantity) {
+       const newValue = counterValue + 1;
+       setCounterValue(newValue);
+    if (basket) {
+      updateCart(wine, newValue); 
     }
-  };
+     }
+   };
 
   return (
     <CounterStyled basket={basket}>

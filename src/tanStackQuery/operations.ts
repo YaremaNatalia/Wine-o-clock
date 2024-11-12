@@ -17,7 +17,7 @@ const getAllWines = async (
 ) => {
   try {
     const response = await $instance.get<IAllWinesData>(
-      `api/products?page=${page}&limit=${limit}&title=${title}`
+      `/api/products?page=${page}&limit=${limit}&title=${title}`
     );
     return response.data;
   } catch (error) {
@@ -31,7 +31,7 @@ const getAllWinesCache = () => {
 
 const getWineById = async (productId: string) => {
   try {
-    const response = await $instance.get<IWine>(`api/products/${productId}`);
+    const response = await $instance.get<IWine>(`/api/products/${productId}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -59,8 +59,21 @@ const signUp = async (data: INewUser): Promise<void> =>
 
 const login = async (data: ICredentials): Promise<string> => {
   const response = await $instance.post('/api/auth/signin', data);
+  console.log(response.data);
   return response.data.token;
 };
+
+// {
+//     "_id": "6733a00e9aa20d53eafaf334",
+//     "email": "xagetes228@anypng.com",
+//     "phoneNumber": "+30661111111",
+//     "firstName": "TestName",
+//     "lastName": "TestLastName",
+//     "restorePasswordToken": null,
+//     "favorites": [
+//         "66391dfa129bcd0ca77ccc09"
+//     ]
+// }
 
 const refreshUser = async (
   token: string | undefined
@@ -70,7 +83,7 @@ const refreshUser = async (
   $instance.defaults.headers.common.Authorization = `Bearer ${token}`;
 
   try {
-    const response = await $instance.get('api/auth/current');
+    const response = await $instance.get('/api/auth/current');
     queryClient.setQueryData([QueryKeys.isLoggedIn], true);
     return response.data;
   } catch (error) {
@@ -101,14 +114,7 @@ const addToCartCache = (productId: string, amount: number): boolean => {
       (item: CartItem) => item.productId === productId
     );
 
-    if (isOnCart !== -1) {
-      const updatedCart = cart.map((item, index) =>
-        index === isOnCart
-          ? { ...item, amount: (item.amount as number) + amount }
-          : item
-      );
-      queryClient.setQueryData([QueryKeys.cart], updatedCart);
-    } else {
+    if (isOnCart === -1) {
       const newCartItem: CartItem = {
         productId,
         amount,
@@ -116,6 +122,7 @@ const addToCartCache = (productId: string, amount: number): boolean => {
       const updatedCart = [...cart, newCartItem];
       queryClient.setQueryData([QueryKeys.cart], updatedCart);
     }
+
     return true;
   } catch (error) {
     console.error('Error updating cart cache:', error);
@@ -145,6 +152,7 @@ const updateCartCache = (productId: string, amount: number): boolean => {
       if (item.productId === productId) {
         return { ...item, amount };
       }
+
       return item;
     });
     queryClient.setQueryData([QueryKeys.cart], updatedCart);
@@ -157,8 +165,9 @@ const updateCartCache = (productId: string, amount: number): boolean => {
 };
 
 const removeFromCart = async (productId: string): Promise<CartItem | null> => {
+  console.log(productId);
   try {
-    const response = await $instance.delete(`api/cart/${productId}`);
+    const response = await $instance.delete(`/api/cart/${productId}`);
     return response.data;
   } catch (error) {
     console.error('Error removing from cart:', error);
@@ -180,7 +189,7 @@ const removeFromCartCache = (productId: string): boolean => {
 
 const getCart = async (): Promise<CartItem[]> => {
   try {
-    const response = await $instance.get(`api/cart`);
+    const response = await $instance.get(`/api/cart`);
     return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -219,7 +228,7 @@ const addToFavoritesCache = (productId: string): boolean => {
 
 const removeFromFavorites = async (productId: string): Promise<string[]> => {
   try {
-    const response = await $instance.delete(`api/favorites/${productId}`);
+    const response = await $instance.delete(`/api/favorites/${productId}`);
     return response.data;
   } catch (error) {
     console.error('Error removing from favorites:', error);
@@ -242,7 +251,7 @@ const removeFromFavoritesCache = (productId: string): boolean => {
 
 const getFavorites = async (): Promise<string[]> => {
   try {
-    const response = await $instance.get(`api/favorites`);
+    const response = await $instance.get(`/api/favorites`);
     return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);

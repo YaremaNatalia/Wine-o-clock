@@ -7,5 +7,5 @@ export interface IProps {
   counterValue: number;
   setCounterValue: Dispatch<SetStateAction<number>>;
   isCartPending?: boolean;
-  isInCart?: boolean;
+
 }

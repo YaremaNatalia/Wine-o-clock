@@ -45,7 +45,6 @@ const WineInfo: FC<IProps> = ({ wine }) => {
     e.currentTarget.blur();
   };
 
-
   const totalPrice = (counterValue * price).toFixed(2);
 
   return (
@@ -80,7 +79,6 @@ const WineInfo: FC<IProps> = ({ wine }) => {
         wine={wine}
         counterValue={counterValue}
         setCounterValue={setCounterValue}
-        isInCart={isInCart}
       />
       <p className='winePrice'>{price} ₴</p>
       {quantity > 0 && (

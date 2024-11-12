@@ -3,7 +3,7 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { IAddBasketMutation, IWine } from '@/types/types';
 import toast from 'react-hot-toast';
 
-const useCartUpdate = (wine: IWine, amount: number) => {
+const useCartUpdate = () => {
   const { data: isLoggedIn } = useQuery<boolean>({
     queryKey: [QueryKeys.isLoggedIn],
   });
@@ -13,14 +13,10 @@ const useCartUpdate = (wine: IWine, amount: number) => {
       operations.updateCart(data.wine._id, data.amount ?? 1),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QueryKeys.cart] });
-      toast.success(`Wine ${wine.title} updated in your cart!`);
-    },
-    onError: () => {
-      toast.error(`There was a problem updating wine in your cart!`);
     },
   });
 
-  const handleUpdate = () => {
+  const handleUpdate = (wine: IWine, amount: number) => {
     const isInCart = operations
       .getCartCache()
       ?.some((item) => item.productId === wine._id);
@@ -33,16 +29,14 @@ const useCartUpdate = (wine: IWine, amount: number) => {
     if (isLoggedIn) {
       updateCart({ wine, amount });
     } else {
-      operations.addToCartCache(wine._id, amount);
+      operations.updateCartCache(wine._id, amount);
       queryClient.invalidateQueries({ queryKey: [QueryKeys.cart] });
       toast.success(`Wine ${wine.title} updated in your cart!`);
     }
   };
 
-  handleUpdate();
-
   return {
-    updateCart,
+    updateCart: handleUpdate,
     isCartPending: isPendingUpdate,
   };
 };

@@ -11,10 +11,10 @@ import { IWine } from '@/types/types';
 
 const BasketList: FC<IProps> = ({ wines }) => {
   const data = operations.getAllWinesCache();
-    const availableWines = wines.filter((wine) =>
-      data?.products.some((product: IWine) => product._id === wine.productId)
+  const availableWines = wines.filter((wine) =>
+    data?.products.some((product: IWine) => product._id === wine.productId)
   );
-  console.log(availableWines);
+
   const [productPrice, setProductPrice] = useState<{
     [key: string]: number;
   }>({});
