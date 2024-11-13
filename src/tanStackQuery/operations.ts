@@ -59,7 +59,6 @@ const signUp = async (data: INewUser): Promise<void> =>
 
 const login = async (data: ICredentials): Promise<string> => {
   const response = await $instance.post('/api/auth/signin', data);
-  console.log(response.data);
   return response.data.token;
 };
 
