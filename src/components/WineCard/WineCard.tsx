@@ -6,12 +6,13 @@ import { WineCardStyled, WineDetailsLink } from './WineCard.styled';
 import IconButton from '@/components/IconButton';
 import { AriaLabels, ButtonTypes, PagePaths } from '@/constants';
 import BasketPlus from '@/icons/basketPlus.svg?react';
+import BasketPlusGreen from '@/icons/basketPlusGreen.svg?react';
 import OutOfStock from '@/icons/out-of-stock.svg?react';
 import { BtnClickEvent } from '@/types/types';
 import Loader from '../Loader';
-import useAddToBasket from '@/hooks/useAddToBasket';
 import useFavoritesMutation from '@/hooks/useFavoritesMutation';
 import { operations } from '@/tanStackQuery';
+import useCartMutation from '@/hooks/useCartMutation';
 
 const WineCard: FC<IProps> = ({ wine }) => {
   const {
@@ -28,28 +29,35 @@ const WineCard: FC<IProps> = ({ wine }) => {
     bottleCapacity,
   } = wine;
 
-  const { addToBasket, isPending } = useAddToBasket();
+  const { mutateCart, isCartPending } = useCartMutation();
   const { toggleFavorite, isFavoritesPending } = useFavoritesMutation();
   const favorites = operations.getFavoritesCache();
+  const cart = operations.getCartCache();
 
   const [isInFavorites, setIsInFavorites] = useState<boolean>(false);
+  const [isInCart, setIsInCart] = useState<boolean>(false);
 
   const handleBasketClick = (e: BtnClickEvent) => {
     e.stopPropagation();
-    addToBasket({ wine });
+    mutateCart({ wine, action: 'toggle' });
     e.currentTarget.blur();
   };
 
   const handleFavoriteClick = (e: BtnClickEvent) => {
     e.stopPropagation();
     toggleFavorite(wine);
-
     e.currentTarget.blur();
   };
 
   useEffect(() => {
     if (favorites) setIsInFavorites(favorites.some((id) => id === _id));
   }, [favorites, _id]);
+
+  useEffect(() => {
+    if (cart) {
+      setIsInCart(cart.some((item) => item.productId === _id));
+    }
+  }, [cart, _id]);
 
   return (
     <WineCardStyled quantity={quantity}>
@@ -84,9 +92,15 @@ const WineCard: FC<IProps> = ({ wine }) => {
             ariaLabel={AriaLabels.basket}
             type={ButtonTypes.button}
             onClick={handleBasketClick}
-            disabled={isPending}
+            disabled={isCartPending}
           >
-            {isPending ? <Loader basket={true} /> : <BasketPlus />}
+            {isCartPending ? (
+              <Loader basket={true} />
+            ) : isInCart ? (
+              <BasketPlusGreen />
+            ) : (
+              <BasketPlus />
+            )}
           </IconButton>
         </div>
       )}

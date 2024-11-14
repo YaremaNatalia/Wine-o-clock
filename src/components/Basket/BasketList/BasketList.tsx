@@ -6,16 +6,23 @@ import {
 } from './BasketList.styled';
 import Product from '../Product';
 import { IProps } from './BasketList.types';
+import { operations } from '@/tanStackQuery';
+import { IWine } from '@/types/types';
 
 const BasketList: FC<IProps> = ({ wines }) => {
-  const [productPrices, setProductPrices] = useState<{ [key: string]: number }>(
-    {}
+  const data = operations.getAllWinesCache();
+  const availableWines = wines.filter((wine) =>
+    data?.products.some((product: IWine) => product._id === wine.productId)
   );
+
+  const [productPrice, setProductPrice] = useState<{
+    [key: string]: number;
+  }>({});
   const [deliveryPrice] = useState<number>(0);
   const [discount] = useState<number>(0);
 
-  const calculateProductPrice = (id: string, price: number) => {
-    setProductPrices((prevPrices) => {
+  const updatePrice = (id: string, price: number) => {
+    setProductPrice((prevPrices) => {
       if (prevPrices[id] !== price) {
         return {
           ...prevPrices,
@@ -27,7 +34,7 @@ const BasketList: FC<IProps> = ({ wines }) => {
   };
 
   const listPrice = parseFloat(
-    Object.values(productPrices)
+    Object.values(productPrice)
       .reduce((total, price) => total + price, 0)
       .toFixed(2)
   );
@@ -38,11 +45,12 @@ const BasketList: FC<IProps> = ({ wines }) => {
     <ProductsWrapper>
       <h2>Products</h2>
       <ProductListStyled>
-        {wines?.map((wine) => (
+        {availableWines?.map((wine) => (
           <Product
-            key={wine._id}
-            wine={wine}
-            calculateProductPrice={calculateProductPrice}
+            key={wine.productId}
+            productId={wine.productId}
+            amount={wine.amount}
+            updatePrice={updatePrice}
           />
         ))}
       </ProductListStyled>

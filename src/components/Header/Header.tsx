@@ -28,7 +28,7 @@ const Header = () => {
   const [hasBasketWines, setHasBasketWines] = useState<boolean>(false);
   const [hasFavoritesWines, setHasFavoritesWines] = useState<boolean>(false);
 
-  const basketWines = operations.getBasketCache();
+  const cartWines = operations.getCartCache();
   const favoritesWines = operations.getFavoritesCache();
   const privateLinks = getPrivateLinks(hasFavoritesWines);
 
@@ -49,12 +49,12 @@ const Header = () => {
   }, [showMobileMenu]);
 
   useEffect(() => {
-    if (basketWines && basketWines.length > 0) {
+    if (cartWines && cartWines.length > 0) {
       setHasBasketWines(true);
     } else {
       setHasBasketWines(false);
     }
-  }, [setHasBasketWines, basketWines]);
+  }, [setHasBasketWines, cartWines]);
 
   useEffect(() => {
     if (favoritesWines && favoritesWines.length > 0) {

@@ -20,8 +20,8 @@ import SearchResultPage from '@/pages/SearchResultPage';
 import BasketPage from '@/pages/BasketPage';
 import FavoritesPage from '@/pages/FavoritesPage';
 import useGetAllWines from '@/hooks/useGetAllWines';
-import useGetBasket from '@/hooks/useGetBasket';
 import useGetFavorites from '@/hooks/useGetFavorites';
+import useGetCart from '@/hooks/useGetCart';
 
 const App = () => {
   const { data: token } = useQuery<string>({
@@ -33,7 +33,7 @@ const App = () => {
   });
 
   const { isError, isLoading } = useGetAllWines();
-  const { isBasketLoading, isBasketError, isBasketFetching } = useGetBasket();
+  const { isCartLoading, isCartError, isCartFetching } = useGetCart();
   const { isFavoritesLoading, isFavoritesError, isFavoritesFetching } =
     useGetFavorites();
 
@@ -93,9 +93,9 @@ const App = () => {
             <PublicRoute
               element={
                 <BasketPage
-                  isLoading={isBasketLoading}
-                  isError={isBasketError}
-                  isFetching={isBasketFetching}
+                  isLoading={isCartLoading}
+                  isError={isCartError}
+                  isFetching={isCartFetching}
                 />
               }
             />

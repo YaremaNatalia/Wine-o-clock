@@ -19,7 +19,8 @@ const Basket: FC = () => {
     data?.products ?? [],
     'bestsellers'
   );
-  const wines = operations.getBasketCache();
+  const wines = operations.getCartCache() || [];
+
   const handleOrderConfirm = (orderNumber: string) => {
     setOrderNumber(orderNumber);
     console.log(wines);

@@ -44,7 +44,8 @@ export interface IWine {
   price: number;
   adminDiscountPercentage: number;
   description: string;
-  quantity: number;
+  quantity: number; 
+  amount?: number;
   bottleCapacity: number;
   alcohol: number;
   isNewCollection: boolean;
@@ -171,5 +172,11 @@ export interface IPage {
 
 export interface IAddBasketMutation {
   wine: IWine;
-  numbToOrder?: number;
+  amount?: number;
+}
+
+export interface CartItem {
+  id?: string;
+  productId: string;
+  amount: number;
 }

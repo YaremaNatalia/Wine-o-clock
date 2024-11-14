@@ -1,6 +1,5 @@
-import { IWine } from '@/types/types';
+import { CartItem } from "@/types/types";
 
 export interface IProps {
-  wines: IWine[];
-
+  wines: CartItem[];
 }
