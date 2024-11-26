@@ -164,7 +164,6 @@ const updateCartCache = (productId: string, amount: number): boolean => {
 };
 
 const removeFromCart = async (productId: string): Promise<CartItem | null> => {
-  console.log(productId);
   try {
     const response = await $instance.delete(`/api/cart/${productId}`);
     return response.data;

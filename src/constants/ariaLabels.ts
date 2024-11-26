@@ -5,6 +5,9 @@ const enum AriaLabels {
   basket = 'basket',
   logo = 'home page',
   closeBtn = 'Close modal window',
+  myOrders = 'my orders',
+  myReviews = 'my reviews',
+  exit = 'exit',
 }
 
 export default AriaLabels;

@@ -22,17 +22,18 @@ import FavoritesPage from '@/pages/FavoritesPage';
 import useGetAllWines from '@/hooks/useGetAllWines';
 import useGetFavorites from '@/hooks/useGetFavorites';
 import useGetCart from '@/hooks/useGetCart';
+import PersonalDataPage from '@/pages/PersonalData';
 
 const App = () => {
   const { data: token } = useQuery<string>({
     queryKey: [QueryKeys.token],
   });
-  const { isFetching } = useQuery<IUser | null>({
+  const { isFetching, isLoading, isError } = useQuery<IUser | null>({
     queryKey: [QueryKeys.user, token],
     queryFn: () => operations.refreshUser(token),
   });
 
-  const { isError, isLoading } = useGetAllWines();
+  const { isGetWinesError, isGetWinesLoading } = useGetAllWines();
   const { isCartLoading, isCartError, isCartFetching } = useGetCart();
   const { isFavoritesLoading, isFavoritesError, isFavoritesFetching } =
     useGetFavorites();
@@ -44,22 +45,44 @@ const App = () => {
       <Route path={PagePaths.homePath} element={<SharedLayout />}>
         <Route
           path={PagePaths.storePath}
-          element={<CatalogPage isLoading={isLoading} isError={isError} />}
+          element={
+            <CatalogPage
+              isLoading={isGetWinesLoading}
+              isError={isGetWinesError}
+            />
+          }
         />
         <Route
           index
-          element={<MainPage isLoading={isLoading} isError={isError} />}
+          element={
+            <MainPage isLoading={isGetWinesLoading} isError={isGetWinesError} />
+          }
         />
         <Route
           path={PagePaths.searchResultPath}
-          element={<SearchResultPage isLoading={isLoading} isError={isError} />}
+          element={
+            <SearchResultPage
+              isLoading={isGetWinesLoading}
+              isError={isGetWinesError}
+            />
+          }
         />
         <Route path={PagePaths.wineTimePath} element={<WineTimePage />} />
         <Route path={PagePaths.wineDetailsPath} element={<WineDetailsPage />} />
         <Route path={PagePaths.aboutUsPath} element={<AboutUsPage />} />
         <Route
           path={PagePaths.personalDataPath}
-          element={<PrivateRoute element={<div>personalDataPath</div>} />}
+          element={
+            <PrivateRoute
+              element={
+                <PersonalDataPage
+                  isLoading={isLoading}
+                  isError={isError}
+                  isFetching={isFetching}
+                />
+              }
+            />
+          }
         />
         <Route
           path={PagePaths.favoritesPath}
