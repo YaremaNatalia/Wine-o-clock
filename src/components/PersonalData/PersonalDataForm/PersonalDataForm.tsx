@@ -2,8 +2,12 @@ import { FC } from 'react';
 import { PiUserBold } from 'react-icons/pi';
 import { IProps } from '../PersonalData.types';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Button, FormContainer, InputField, TitlePersonalData } from './PersonalDataForm.styled';
-
+import {
+  Button,
+  FormContainer,
+  InputField,
+  TitlePersonalData,
+} from './PersonalDataForm.styled';
 
 const PersonalDataForm: FC<IProps> = ({ user }) => {
   const {
@@ -12,9 +16,10 @@ const PersonalDataForm: FC<IProps> = ({ user }) => {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      name: user?.name || '',
+      firstName: user?.firstName || '',
+      lastName: user?.lastName || '',
       birthDate: '',
-      phoneNumber: '',
+      phoneNumber: user?.phoneNumber || '',
       email: user?.email || '',
       deliveryAddress: user?.deliveryAddress || '',
     },
@@ -46,14 +51,20 @@ const PersonalDataForm: FC<IProps> = ({ user }) => {
           </TitlePersonalData>
 
           <InputField>
-            <label> Name</label>
+            <label>First Name</label>
             <input
-              {...register('name', {
-                required: 'First name is required',
-              })}
+              {...register('firstName', { required: 'First name is required' })}
               placeholder='Enter your first name'
             />
-            {errors.name && <span>{errors.name.message}</span>}
+            {errors.firstName && <span>{errors.firstName.message}</span>}
+          </InputField>
+          <InputField>
+            <label>Last Name</label>
+            <input
+              {...register('lastName', { required: 'Last name is required' })}
+              placeholder='Enter your last name'
+            />
+            {errors.lastName && <span>{errors.lastName.message}</span>}
           </InputField>
 
           <InputField>
