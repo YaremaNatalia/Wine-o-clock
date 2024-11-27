@@ -10,9 +10,6 @@ import NotFoundPage from '@/pages/NotFoundPage';
 import WineTimePage from '@/pages/WineTimePage';
 import PublicRoute from '@/components/Routs/PublicRoute';
 import Loader from '@/components/Loader';
-import { QueryKeys, operations } from '@/tanStackQuery';
-import { useQuery } from '@tanstack/react-query';
-import { IUser } from '@/types/types';
 import WineDetailsPage from '@/pages/WineDetailsPage';
 import AboutUsPage from '@/pages/AboutUsPage';
 import CatalogPage from '@/pages/CatalogPage';
@@ -23,22 +20,16 @@ import useGetAllWines from '@/hooks/useGetAllWines';
 import useGetFavorites from '@/hooks/useGetFavorites';
 import useGetCart from '@/hooks/useGetCart';
 import PersonalDataPage from '@/pages/PersonalData';
+import useGetUser from '@/hooks/useGetUser';
 
 const App = () => {
-  const { data: token } = useQuery<string>({
-    queryKey: [QueryKeys.token],
-  });
-  const { isFetching, isLoading, isError } = useQuery<IUser | null>({
-    queryKey: [QueryKeys.user, token],
-    queryFn: () => operations.refreshUser(token),
-  });
-
+  const { user, isUserLoading, isUserFetching, isUserError } = useGetUser();
   const { isGetWinesError, isGetWinesLoading } = useGetAllWines();
   const { isCartLoading, isCartError, isCartFetching } = useGetCart();
   const { isFavoritesLoading, isFavoritesError, isFavoritesFetching } =
     useGetFavorites();
 
-  return isFetching ? (
+  return isGetWinesLoading ? (
     <Loader />
   ) : (
     <Routes>
@@ -76,9 +67,10 @@ const App = () => {
             <PrivateRoute
               element={
                 <PersonalDataPage
-                  isLoading={isLoading}
-                  isError={isError}
-                  isFetching={isFetching}
+                  user={user}
+                  isLoading={isUserLoading}
+                  isError={isUserError}
+                  isFetching={isUserFetching}
                 />
               }
             />

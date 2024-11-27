@@ -21,7 +21,6 @@ export const PersonalDataNavigationWrapper = styled.div`
     gap: ${({ theme }) => theme.spacing(8)};
     padding: ${({ theme }) => theme.spacing(6)} 0;
   }
-
 `;
 
 export const ListItem = styled.li`
@@ -29,10 +28,17 @@ export const ListItem = styled.li`
   justify-content: center;
   color: ${({ theme }) => theme.colors.primaryWhite};
 
-  & a {
+  & button {
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: ${({ theme }) => theme.spacing(2)};
+    background-color: transparent;
     color: ${({ theme }) => theme.colors.primaryWhite};
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    font-weight: ${({ theme }) => theme.fontWeight.medium};
     &:hover,
     &:focus {
       color: ${({ theme }) => theme.colors.primaryAccentColor};
@@ -62,5 +68,3 @@ export const ListItem = styled.li`
     }
   }
 `;
-
-export const Title = styled.span``;

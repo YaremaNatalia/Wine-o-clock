@@ -52,14 +52,17 @@ const getWineById = async (productId: string) => {
 const signUp = async (data: INewUser): Promise<void> =>
   await $instance.post('api/auth/signup', data);
 
-// const login = async (data: ICredentials): Promise<string> => {
-//   const response = await $instance.post('api/auth/signin', data);
-//   return response.data;
-// };
-
 const login = async (data: ICredentials): Promise<string> => {
   const response = await $instance.post('/api/auth/signin', data);
   return response.data.token;
+};
+
+const logout = async (): Promise<void> => {
+  try {
+    await $instance.post('/api/auth/signout');
+  } catch (error) {
+    console.error('Logout error:', error);
+  }
 };
 
 // {
@@ -74,7 +77,7 @@ const login = async (data: ICredentials): Promise<string> => {
 //     ]
 // }
 
-const refreshUser = async (
+const getPersonalData = async (
   token: string | undefined
 ): Promise<IUser | null> => {
   queryClient.setQueryData([QueryKeys.isLoggedIn], false);
@@ -89,6 +92,7 @@ const refreshUser = async (
     return null;
   }
 };
+
 
 const addToCart = async (
   productId: string,
@@ -266,9 +270,10 @@ const operations = {
   getAllWinesCache,
   getWineById,
   // getPromotion,
-  refreshUser,
+  getPersonalData,
   login,
   signUp,
+  logout,
   addToCart,
   addToCartCache,
   updateCart,

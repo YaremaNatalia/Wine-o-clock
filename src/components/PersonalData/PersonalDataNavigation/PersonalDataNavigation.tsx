@@ -1,31 +1,39 @@
 import { FC } from 'react';
-
-import Container from '@/components/Container';
 import { RxExit } from 'react-icons/rx';
 
 import {
   ListItem,
   PersonalDataNavigationWrapper,
-  Title,
 } from './PersonalDataNavigation.styled';
 import { AriaLabels, PagePaths } from '@/constants';
 import PersonalDataLinks from '../PersonalDataLinks';
 import navLinksPersonalData from '@/constants/navLinksPersonalData';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import useLogout from '@/hooks/useLogout';
 
-const PersonalDataNavigation: FC = ({}) => {
+const PersonalDataNavigation: FC = () => {
+  const navigate = useNavigate();
+  const { logout, isPendingLogout } = useLogout();
+
+  const handleLogOut = () => {
+    navigate(PagePaths.homePath);
+    logout();
+  };
+
   return (
-    <Container>
-      <PersonalDataNavigationWrapper>
-        <PersonalDataLinks navLinks={navLinksPersonalData} />
-        <ListItem>
-          <NavLink to={PagePaths.homePath} aria-label={AriaLabels.exit}>
-            <RxExit />
-            <Title>Exit</Title>
-          </NavLink>
-        </ListItem>
-      </PersonalDataNavigationWrapper>
-    </Container>
+    <PersonalDataNavigationWrapper>
+      <PersonalDataLinks navLinks={navLinksPersonalData} />
+      <ListItem>
+        <button
+          disabled={isPendingLogout}
+          aria-label={AriaLabels.exit}
+          onClick={handleLogOut}
+        >
+          <RxExit />
+          <p>Exit</p>
+        </button>
+      </ListItem>
+    </PersonalDataNavigationWrapper>
   );
 };
 

@@ -55,4 +55,3 @@ export const ListItem = styled.li`
     }
   }
 `;
-export const Title = styled.span``;
