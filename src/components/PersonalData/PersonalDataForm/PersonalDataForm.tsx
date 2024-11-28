@@ -1,13 +1,7 @@
 import { FC } from 'react';
-import { PiUserBold } from 'react-icons/pi';
 import { IProps } from '../PersonalData.types';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import {
-  Button,
-  FormContainer,
-  InputField,
-  TitlePersonalData,
-} from './PersonalDataForm.styled';
+import { FormContainer, InputField } from './PersonalDataForm.styled';
 
 const PersonalDataForm: FC<IProps> = ({ user }) => {
   const {
@@ -42,33 +36,25 @@ const PersonalDataForm: FC<IProps> = ({ user }) => {
     <>
       <FormContainer>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <TitlePersonalData>
-            <div>
-              <PiUserBold />
-              <p>Personal data</p>
-            </div>
-            <Button type='submit'>Edit Data</Button>
-          </TitlePersonalData>
-
           <InputField>
-            <label>First Name</label>
+            <label>First name</label>
             <input
               {...register('firstName', { required: 'First name is required' })}
-              placeholder='Enter your first name'
+              placeholder='-'
             />
             {errors.firstName && <span>{errors.firstName.message}</span>}
           </InputField>
           <InputField>
-            <label>Last Name</label>
+            <label>Last name</label>
             <input
               {...register('lastName', { required: 'Last name is required' })}
-              placeholder='Enter your last name'
+              placeholder='-'
             />
             {errors.lastName && <span>{errors.lastName.message}</span>}
           </InputField>
 
           <InputField>
-            <label>Birth Date</label>
+            <label>Birth date</label>
             <input
               type='date'
               {...register('birthDate', {
@@ -78,7 +64,7 @@ const PersonalDataForm: FC<IProps> = ({ user }) => {
             {errors.birthDate && <span>{errors.birthDate.message}</span>}
           </InputField>
           <InputField>
-            <label>Phone Number</label>
+            <label>Phone number</label>
             <input
               type='tel'
               {...register('phoneNumber', {
@@ -88,7 +74,7 @@ const PersonalDataForm: FC<IProps> = ({ user }) => {
                   message: 'Invalid phone number',
                 },
               })}
-              placeholder='Enter your phone number'
+              placeholder='-'
             />
             {errors.phoneNumber && <span>{errors.phoneNumber.message}</span>}
           </InputField>
@@ -103,17 +89,17 @@ const PersonalDataForm: FC<IProps> = ({ user }) => {
                   message: 'Invalid email address',
                 },
               })}
-              placeholder='Enter your email'
+              placeholder='-'
             />
             {errors.email && <span>{errors.email.message}</span>}
           </InputField>
           <InputField>
-            <label>Delivery Address</label>
+            <label>Delivery address</label>
             <input
               {...register('deliveryAddress', {
                 required: 'Delivery address is required',
               })}
-              placeholder='Enter your delivery address'
+              placeholder='-'
             />
             {errors.deliveryAddress && (
               <span>{errors.deliveryAddress.message}</span>
