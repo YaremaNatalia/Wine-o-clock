@@ -87,12 +87,12 @@ const getPersonalData = async (
   try {
     const response = await $instance.get('/api/auth/current');
     queryClient.setQueryData([QueryKeys.isLoggedIn], true);
+    queryClient.setQueryData([QueryKeys.user], response.data);
     return response.data;
   } catch (error) {
     return null;
   }
 };
-
 
 const addToCart = async (
   productId: string,

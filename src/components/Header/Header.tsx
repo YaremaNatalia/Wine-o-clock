@@ -1,5 +1,5 @@
 import { BtnClickEvent } from '@/types/types';
-import { getPrivateLinks, makeBlur } from '@/utils';
+import { makeBlur } from '@/utils';
 import { useEffect, useState } from 'react';
 import { StyledBasketLink, StyledHeader } from './Header.styled';
 import Container from '@/components/Container';
@@ -19,6 +19,7 @@ import MobileMenu from '@/components/MobileMenu';
 import MobileMenuBtn from '@/components/MobileMenu/MobileMenuBtn';
 import HeaderSearchInput from './HeaderSearchInput';
 import { operations } from '@/tanStackQuery';
+import usePrivateLinks from '@/hooks/usePrivateLinks';
 
 const Header = () => {
   const [isDesktopScreen, setIsDesktopScreen] = useState<boolean>(
@@ -30,7 +31,7 @@ const Header = () => {
 
   const cartWines = operations.getCartCache();
   const favoritesWines = operations.getFavoritesCache();
-  const privateLinks = getPrivateLinks(hasFavoritesWines);
+  const privateLinks = usePrivateLinks(hasFavoritesWines);
 
   useEffect(() => {
     const handleResize = () => {

@@ -25,7 +25,7 @@ import { Link } from 'react-router-dom';
 import regExp from '@/constants/regExp';
 import Messages from '@/constants/messages';
 import { IBasketContacts } from './BasketContacts.types';
-import { getPrivateLinks } from '@/utils';
+import usePrivateLinks from '@/hooks/usePrivateLinks';
 
 const BasketContacts: FC<IBasketContacts> = ({ onOrderConfirm }) => {
   const [checkboxStates, setCheckboxStates] = useState<{
@@ -35,7 +35,7 @@ const BasketContacts: FC<IBasketContacts> = ({ onOrderConfirm }) => {
     notCall: false,
     personalDataConsent: false,
   });
-  const privateLinks = getPrivateLinks();
+  const privateLinks = usePrivateLinks();
   const logInPrivateLink = [privateLinks[1]];
   const {
     register,

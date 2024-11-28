@@ -6,16 +6,19 @@ const useGetUser = () => {
   const { data: token } = useQuery<string>({
     queryKey: [QueryKeys.token],
   });
+
   const {
     data: user,
     isFetching: isUserFetching,
     isLoading: isUserLoading,
     isError: isUserError,
   } = useQuery<IUser | null>({
-    queryKey: [QueryKeys.user, token],
+    queryKey: [QueryKeys.user],
     queryFn: () => operations.getPersonalData(token),
     enabled: Boolean(token),
   });
-  return {  user, isUserFetching, isUserLoading, isUserError };
+
+  return { user, isUserFetching, isUserLoading, isUserError };
 };
+
 export default useGetUser;
