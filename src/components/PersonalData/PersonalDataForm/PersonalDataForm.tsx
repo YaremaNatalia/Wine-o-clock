@@ -1,109 +1,109 @@
-import { FC } from 'react';
-import { IProps } from '../PersonalData.types';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { FC, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { FormContainer, InputField } from './PersonalDataForm.styled';
+import toast from 'react-hot-toast';
+import Messages from '@/constants/messages';
+import regExp from '@/constants/regExp';
+import { InputTypes } from '@/constants';
+import { IUser } from '@/types/types';
+import { IProps } from './PersonalDataForm.types';
 
-const PersonalDataForm: FC<IProps> = ({ user }) => {
+const PersonalDataForm: FC<IProps> = ({ user, onSubmit }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<IUser>({
     defaultValues: {
       firstName: user?.firstName || '',
       lastName: user?.lastName || '',
-      birthDate: '',
+      birthDate: user?.birthDate || '',
       phoneNumber: user?.phoneNumber || '',
       email: user?.email || '',
       deliveryAddress: user?.deliveryAddress || '',
     },
   });
 
-  // Обработчик отправки формы
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
-    try {
-      console.log('Submitting data:', data);
-      const response = await $instance.put('/api/user/update', data); // Отправка данных на сервер
-      console.log('Server response:', response.data);
-      alert('Data updated successfully');
-    } catch (error) {
-      console.error('Error updating user data:', error);
-      alert('Failed to update data');
+  useEffect(() => {
+    toast.dismiss();
+    if (errors.firstName?.type === 'pattern') {
+      toast.error(Messages.firstNameErr);
     }
-  };
+    if (errors.lastName?.type === 'pattern') {
+      toast.error(Messages.lastNameErr);
+    }
+    if (errors.birthDate?.message) {
+      toast.error(errors.birthDate?.message);
+    }
+    if (errors.phoneNumber?.type === 'pattern') {
+      toast.error(Messages.phoneNumberErr);
+    }
+  }, [errors]);
 
   return (
     <>
       <FormContainer>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form id='personal-data-form' onSubmit={handleSubmit(onSubmit)}>
           <InputField>
             <label>First name</label>
             <input
-              {...register('firstName', { required: 'First name is required' })}
+              {...register('firstName', {
+                pattern: new RegExp(regExp.name),
+              })}
+              type={InputTypes.text}
               placeholder='-'
             />
-            {errors.firstName && <span>{errors.firstName.message}</span>}
           </InputField>
           <InputField>
             <label>Last name</label>
             <input
-              {...register('lastName', { required: 'Last name is required' })}
+              {...register('lastName', {
+                pattern: new RegExp(regExp.name),
+              })}
+              type={InputTypes.text}
               placeholder='-'
             />
-            {errors.lastName && <span>{errors.lastName.message}</span>}
           </InputField>
 
           <InputField>
             <label>Birth date</label>
             <input
-              type='date'
               {...register('birthDate', {
-                required: 'Birth date is required',
+                validate: (value) => {
+                  if (value && new Date(value) > new Date()) {
+                    return 'Date  birth cannot be in the future';
+                  }
+                  return true;
+                },
               })}
+              type={InputTypes.date}
             />
-            {errors.birthDate && <span>{errors.birthDate.message}</span>}
           </InputField>
           <InputField>
             <label>Phone number</label>
             <input
-              type='tel'
               {...register('phoneNumber', {
-                required: 'Phone number is required',
-                pattern: {
-                  value: /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/,
-                  message: 'Invalid phone number',
-                },
+                pattern: new RegExp(regExp.phoneNumber),
               })}
+              type={InputTypes.phone}
               placeholder='-'
             />
-            {errors.phoneNumber && <span>{errors.phoneNumber.message}</span>}
           </InputField>
           <InputField>
             <label>Email</label>
             <input
-              type='email'
-              {...register('email', {
-                required: 'Email is required',
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: 'Invalid email address',
-                },
-              })}
+              {...register('email')}
+              type={InputTypes.email}
               placeholder='-'
             />
-            {errors.email && <span>{errors.email.message}</span>}
           </InputField>
           <InputField>
             <label>Delivery address</label>
             <input
-              {...register('deliveryAddress', {
-                required: 'Delivery address is required',
-              })}
+              {...register('deliveryAddress')}
+              type={InputTypes.text}
               placeholder='-'
             />
-            {errors.deliveryAddress && (
-              <span>{errors.deliveryAddress.message}</span>
-            )}
           </InputField>
         </form>
       </FormContainer>

@@ -4,6 +4,7 @@ const enum InputTypes {
   phone = 'phone',
   checkbox = 'checkbox',
   radio = 'radio',
+  date= 'date',	
 }
 
 export default InputTypes;
