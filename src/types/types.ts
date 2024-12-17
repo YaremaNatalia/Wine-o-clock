@@ -129,11 +129,14 @@ export interface INewUser {
   phoneNumber: string;
   firstName: string;
   lastName: string;
+  deliveryAddress?: string;
+  birthDate?: string;
   deliveryType?: string;
   notCall?: boolean;
   personalDataConsent?: boolean;
   agree?: boolean;
 }
+
 
 export type ConfOfReg = Pick<INewUser, 'password'>;
 
@@ -163,7 +166,7 @@ export interface IUser {
   lastName: string;
   birthDate?: string;
   deliveryAddress?: string;
-  favorites: string[];
+  favorites?: string[];
   cart?: CartItem[];
   orders?: IOrder[];
   reviews?: IComment[];
@@ -179,7 +182,6 @@ export interface IOrder {
 }
 
 export interface IPage {
-  user?: IUser | null;
   isLoading: boolean;
   isError: boolean;
   isFetching?: boolean;

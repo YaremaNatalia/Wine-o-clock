@@ -1,10 +1,10 @@
-import useGetUser from '@/hooks/useGetUser';
 import { PrivateLinks } from '@/types/types';
 import { AriaLabels, PagePaths } from '../constants';
 import { PiUserBold, PiHeartBold, PiHeartFill } from 'react-icons/pi';
+import { operations } from '@/tanStackQuery';
 
 const usePrivateLinks = (hasFavoritesWines?: boolean): PrivateLinks => {
-  const { user } = useGetUser(); 
+  const  user  = operations.getPersonalDataCache(); 
 
   return [
     {

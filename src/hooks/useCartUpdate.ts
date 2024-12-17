@@ -11,8 +11,13 @@ const useCartUpdate = () => {
   const { mutate: updateCart, isPending: isPendingUpdate } = useMutation({
     mutationFn: (data: IAddBasketMutation) =>
       operations.updateCart(data.wine._id, data.amount ?? 1),
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: [QueryKeys.cart] });
+      toast.success(`Wine ${variables.wine.title} updated in your cart!`);
+    },
+    onError: (error) => {
+      toast.error('There is some problem with updating your cart');
+      console.error('Error in mutation:', error);
     },
   });
 

@@ -7,7 +7,6 @@ import { IPage } from '@/types/types';
 import PersonalData from '@/components/PersonalData';
 
 const PersonalDataPage: FC<IPage> = ({
-  user,
   isLoading,
   isFetching,
   isError,
@@ -15,7 +14,7 @@ const PersonalDataPage: FC<IPage> = ({
   if (isLoading) return <Loader />;
   if (isFetching) return <Loader />;
   if (isError) return <NotFoundPage />;
-  return <PersonalData user={user} />;
+  return <PersonalData />;
 };
 
 export default PersonalDataPage;

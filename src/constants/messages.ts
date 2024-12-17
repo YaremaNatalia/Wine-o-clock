@@ -12,7 +12,7 @@ const enum Messages {
   phoneNumberReqErr = 'Phone number is required',
   phoneNumberErr = 'Phone number must contain "+" and minimum 7 digits',
   deliveryTypeErr = 'Please select a delivery method',
-  birthDateErr = 'Date of birth cannot be in the future',
+  birthDateErr = 'Date birth cannot be in the future',
 }
 
 export default Messages;

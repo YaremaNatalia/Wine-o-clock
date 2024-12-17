@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import PersonalDataNavigation from './PersonalDataNavigation';
 import Container from '../Container';
-import { IProps } from './PersonalData.types';
 import PersonalDataForm from './PersonalDataForm';
 // import { IUser } from '@/types/types';
 import {
@@ -12,9 +11,12 @@ import {
 import Section from '../Section';
 import { PiUserBold } from 'react-icons/pi';
 import { SubmitHandler } from 'react-hook-form';
-import { IUser } from '@/types/types';
+import { INewUser } from '@/types/types';
+import useUpdateUser from '@/hooks/useUpdateUser';
+// import { operations } from '@/tanStackQuery';
 
-const PersonalData: FC<IProps> = ({ user }) => {
+const PersonalData: FC = () => {
+  //  const user = operations.getPersonalDataCache();
   // const numberOfOrders = (user: IUser): number => {
   //   return user.orders ? user.orders.length : 0;
   // };
@@ -24,17 +26,10 @@ const PersonalData: FC<IProps> = ({ user }) => {
   //   }
   //   return user.orders.reduce((sum, order) => sum + order.total, 0);
   // };
-
-  const onSubmit: SubmitHandler<IUser> = async (data) => {
-    try {
-      console.log('Submitting data:', data);
-      // const response = await $instance.put('/api/user/update', data);
-      // console.log('Server response:', response.data);
-      // alert('Data updated successfully');
-    } catch (error) {
-      console.error('Error updating user data:', error);
-      // alert('Failed to update data');
-    }
+  const { updateUser, isPendingUpdateUser } = useUpdateUser();
+  const onSubmit: SubmitHandler<INewUser> = async (data) => {
+    updateUser(data);
+    console.log('Submitting data:', data);
   };
 
   return (
@@ -47,12 +42,16 @@ const PersonalData: FC<IProps> = ({ user }) => {
               <PiUserBold />
               <p>Personal data</p>
             </div>
-            <button type='submit' form='personal-data-form'>
+            <button
+              type='submit'
+              form='personal-data-form'
+              disabled={isPendingUpdateUser}
+            >
               Edit Data
             </button>
           </TitlePersonalData>
           <PersonalDataWrapper>
-            <PersonalDataForm user={user} onSubmit={onSubmit} />
+            <PersonalDataForm onSubmit={onSubmit} />
             <OrdersAmountContainer>
               <div>
                 <p>Number of orders</p>

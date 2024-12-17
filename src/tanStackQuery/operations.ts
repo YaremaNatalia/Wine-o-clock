@@ -22,6 +22,7 @@ const getAllWines = async (
     return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
+    return [];
   }
 };
 
@@ -62,26 +63,16 @@ const logout = async (): Promise<void> => {
     await $instance.post('/api/auth/signout');
   } catch (error) {
     console.error('Logout error:', error);
+    throw error;
   }
 };
-
-// {
-//     "_id": "6733a00e9aa20d53eafaf334",
-//     "email": "xagetes228@anypng.com",
-//     "phoneNumber": "+30661111111",
-//     "firstName": "TestName",
-//     "lastName": "TestLastName",
-//     "restorePasswordToken": null,
-//     "favorites": [
-//         "66391dfa129bcd0ca77ccc09"
-//     ]
-// }
 
 const getPersonalData = async (
   token: string | undefined
 ): Promise<IUser | null> => {
   queryClient.setQueryData([QueryKeys.isLoggedIn], false);
   if (!token) return null;
+
   $instance.defaults.headers.common.Authorization = `Bearer ${token}`;
 
   try {
@@ -90,7 +81,24 @@ const getPersonalData = async (
     queryClient.setQueryData([QueryKeys.user], response.data);
     return response.data;
   } catch (error) {
-    return null;
+    console.error('Error fetching personal data:', error);
+    throw error;
+  }
+};
+
+const getPersonalDataCache = () => {
+  return queryClient.getQueryData<IUser>([QueryKeys.user]);
+};
+
+const updatePersonalData = async (
+  userData: INewUser
+): Promise<IUser | null> => {
+  try {
+    const response = await $instance.patch('/api/auth/current', userData);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating the personal data:', error);
+    throw error;
   }
 };
 
@@ -106,7 +114,7 @@ const addToCart = async (
     return response.data;
   } catch (error) {
     console.error('Error adding to cart:', error);
-    return null;
+    throw error;
   }
 };
 
@@ -144,7 +152,7 @@ const updateCart = async (
     return response.data;
   } catch (error) {
     console.error('Error updating the cart:', error);
-    return null;
+    throw error;
   }
 };
 
@@ -173,7 +181,7 @@ const removeFromCart = async (productId: string): Promise<CartItem | null> => {
     return response.data;
   } catch (error) {
     console.error('Error removing from cart:', error);
-    return null;
+    throw error;
   }
 };
 
@@ -203,6 +211,20 @@ const getCartCache = () => {
   return queryClient.getQueryData<CartItem[]>([QueryKeys.cart]);
 };
 
+const clearCart = async (): Promise<void> => {
+  try {
+    const response = await $instance.delete('/api/cart');
+    return response.data;
+  } catch (error) {
+    console.error('Error removing from cart:', error);
+    throw error;
+  }
+};
+
+const clearCartCache = async (): Promise<void> => {
+  queryClient.setQueryData([QueryKeys.cart], []);
+};
+
 const addToFavorites = async (productId: string): Promise<string[]> => {
   try {
     const response = await $instance.post('/api/favorites', {
@@ -211,7 +233,7 @@ const addToFavorites = async (productId: string): Promise<string[]> => {
     return response.data;
   } catch (error) {
     console.error('Error adding to favorites:', error);
-    return [];
+    throw error;
   }
 };
 
@@ -234,7 +256,7 @@ const removeFromFavorites = async (productId: string): Promise<string[]> => {
     return response.data;
   } catch (error) {
     console.error('Error removing from favorites:', error);
-    return [];
+    throw error;
   }
 };
 
@@ -271,6 +293,8 @@ const operations = {
   getWineById,
   // getPromotion,
   getPersonalData,
+  getPersonalDataCache,
+  updatePersonalData,
   login,
   signUp,
   logout,
@@ -282,6 +306,8 @@ const operations = {
   getCartCache,
   removeFromCart,
   removeFromCartCache,
+  clearCart,
+  clearCartCache,
   addToFavorites,
   removeFromFavorites,
   addToFavoritesCache,

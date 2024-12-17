@@ -26,8 +26,12 @@ import regExp from '@/constants/regExp';
 import Messages from '@/constants/messages';
 import { IBasketContacts } from './BasketContacts.types';
 import usePrivateLinks from '@/hooks/usePrivateLinks';
+import { operations } from '@/tanStackQuery';
 
-const BasketContacts: FC<IBasketContacts> = ({ onOrderConfirm }) => {
+const BasketContacts: FC<IBasketContacts> = ({
+  onOrderConfirm,
+  isClearCartPending,
+}) => {
   const [checkboxStates, setCheckboxStates] = useState<{
     [key: string]: boolean;
   }>({
@@ -35,6 +39,7 @@ const BasketContacts: FC<IBasketContacts> = ({ onOrderConfirm }) => {
     notCall: false,
     personalDataConsent: false,
   });
+  const user = operations.getPersonalDataCache();
   const privateLinks = usePrivateLinks();
   const logInPrivateLink = [privateLinks[1]];
   const {
@@ -47,6 +52,10 @@ const BasketContacts: FC<IBasketContacts> = ({ onOrderConfirm }) => {
       agree: false,
       notCall: false,
       personalDataConsent: false,
+      firstName: user?.firstName || '',
+      lastName: user?.lastName || '',
+      phoneNumber: user?.phoneNumber || '',
+      email: user?.email || '',
     },
   });
 
@@ -215,7 +224,7 @@ const BasketContacts: FC<IBasketContacts> = ({ onOrderConfirm }) => {
           <Button
             buttonForm={ButtonForms.button}
             title='Confirm the order'
-            disabled={!isFormValid}
+            disabled={!isFormValid || isClearCartPending}
             type={ButtonTypes.submit}
           />
         </PrivacyPolicyContainer>

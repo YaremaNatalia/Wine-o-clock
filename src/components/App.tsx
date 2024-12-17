@@ -19,11 +19,11 @@ import FavoritesPage from '@/pages/FavoritesPage';
 import useGetAllWines from '@/hooks/useGetAllWines';
 import useGetFavorites from '@/hooks/useGetFavorites';
 import useGetCart from '@/hooks/useGetCart';
-import PersonalDataPage from '@/pages/PersonalData';
+import PersonalDataPage from '@/pages/PersonalDataPage';
 import useGetUser from '@/hooks/useGetUser';
 
 const App = () => {
-  const { user, isUserLoading, isUserFetching, isUserError } = useGetUser();
+  const { isUserLoading, isUserFetching, isUserError } = useGetUser();
   const { isGetWinesError, isGetWinesLoading } = useGetAllWines();
   const { isCartLoading, isCartError, isCartFetching } = useGetCart();
   const { isFavoritesLoading, isFavoritesError, isFavoritesFetching } =
@@ -67,7 +67,6 @@ const App = () => {
             <PrivateRoute
               element={
                 <PersonalDataPage
-                  user={user}
                   isLoading={isUserLoading}
                   isError={isUserError}
                   isFetching={isUserFetching}

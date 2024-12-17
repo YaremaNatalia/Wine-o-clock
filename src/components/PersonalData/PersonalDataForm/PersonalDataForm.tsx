@@ -5,15 +5,17 @@ import toast from 'react-hot-toast';
 import Messages from '@/constants/messages';
 import regExp from '@/constants/regExp';
 import { InputTypes } from '@/constants';
-import { IUser } from '@/types/types';
+import { INewUser } from '@/types/types';
 import { IProps } from './PersonalDataForm.types';
+import { operations } from '@/tanStackQuery';
 
-const PersonalDataForm: FC<IProps> = ({ user, onSubmit }) => {
+const PersonalDataForm: FC<IProps> = ({ onSubmit }) => {
+  const user = operations.getPersonalDataCache();
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<IUser>({
+    formState: { errors, isSubmitting },
+  } = useForm<INewUser>({
     defaultValues: {
       firstName: user?.firstName || '',
       lastName: user?.lastName || '',
@@ -26,19 +28,27 @@ const PersonalDataForm: FC<IProps> = ({ user, onSubmit }) => {
 
   useEffect(() => {
     toast.dismiss();
-    if (errors.firstName?.type === 'pattern') {
-      toast.error(Messages.firstNameErr);
-    }
-    if (errors.lastName?.type === 'pattern') {
-      toast.error(Messages.lastNameErr);
-    }
-    if (errors.birthDate?.message) {
-      toast.error(errors.birthDate?.message);
-    }
-    if (errors.phoneNumber?.type === 'pattern') {
-      toast.error(Messages.phoneNumberErr);
-    }
-  }, [errors]);
+    errors.firstName &&
+      toast.error(
+        errors.firstName.type === 'required'
+          ? Messages.firstNameReqErr
+          : Messages.firstNameErr
+      );
+    errors.lastName &&
+      toast.error(
+        errors.lastName.type === 'required'
+          ? Messages.lastNameReqErr
+          : Messages.lastNameErr
+      );
+    errors.phoneNumber &&
+      toast.error(
+        errors.phoneNumber.type === 'required'
+          ? Messages.phoneNumberReqErr
+          : Messages.phoneNumberErr
+      );
+
+    errors.birthDate && toast.error(Messages.birthDateErr);
+  }, [isSubmitting, errors]);
 
   return (
     <>
@@ -69,12 +79,7 @@ const PersonalDataForm: FC<IProps> = ({ user, onSubmit }) => {
             <label>Birth date</label>
             <input
               {...register('birthDate', {
-                validate: (value) => {
-                  if (value && new Date(value) > new Date()) {
-                    return 'Date  birth cannot be in the future';
-                  }
-                  return true;
-                },
+                validate: (value) => !value || new Date(value) <= new Date(),
               })}
               type={InputTypes.date}
             />
