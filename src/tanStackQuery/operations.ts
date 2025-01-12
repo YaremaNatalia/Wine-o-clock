@@ -94,8 +94,14 @@ const updatePersonalData = async (
   userData: INewUser
 ): Promise<IUser | null> => {
   try {
-    const response = await $instance.patch('/api/auth/current', userData);
-    return response.data;
+    console.log('Mocking updatePersonalData with:', userData);
+    return {
+      firstName: userData.firstName || 'Mock Name',
+      email: userData.email || 'mock@example.com',
+    } as IUser;
+
+    // const response = await $instance.patch('/api/auth/current', userData);
+    // return response.data;
   } catch (error) {
     console.error('Error updating the personal data:', error);
     throw error;
@@ -210,7 +216,7 @@ const getCart = async (): Promise<CartItem[]> => {
 const getCartCache = () => {
   return queryClient.getQueryData<CartItem[]>([QueryKeys.cart]);
 };
-
+//!заглушка
 const clearCart = async (): Promise<void> => {
   try {
     const response = await $instance.delete('/api/cart');

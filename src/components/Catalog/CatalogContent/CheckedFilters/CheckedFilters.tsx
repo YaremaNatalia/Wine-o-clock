@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import { IProps } from './CheckedFilters.types';
 import { CheckedFiltersContainer } from './CheckedFilters.styled';
+import { setFilterType } from '@/utils';
 
 const CheckedFilters: FC<IProps> = ({
   filtersValue,
@@ -15,12 +16,19 @@ const CheckedFilters: FC<IProps> = ({
   return (
     <CheckedFiltersContainer>
       {filtersValue &&
-        filtersValue.map((v, index) => (
-          <button key={index} onClick={() => handleRemoveFilterValue(v)}>
-            {v}
-            <RxCross2 size={11} />
-          </button>
-        ))}
+        filtersValue.map((value, index) => {
+          const filterType = setFilterType(value);
+
+          return (
+            <button
+              key={index}
+              onClick={() => handleRemoveFilterValue(value, filterType)}
+            >
+              {value}
+              <RxCross2 size={11} />
+            </button>
+          );
+        })}
       {(priceValues[0] !== minPrice || priceValues[1] !== maxPrice) && (
         <button onClick={() => setPriceValues([minPrice, maxPrice])}>
           {priceValues[0]} - {priceValues[1]} ₴

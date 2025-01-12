@@ -137,7 +137,6 @@ export interface INewUser {
   agree?: boolean;
 }
 
-
 export type ConfOfReg = Pick<INewUser, 'password'>;
 
 export interface IPagination {
@@ -197,3 +196,10 @@ export interface CartItem {
   productId: string;
   amount: number;
 }
+
+export type FilterType =
+  | 'collections'
+  | 'color'
+  | 'sweetness'
+  | 'country'
+  | 'region';

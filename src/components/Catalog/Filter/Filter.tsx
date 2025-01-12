@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { FiPlus } from 'react-icons/fi';
 import { FiMinus } from 'react-icons/fi';
 import { FilterItem, FiltersList, Form } from './Filter.styled';
@@ -21,6 +20,10 @@ const Filter: FC<IFilter> = ({
   searchedWines,
   minPrice,
   maxPrice,
+  register,
+  setValue,
+  reset,
+  watch,
 }) => {
   const [showCollectionsList, setShowCollectionsList] =
     useState<boolean>(false);
@@ -32,7 +35,6 @@ const Filter: FC<IFilter> = ({
   const [regions, setRegions] = useState<string[]>([]);
 
   const data = operations.getAllWinesCache();
-  const { register, setValue, reset, watch } = useForm<IFormValues>();
 
   useEffect(() => {
     if (data?.products) {
@@ -136,6 +138,7 @@ const Filter: FC<IFilter> = ({
                   {...register('collections')}
                   type='checkbox'
                   value={collection}
+                  checked={filtersValue?.includes(collection) || false}
                   onChange={(e) => handleCheckboxChange(e, 'collections')}
                 />
                 {collection}
@@ -162,15 +165,16 @@ const Filter: FC<IFilter> = ({
         </div>
         {showColorsList && (
           <FiltersList>
-            {setFilterOptions.color.map((c) => (
-              <label key={c}>
+            {setFilterOptions.color.map((color) => (
+              <label key={color}>
                 <input
                   {...register('color')}
                   type='checkbox'
-                  value={c}
+                  value={color}
+                  checked={filtersValue?.includes(color) || false}
                   onChange={(e) => handleCheckboxChange(e, 'color')}
                 />
-                {c}
+                {color}
               </label>
             ))}
           </FiltersList>
@@ -183,15 +187,16 @@ const Filter: FC<IFilter> = ({
         </div>
         {showSweetnessList && (
           <FiltersList>
-            {setFilterOptions.sweetness.map((s) => (
-              <label key={s}>
+            {setFilterOptions.sweetness.map((sweetness) => (
+              <label key={sweetness}>
                 <input
                   {...register('sweetness')}
                   type='checkbox'
-                  value={s}
+                  value={sweetness}
+                  checked={filtersValue?.includes(sweetness) || false}
                   onChange={(e) => handleCheckboxChange(e, 'sweetness')}
                 />
-                {s}
+                {sweetness}
               </label>
             ))}
           </FiltersList>
@@ -210,6 +215,7 @@ const Filter: FC<IFilter> = ({
                   {...register('country')}
                   type='checkbox'
                   value={country}
+                  checked={filtersValue?.includes(country) || false}
                   onChange={(e) => handleCheckboxChange(e, 'country')}
                 />
                 {country}
@@ -231,6 +237,7 @@ const Filter: FC<IFilter> = ({
                   {...register('region')}
                   type='checkbox'
                   value={region}
+                  checked={filtersValue?.includes(region) || false}
                   onChange={(e) => handleCheckboxChange(e, 'region')}
                 />
                 {region}

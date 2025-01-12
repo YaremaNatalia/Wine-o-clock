@@ -1,6 +1,5 @@
 import { operations, queryClient, QueryKeys } from '@/tanStackQuery';
 import { useMutation } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
 
 const useLogout = () => {
   const {
@@ -19,9 +18,6 @@ const useLogout = () => {
     },
     onError: (error) => {
       console.error('Logout failed:', error);
-      toast.error(
-        `There is some problem with logging out!`
-      );
     },
   });
 

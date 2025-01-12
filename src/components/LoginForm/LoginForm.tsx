@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 import Button from '@/components/Button';
 import AlternativeAuthLinks from '@/components/AlternativeAuthLinks';
 import { useMutation } from '@tanstack/react-query';
-import { QueryKeys,  operations, queryClient } from '@/tanStackQuery';
+import { QueryKeys, operations, queryClient } from '@/tanStackQuery';
 import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
 import { $instance } from '@/utils/backendURL';
@@ -50,7 +50,8 @@ const LoginForm: FC = () => {
   }
 
   function onFailedHTTPRequest(error: AxiosError): void {
-    toast.error(String(error?.response?.data));
+    toast.error('Failed to load your personal data. Please try again.');
+    console.error('Error fetching user data:', error);
   }
 
   const handleFormSubmit: SubmitHandler<ICredentials> = (data) => {

@@ -16,3 +16,5 @@ export { default as setButtonHeight } from './setButtonHeight';
 export { default as setFilterOptions } from './setFilterOptions';
 export { default as setToggle } from './setToggle';
 export { default as setFilterWines } from './setFilterWines';
+export { default as setFilterType } from './setFilterType';
+
