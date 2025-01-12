@@ -9,7 +9,7 @@ import { Toaster } from 'react-hot-toast';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import { queryClient } from './tanStackQuery';
-import {persister} from './tanStackQuery'
+import { persister } from './tanStackQuery';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -19,9 +19,9 @@ createRoot(document.getElementById('root') as HTMLElement).render(
     >
       <BrowserRouter>
         <ThemeProvider theme={theme}>
+          <Toaster position='top-center' reverseOrder={false} />
           <App />
           <GlobalStyles />
-          <Toaster position='top-center' reverseOrder={false} />
         </ThemeProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />

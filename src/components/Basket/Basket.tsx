@@ -10,19 +10,20 @@ import EmptyPage from '../EmptyPage';
 import { operations } from '@/tanStackQuery';
 import { setFilterWines } from '@/utils';
 import WineListSection from '../WineListSection';
+import useClearCart from '@/hooks/useClearCart';
 
 const Basket: FC = () => {
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
-
   const data = operations.getAllWinesCache();
   const bestsellers = setFilterWines.filterMainWines(
     data?.products ?? [],
     'bestsellers'
   );
   const wines = operations.getCartCache() || [];
-
+  const { clearCart, isClearCartPending } = useClearCart();
   const handleOrderConfirm = (orderNumber: string) => {
     setOrderNumber(orderNumber);
+    clearCart();
     console.log(wines);
   };
   return (
@@ -42,7 +43,10 @@ const Basket: FC = () => {
                 <h1>Placing an order</h1>
                 <div className='contentWrapper'>
                   <BasketList wines={wines} />
-                  <BasketContacts onOrderConfirm={handleOrderConfirm} />
+                  <BasketContacts
+                    onOrderConfirm={handleOrderConfirm}
+                    isClearCartPending={isClearCartPending}
+                  />
                 </div>
               </BasketStyled>
             ) : (

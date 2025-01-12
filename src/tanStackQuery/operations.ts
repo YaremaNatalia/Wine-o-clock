@@ -22,6 +22,7 @@ const getAllWines = async (
     return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
+    return [];
   }
 };
 
@@ -52,41 +53,58 @@ const getWineById = async (productId: string) => {
 const signUp = async (data: INewUser): Promise<void> =>
   await $instance.post('api/auth/signup', data);
 
-// const login = async (data: ICredentials): Promise<string> => {
-//   const response = await $instance.post('api/auth/signin', data);
-//   return response.data;
-// };
-
 const login = async (data: ICredentials): Promise<string> => {
   const response = await $instance.post('/api/auth/signin', data);
   return response.data.token;
 };
 
-// {
-//     "_id": "6733a00e9aa20d53eafaf334",
-//     "email": "xagetes228@anypng.com",
-//     "phoneNumber": "+30661111111",
-//     "firstName": "TestName",
-//     "lastName": "TestLastName",
-//     "restorePasswordToken": null,
-//     "favorites": [
-//         "66391dfa129bcd0ca77ccc09"
-//     ]
-// }
+const logout = async (): Promise<void> => {
+  try {
+    await $instance.post('/api/auth/signout');
+  } catch (error) {
+    console.error('Logout error:', error);
+    throw error;
+  }
+};
 
-const refreshUser = async (
+const getPersonalData = async (
   token: string | undefined
 ): Promise<IUser | null> => {
   queryClient.setQueryData([QueryKeys.isLoggedIn], false);
   if (!token) return null;
+
   $instance.defaults.headers.common.Authorization = `Bearer ${token}`;
 
   try {
     const response = await $instance.get('/api/auth/current');
     queryClient.setQueryData([QueryKeys.isLoggedIn], true);
+    queryClient.setQueryData([QueryKeys.user], response.data);
     return response.data;
   } catch (error) {
-    return null;
+    console.error('Error fetching personal data:', error);
+    throw error;
+  }
+};
+
+const getPersonalDataCache = () => {
+  return queryClient.getQueryData<IUser>([QueryKeys.user]);
+};
+
+const updatePersonalData = async (
+  userData: INewUser
+): Promise<IUser | null> => {
+  try {
+    console.log('Mocking updatePersonalData with:', userData);
+    return {
+      firstName: userData.firstName || 'Mock Name',
+      email: userData.email || 'mock@example.com',
+    } as IUser;
+
+    // const response = await $instance.patch('/api/auth/current', userData);
+    // return response.data;
+  } catch (error) {
+    console.error('Error updating the personal data:', error);
+    throw error;
   }
 };
 
@@ -102,7 +120,7 @@ const addToCart = async (
     return response.data;
   } catch (error) {
     console.error('Error adding to cart:', error);
-    return null;
+    throw error;
   }
 };
 
@@ -140,7 +158,7 @@ const updateCart = async (
     return response.data;
   } catch (error) {
     console.error('Error updating the cart:', error);
-    return null;
+    throw error;
   }
 };
 
@@ -164,13 +182,12 @@ const updateCartCache = (productId: string, amount: number): boolean => {
 };
 
 const removeFromCart = async (productId: string): Promise<CartItem | null> => {
-  console.log(productId);
   try {
     const response = await $instance.delete(`/api/cart/${productId}`);
     return response.data;
   } catch (error) {
     console.error('Error removing from cart:', error);
-    return null;
+    throw error;
   }
 };
 
@@ -199,6 +216,20 @@ const getCart = async (): Promise<CartItem[]> => {
 const getCartCache = () => {
   return queryClient.getQueryData<CartItem[]>([QueryKeys.cart]);
 };
+//!заглушка
+const clearCart = async (): Promise<void> => {
+  try {
+    const response = await $instance.delete('/api/cart');
+    return response.data;
+  } catch (error) {
+    console.error('Error removing from cart:', error);
+    throw error;
+  }
+};
+
+const clearCartCache = async (): Promise<void> => {
+  queryClient.setQueryData([QueryKeys.cart], []);
+};
 
 const addToFavorites = async (productId: string): Promise<string[]> => {
   try {
@@ -208,7 +239,7 @@ const addToFavorites = async (productId: string): Promise<string[]> => {
     return response.data;
   } catch (error) {
     console.error('Error adding to favorites:', error);
-    return [];
+    throw error;
   }
 };
 
@@ -231,7 +262,7 @@ const removeFromFavorites = async (productId: string): Promise<string[]> => {
     return response.data;
   } catch (error) {
     console.error('Error removing from favorites:', error);
-    return [];
+    throw error;
   }
 };
 
@@ -267,9 +298,12 @@ const operations = {
   getAllWinesCache,
   getWineById,
   // getPromotion,
-  refreshUser,
+  getPersonalData,
+  getPersonalDataCache,
+  updatePersonalData,
   login,
   signUp,
+  logout,
   addToCart,
   addToCartCache,
   updateCart,
@@ -278,6 +312,8 @@ const operations = {
   getCartCache,
   removeFromCart,
   removeFromCartCache,
+  clearCart,
+  clearCartCache,
   addToFavorites,
   removeFromFavorites,
   addToFavoritesCache,

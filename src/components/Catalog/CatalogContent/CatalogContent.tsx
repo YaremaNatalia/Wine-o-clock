@@ -2,7 +2,7 @@ import Button from '@/components/Button';
 import WineList from '@/components/WineList';
 import { ButtonDesign } from '@/constants';
 import { operations } from '@/tanStackQuery';
-import { BtnClickEvent, IWine } from '@/types/types';
+import { BtnClickEvent, FilterType, IWine } from '@/types/types';
 import { FC, useEffect, useState } from 'react';
 import { PiSliders } from 'react-icons/pi';
 import {
@@ -20,6 +20,8 @@ import ModalFilters from '../ModalFilters';
 import ToShame from '../Filter/ToShame';
 import CheckedFilters from './CheckedFilters';
 import { IProps } from './CatalogContent.types';
+import { useForm } from 'react-hook-form';
+import { IFormValues } from '../Filter/Filter.types';
 
 const CatalogContent: FC<IProps> = ({ searchedWines }) => {
   const data = operations.getAllWinesCache();
@@ -38,6 +40,8 @@ const CatalogContent: FC<IProps> = ({ searchedWines }) => {
   const [priceValues, setPriceValues] = useState<[number, number]>([0, 1000]);
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(1000);
+
+  const { register, setValue, reset, watch } = useForm<IFormValues>();
 
   useEffect(() => {
     if (products) {
@@ -108,10 +112,13 @@ const CatalogContent: FC<IProps> = ({ searchedWines }) => {
     setCurrentPage(1);
   };
 
-  const handleRemoveFilterValue = (value: string) => {
+  const handleRemoveFilterValue = (value: string, filterType?: FilterType) => {
     const newFilters = filtersValue.filter((filter) => filter !== value);
     setFiltersValue(newFilters);
     setCurrentPage(1);
+    if (filterType) {
+      setValue(filterType, newFilters);
+    }
   };
 
   const handleRemoveAllFiltersValues = () => {
@@ -168,6 +175,10 @@ const CatalogContent: FC<IProps> = ({ searchedWines }) => {
               searchedWines={searchedWines}
               minPrice={minPrice}
               maxPrice={maxPrice}
+              register={register}
+              setValue={setValue}
+              reset={reset}
+              watch={watch}
             />
           </div>
           <div className='filtersWinesWrapper'>
@@ -210,6 +221,10 @@ const CatalogContent: FC<IProps> = ({ searchedWines }) => {
           searchedWines={searchedWines}
           minPrice={minPrice}
           maxPrice={maxPrice}
+          register={register}
+          setValue={setValue}
+          reset={reset}
+          watch={watch}
         />
       )}
     </>

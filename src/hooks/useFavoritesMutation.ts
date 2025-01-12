@@ -10,35 +10,36 @@ const useFavoritesMutation = () => {
 
   const { mutate: addToFavorites, isPending: isPendingAdd } = useMutation({
     mutationFn: (wine: IWine) => operations.addToFavorites(wine._id),
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: [QueryKeys.favorites] });
+      toast.success(`Wine ${variables.title} added to your favorites!`);
+    },
+    onError: () => {
+      toast.error(`There is some problem with adding wine to your favorites!`);
     },
   });
 
   const { mutate: removeFromFavorites, isPending: isPendingRemove } =
     useMutation({
       mutationFn: (wine: IWine) => operations.removeFromFavorites(wine._id),
-      onSuccess: () => {
+      onSuccess: (_, variables) => {
         queryClient.invalidateQueries({ queryKey: [QueryKeys.favorites] });
+        toast.success(`Wine ${variables.title} removed from your favorites!`);
+      },
+      onError: () => {
+        toast.error(
+          `There is some problem with removing wine from your favorites!`
+        );
       },
     });
 
   const toggleFavorite = (wine: IWine) => {
-    // const favoriteWines =
-    //   queryClient.getQueryData<string[]>([QueryKeys.favorites]) || [];
     const favoriteWines = operations.getFavoritesCache() || [];
     const isFavorite = favoriteWines.includes(wine._id);
 
     if (isFavorite) {
       if (isLoggedIn) {
-        removeFromFavorites(wine, {
-          onSuccess: () =>
-            toast.success(`Wine ${wine.title} removed from your favorites!`),
-          onError: () =>
-            toast.error(
-              `There is some problem with removing wine from your favorites!`
-            ),
-        });
+        removeFromFavorites(wine); 
       } else {
         const result = operations.removeFromFavoritesCache(wine._id);
         if (result) {
@@ -52,10 +53,7 @@ const useFavoritesMutation = () => {
       }
     } else {
       if (isLoggedIn) {
-        addToFavorites(wine, {
-          onSuccess: () =>
-            toast.success(`Wine ${wine.title} added to your favorites!`),
-        });
+        addToFavorites(wine); 
       } else {
         const result = operations.addToFavoritesCache(wine._id);
         if (result) {

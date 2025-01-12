@@ -44,8 +44,8 @@ export interface IWine {
   price: number;
   adminDiscountPercentage: number;
   description: string;
-  quantity: number; 
-  amount?: number;
+  quantity: number;
+  // amount?: number;
   bottleCapacity: number;
   alcohol: number;
   isNewCollection: boolean;
@@ -68,7 +68,7 @@ export interface IWine {
   bottlesSoldCounter: number;
   // addedDateTime: string;
   imageUrl: string;
-  numberToOrder?: number;
+  // numberToOrder?: number;
   [key: string]:
     | string
     | number
@@ -129,6 +129,8 @@ export interface INewUser {
   phoneNumber: string;
   firstName: string;
   lastName: string;
+  deliveryAddress?: string;
+  birthDate?: string;
   deliveryType?: string;
   notCall?: boolean;
   personalDataConsent?: boolean;
@@ -158,10 +160,24 @@ export interface AxiosError {
 
 export interface IUser {
   email: string;
+  phoneNumber?: string;
   firstName: string;
   lastName: string;
-  deliveryAddress: string;
-  favorites: IWine[];
+  birthDate?: string;
+  deliveryAddress?: string;
+  favorites?: string[];
+  cart?: CartItem[];
+  orders?: IOrder[];
+  reviews?: IComment[];
+}
+
+export interface IOrder {
+  id: number;
+  title: string;
+  price: number;
+  numberToOrder: number;
+  total: number;
+  orderDate: string;
 }
 
 export interface IPage {
@@ -180,3 +196,10 @@ export interface CartItem {
   productId: string;
   amount: number;
 }
+
+export type FilterType =
+  | 'collections'
+  | 'color'
+  | 'sweetness'
+  | 'country'
+  | 'region';

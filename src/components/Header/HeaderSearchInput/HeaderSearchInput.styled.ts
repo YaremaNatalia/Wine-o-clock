@@ -10,7 +10,7 @@ export const Form = styled.form`
   }
 
   input {
-    background-color: ${({ theme }) => theme.colors.fillGreyColor};
+    background-color: ${({ theme }) => theme.colors.placeholderColor};
   }
 
   button {

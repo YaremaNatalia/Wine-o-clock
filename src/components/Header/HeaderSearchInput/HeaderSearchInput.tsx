@@ -35,11 +35,17 @@ const HeaderSearchInput: FC = () => {
   const [query, setQuery] = useState('');
 
   useEffect(() => {
+    // Добавляем проверки для data и data.products
     const availableWines =
-      data?.products.filter((wine) => wine.quantity > 0) || [];
-    const fuse = availableWines
-      ? new Fuse(availableWines, setFilterOptions.fuseSearchOptions)
-      : null;
+      data?.products && Array.isArray(data.products)
+        ? data.products.filter((wine) => wine.quantity > 0)
+        : [];
+
+    const fuse =
+      availableWines.length > 0
+        ? new Fuse(availableWines, setFilterOptions.fuseSearchOptions)
+        : null;
+
     if (searchQuery.length >= 2 && fuse) {
       setIsButtonActive(true);
       const result = fuse.search(searchQuery).map(({ item }) => item);
@@ -50,7 +56,7 @@ const HeaderSearchInput: FC = () => {
       setSearchResults([]);
     }
   }, [searchQuery, data]);
-
+  
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (query.length >= 2) {
       navigate(`${PagePaths.searchResultPath.replace(':query', query)}`);

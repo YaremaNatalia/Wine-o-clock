@@ -1,9 +1,9 @@
-import { IWine } from '@/types/types';
+import { FilterType, IWine } from '@/types/types';
 import { Dispatch, SetStateAction } from 'react';
 
 export interface IFilter {
   onSelectFilterValue: (value: string) => void;
-  removeSelectFilterValue: (value: string) => void;
+  removeSelectFilterValue: (value: string, filterType?: FilterType) => void;
   toShameValue?: string;
   handleToShameChange: (value: string) => void;
   filtersValue?: string[];
@@ -13,6 +13,10 @@ export interface IFilter {
   searchedWines?: IWine[];
   minPrice: number;
   maxPrice: number;
+  register: any;
+  setValue: any;
+  reset: any;
+  watch: any;
 }
 
 export interface IFormValues {

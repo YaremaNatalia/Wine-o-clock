@@ -10,9 +10,6 @@ import NotFoundPage from '@/pages/NotFoundPage';
 import WineTimePage from '@/pages/WineTimePage';
 import PublicRoute from '@/components/Routs/PublicRoute';
 import Loader from '@/components/Loader';
-import { QueryKeys, operations } from '@/tanStackQuery';
-import { useQuery } from '@tanstack/react-query';
-import { IUser } from '@/types/types';
 import WineDetailsPage from '@/pages/WineDetailsPage';
 import AboutUsPage from '@/pages/AboutUsPage';
 import CatalogPage from '@/pages/CatalogPage';
@@ -22,44 +19,61 @@ import FavoritesPage from '@/pages/FavoritesPage';
 import useGetAllWines from '@/hooks/useGetAllWines';
 import useGetFavorites from '@/hooks/useGetFavorites';
 import useGetCart from '@/hooks/useGetCart';
+import PersonalDataPage from '@/pages/PersonalDataPage';
+import useGetUser from '@/hooks/useGetUser';
 
 const App = () => {
-  const { data: token } = useQuery<string>({
-    queryKey: [QueryKeys.token],
-  });
-  const { isFetching } = useQuery<IUser | null>({
-    queryKey: [QueryKeys.user, token],
-    queryFn: () => operations.refreshUser(token),
-  });
-
-  const { isError, isLoading } = useGetAllWines();
+  const { isUserLoading, isUserFetching, isUserError } = useGetUser();
+  const { isGetWinesError, isGetWinesLoading } = useGetAllWines();
   const { isCartLoading, isCartError, isCartFetching } = useGetCart();
   const { isFavoritesLoading, isFavoritesError, isFavoritesFetching } =
     useGetFavorites();
 
-  return isFetching ? (
+  return isGetWinesLoading ? (
     <Loader />
   ) : (
     <Routes>
       <Route path={PagePaths.homePath} element={<SharedLayout />}>
         <Route
           path={PagePaths.storePath}
-          element={<CatalogPage isLoading={isLoading} isError={isError} />}
+          element={
+            <CatalogPage
+              isLoading={isGetWinesLoading}
+              isError={isGetWinesError}
+            />
+          }
         />
         <Route
           index
-          element={<MainPage isLoading={isLoading} isError={isError} />}
+          element={
+            <MainPage isLoading={isGetWinesLoading} isError={isGetWinesError} />
+          }
         />
         <Route
           path={PagePaths.searchResultPath}
-          element={<SearchResultPage isLoading={isLoading} isError={isError} />}
+          element={
+            <SearchResultPage
+              isLoading={isGetWinesLoading}
+              isError={isGetWinesError}
+            />
+          }
         />
         <Route path={PagePaths.wineTimePath} element={<WineTimePage />} />
         <Route path={PagePaths.wineDetailsPath} element={<WineDetailsPage />} />
         <Route path={PagePaths.aboutUsPath} element={<AboutUsPage />} />
         <Route
           path={PagePaths.personalDataPath}
-          element={<PrivateRoute element={<div>personalDataPath</div>} />}
+          element={
+            <PrivateRoute
+              element={
+                <PersonalDataPage
+                  isLoading={isUserLoading}
+                  isError={isUserError}
+                  isFetching={isUserFetching}
+                />
+              }
+            />
+          }
         />
         <Route
           path={PagePaths.favoritesPath}

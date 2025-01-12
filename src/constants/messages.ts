@@ -10,8 +10,9 @@ const enum Messages {
   lastNameReqErr = 'Last name is required',
   lastNameErr = 'Last name must contain only letter symbols from the UNICODE table and be at least two letters long',
   phoneNumberReqErr = 'Phone number is required',
-  phoneNumberErr = 'Phone number must contain + and minimum 7 digits',
+  phoneNumberErr = 'Phone number must contain "+" and minimum 7 digits',
   deliveryTypeErr = 'Please select a delivery method',
+  birthDateErr = 'Date birth cannot be in the future',
 }
 
 export default Messages;
