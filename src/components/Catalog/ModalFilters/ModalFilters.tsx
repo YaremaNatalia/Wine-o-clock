@@ -23,6 +23,10 @@ const ModalFilters: FC<IProps> = ({
   searchedWines,
   minPrice,
   maxPrice,
+  register,
+  setValue,
+  reset,
+  watch,
 }) => {
   useEffect(() => {
     const closeModalEsc = (e: KeyboardEvent) => {
@@ -67,8 +71,12 @@ const ModalFilters: FC<IProps> = ({
           setPriceValues={setPriceValues}
           setCurrentPage={setCurrentPage}
           searchedWines={searchedWines}
-            minPrice={minPrice}
-  maxPrice={maxPrice}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+          register={register}
+          setValue={setValue}
+          reset={reset}
+          watch={watch}
         />
       </ModalStyled>
       ,
